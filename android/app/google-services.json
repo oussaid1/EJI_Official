@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "943257727427",
+    "firebase_url": "https://eji-official.firebaseio.com",
+    "project_id": "eji-official",
+    "storage_bucket": "eji-official.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943257727427:android:e14952b88d13aa56ce4d76",
+        "android_client_info": {
+          "package_name": "com.dev.bourheem.EJI"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943257727427-2g7thkho2ih3h0lorj88s6kqj6oanoih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIb3IvQzpJSv_CDWKd4Us55Ms6x65DQN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943257727427-2g7thkho2ih3h0lorj88s6kqj6oanoih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
