@@ -1,7 +1,6 @@
 
 import 'dart:async';
 
-import 'package:EJI/screens/home_screen.dart';
 import 'package:EJI/screens/login_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';

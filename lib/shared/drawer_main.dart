@@ -1,17 +1,32 @@
-import 'package:EJI/screens/add_dialogue.dart';
+import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/home_screen.dart';
 import 'package:EJI/screens/info_screen.dart';
-import 'package:EJI/screens/list_screen.dart';
-import 'package:EJI/screens/player_details.dart';
+import 'package:EJI/screens/player_list.dart';
 import 'package:EJI/screens/splash.dart';
-import 'package:EJI/screens/lista.dart';
 import 'package:EJI/settings/params.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase/firebase.dart';
+
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key key}) : super(key: key);
+Future<Widget> _getImage(BuildContext context, String image) async {
+  Image m;
+  await FireStorageService.loadImage(context, image).then((downloadUrl) {
+    m = Image.network(
+      downloadUrl.toString(),
+      fit: BoxFit.scaleDown,
+    );
+  });
 
+  final ref = FirebaseStorage.instance.ref().child('testimage');
+// no need of the file extension, the name will do fine.
+var url = await ref.getDownloadURL();
+print(url);
+return m;
+}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,15 +38,20 @@ class MyDrawer extends StatelessWidget {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("EJI Idawlstane"),
-              accountEmail: Text("ashishrawat2911@gmail.com"),
-              currentAccountPicture: CircleAvatar(
-                  backgroundColor:
-                      Theme.of(context).platform == TargetPlatform.iOS
-                          ? Colors.blue
-                          : Colors.white,
-                  child: Image.asset('assets/images/logo.png')),
+            FutureBuilder(
+              future: ,
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                return UserAccountsDrawerHeader(
+                  accountName: Text("EJI Idawlstane"),
+                  accountEmail: Text("ashishrawat2911@gmail.com"),
+                  currentAccountPicture: CircleAvatar(
+                      backgroundColor:
+                          Theme.of(context).platform == TargetPlatform.iOS
+                              ? Colors.blue
+                              : Colors.white,
+                      child: Image.asset('assets/images/logo.png')),
+                );
+              },
             ),
             ListTile(
               leading: Icon(Icons.email),
@@ -55,10 +75,6 @@ class MyDrawer extends StatelessWidget {
               subtitle: Text(' players list and thier info'),
               leading: Icon(Icons.person_add),
               title: Text('Player Statistics'),
-             onTap: () => Navigator.push(
-                context,
-                new MaterialPageRoute(builder: (context) => PlayerDetails()),
-              ),
             ),
             ListTile(
               subtitle: Text(
@@ -75,7 +91,7 @@ class MyDrawer extends StatelessWidget {
               title: Text('Settings '),
               onTap: () => Navigator.push(
                 context,
-                new MaterialPageRoute(builder: (context) => AddPlayers()), 
+                new MaterialPageRoute(builder: (context) => AddPlayers()),
               ),
             ),
             ListTile(
@@ -88,16 +104,25 @@ class MyDrawer extends StatelessWidget {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Icon(Icons.star,color: accentColor,),
-                  Icon(Icons.star,color: accentColor,),
-                  Icon(Icons.star,color: accentColor,),
+                  Icon(
+                    Icons.star,
+                    color: accentColor,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: accentColor,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: accentColor,
+                  ),
                 ],
               ),
               leading: Icon(Icons.sentiment_satisfied),
               title: Text('Player Scores '),
               onTap: () => Navigator.push(
                 context,
-                new MaterialPageRoute(builder: (context) => AddPlayers()), 
+                new MaterialPageRoute(builder: (context) => AddPlayers()),
               ),
             ),
             ListTile(

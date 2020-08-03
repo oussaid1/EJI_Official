@@ -3,28 +3,15 @@ import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 
-class PlayerDetails extends StatefulWidget {
-  final Player plr;
-  const PlayerDetails({this.plr});
+class PlayerDetails extends StatelessWidget {
+  final Player player;
+   PlayerDetails({Key key, @required this.player});
 
-  @override
-  _PlayerDetailsState createState() => _PlayerDetailsState();
-}
-
-class _PlayerDetailsState extends State<PlayerDetails> {
-  Player player;
-  bool isData = false;
-  @override
-  void initState() {
-    if (widget.plr == null) {
-      player = widget.plr;
-    }
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
-    if (widget.plr != null) {
+     if (player == null) {
       return Scaffold(
         backgroundColor: primaryColor,
         drawer: MyDrawer(),

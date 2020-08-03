@@ -2,11 +2,9 @@ import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/repository.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddPlayers extends StatefulWidget {
   final Player player;

@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class PlayerList extends StatefulWidget {
-  PlayerList({Key key}) : super(key: key);
+class AdminPlayerList extends StatefulWidget {
+  AdminPlayerList({Key key}) : super(key: key);
 
   @override
   _ListPageState createState() => _ListPageState();
 }
 
-class _ListPageState extends State<PlayerList> {
-   Player player;
+class _ListPageState extends State<AdminPlayerList> {
+   
   List<Player> lista;
   FirestoreService firestoreService;
   @override
@@ -25,6 +25,7 @@ class _ListPageState extends State<PlayerList> {
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
         backgroundColor: primaryColor,
         drawer: MyDrawer(),
@@ -47,7 +48,7 @@ class _ListPageState extends State<PlayerList> {
               return ListView.builder(
                 itemCount: lista.length != 0 ? lista.length : 0,
                 itemBuilder: (BuildContext context, int index) {
-                   player = lista[index];
+                  Player player = lista[index];
                   return Card(
                     margin: EdgeInsets.fromLTRB(8, 2, 8, 2),
                     shape: RoundedRectangleBorder(
@@ -81,11 +82,11 @@ class _ListPageState extends State<PlayerList> {
                           style: maintext3,
                         ),
                         onTap: (){
-                         
+                         Player player=snapshot.data[index];
                          Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PlayerDetails(plr:player)),
+                                  builder: (context) => PlayerDetails(player:player)),
                             );
                         },
                       ),
