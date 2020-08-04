@@ -1,5 +1,7 @@
 import 'package:EJI/model/player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 
 class PlayerRepo {
   static List<Player> pList = List<Player>();
@@ -84,6 +86,7 @@ class FirestoreService {
 
     return pList;
   }
+  
 
   Future<List<Player>> getDocs() async {
     List<Player> pList = List<Player>();
@@ -122,5 +125,15 @@ class FirestoreService {
         .collection('players')
         .document(player.id.toString())
         .updateData(player.toMap());
+  }
+}
+
+class FireStorageService extends ChangeNotifier {
+  FireStorageService._();
+  FireStorageService();
+
+  static Future<dynamic> loadFromStorage(
+      BuildContext context, String image) async {
+    return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 }

@@ -7,26 +7,29 @@ import 'package:EJI/settings/params.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase/firebase.dart';
-
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key key}) : super(key: key);
-Future<Widget> _getImage(BuildContext context, String image) async {
-  Image m;
-  await FireStorageService.loadImage(context, image).then((downloadUrl) {
-    m = Image.network(
-      downloadUrl.toString(),
-      fit: BoxFit.scaleDown,
-    );
-  });
+  final String image = "players/profileImages/mohamed.jpg";
+  Future<String> _getImage(BuildContext context, String image) async {
+    String murl;
+    
+    await FirebaseStorage.instance
+        .ref()
+        .child(image)
+        .getDownloadURL()
+        .then((downloadUrl) {
+          murl=downloadUrl.toString();
+    
+    });
 
-  final ref = FirebaseStorage.instance.ref().child('testimage');
+    /*final ref = FirebaseStorage.instance.ref().child('testimage');
 // no need of the file extension, the name will do fine.
-var url = await ref.getDownloadURL();
-print(url);
-return m;
-}
+    var url = await ref.getDownloadURL();*/
+    print('hiiiiiiii :$murl');
+    return murl;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,20 +42,36 @@ return m;
           padding: EdgeInsets.zero,
           children: <Widget>[
             FutureBuilder(
-              future: ,
-              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                return UserAccountsDrawerHeader(
-                  accountName: Text("EJI Idawlstane"),
-                  accountEmail: Text("ashishrawat2911@gmail.com"),
-                  currentAccountPicture: CircleAvatar(
-                      backgroundColor:
-                          Theme.of(context).platform == TargetPlatform.iOS
-                              ? Colors.blue
-                              : Colors.white,
-                      child: Image.asset('assets/images/logo.png')),
-                );
-              },
-            ),
+                future: _getImage(context, image),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done || !snapshot.hasData ) {
+                    return UserAccountsDrawerHeader(
+                      accountName: Text("EJI Idawlstane"),
+                      accountEmail: Text("ashishrawat2911@gmail.com"),
+                      currentAccountPicture: CircleAvatar(
+                        radius: 1,
+                          backgroundColor:
+                              Theme.of(context).platform == TargetPlatform.iOS
+                                  ? Colors.blue
+                                  : Colors.white,
+                          child: CircularProgressIndicator()),
+                    );
+                  }else{
+
+                     return UserAccountsDrawerHeader(
+                    accountName: Text("EJI Idawlstane"),
+                    accountEmail: Text("ashishrawat2911@gmail.com"),
+                    currentAccountPicture: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).platform == TargetPlatform.iOS
+                                ? Colors.blue
+                                : Colors.white,
+                        child: Image.network(snapshot.data)),
+                  );
+                  }
+                 
+                }),
             ListTile(
               leading: Icon(Icons.email),
               subtitle: Text('information about the player and thier position'),

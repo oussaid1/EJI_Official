@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 Color primaryColor = Color(0xFF053354);
 Color secondaryColor = Color(0xEEEDCCA9);
@@ -127,7 +126,7 @@ List<Map> moods = [
     'iconPath': 'assets/images/excellent.png',
   }
 ];
-List<Map> moodColors = [
+/*List<Map> moodColors = [
   {
     'count59Color': charts.ColorUtil.fromDartColor(Colors.indigo[400]),
     'morningMoodColor': charts.ColorUtil.fromDartColor(Colors.blue[400]),
@@ -154,7 +153,5 @@ List<Map> moodColors = [
     'dateNColor': (Colors.redAccent[400]),
     'dayMoodNColor': (Colors.tealAccent[400]),
   }
-
-  
-];
+];*/
 const aboutEJI ='The Flutter Pub is a medium publication to bring you the latest and amazing resources such as articles, videos, codes, podcasts etc. about this great technology to teach you how to build beautiful apps with it. You can find us on Facebook, Twitter, and Medium or learn more about us here. We’d love to connect! And if you are a writer interested in writing for us, then you can do so through these guidelines The Flutter Pub is a medium publication to bring you the latest and amazing resources such as articles, videos, codes, podcasts etc. about this great technology to teach you how to build beautiful apps with it. You can find us on Facebook, Twitter, and Medium or learn more about us here. We’d love to connect! And if you are a writer interested in writing for us, then you can do so through these guidelines The Flutter Pub is a medium publication to bring you the latest and amazing resources such as articles, videos, codes, podcasts etc. about this great technology to teach you how to build beautiful apps with it. You can find us on Facebook, Twitter, and Medium or learn more about us here. We’d love to connect! And if you are a writer interested in writing for us, then you can do so through these guidelines The Flutter Pub is a medium publication to bring you the latest and amazing resources such as articles, videos, codes, podcasts etc. about this great technology to teach you how to build beautiful apps with it. You can find us on Facebook, Twitter, and Medium or learn more about us here. We’d love to connect! And if you are a writer interested in writing for us, then you can do so through these guidelines';

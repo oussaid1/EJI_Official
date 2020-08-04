@@ -1,3 +1,4 @@
+import 'package:EJI/screens/home_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -198,7 +199,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: primaryColor)),
                         onPressed: () => {
                          
-                              Navigator.pushNamed(context, '/HomeScreen'),
+                            Navigator.push(
+                context,
+                new MaterialPageRoute(builder: (context) => HomePage()),
+              ),
                         },
                       ),
                     ),
