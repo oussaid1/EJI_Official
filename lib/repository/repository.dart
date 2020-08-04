@@ -20,35 +20,7 @@ class PlayerRepo {
     ));
   }
 
-  static Future<List<Player>> d() async {
-    List<Player> pList = List<Player>();
-    pList = [
-      new Player(
-          id: '03',
-          playerName: 'Jamal',
-          dateOfBirth: '02-01-2000',
-          profileImage: 'assets/images/profilepic',
-          email: 'mohamed.ouabdche@gmail.com',
-          phone: '0623489736',
-          position: 'defence',
-          regNum: 23342,
-          regDate: '02-08-2020'),
-      new Player(
-          id: '04',
-          playerName: 'Adam',
-          dateOfBirth: '02-01-2000',
-          profileImage: 'assets/images/profilepic',
-          email: 'mohamed.ouabdche@gmail.com',
-          phone: '0623489736',
-          position: 'defence',
-          regNum: 756758,
-          regDate: '02-08-2020'),
-    ];
-    return await Future.delayed(
-      const Duration(milliseconds: 300),
-      () => pList,
-    );
-  }
+ 
 }
 
 class FirestoreService {
@@ -75,18 +47,18 @@ class FirestoreService {
 
     return pList;
   }
-  Stream<List<Player>> getPlayerz()  {
-   Stream<List<Player>> pList =_db.collection('players').snapshots().map(
-              (snapshot) => snapshot.documents
-                  .map(
-                    (doc) => Player.fromMap(doc.data, doc.documentID),
-                  )
-                  .toList(),
-            );
+
+  Stream<List<Player>> getPlayerz() {
+    Stream<List<Player>> pList = _db.collection('players').snapshots().map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => Player.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        );
 
     return pList;
   }
-  
 
   Future<List<Player>> getDocs() async {
     List<Player> pList = List<Player>();
@@ -126,14 +98,24 @@ class FirestoreService {
         .document(player.id.toString())
         .updateData(player.toMap());
   }
-}
 
-class FireStorageService extends ChangeNotifier {
-  FireStorageService._();
-  FireStorageService();
-
-  static Future<dynamic> loadFromStorage(
+  static Future<String> getProfileImage(
       BuildContext context, String image) async {
-    return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
+    String murl;
+
+    await FirebaseStorage.instance
+        .ref()
+        .child(image)
+        .getDownloadURL()
+        .then((downloadUrl) {
+      murl = downloadUrl.toString();
+    });
+    return murl;
   }
+
+  /*final ref = FirebaseStorage.instance.ref().child('testimage');
+// no need of the file extension, the name will do fine.
+    var url = await ref.getDownloadURL();*/
+  //print('hiiiiiiii :$murl');
+
 }

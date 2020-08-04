@@ -1,3 +1,5 @@
+import 'package:EJI/plugins/firetop/storage/fire_storage_service.dart';
+import 'package:EJI/repository/repository.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/home_screen.dart';
 import 'package:EJI/screens/info_screen.dart';
@@ -10,7 +12,7 @@ import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key key}) : super(key: key);
-  final String image = "players/profileImages/mohamed.jpg";
+  final String image = "players/profileImages/logo.png";
   Future<String> _getImage(BuildContext context, String image) async {
     String murl;
     
@@ -26,7 +28,7 @@ class MyDrawer extends StatelessWidget {
     /*final ref = FirebaseStorage.instance.ref().child('testimage');
 // no need of the file extension, the name will do fine.
     var url = await ref.getDownloadURL();*/
-    print('hiiiiiiii :$murl');
+    //print('hiiiiiiii :$murl');
     return murl;
   }
 
@@ -42,7 +44,7 @@ class MyDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             FutureBuilder(
-                future: _getImage(context, image),
+                future: FirestoreService.getProfileImage(context, image),
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.connectionState != ConnectionState.done || !snapshot.hasData ) {

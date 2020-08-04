@@ -14,6 +14,7 @@ class PlayerList extends StatefulWidget {
 }
 
 class _ListPageState extends State<PlayerList> {
+  final String image = "players/profileImages/logo.png";
   List<Player> lista;
   FirestoreService firestoreService;
   @override
@@ -49,20 +50,27 @@ class _ListPageState extends State<PlayerList> {
                   return ListTile(
                     contentPadding: EdgeInsets.only(left: 8, right: 8),
                     leading: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: primaryColor),
-                        child: Icon(
-                          Icons.person,
-                          color: primaryColorShade,
-                          size: 30,
-                        )),
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: secondaryColor),
+                      child: FutureBuilder<String>(
+                        future:
+                            FirestoreService.getProfileImage(context, player.profileImage.toString()),
+                        builder: (context, snapshot) {
+                          print(player.profileImage.toString());
+                             return Image.network(snapshot.data.toString());
+
+                          
+                         
+                        },
+                      ),
+                    ),
                     title: Text(
                       '${player.playerName}',
                       style: maintext3,
                     ),
-                    trailing:  Text(
+                    trailing: Text(
                       '${player.dateOfBirth}',
                       style: subtext1,
                     ),

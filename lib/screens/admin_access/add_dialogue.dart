@@ -19,16 +19,18 @@ class AddPlayers extends StatefulWidget {
 }
 
 class _AddPlayersState extends State<AddPlayers> {
-  String _id;
+  String _profileImage="players/profileImages/logo.png";
+  int _regNum = 00001;
   String _playerName;
   String _dateOfBirth = '02-02-2000';
-  String _phone;
-  String _position='GK';
-  int _regNum=00001;
+  String _placeOfBirth = 'Idawlstane';
   String _email;
-  String _profileImage;
+  String _phone;
   String _regDate;
-  String _placeOfBirth='Idawlstane';
+  String _position = 'GK';
+  int _seasons = 2;
+
+  
 
   String _myDate;
   String _myDate2;
@@ -57,6 +59,7 @@ class _AddPlayersState extends State<AddPlayers> {
       });
     }
   }
+
   _selectDate2(BuildContext context) async {
     final DateTime picked2 = await showDatePicker(
       context: context,
@@ -105,14 +108,18 @@ class _AddPlayersState extends State<AddPlayers> {
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   _saveToDb(BuildContext context) async {
     Player player = new Player(
+      profileImage: _profileImage,
       playerName: _playerName,
       phone: _phone,
       email: _email,
       regDate: _regDate,
       position: _position,
       dateOfBirth: _dateOfBirth,
+      placeOfBirth: _placeOfBirth,
+      seasons: 4,
       regNum: _regNum,
     );
     await FirestoreService().addPlayers(player);
@@ -211,15 +218,13 @@ class _AddPlayersState extends State<AddPlayers> {
     );
   }
 
-  
-
   Widget _buildEmail() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
       child: new TextFormField(
         onSaved: (value) {
           setState(() {
-            _email=value;
+            _email = value;
           });
         },
         controller: emailController,
@@ -262,13 +267,13 @@ class _AddPlayersState extends State<AddPlayers> {
     );
   }
 
-Widget _buildPhoneNum() {
+  Widget _buildPhoneNum() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
       child: new TextFormField(
         onSaved: (value) {
           setState(() {
-            _phone=value;
+            _phone = value;
           });
         },
         controller: phoneController,
@@ -310,13 +315,14 @@ Widget _buildPhoneNum() {
       ),
     );
   }
+
   Widget _buildPlaceOfBirth() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
       child: new TextFormField(
         onSaved: (value) {
           setState(() {
-             _placeOfBirth =value;
+            _placeOfBirth = value;
           });
         },
         controller: placeOfBirthController,
@@ -364,7 +370,7 @@ Widget _buildPhoneNum() {
       controller: dateController,
       onSaved: (value) {
         setState(() {
-          _dateOfBirth=value;
+          _dateOfBirth = value;
         });
       },
       cursorColor: Colors.white,
@@ -408,7 +414,7 @@ Widget _buildPhoneNum() {
       controller: regdateController,
       onSaved: (value) {
         setState(() {
-          _regDate=value;
+          _regDate = value;
         });
       },
       cursorColor: Colors.white,
@@ -472,7 +478,9 @@ Widget _buildPhoneNum() {
               _buildEmail(),
               _buildPhoneNum(),
               _buildRegDate(context),
-             SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               widget.player == null
                   ? RaisedButton(
                       color: accentColor,
@@ -488,8 +496,6 @@ Widget _buildPhoneNum() {
                         _formKey.currentState.save();
 
                         _saveToDb(context);
-
-                        
                       },
                     )
                   : Row(
