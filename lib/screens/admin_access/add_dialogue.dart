@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/repository.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AddPlayers extends StatefulWidget {
   final Player player;
@@ -19,7 +25,7 @@ class AddPlayers extends StatefulWidget {
 }
 
 class _AddPlayersState extends State<AddPlayers> {
-  String _profileImage="players/profileImages/logo.png";
+  String _profileImage = "players/profileImages/logo.png";
   int _regNum = 00001;
   String _playerName;
   String _dateOfBirth = '02-02-2000';
@@ -29,8 +35,6 @@ class _AddPlayersState extends State<AddPlayers> {
   String _regDate;
   String _position = 'GK';
   int _seasons = 2;
-
-  
 
   String _myDate;
   String _myDate2;
@@ -458,19 +462,107 @@ class _AddPlayersState extends State<AddPlayers> {
     if (widget.player != null) {}
   }
 
+  final String destination = 'staffImages/goo';
+  File _image;
+  final picker = ImagePicker();
+
+  Future takeImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
+
+  Future uploadPic(BuildContext context) async {
+    String fileName = basename(join(destination,_image.path));
+    StorageReference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child(destination);
+    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
+    setState(() {
+      print("Profile Picture uploaded");
+     
+      print(taskSnapshot.bytesTransferred);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     _loadGenderList();
     return Scaffold(
       backgroundColor: primaryColor,
       drawer: MyDrawer(),
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(FontAwesomeIcons.upload),
+            onPressed: () => uploadPic(context),
+          ),
+        ],
+      ),
       body: Form(
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(
+                        FontAwesomeIcons.fileImport,
+                        color: secondaryColor,
+                        size: 30.0,
+                      ),
+                      onPressed: () {
+                        getImage();
+                      },
+                    ),
+                    CircleAvatar(
+                      radius: 70,
+                      backgroundColor: Color(0xff476cfb),
+                      child: ClipOval(
+                        child: new SizedBox(
+                          width: 130.0,
+                          height: 130.0,
+                          child: (_image != null)
+                              ? Image.file(
+                                  _image,
+                                  fit: BoxFit.fill,
+                                )
+                              : Image.network(
+                                  "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+                                  fit: BoxFit.fill,
+                                ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        FontAwesomeIcons.camera,
+                        color: secondaryColor,
+                        size: 30.0,
+                      ),
+                      onPressed: () {
+                        takeImage();
+                      },
+                    ),
+                  ],
+                ),
+              ),
               _buildPlayerPosition(),
               _buildName(),
               _buildDateOfBirth(context),

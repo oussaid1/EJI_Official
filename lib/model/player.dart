@@ -50,7 +50,7 @@ class Player {
         regDate = map['regdate'],
         email = map['email'],
         placeOfBirth = map['placeofbirth'],
-        seasons = map['email'],
-        profileImage = map['email'];
+        seasons = map['seasons'],
+        profileImage = map['profileimage'];
        
 }

@@ -59,7 +59,7 @@ class _ListPageState extends State<PlayerList> {
                             FirestoreService.getProfileImage(context, player.profileImage.toString()),
                         builder: (context, snapshot) {
                           print(player.profileImage.toString());
-                             return Image.network(snapshot.data.toString());
+                             return Image.network(snapshot.data.toString(),fit: BoxFit.contain,);
 
                           
                          
