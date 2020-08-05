@@ -31,12 +31,10 @@ class _SplashPageState extends State<SplashPage> {
   builder: (context) =>
       LoginScreen()),
   ),
-        child: Stack(
+        child: Stack(fit: StackFit.expand,
           children: <Widget>[
             
-            Container(
-            height: MediaQuery.of(context).size.height,
-              child: Image.asset('assets/images/ejisplash.png',fit:BoxFit.fitHeight,)),
+            Image.asset('assets/images/ejisplash.jpg',fit:BoxFit.fill,),
             
             Align(
               alignment: Alignment.bottomCenter,

@@ -1,16 +1,16 @@
 import 'dart:io';
 
 import 'package:EJI/model/player.dart';
+import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/repository/repository.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
-import 'package:EJI/shared/uploader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class AddPlayers extends StatefulWidget {
@@ -26,6 +26,8 @@ class AddPlayers extends StatefulWidget {
 }
 
 class _AddPlayersState extends State<AddPlayers> {
+final CloudDatabase cD = Get.put(CloudDatabase());
+
   String _profileImage = "players/profileImages/logo.png";
   int _regNum = 00001;
   String _playerName;
@@ -124,7 +126,7 @@ class _AddPlayersState extends State<AddPlayers> {
       position: _position,
       dateOfBirth: _dateOfBirth,
       placeOfBirth: _placeOfBirth,
-      seasons: 4,
+      seasons: _seasons,
       regNum: _regNum,
     );
     await FirestoreService().addPlayers(player);
@@ -513,7 +515,7 @@ class _AddPlayersState extends State<AddPlayers> {
     if (widget.player != null) {}
   }
 
-  final String destination = 'staffImages/goo';
+  
   File _image;
   final picker = ImagePicker();
 
@@ -545,7 +547,7 @@ class _AddPlayersState extends State<AddPlayers> {
   /// Starts an upload task
   void _startUpload(BuildContext context) {
     /// Unique file name for the file
-    String filePath = 'players/${nameController.text}.png';
+    String filePath = 'players/profileImages/${nameController.text}.png';
 
     setState(() {
       _uploadTask = _storage.ref().child(filePath).putFile(_image);
@@ -560,10 +562,18 @@ class _AddPlayersState extends State<AddPlayers> {
       drawer: MyDrawer(),
       appBar: AppBar(
         actions: <Widget>[
-          FlatButton(
-            child: Icon(Icons.cloud_upload),
+          nameController.text.length == 0? 
+            
+             FlatButton(
+            
+            child: Icon(Icons.cloud_upload,color: Colors.white,),
             onPressed: () => _startUpload(context),
+          ):
+          FlatButton(
+            child: Icon(Icons.priority_high,color: Colors.white,),
+            onPressed: () {},
           ),
+        
         ],
       ),
       body: Form(
@@ -597,7 +607,7 @@ class _AddPlayersState extends State<AddPlayers> {
                         }
 
                         _formKey.currentState.save();
-                        if (!isComplete) {
+                        if (!cD.isComplete.value) {
                           _showConfirmationDialog(
                               context: context,
                               message: 'Are you sure you want to Save?!');
@@ -651,10 +661,10 @@ class _AddPlayersState extends State<AddPlayers> {
             if (event != null) {
               progressPercent = event.bytesTransferred / event.totalByteCount;
               if (event.bytesTransferred == event.totalByteCount) {
-                isComplete = true;
+                cD.isComplete.value	 = true;
               }
             } else {
-              isComplete = false;
+              cD.isComplete.value = false;
               progressPercent = 0.0;
             }
 
@@ -673,8 +683,11 @@ class _AddPlayersState extends State<AddPlayers> {
             );
           });
     }
-    return CircularProgressIndicator(
-      strokeWidth: 10,
+    return Container(
+      height: 20,
+      child: Text(
+       'Please upload a Photo !',style: subtext3,
+      ),
     );
   }
 
@@ -684,7 +697,6 @@ class _AddPlayersState extends State<AddPlayers> {
       nameController.clear();
       emailController.clear();
       phoneController.clear();
-      ;
       dateOfBirthController.clear();
       regdateController.clear();
       placeOfBirthController.clear();
@@ -698,12 +710,14 @@ class _AddPlayersState extends State<AddPlayers> {
       {BuildContext context, String message}) async {
     return showDialog(
         context: context,
+        
         barrierDismissible: true,
         builder: (context) => AlertDialog(
+          backgroundColor: primaryColor,
               content: Text(message.toString()),
               actions: <Widget>[
                 isComplete
-                    ? FlatButton(
+                    ? RaisedButton(
                         textColor: Colors.red,
                         child: Text("Save"),
                         onPressed: () {
@@ -712,7 +726,7 @@ class _AddPlayersState extends State<AddPlayers> {
                           Navigator.pop(context, false);
                         })
                     : null,
-                FlatButton(
+                RaisedButton(
                     textColor: Colors.black,
                     child: Text("No"),
                     onPressed: () {

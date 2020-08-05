@@ -1,4 +1,3 @@
-import 'package:EJI/plugins/firetop/storage/fire_storage_service.dart';
 import 'package:EJI/repository/repository.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/home_screen.dart';
@@ -6,7 +5,6 @@ import 'package:EJI/screens/info_screen.dart';
 import 'package:EJI/screens/player_list.dart';
 import 'package:EJI/screens/splash.dart';
 import 'package:EJI/settings/params.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

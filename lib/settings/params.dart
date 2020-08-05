@@ -41,6 +41,11 @@ final TextStyle hinttext = TextStyle(
   fontWeight: FontWeight.w100,
   fontSize: 14,
 );
+final TextStyle hinttext1 = TextStyle(
+  color: primaryColor,
+  fontWeight: FontWeight.w200,
+  fontSize: 14,
+);
 final TextStyle subtext2 = TextStyle(
   color: secondaryColor,
   fontWeight: FontWeight.w300,

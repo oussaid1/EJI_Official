@@ -1,14 +1,20 @@
 import 'package:EJI/screens/info_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:EJI/screens/home_screen.dart';
-import 'package:EJI/screens/admin_access/admin_playerlist_screen.dart';
 import 'package:EJI/screens/login_screen.dart';
 import 'package:EJI/screens/splash.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:get/get.dart';
 void main() {
-  runApp(MyApp());
+  runApp(GetMaterialApp(
+    color: primaryColor,
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(accentColor: accentColor,primaryColor: primaryColor),
+    
+    
+    
+    
+    home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +28,7 @@ class MyApp extends StatelessWidget {
         // Define the default brightness and colors.
 
         primaryColor: primaryColor,
-        accentColor: accentColor,
+        accentColor: accentColor,appBarTheme: AppBarTheme(color: primaryColor,),
         // Define the default font family.
 
         // Define the default TextTheme. Use this to specify the default
