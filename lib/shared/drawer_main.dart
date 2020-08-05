@@ -13,24 +13,7 @@ import 'package:flutter/material.dart';
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key key}) : super(key: key);
   final String image = "players/profileImages/logo.png";
-  Future<String> _getImage(BuildContext context, String image) async {
-    String murl;
-    
-    await FirebaseStorage.instance
-        .ref()
-        .child(image)
-        .getDownloadURL()
-        .then((downloadUrl) {
-          murl=downloadUrl.toString();
-    
-    });
-
-    /*final ref = FirebaseStorage.instance.ref().child('testimage');
-// no need of the file extension, the name will do fine.
-    var url = await ref.getDownloadURL();*/
-    //print('hiiiiiiii :$murl');
-    return murl;
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +52,7 @@ class MyDrawer extends StatelessWidget {
                             Theme.of(context).platform == TargetPlatform.iOS
                                 ? Colors.blue
                                 : Colors.white,
-                        child: Image.network(snapshot.data)),
+                        child: Image.asset('assets/images/logo.png',fit: BoxFit.fill,),),
                   );
                   }
                  

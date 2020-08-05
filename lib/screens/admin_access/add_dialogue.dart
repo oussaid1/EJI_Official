@@ -4,6 +4,7 @@ import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/repository.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
+import 'package:EJI/shared/uploader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -208,7 +209,7 @@ class _AddPlayersState extends State<AddPlayers> {
             labelText: 'Full Name',
             labelStyle: hinttext),
         validator: (value) {
-          if (value.length == 0) {
+          if (value.length == 0 || _image ==null) {
             return 'insert name';
           } else
             return null;
@@ -456,6 +457,56 @@ class _AddPlayersState extends State<AddPlayers> {
     );
   }
 
+  Widget _imagePlayer() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(
+              FontAwesomeIcons.fileImport,
+              color: secondaryColor,
+              size: 30.0,
+            ),
+            onPressed: () {
+              getImage();
+            },
+          ),
+          CircleAvatar(
+            radius: 70,
+            backgroundColor: Color(0xff476cfb),
+            child: ClipOval(
+              child: new SizedBox(
+                width: 130.0,
+                height: 130.0,
+                child: (_image != null)
+                    ? Image.file(
+                        _image,
+                        fit: BoxFit.fill,
+                      )
+                    : Image.network(
+                        "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+                        fit: BoxFit.fill,
+                      ),
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(
+              FontAwesomeIcons.camera,
+              color: secondaryColor,
+              size: 30.0,
+            ),
+            onPressed: () {
+              takeImage();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -471,6 +522,7 @@ class _AddPlayersState extends State<AddPlayers> {
 
     setState(() {
       _image = File(pickedFile.path);
+      _profileImage = 'players/profileImages/${nameController.text}.png';
     });
   }
 
@@ -479,20 +531,24 @@ class _AddPlayersState extends State<AddPlayers> {
 
     setState(() {
       _image = File(pickedFile.path);
+      _profileImage = 'players/profileImages/${nameController.text}.png';
     });
   }
 
-  Future uploadPic(BuildContext context) async {
-    String fileName = basename(join(destination,_image.path));
-    StorageReference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(destination);
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+  final FirebaseStorage _storage =
+      FirebaseStorage(storageBucket: 'gs://eji-official.appspot.com/');
+
+  StorageUploadTask _uploadTask;
+  double progressPercent = 0.5;
+  bool isComplete = false;
+
+  /// Starts an upload task
+  void _startUpload(BuildContext context) {
+    /// Unique file name for the file
+    String filePath = 'players/${nameController.text}.png';
 
     setState(() {
-      print("Profile Picture uploaded");
-     
-      print(taskSnapshot.bytesTransferred);
+      _uploadTask = _storage.ref().child(filePath).putFile(_image);
     });
   }
 
@@ -504,9 +560,9 @@ class _AddPlayersState extends State<AddPlayers> {
       drawer: MyDrawer(),
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            icon: Icon(FontAwesomeIcons.upload),
-            onPressed: () => uploadPic(context),
+          FlatButton(
+            child: Icon(Icons.cloud_upload),
+            onPressed: () => _startUpload(context),
           ),
         ],
       ),
@@ -516,53 +572,8 @@ class _AddPlayersState extends State<AddPlayers> {
           padding: const EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.fileImport,
-                        color: secondaryColor,
-                        size: 30.0,
-                      ),
-                      onPressed: () {
-                        getImage();
-                      },
-                    ),
-                    CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Color(0xff476cfb),
-                      child: ClipOval(
-                        child: new SizedBox(
-                          width: 130.0,
-                          height: 130.0,
-                          child: (_image != null)
-                              ? Image.file(
-                                  _image,
-                                  fit: BoxFit.fill,
-                                )
-                              : Image.network(
-                                  "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-                                  fit: BoxFit.fill,
-                                ),
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.camera,
-                        color: secondaryColor,
-                        size: 30.0,
-                      ),
-                      onPressed: () {
-                        takeImage();
-                      },
-                    ),
-                  ],
-                ),
-              ),
+              Container(height: 40, width: 40, child: _buildUpload(context)),
+              _imagePlayer(),
               _buildPlayerPosition(),
               _buildName(),
               _buildDateOfBirth(context),
@@ -586,8 +597,14 @@ class _AddPlayersState extends State<AddPlayers> {
                         }
 
                         _formKey.currentState.save();
-
-                        _saveToDb(context);
+                        if (!isComplete) {
+                          _showConfirmationDialog(
+                              context: context,
+                              message: 'Are you sure you want to Save?!');
+                        } else {
+                          _showConfirmationDialog(
+                              context: context, message: 'Image not uploaded!');
+                        }
                       },
                     )
                   : Row(
@@ -624,23 +641,84 @@ class _AddPlayersState extends State<AddPlayers> {
     );
   }
 
-  Future<bool> _showConfirmationDialog(BuildContext context) async {
+  Widget _buildUpload(BuildContext context) {
+    if (_uploadTask != null) {
+      /// Manage the task state and event subscription with a StreamBuilder
+      return StreamBuilder<StorageTaskEvent>(
+          stream: _uploadTask.events,
+          builder: (_, snapshot) {
+            var event = snapshot?.data?.snapshot;
+            if (event != null) {
+              progressPercent = event.bytesTransferred / event.totalByteCount;
+              if (event.bytesTransferred == event.totalByteCount) {
+                isComplete = true;
+              }
+            } else {
+              isComplete = false;
+              progressPercent = 0.0;
+            }
+
+            print(progressPercent);
+            print(isComplete.toString());
+
+            return Column(
+              children: [
+                // Progress bar
+                LinearProgressIndicator(value: progressPercent),
+                Text(
+                  '${(progressPercent * 100).toStringAsFixed(2)} % ',
+                  style: subtext1,
+                ),
+              ],
+            );
+          });
+    }
+    return CircularProgressIndicator(
+      strokeWidth: 10,
+    );
+  }
+
+  void _flushAll() {
+    setState(() {
+      progressPercent = 0.0;
+      nameController.clear();
+      emailController.clear();
+      phoneController.clear();
+      ;
+      dateOfBirthController.clear();
+      regdateController.clear();
+      placeOfBirthController.clear();
+      dateController.clear();
+      _image = null;
+      isComplete = false;
+    });
+  }
+
+  Future<bool> _showConfirmationDialog(
+      {BuildContext context, String message}) async {
     return showDialog(
         context: context,
         barrierDismissible: true,
         builder: (context) => AlertDialog(
-              content: Text("Are you sure you want to delete?"),
+              content: Text(message.toString()),
               actions: <Widget>[
+                isComplete
+                    ? FlatButton(
+                        textColor: Colors.red,
+                        child: Text("Save"),
+                        onPressed: () {
+                          _saveToDb(context);
+                          _flushAll();
+                          Navigator.pop(context, false);
+                        })
+                    : null,
                 FlatButton(
-                  textColor: Colors.red,
-                  child: Text("Delete"),
-                  onPressed: () => Navigator.pop(context, true),
-                ),
-                FlatButton(
-                  textColor: Colors.black,
-                  child: Text("No"),
-                  onPressed: () => Navigator.pop(context, false),
-                ),
+                    textColor: Colors.black,
+                    child: Text("No"),
+                    onPressed: () {
+                      _flushAll();
+                      Navigator.pop(context, false);
+                    }),
               ],
             ));
   }
