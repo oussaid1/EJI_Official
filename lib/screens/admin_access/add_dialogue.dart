@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/repository/repository.dart';
+import 'package:EJI/screens/common/home_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,7 +27,7 @@ class AddPlayers extends StatefulWidget {
 }
 
 class _AddPlayersState extends State<AddPlayers> {
-final CloudDatabase cD = Get.put(CloudDatabase());
+  final CloudDatabase cD = Get.put(CloudDatabase());
 
   String _profileImage = "players/profileImages/logo.png";
   int _regNum = 00001;
@@ -51,13 +52,14 @@ final CloudDatabase cD = Get.put(CloudDatabase());
   TextEditingController dateController = TextEditingController();
 
   DateTime selectedDate = new DateTime.now();
+  DateTime nowDate = new DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: selectedDate, // Refer step 1
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(1980),
+      lastDate: nowDate,
     );
     if (picked != null && picked != selectedDate) {
       setState(() {
@@ -134,7 +136,7 @@ final CloudDatabase cD = Get.put(CloudDatabase());
 
   Widget _buildPlayerPosition() {
     return Container(
-        height: 60,
+        height: 50,
         child: Card(
           elevation: 0,
           shape: RoundedRectangleBorder(
@@ -152,23 +154,25 @@ final CloudDatabase cD = Get.put(CloudDatabase());
                   style: subtext1,
                 ),
               )),
-              Container(
-                width: 100.0,
-                child: DropdownButtonHideUnderline(
-                  child: ButtonTheme(
-                    alignedDropdown: true,
-                    child: DropdownButton(
-                      isExpanded: true,
-                      value: _selectedGender,
-                      items: genderList,
-                      dropdownColor: primaryColor,
-                      style: maintext3,
-                      onChanged: (dynamic value) {
-                        setState(() {
-                          _selectedGender = value;
-                          _position = itemsList[value];
-                        });
-                      },
+              Expanded(
+                child: Container(
+                  width: 60.0,
+                  child: DropdownButtonHideUnderline(
+                    child: ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButton(
+                        isExpanded: true,
+                        value: _selectedGender,
+                        items: genderList,
+                        dropdownColor: primaryColor,
+                        style: maintext3,
+                        onChanged: (dynamic value) {
+                          setState(() {
+                            _selectedGender = value;
+                            _position = itemsList[value];
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -211,7 +215,7 @@ final CloudDatabase cD = Get.put(CloudDatabase());
             labelText: 'Full Name',
             labelStyle: hinttext),
         validator: (value) {
-          if (value.length == 0 || _image ==null) {
+          if (value.length == 0) {
             return 'insert name';
           } else
             return null;
@@ -515,7 +519,6 @@ final CloudDatabase cD = Get.put(CloudDatabase());
     if (widget.player != null) {}
   }
 
-  
   File _image;
   final picker = ImagePicker();
 
@@ -560,29 +563,17 @@ final CloudDatabase cD = Get.put(CloudDatabase());
     return Scaffold(
       backgroundColor: primaryColor,
       drawer: MyDrawer(),
-      appBar: AppBar(
-        actions: <Widget>[
-          nameController.text.length == 0? 
-            
-             FlatButton(
-            
-            child: Icon(Icons.cloud_upload,color: Colors.white,),
-            onPressed: () => _startUpload(context),
-          ):
-          FlatButton(
-            child: Icon(Icons.priority_high,color: Colors.white,),
-            onPressed: () {},
-          ),
-        
-        ],
-      ),
       body: Form(
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
-              Container(height: 40, width: 40, child: _buildUpload(context)),
+              SizedBox(
+                height: 40,
+              ),
+              Container(
+                  alignment: Alignment.topCenter, child: _buildUpload(context)),
               _imagePlayer(),
               _buildPlayerPosition(),
               _buildName(),
@@ -607,13 +598,21 @@ final CloudDatabase cD = Get.put(CloudDatabase());
                         }
 
                         _formKey.currentState.save();
-                        if (!cD.isComplete.value) {
-                          _showConfirmationDialog(
-                              context: context,
-                              message: 'Are you sure you want to Save?!');
+                        if (cD.isComplete.value) {
+                          Get.defaultDialog(
+                            middleText: 'Are you sure you want to Save?!',
+                            onConfirm: () {
+                              _saveToDb(context);
+                              _flushAll();
+                              Navigator.pop(context, false);
+                              Get.to(HomePage());
+                            },
+                            onCancel: () {},
+                          );
                         } else {
-                          _showConfirmationDialog(
-                              context: context, message: 'Image not uploaded!');
+                          Get.snackbar('Alert', 'Image not uploaded!',
+                              backgroundColor: secondaryColor,
+                              colorText: primaryColor);
                         }
                       },
                     )
@@ -658,35 +657,73 @@ final CloudDatabase cD = Get.put(CloudDatabase());
           stream: _uploadTask.events,
           builder: (_, snapshot) {
             var event = snapshot?.data?.snapshot;
-            if (event != null) {
-              progressPercent = event.bytesTransferred / event.totalByteCount;
-              if (event.bytesTransferred == event.totalByteCount) {
-                cD.isComplete.value	 = true;
-              }
-            } else {
-              cD.isComplete.value = false;
-              progressPercent = 0.0;
-            }
 
-            print(progressPercent);
-            print(isComplete.toString());
-
-            return Column(
-              children: [
-                // Progress bar
-                LinearProgressIndicator(value: progressPercent),
-                Text(
-                  '${(progressPercent * 100).toStringAsFixed(2)} % ',
-                  style: subtext1,
+            double progressPercent = event != null
+                ? event.bytesTransferred / event.totalByteCount
+                : 0;
+            if (_uploadTask.isComplete) cD.isComplete.value = true;
+            return Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      child: Row(
+                        children: [
+                          if (_uploadTask.isComplete)
+                            Text('Upload Complete', style: subtext2),
+                          if (_uploadTask.isPaused)
+                            FlatButton(
+                              child: Icon(
+                                Icons.play_arrow,
+                                color: secondaryColor,
+                              ),
+                              onPressed: _uploadTask.resume,
+                            ),
+                          if (_uploadTask.isInProgress)
+                            FlatButton(
+                              child: Icon(
+                                Icons.pause,
+                                color: secondaryColor,
+                              ),
+                              onPressed: _uploadTask.pause,
+                            ),
+                        ],
+                      ),
+                    ),
+                    LinearProgressIndicator(value: progressPercent),
+                    Text(
+                      '${(progressPercent * 100).toStringAsFixed(2)} % ',
+                      style: subtext1,
+                    ),
+                  ],
                 ),
-              ],
+              ),
             );
           });
     }
     return Container(
       height: 20,
-      child: Text(
-       'Please upload a Photo !',style: subtext3,
+      child: Row(
+        children: <Widget>[
+          Text(
+            'Please upload a Photo !',
+            style: subtext3,
+          ),
+          FlatButton(
+              child: Icon(
+                Icons.cloud_upload,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  _startUpload(context);
+                } else {
+                  Get.snackbar('Alert !', 'Fill the fields first?!');
+                }
+              })
+        ],
       ),
     );
   }
@@ -704,36 +741,5 @@ final CloudDatabase cD = Get.put(CloudDatabase());
       _image = null;
       isComplete = false;
     });
-  }
-
-  Future<bool> _showConfirmationDialog(
-      {BuildContext context, String message}) async {
-    return showDialog(
-        context: context,
-        
-        barrierDismissible: true,
-        builder: (context) => AlertDialog(
-          backgroundColor: primaryColor,
-              content: Text(message.toString()),
-              actions: <Widget>[
-                isComplete
-                    ? RaisedButton(
-                        textColor: Colors.red,
-                        child: Text("Save"),
-                        onPressed: () {
-                          _saveToDb(context);
-                          _flushAll();
-                          Navigator.pop(context, false);
-                        })
-                    : null,
-                RaisedButton(
-                    textColor: Colors.black,
-                    child: Text("No"),
-                    onPressed: () {
-                      _flushAll();
-                      Navigator.pop(context, false);
-                    }),
-              ],
-            ));
   }
 }

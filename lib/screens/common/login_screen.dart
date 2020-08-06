@@ -1,5 +1,5 @@
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/home_screen.dart';
+import 'package:EJI/screens/common/home_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final CloudDatabase c = Get.put(CloudDatabase());
+
   final _loginformKey1 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -19,10 +25,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(fit: StackFit.expand,
-     
+      body: Stack(
+        fit: StackFit.expand,
         children: <Widget>[
-           Image.asset('assets/images/ejisplash.jpg',fit: BoxFit.fill,),
+          Image.asset(
+            'assets/images/ejisplash.jpg',
+            fit: BoxFit.fill,
+          ),
           Center(
             child: Container(
               width: 380,
@@ -96,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           style: subtext3,
                                           validator: (text) {
                                             if (text.isEmpty) {
-                                              return 'Please enter some text';
+                                              return 'emailempty'.tr;
                                             }
                                             return null;
                                           },
@@ -104,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           autofocus: true,
                                           decoration: InputDecoration(
                                               border: InputBorder.none,
-                                              hintText: 'Enter your email',
+                                              hintText: 'emailempty.tr',
                                               focusColor: secondaryColor,
                                               hintStyle: hinttext,
                                               contentPadding:
@@ -153,13 +162,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                           controller: passController,
                                           validator: (value) {
                                             if (value.isEmpty) {
-                                              return 'Please enter a valid password';
+                                              return 'passempty'.tr;
                                             } else
                                               return null;
                                           },
                                           decoration: InputDecoration(
                                               border: InputBorder.none,
-                                              hintText: 'Enter your  password',
+                                              hintText: 'passempty'.tr,
                                               hintStyle: hinttext,
                                               contentPadding:
                                                   EdgeInsets.all(4)),
@@ -189,12 +198,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                         fontSize: 30.0,
                                         color: primaryColor)),
                                 onPressed: () => {
-                                  Get.to(HomePage()),
-                                  if (_loginformKey1.currentState.validate())
+                                  if (emailController.text ==
+                                          c.adminEmail.value.toString() &&
+                                      passController.text ==
+                                          c.adminPassword.value.toString())
                                     {
-                                      if (GetUtils.isEmail(
-                                              emailController.text) &&
-                                          emailController.text ==
+                                      c.setAdmin(true),
+                                      Get.to(HomePage()),
+                                    }
+                                  else if (_loginformKey1.currentState
+                                      .validate())
+                                    {
+                                      if (emailController.text ==
                                               c.email.value.toString() &&
                                           passController.text ==
                                               c.password.value.toString())
@@ -202,11 +217,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Get.to(HomePage()),
                                         }
                                       else
-                                        Get.snackbar('Login',
-                                            'Password/email not correct !!',
-                                            snackPosition: SnackPosition.BOTTOM,
-                                            backgroundColor: secondaryColor,
-                                            colorText: primaryColor)
+                                        {
+                                          Get.snackbar(c.email.value.toString(),
+                                              'loginnot'.tr,
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                              backgroundColor: secondaryColor,
+                                              colorText: primaryColor)
+                                        }
                                     },
                                 },
                               ),

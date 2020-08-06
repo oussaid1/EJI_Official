@@ -1,11 +1,14 @@
 import 'package:EJI/model/player.dart';
-import 'package:EJI/repository/repository.dart';
-import 'package:EJI/screens/player_details.dart';
+import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/public/player_details.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
+
+import 'admin_drawer.dart';
 
 class AdminPlayerList extends StatefulWidget {
   AdminPlayerList({Key key}) : super(key: key);
@@ -15,9 +18,9 @@ class AdminPlayerList extends StatefulWidget {
 }
 
 class _ListPageState extends State<AdminPlayerList> {
-   
+  CloudDatabase cD = Get.put(CloudDatabase());
   List<Player> lista;
-  FirestoreService firestoreService;
+
   @override
   void initState() {
     super.initState();
@@ -25,13 +28,12 @@ class _ListPageState extends State<AdminPlayerList> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
         backgroundColor: primaryColor,
-        drawer: MyDrawer(),
+        drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(),
         body: StreamBuilder(
-            stream: FirestoreService().getPlayerz(),
+            stream: cD.getPlayerz(),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {
@@ -61,33 +63,65 @@ class _ListPageState extends State<AdminPlayerList> {
                           color: Colors.red[400],
                           caption: 'Delete',
                           icon: Icons.delete,
-                          onTap: () {},
+                          onTap: () {
+                            cD.deletePlayer(player.id.toString());
+                          },
                         ),
                       ],
                       actionPane: SlidableDrawerActionPane(),
                       child: ListTile(
                         contentPadding: EdgeInsets.only(left: 8, right: 8),
-                        leading: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: primaryColor),
-                            child: Icon(
-                              Icons.person,
-                              color: primaryColorShade,
-                              size: 30,
-                            )),
+                        leading: Stack(
+                          children: <Widget>[
+                            Container(
+                              height: 54,
+                              width: 54,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: secondaryColor),
+                              ),
+                              child: FutureBuilder<String>(
+                                future: cD.getProfileImage(
+                                    context, player.profileImage.toString()),
+                                builder: (context, snapshot) {
+                                  print(player.profileImage.toString());
+                                  return CircleAvatar(
+                                    radius: 80,
+                                    backgroundColor: secondaryColor,
+                                    child: ClipOval(
+                                      child: (snapshot == null ||
+                                              !snapshot.hasData)
+                                          ? Image.asset(
+                                              'assets/images/logo.png',
+                                              fit: BoxFit.fill,
+                                            )
+                                          : Image.network(
+                                              snapshot.data.toString(),
+                                              fit: BoxFit.fill,
+                                            ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                         title: Text(
                           '${player.playerName}',
-                          style: maintext3,
+                          style: subtext3,
                         ),
-                        onTap: (){
-                         Player player=snapshot.data[index];
-                         Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PlayerDetails(player:player)),
-                            );
+                        trailing: Text(
+                          '${player.position}',
+                          style: subtext1,
+                        ),
+                        subtitle: Text(
+                          '${player.dateOfBirth}',
+                          style: hinttext,
+                        ),
+                        onTap: () {
+                          Player player = snapshot.data[index];
+
+                          Get.to(PlayerDetails(player: player));
                         },
                       ),
                     ),

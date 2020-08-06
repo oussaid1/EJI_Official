@@ -1,9 +1,13 @@
 import 'dart:ui';
 
+import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -16,22 +20,24 @@ class _HomePageState extends State<HomePage> {
 
  
   
-  
   bool isSwitched = false;
+   final CloudDatabase c = Get.put(CloudDatabase());
   bool isEconomicMode;
   double limit = 400;
+  GetStorage mBox=GetStorage();
   @override
   void initState() {
+//mBox.write('adminkey',false).then((value) => isAdmin= mBox != null ? mBox.read('adminkey') :true);
+ 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final TotalBloc totalBloc = BlocProvider.of<TotalBloc>(BuildContext context);
-
+  
     return Scaffold(
       backgroundColor: primaryColor,
-      drawer: MyDrawer(),
+      drawer:c.isAdmin.value? AdminDrawer():MyDrawer(),
       appBar: AppBar(
         actions: <Widget>[
           IconButton(

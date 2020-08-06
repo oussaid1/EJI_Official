@@ -1,17 +1,17 @@
 import 'package:EJI/repository/repository.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
-import 'package:EJI/screens/home_screen.dart';
-import 'package:EJI/screens/info_screen.dart';
-import 'package:EJI/screens/player_list.dart';
-import 'package:EJI/screens/splash.dart';
+import 'package:EJI/screens/common/home_screen.dart';
+import 'package:EJI/screens/common/info_screen.dart';
+import 'package:EJI/screens/public/player_list.dart';
+import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key key}) : super(key: key);
   final String image = "players/profileImages/logo.png";
-  
 
   @override
   Widget build(BuildContext context) {
@@ -28,122 +28,82 @@ class MyDrawer extends StatelessWidget {
                 future: FirestoreService.getProfileImage(context, image),
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done || !snapshot.hasData ) {
+                  if (snapshot.connectionState != ConnectionState.done ||
+                      !snapshot.hasData) {
                     return UserAccountsDrawerHeader(
                       accountName: Text("EJI Idawlstane"),
-                      accountEmail: Text("ashishrawat2911@gmail.com"),
+                      accountEmail: Text("Eji.Idawlstan@gmail.com"),
                       currentAccountPicture: CircleAvatar(
-                        radius: 1,
+                          radius: 1,
                           backgroundColor:
                               Theme.of(context).platform == TargetPlatform.iOS
                                   ? Colors.blue
                                   : Colors.white,
                           child: CircularProgressIndicator()),
                     );
-                  }else{
-
-                     return UserAccountsDrawerHeader(
-                    accountName: Text("EJI Idawlstane"),
-                    accountEmail: Text("ashishrawat2911@gmail.com"),
-                    currentAccountPicture: CircleAvatar(
+                  } else {
+                    return UserAccountsDrawerHeader(
+                      accountName: Text("EJI Idawlstane"),
+                      accountEmail: Text("ashishrawat2911@gmail.com"),
+                      currentAccountPicture: CircleAvatar(
                         backgroundColor:
                             Theme.of(context).platform == TargetPlatform.iOS
                                 ? Colors.blue
                                 : Colors.white,
-                        child: Image.asset('assets/images/logo.png',fit: BoxFit.fill,),),
-                  );
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    );
                   }
-                 
                 }),
             ListTile(
               leading: Icon(Icons.email),
-              subtitle: Text('information about the player and thier position'),
-              title: Text('Field info'),
-              onTap: () => Navigator.push(
-                context,
-                new MaterialPageRoute(builder: (context) => HomePage()),
-              ),
+              subtitle: Text('teamdetails'.tr),
+              title: Text('Team'.tr),
+              onTap: () => Get.to(HomePage()),
             ),
             ListTile(
-              subtitle: Text(' players list and thier info'),
+              subtitle: Text(' players list and thier info'.tr),
               leading: Icon(Icons.person),
-              title: Text('Player List'),
-              onTap: () => Navigator.push(
-                context,
-                new MaterialPageRoute(builder: (context) => PlayerList()),
-              ),
+              title: Text('Players List'.tr),
+              onTap: () => Get.to(PlayerList()),
             ),
             ListTile(
-              subtitle: Text(' players list and thier info'),
+              subtitle: Text(' players statistics and thier rankings'.tr),
               leading: Icon(Icons.person_add),
-              title: Text('Player Statistics'),
-            ),
-            ListTile(
-              subtitle: Text(
-                ' manage players ',
-                style: TextStyle(
-                  fontSize: 12,
-                ),
-              ),
-              trailing: Text(
-                'staff only',
-                style: TextStyle(fontSize: 14, color: Colors.red),
-              ),
-              leading: Icon(Icons.settings),
-              title: Text('Settings '),
-              onTap: () => Navigator.push(
-                context,
-                new MaterialPageRoute(builder: (context) => AddPlayers()),
-              ),
-            ),
-            ListTile(
-              subtitle: Text(
-                ' Player Rating ',
-                style: TextStyle(
-                  fontSize: 12,
-                ),
-              ),
+              title: Text('Player Statistics'.tr),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
                     Icons.star,
+                    color: accentColor,size: 20,
+                  ),
+                  Icon(
+                    Icons.star,size: 20,
                     color: accentColor,
                   ),
                   Icon(
-                    Icons.star,
-                    color: accentColor,
-                  ),
-                  Icon(
-                    Icons.star,
+                    Icons.star,size: 20,
                     color: accentColor,
                   ),
                 ],
               ),
-              leading: Icon(Icons.sentiment_satisfied),
-              title: Text('Player Scores '),
-              onTap: () => Navigator.push(
-                context,
-                new MaterialPageRoute(builder: (context) => AddPlayers()),
-              ),
             ),
             ListTile(
-              subtitle: Text(' players list and thier info'),
               leading: Icon(Icons.info),
-              title: Text('About EJI'),
-              onTap: () => Navigator.push(
-                context,
-                new MaterialPageRoute(builder: (context) => InfoScreen()),
-              ),
+              title: Text('About EJI'.tr),
+              subtitle: Text(
+                  'Information about EJI Team and Its Philosophy and Laws'.tr),
+              onTap: () => Get.to(InfoScreen()),
             ),
             ListTile(
-              subtitle: Text(' sign out of the app'),
+              subtitle: Text('sign out of the app'.tr),
               leading: Icon(Icons.exit_to_app),
-              title: Text('Sign Out '),
-              onTap: () => Navigator.push(
-                context,
-                new MaterialPageRoute(builder: (context) => SplashPage()),
-              ),
+              title: Text('Sign Out'.tr),
+              onTap: () => Get.to(SplashPage()),
             ),
           ],
         ),

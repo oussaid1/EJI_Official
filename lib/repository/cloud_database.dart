@@ -3,22 +3,37 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class CloudDatabase extends GetxController {
-  RxBool isComplete=true.obs;
+  RxBool isAdmin = false.obs;
+  RxBool isComplete = true.obs;
   var email = '1234'.obs;
   var password = '1234'.obs;
-  var count = 0.obs;
-  setValue(int a) => count.value = a.toInt();
-  increment() => count.value++;
+  var adminEmail = 'admin'.obs;
+  var adminPassword = 'admin'.obs;
 
-   static Future<dynamic> loadFromStorage(
-      BuildContext context, String image) async {
+  @override
+  void onInit() {
+    GetStorage mBox = GetStorage();
+    mBox
+        .write('adminkey', false)
+        .then((value) => isAdmin.value = mBox.read('adminkey'));
+  }
+
+   setAdmin(bool adminkey) 
+  {
+     GetStorage mBox = GetStorage();
+    mBox
+        .write('adminkey', adminkey)
+        .then((value) => isAdmin.value = mBox.read('adminkey'));
+  } 
+
+  static Future<dynamic> loadFromStorage(String image) async {
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 
-
-   Future<Stream<List<Player>>> getPlayers() async {
+  Future<Stream<List<Player>>> getPlayers() async {
     Future<Stream<List<Player>>> pList = Future.delayed(
         const Duration(milliseconds: 300),
         () => _db.collection('players').snapshots().map(
@@ -67,7 +82,8 @@ class CloudDatabase extends GetxController {
     getPlayers();
     return pList;
   }
- Firestore _db = Firestore.instance;
+
+  Firestore _db = Firestore.instance;
   Future<void> addPlayers(Player player) {
     return _db.collection('players').add(player.toMap());
   }
@@ -83,7 +99,7 @@ class CloudDatabase extends GetxController {
         .updateData(player.toMap());
   }
 
-  static Future<String> getProfileImage(
+   Future<String> getProfileImage(
       BuildContext context, String image) async {
     String murl;
 
