@@ -1,5 +1,6 @@
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/common/home_screen.dart';
+import 'package:EJI/screens/admin_access/home_screen.dart';
+import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -105,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           style: subtext3,
                                           validator: (text) {
                                             if (text.isEmpty) {
-                                              return 'emailempty'.tr;
+                                              return ('emailempty'.tr);
                                             }
                                             return null;
                                           },
@@ -113,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           autofocus: true,
                                           decoration: InputDecoration(
                                               border: InputBorder.none,
-                                              hintText: 'emailempty.tr',
+                                              hintText: ('emailempty'.tr),
                                               focusColor: secondaryColor,
                                               hintStyle: hinttext,
                                               contentPadding:
@@ -204,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           c.adminPassword.value.toString())
                                     {
                                       c.setAdmin(true),
-                                      Get.to(HomePage()),
+                                       Get.to(TeamHomePage()),
                                     }
                                   else if (_loginformKey1.currentState
                                       .validate())
@@ -214,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           passController.text ==
                                               c.password.value.toString())
                                         {
-                                          Get.to(HomePage()),
+                                          Get.to(TeamHomePage()),
                                         }
                                       else
                                         {

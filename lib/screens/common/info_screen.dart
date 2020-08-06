@@ -18,12 +18,23 @@ class InfoScreen extends StatelessWidget {
       backgroundColor: primaryColor,
       body: ListView(
         children: <Widget>[
-          Wrap(children: <Widget>[
-            Text(
-              about[0]['arbout']().toString(),textDirection:TextDirection.rtl,
+          Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 400,
+                          child: Text(
+                           
+              about.toString(),
               style: subtext2,
-            )
-          ]),
+               overflow:TextOverflow.ellipsis,
+               maxLines: 60,
+               textAlign: TextAlign.justify,
+               textDirection: TextDirection.rtl,
+            ),
+                        ),
+                      ),
+          ),
         ],
       ),
     );

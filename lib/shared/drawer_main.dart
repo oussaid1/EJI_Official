@@ -1,18 +1,18 @@
-import 'package:EJI/repository/repository.dart';
-import 'package:EJI/screens/admin_access/add_dialogue.dart';
-import 'package:EJI/screens/common/home_screen.dart';
 import 'package:EJI/screens/common/info_screen.dart';
+import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/screens/public/player_list.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:EJI/repository/cloud_database.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({Key key}) : super(key: key);
+   MyDrawer({Key key}) : super(key: key);
   final String image = "players/profileImages/logo.png";
-
+final CloudDatabase cD = Get.put(CloudDatabase());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +25,7 @@ class MyDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             FutureBuilder(
-                future: FirestoreService.getProfileImage(context, image),
+                future: cD.getProfileImage(context, image),
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.connectionState != ConnectionState.done ||
@@ -59,21 +59,21 @@ class MyDrawer extends StatelessWidget {
                   }
                 }),
             ListTile(
-              leading: Icon(Icons.email),
-              subtitle: Text('teamdetails'.tr),
-              title: Text('Team'.tr),
-              onTap: () => Get.to(HomePage()),
+              leading: Icon(Icons.list),
+              subtitle: Text('teamsub'.tr),
+              title: Text('team'.tr),
+              onTap: () => Get.to(TeamHomePage()),
             ),
             ListTile(
-              subtitle: Text(' players list and thier info'.tr),
-              leading: Icon(Icons.person),
-              title: Text('Players List'.tr),
+              subtitle: Text('PlayersListsub'.tr),
+              leading: Icon(Icons.people),
+              title: Text('PlayersList'.tr),
               onTap: () => Get.to(PlayerList()),
             ),
             ListTile(
-              subtitle: Text(' players statistics and thier rankings'.tr),
-              leading: Icon(Icons.person_add),
-              title: Text('Player Statistics'.tr),
+              subtitle: Text('PlayerStatisticssub'.tr),
+              leading: Icon(FontAwesomeIcons.chartLine),
+              title: Text('PlayerStatistics'.tr),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -94,15 +94,15 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.info),
-              title: Text('About EJI'.tr),
+              title: Text('AboutEJI'.tr),
               subtitle: Text(
-                  'Information about EJI Team and Its Philosophy and Laws'.tr),
+                  'AboutEJIsub'.tr),
               onTap: () => Get.to(InfoScreen()),
             ),
             ListTile(
-              subtitle: Text('sign out of the app'.tr),
+              subtitle: Text('SignOutsub'.tr),
               leading: Icon(Icons.exit_to_app),
-              title: Text('Sign Out'.tr),
+              title: Text('SignOut'.tr),
               onTap: () => Get.to(SplashPage()),
             ),
           ],

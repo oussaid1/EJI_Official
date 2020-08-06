@@ -1,3 +1,4 @@
+import 'package:EJI/model/matchday.dart';
 import 'package:EJI/model/player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -33,22 +34,10 @@ class CloudDatabase extends GetxController {
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 
-  Future<Stream<List<Player>>> getPlayers() async {
-    Future<Stream<List<Player>>> pList = Future.delayed(
-        const Duration(milliseconds: 300),
-        () => _db.collection('players').snapshots().map(
-              (snapshot) => snapshot.documents
-                  .map(
-                    (doc) => Player.fromMap(doc.data, doc.documentID),
-                  )
-                  .toList(),
-            ));
+ 
 
-    return pList;
-  }
-
-  Stream<List<Player>> getPlayerz() {
-    Stream<List<Player>> pList = _db.collection('players').snapshots().map(
+  Stream<List<Player>> getPlayerz(String collectionName) {
+    Stream<List<Player>> pList = _db.collection(collectionName.toString()).snapshots().map(
           (snapshot) => snapshot.documents
               .map(
                 (doc) => Player.fromMap(doc.data, doc.documentID),
@@ -57,6 +46,17 @@ class CloudDatabase extends GetxController {
         );
 
     return pList;
+  }
+  Stream<List<MatchDay>> getMatchDays(String collectionName) {
+    Stream<List<MatchDay>> pLista = _db.collection(collectionName.toString()).snapshots().map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        );
+
+    return pLista;
   }
 
   Future<List<Player>> getDocs() async {
@@ -79,13 +79,16 @@ class CloudDatabase extends GetxController {
       );
       print(a.documentID);
     }
-    getPlayers();
+   
     return pList;
   }
 
   Firestore _db = Firestore.instance;
   Future<void> addPlayers(Player player) {
     return _db.collection('players').add(player.toMap());
+  }
+  Future<void> addMatch(MatchDay matchDay) {
+    return _db.collection('players').add(matchDay.toMap());
   }
 
   Future<void> deletePlayer(String id) {

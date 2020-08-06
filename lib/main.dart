@@ -7,16 +7,22 @@ import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-void main() async{
- await GetStorage.init();
-  runApp(GetMaterialApp(
-    color: primaryColor,
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(accentColor: accentColor,primaryColor: primaryColor),
-    translations: MyTranslations(),
-     locale:Locale('en'),
 
-    home: MyApp()));
+void main() async {
+  await GetStorage.init();
+  runApp(GetMaterialApp(
+      color: primaryColor,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(accentColor: accentColor, primaryColor: primaryColor),
+      translations: MyTranslations(),
+      locale: Locale('en'),
+      initialRoute: '/SplashScreen',
+      routes: {
+        '/SplashScreen': (context) => SplashPage(),
+        '/LoginScreen': (context) => LoginScreen(),
+        '/InfoScreen': (context) => InfoScreen(),
+      },
+      home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,18 +36,15 @@ class MyApp extends StatelessWidget {
         // Define the default brightness and colors.
 
         primaryColor: primaryColor,
-        accentColor: accentColor,appBarTheme: AppBarTheme(color: primaryColor,),
+        accentColor: accentColor,
+        appBarTheme: AppBarTheme(
+          color: primaryColor,
+        ),
         // Define the default font family.
 
         // Define the default TextTheme. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
       ),
-      initialRoute: '/SplashScreen',
-      routes: {
-        '/SplashScreen': (context) => SplashPage(),
-        '/LoginScreen': (context) => LoginScreen(),
-        '/InfoScreen': (context) => InfoScreen(),
-      },
     );
   }
 }

@@ -10,7 +10,7 @@ class PlayerDetails extends StatelessWidget {
   final Player player;
    PlayerDetails({Key key, @required this.player});
 
-   CloudDatabase cD = Get.put(CloudDatabase());
+  final CloudDatabase cD = Get.put(CloudDatabase());
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class PlayerDetails extends StatelessWidget {
                       Expanded(
                           flex: 1,
                           child: Text(
-                            'Player Name :',
+                            'PlayerName'.tr,
                             style: subtext1,
                           )),
                       Expanded(
@@ -119,7 +119,7 @@ class PlayerDetails extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                           child: Text(
-                        'Date & Place of Birth :',
+                        'Date&PlaceofBirth'.tr,
                         style: subtext1,
                       )),
                       Expanded(
@@ -141,7 +141,7 @@ class PlayerDetails extends StatelessWidget {
                       Expanded(
                           flex: 1,
                           child: Text(
-                            'Email  :',
+                            'Email'.tr,
                             style: subtext1,
                           )),
                       Expanded(
@@ -164,7 +164,7 @@ class PlayerDetails extends StatelessWidget {
                       Expanded(
                           flex: 1,
                           child: Text(
-                            'Phone Number :',
+                            'PhoneNumber:'.tr,
                             style: subtext1,
                           )),
                       Expanded(
@@ -187,7 +187,7 @@ class PlayerDetails extends StatelessWidget {
                       Expanded(
                           flex: 1,
                           child: Text(
-                            'Position  :',
+                            'Position'.tr,
                             style: subtext1,
                           )),
                       Expanded(
@@ -214,7 +214,7 @@ class PlayerDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Player Scores :',
+                          'PlayerScores:'.tr,
                           style: subtext1,
                         ),
                         SizedBox(
@@ -250,7 +250,7 @@ class PlayerDetails extends StatelessWidget {
                                                 const EdgeInsets.fromLTRB(
                                                     4, 4, 2, 2),
                                             child: new Text(
-                                              '43',
+                                              '02',
                                               textAlign: TextAlign.center,
                                               style: maintext2,
                                             ),
@@ -261,7 +261,7 @@ class PlayerDetails extends StatelessWidget {
                                     Row(
                                       children: <Widget>[
                                         new Text(
-                                          '65',
+                                          '54',
                                           textAlign: TextAlign.center,
                                           style: maintext3,
                                         ),

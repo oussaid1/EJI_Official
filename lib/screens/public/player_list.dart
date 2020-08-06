@@ -27,7 +27,7 @@ class _ListPageState extends State<PlayerList> {
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(),
         body: StreamBuilder(
-            stream: c.getPlayerz(),
+            stream: c.getPlayerz('players'),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {
@@ -102,12 +102,7 @@ class _ListPageState extends State<PlayerList> {
                       ),
                       onTap: () {
                         Player player = snapshot.data[index];
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PlayerDetails(player: player)),
-                        );
+                        Get.to(PlayerDetails(player: player));
                       },
                     ),
                   );

@@ -33,7 +33,7 @@ class _ListPageState extends State<AdminPlayerList> {
         drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(),
         body: StreamBuilder(
-            stream: cD.getPlayerz(),
+            stream: cD.getPlayerz('players'),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {

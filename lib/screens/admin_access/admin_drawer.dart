@@ -1,13 +1,13 @@
-import 'package:EJI/repository/repository.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
+import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/admin_access/admin_playerlist_screen.dart';
-import 'package:EJI/screens/common/home_screen.dart';
+import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/screens/common/info_screen.dart';
-import 'package:EJI/screens/public/player_list.dart';
 import 'package:EJI/screens/common/splash.dart';
-import 'package:EJI/settings/params.dart';
+import 'package:EJI/screens/common/team_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class AdminDrawer extends StatelessWidget {
@@ -40,47 +40,62 @@ class AdminDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.email),
-              subtitle: Text('team'.tr),
-              title: Text('Team'.tr),
+              leading: Icon(Icons.person),
+              subtitle: Text('teamsub'.tr),
+              title: Text('team'.tr),
+              onTap: () => Get.to(TeamHomePage()),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.list),
+              subtitle: Text('teamManagersub'.tr),
+              title: Text('teamManager'.tr),
               onTap: () => Get.to(HomePage()),
             ),
             ListTile(
-              subtitle: Text(' players list and thier info'.tr),
-              leading: Icon(Icons.person),
-              title: Text('Players List'.tr),
+              leading: Icon(Icons.people),
+              subtitle: Text('PlayersListsub'.tr),
+              
+              title: Text('PlayersList'.tr),
               onTap: () => Get.to(AdminPlayerList()),
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Staff '),
-              subtitle: Text(
-                ' all the staff working for EJI',
-                style: TextStyle(
-                  fontSize: 12,
+              
+               leading: Icon(FontAwesomeIcons.personBooth),
+                title: Text('Staff'.tr),
+                subtitle: Text(
+                  'Staffsub'.tr,
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
                 ),
-              ),
-              trailing: Text(
-                'staff List / info',
-                style: TextStyle(fontSize: 14, color: Colors.red),
-              ),
+                trailing: Text(
+                  'staffList'.tr,
+                  style: TextStyle(fontSize: 14, color: Colors.red),
+                ),
+                onTap: () => {}),
+            ListTile(
+              leading: Icon(Icons.person_add),
+              title: Text('AddPlayer'.tr),
+              subtitle: Text('AddPlayersub'.tr),
               onTap: () => Get.to(AddPlayers()),
             ),
-           
             ListTile(
-             
-              leading: Icon(Icons.info),
-              title: Text('About EJI'.tr),
-               subtitle: Text('Information about EJI Team and Its Philosophy and Laws'.tr),
-              onTap: () => Navigator.push(
-                context,
-                new MaterialPageRoute(builder: (context) => InfoScreen()),
-              ),
+              leading: Icon(Icons.person_add),
+              title: Text('AddMatch'.tr),
+              subtitle: Text('AddMatch'.tr),
+              onTap: () => Get.to(AddMatch()),
             ),
             ListTile(
-              subtitle: Text('sign out of the app'.tr),
+              leading: Icon(Icons.info),
+              title: Text('AboutEJI'.tr),
+              subtitle: Text('AboutEJIsub'.tr),
+              onTap: () => Get.to(InfoScreen()),
+            ),
+            ListTile(
+              
+              subtitle: Text('SignOutsub'.tr),
               leading: Icon(Icons.exit_to_app),
-              title: Text('Sign Out'.tr),
+              title: Text('SignOut'.tr),
               onTap: () => Get.to(SplashPage()),
             ),
           ],

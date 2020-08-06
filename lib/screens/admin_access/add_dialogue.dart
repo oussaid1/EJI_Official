@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/repository/repository.dart';
-import 'package:EJI/screens/common/home_screen.dart';
+import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -131,7 +130,7 @@ class _AddPlayersState extends State<AddPlayers> {
       seasons: _seasons,
       regNum: _regNum,
     );
-    await FirestoreService().addPlayers(player);
+    await cD.addPlayers(player);
   }
 
   Widget _buildPlayerPosition() {
@@ -150,7 +149,7 @@ class _AddPlayersState extends State<AddPlayers> {
                   child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Player Position ',
+                  'PlayerPosition'.tr,
                   style: subtext1,
                 ),
               )),
@@ -212,11 +211,11 @@ class _AddPlayersState extends State<AddPlayers> {
               borderSide: BorderSide(
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
-            labelText: 'Full Name',
+            labelText: 'FullName'.tr,
             labelStyle: hinttext),
         validator: (value) {
           if (value.length == 0) {
-            return 'insert name';
+            return 'insertname'.tr;
           } else
             return null;
         },
@@ -270,7 +269,7 @@ class _AddPlayersState extends State<AddPlayers> {
             labelStyle: hinttext),
         validator: (value) {
           if (value.length == 0) {
-            return 'insert email';
+            return 'insertemail'.tr;
           } else
             return null;
         },
@@ -315,11 +314,11 @@ class _AddPlayersState extends State<AddPlayers> {
               borderSide: BorderSide(
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
-            labelText: 'Phone Number',
+            labelText: 'PhoneNumber'.tr,
             labelStyle: hinttext),
         validator: (value) {
           if (value.length == 0) {
-            return 'insert phone number';
+            return 'insertphonenumber'.tr;
           } else
             return null;
         },
@@ -363,11 +362,11 @@ class _AddPlayersState extends State<AddPlayers> {
               borderSide: BorderSide(
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
-            labelText: 'Place Of Birth',
+            labelText: 'PlaceOfBirth'.tr,
             labelStyle: hinttext),
         validator: (value) {
           if (value.length == 0) {
-            return 'select date';
+            return 'selectdate'.tr;
           } else
             return null;
         },
@@ -408,11 +407,11 @@ class _AddPlayersState extends State<AddPlayers> {
             borderSide: BorderSide(
                 color: secondaryColor, style: BorderStyle.solid, width: 1),
           ),
-          labelText: 'Date Of Birth',
+          labelText: 'DateOfBirth'.tr,
           labelStyle: hinttext),
       validator: (value) {
         if (value.length == 0) {
-          return 'select date';
+          return 'selectdate'.tr;
         } else
           return null;
       },
@@ -452,11 +451,11 @@ class _AddPlayersState extends State<AddPlayers> {
             borderSide: BorderSide(
                 color: secondaryColor, style: BorderStyle.solid, width: 1),
           ),
-          labelText: 'Regester Date',
+          labelText: 'RegesterDate'.tr,
           labelStyle: hinttext),
       validator: (value) {
         if (value.length == 0) {
-          return 'select date';
+          return 'selectdate'.tr;
         } else
           return null;
       },
@@ -589,7 +588,7 @@ class _AddPlayersState extends State<AddPlayers> {
                   ? RaisedButton(
                       color: accentColor,
                       child: Text(
-                        'Submit',
+                        'Submit'.tr,
                         style: maintext,
                       ),
                       onPressed: () {
@@ -600,7 +599,7 @@ class _AddPlayersState extends State<AddPlayers> {
                         _formKey.currentState.save();
                         if (cD.isComplete.value) {
                           Get.defaultDialog(
-                            middleText: 'Are you sure you want to Save?!',
+                            middleText: 'confirmSave'.tr,
                             onConfirm: () {
                               _saveToDb(context);
                               _flushAll();
@@ -610,7 +609,7 @@ class _AddPlayersState extends State<AddPlayers> {
                             onCancel: () {},
                           );
                         } else {
-                          Get.snackbar('Alert', 'Image not uploaded!',
+                          Get.snackbar('Alert'.tr, 'Imagenotuploaded!'.tr,
                               backgroundColor: secondaryColor,
                               colorText: primaryColor);
                         }
@@ -622,7 +621,7 @@ class _AddPlayersState extends State<AddPlayers> {
                         RaisedButton(
                           color: accentColor,
                           child: Text(
-                            "Update",
+                            "Update".tr,
                             style: TextStyle(color: primaryColor, fontSize: 16),
                           ),
                           onPressed: () {
@@ -636,7 +635,7 @@ class _AddPlayersState extends State<AddPlayers> {
                         RaisedButton(
                           color: accentColor,
                           child: Text(
-                            "Cancel",
+                            "Cancel".tr,
                             style: TextStyle(color: primaryColor, fontSize: 16),
                           ),
                           onPressed: () => Navigator.pop(context),
@@ -672,7 +671,7 @@ class _AddPlayersState extends State<AddPlayers> {
                       child: Row(
                         children: [
                           if (_uploadTask.isComplete)
-                            Text('Upload Complete', style: subtext2),
+                            Text('UploadComplete'.tr, style: subtext2),
                           if (_uploadTask.isPaused)
                             FlatButton(
                               child: Icon(
@@ -708,7 +707,7 @@ class _AddPlayersState extends State<AddPlayers> {
       child: Row(
         children: <Widget>[
           Text(
-            'Please upload a Photo !',
+            'PleaseuploadPhoto'.tr,
             style: subtext3,
           ),
           FlatButton(
@@ -720,7 +719,7 @@ class _AddPlayersState extends State<AddPlayers> {
                 if (_formKey.currentState.validate()) {
                   _startUpload(context);
                 } else {
-                  Get.snackbar('Alert !', 'Fill the fields first?!');
+                  Get.snackbar('Alert'.tr, 'Fillfields'.tr);
                 }
               })
         ],
