@@ -1,6 +1,8 @@
 import 'package:EJI/model/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
+import 'package:EJI/screens/common/match_details.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +28,10 @@ class _TeamHomePageState extends State<TeamHomePage> {
         matchdayAway: 'matchdayaway',
         matchdayHomeScore: 'matchdayhomescore',
         matchdayAwayScore: 'matchdayawayscore',
-        matchdayHomeRedC: 2,
-        matchdayAwayRedC: 4,
-        matchdayHomeYellC: 1,
-        matchdayAwayYellC: 2),
+        matchdayHomeRedC: '2',
+        matchdayAwayRedC: '4',
+        matchdayHomeYellC: '1',
+        matchdayAwayYellC: '2'),
   ];
   bool isSwitched = false;
   final CloudDatabase c = Get.put(CloudDatabase());
@@ -48,9 +50,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
     return Scaffold(
         backgroundColor: primaryColor,
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
-        appBar: AppBar(
-          
-        ),
+        appBar: AppBar(),
         body: StreamBuilder(
             stream: c.getMatchDays('matchday'),
             builder:
@@ -83,7 +83,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                         child: Column(
                           children: <Widget>[
                             Text(
-                                'MatchDay '.tr +
+                                'MatchDay'.tr +
                                     '${matchDay.matchdayDate.toString()}',
                                 style: maintext3),
                             SizedBox(
@@ -112,7 +112,10 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                             color: secondaryColor, width: 0.5)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(2.0),
-                                      child: Text('${matchDay.matchdayHomeScore.toString()}'+' : '+'${matchDay.matchdayAwayScore.toString()}',
+                                      child: Text(
+                                          '${matchDay.matchdayHomeScore.toString()}' +
+                                              ' : ' +
+                                              '${matchDay.matchdayAwayScore.toString()}',
                                           textAlign: TextAlign.center,
                                           style: subtext3xx),
                                     ),
@@ -131,10 +134,22 @@ class _TeamHomePageState extends State<TeamHomePage> {
                             ),
                             Expanded(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
+                                      c.isAdmin.value 
+                                          ? IconButton(
+                                              icon: Icon(
+                                                Icons.edit,
+                                                color: secondaryColor,
+                                              ),
+                                              onPressed: () {
+
+                                                Get.to(AddMatch(matchDay:matchDay,matchDayIndex: matchDay.id,));
+                                              })
+                                          : SizedBox(width:1,height:1),
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text('MatchType'.tr,
@@ -156,7 +171,8 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                     child: Row(
                                       children: <Widget>[
                                         Padding(
-                                          padding: const EdgeInsets.fromLTRB(4,4,4,4),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              4, 4, 4, 4),
                                           child: Text('MatchDetails'.tr,
                                               textAlign: TextAlign.center,
                                               style: hinttext),
@@ -164,9 +180,11 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                         Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: IconButton(
-                                            icon: Icon(
-                                              Icons.info,
-                                              color: secondaryColor,
+                                            icon: IconButton(
+                                             icon:Icon( Icons.info),
+                                              color: secondaryColor, onPressed: () { 
+                                                Get.to(MatchDetails(matchDay:matchDay));
+                                               },
                                             ),
                                             onPressed: () {},
                                           ),

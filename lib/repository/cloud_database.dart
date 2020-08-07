@@ -101,6 +101,12 @@ class CloudDatabase extends GetxController {
         .document(player.id.toString())
         .updateData(player.toMap());
   }
+  Future<void> updateMatch(MatchDay matchDay) {
+    return _db
+        .collection('matchday')
+        .document(matchDay.id.toString())
+        .updateData(matchDay.toMap());
+  }
 
    Future<String> getProfileImage(
       BuildContext context, String image) async {

@@ -55,7 +55,7 @@ class MyTranslations extends Translations {
           'PlayerScores:': ' Player Scores :',
           'teamManager': ' Team Management',
           'teamManagersub': ' manage Team squad .....',
-          'MatchDay': ' MatchDay',
+          'MatchDay': ' MatchDay ',
           'MatchDetails': ' Match Details',
           'MatchType': ' Match Type :',
           'AddMatch': ' Add a Match ',
@@ -64,6 +64,7 @@ class MyTranslations extends Translations {
           'Competetion': ' Competetion',
           'Qualifications': ' Qualifications',
           'Training': ' Training',
+          'Schedueled': ' Schedueled ',
           'HomeTeam': ' Home Team',
           'insertHomeTeam': ' insert Home Team',
           'AwayTeam': ' Away Team',
@@ -76,6 +77,7 @@ class MyTranslations extends Translations {
           'insertRefereeName': ' insert Referee Name',
           'SomethingMissing': ' Something is missing !',
           'Frissendly': ' Application',
+          'Frifgssendly': ' Application',
          
          
         },

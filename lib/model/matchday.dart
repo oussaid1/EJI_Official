@@ -7,10 +7,10 @@ class MatchDay {
   String matchdayAway;
   String matchdayHomeScore;
   String matchdayAwayScore;
-  int matchdayHomeRedC;
-  int matchdayAwayRedC;
-  int matchdayHomeYellC;
-  int matchdayAwayYellC;
+  String matchdayHomeRedC;
+  String matchdayAwayRedC;
+  String matchdayHomeYellC;
+  String matchdayAwayYellC;
 
   MatchDay({
     this.id,
@@ -44,7 +44,7 @@ class MatchDay {
 
   MatchDay.fromMap(Map<String, dynamic> map, String id)
       : id = id,
-        matchdayDate = map['matchdate'],
+        matchdayDate = map['matchdaydate'],
         matchdayType = map['matchdaytype'],
         matchdayReferee = map['matchdayreferee'],
         matchdayHome = map['matchdayhome'],

@@ -1,7 +1,7 @@
 import 'package:EJI/model/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/repository/variables_controler.dart';
-import 'package:EJI/screens/admin_access/home_screen.dart';
+import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 
 class AddMatch extends StatefulWidget {
   final MatchDay matchDay;
-  final int matchDayIndex;
+  final String matchDayIndex;
 
   AddMatch({this.matchDay, this.matchDayIndex});
 
@@ -25,18 +25,18 @@ class AddMatch extends StatefulWidget {
 class _AddMatchsState extends State<AddMatch> {
   final CloudDatabase cD = Get.put(CloudDatabase());
   final VariablesControler xc = Get.put(VariablesControler());
-
-  String _matchdayDate='02-08-2020';
-  String _matchdayType='friendly';
-  String _matchdayReferee='Ali';
-  String _matchdayHome='EJI Fc';
-  String _matchdayAway='Tiskmodin Fc';
-  String _matchdayHomeScore='03';
-  String _matchdayAwayScore='01';
-  int _matchdayHomeRedC=0;
-  int _matchdayAwayRedC=0;
-  int _matchdayHomeYellC=0;
-  int _matchdayAwayYellC=0;
+  String id;
+  String _matchdayDate = '02-08-2020';
+  String _matchdayType = 'friendly'.tr;
+  String _matchdayReferee = 'Ali';
+  String _matchdayHome = 'EJI Fc';
+  String _matchdayAway = 'Tiskmodin Fc';
+  String _matchdayHomeScore = '03';
+  String _matchdayAwayScore = '01';
+  String _matchdayHomeRedC = '0';
+  String _matchdayAwayRedC = '0';
+  String _matchdayHomeYellC = '0';
+  String _matchdayAwayYellC = '0';
 
   String _myDate;
 
@@ -58,7 +58,9 @@ class _AddMatchsState extends State<AddMatch> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         _myDate = formatter.format(picked);
+        _matchdayDate = _myDate;
         matchdateController.text = _myDate;
+        print(_matchdayDate);
       });
     }
   }
@@ -70,6 +72,7 @@ class _AddMatchsState extends State<AddMatch> {
     'Competetion'.tr,
     'Qualifications'.tr,
     'Training'.tr,
+    'Schedueled'.tr,
   ];
   void _loadGenderList() {
     genderList = [];
@@ -91,12 +94,24 @@ class _AddMatchsState extends State<AddMatch> {
         matchdayReferee: _matchdayReferee,
         matchdayHome: _matchdayHome,
         matchdayAway: _matchdayAway,
-        matchdayHomeScore: _matchdayHomeScore,
-        matchdayAwayScore: _matchdayAwayScore,
-        matchdayHomeRedC: _matchdayHomeRedC,
-        matchdayAwayRedC: _matchdayAwayRedC,
-        matchdayHomeYellC: _matchdayHomeYellC,
-        matchdayAwayYellC: _matchdayAwayYellC);
+        matchdayHomeScore: _selectedGender == 4
+            ? '--'
+            : _matchdayHomeScore = xc.matchdayHomeScore.value.toString(),
+        matchdayAwayScore: _selectedGender == 4
+            ? '--'
+            : _matchdayAwayScore = xc.matchdayAwayScore.value.toString(),
+        matchdayHomeRedC: _selectedGender == 4
+            ? '0'
+            : _matchdayHomeRedC = xc.matchdayHomeRedC.value.toString(),
+        matchdayAwayRedC: _selectedGender == 4
+            ? '0'
+            : _matchdayAwayRedC = xc.matchdayAwayRedC.value.toString(),
+        matchdayHomeYellC: _selectedGender == 4
+            ? '0'
+            : _matchdayHomeYellC = xc.matchdayHomeYellC.value.toString(),
+        matchdayAwayYellC: _selectedGender == 4
+            ? '0'
+            : _matchdayAwayYellC = xc.matchdayAwayYellC.value.toString());
     print(matchDay);
     await cD.addMatch(matchDay);
   }
@@ -106,7 +121,9 @@ class _AddMatchsState extends State<AddMatch> {
       readOnly: true,
       controller: matchdateController,
       onSaved: (value) {
-        setState(() {});
+        setState(() {
+          _matchdayDate = value;
+        });
       },
       cursorColor: Colors.white,
       style: maintext2,
@@ -170,8 +187,9 @@ class _AddMatchsState extends State<AddMatch> {
                       style: maintext3,
                       onChanged: (dynamic value) {
                         setState(() {
-                          _matchdayType = value;
-                          print(value.toString());
+                          _selectedGender = value;
+                          _matchdayType = itemsList[value];
+                          print(_matchdayType);
                         });
                       },
                     ),
@@ -232,12 +250,12 @@ class _AddMatchsState extends State<AddMatch> {
 
   Widget _buildHomeScore() {
     return Expanded(
-          child: Column(
+      child: Column(
         children: <Widget>[
           Container(
             width: 30,
             height: 30,
-            color: primaryColor,
+            color: secondaryColor,
             child: Image.asset(
               'assets/images/whistle.png',
               fit: BoxFit.contain,
@@ -255,24 +273,24 @@ class _AddMatchsState extends State<AddMatch> {
                 children: <Widget>[
                   IconButton(
                     icon: Icon(
-                      Icons.arrow_drop_up,
-                      size: 30,
-                      color: secondaryColor,
-                    ),
-                    onPressed: () {
-                      xc.incrementScoreHome();
-                    },
-                  ),
-                  Obx(() => Text('${xc.matchdayHomeScore.value.toString()}',
-                      style: subtext3)),
-                  IconButton(
-                    icon: Icon(
                       Icons.arrow_drop_down,
                       size: 30,
                       color: secondaryColor,
                     ),
                     onPressed: () {
                       xc.decrementScoreHome();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayHomeScore.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementScoreHome();
                     },
                   ),
                 ],
@@ -284,7 +302,7 @@ class _AddMatchsState extends State<AddMatch> {
 
   Widget _buildHomeYellowCards() {
     return Expanded(
-          child: Column(
+      child: Column(
         children: <Widget>[
           Container(
             width: 30,
@@ -307,24 +325,24 @@ class _AddMatchsState extends State<AddMatch> {
                 children: <Widget>[
                   IconButton(
                     icon: Icon(
-                      Icons.arrow_drop_up,
-                      size: 30,
-                      color: secondaryColor,
-                    ),
-                    onPressed: () {
-                      xc.incrementYellowCHome();
-                    },
-                  ),
-                  Obx(() => Text('${xc.matchdayHomeYellC.value.toString()}',
-                      style: subtext3)),
-                  IconButton(
-                    icon: Icon(
                       Icons.arrow_drop_down,
                       size: 30,
                       color: secondaryColor,
                     ),
                     onPressed: () {
                       xc.deccrementYellowCHome();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayHomeYellC.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementYellowCHome();
                     },
                   ),
                 ],
@@ -336,7 +354,7 @@ class _AddMatchsState extends State<AddMatch> {
 
   Widget _buildHomeRedCard() {
     return Expanded(
-          child: Column(
+      child: Column(
         children: <Widget>[
           Container(
             width: 30,
@@ -359,24 +377,24 @@ class _AddMatchsState extends State<AddMatch> {
                 children: <Widget>[
                   IconButton(
                     icon: Icon(
-                      Icons.arrow_drop_up,
-                      size: 30,
-                      color: secondaryColor,
-                    ),
-                    onPressed: () {
-                      xc.incrementRedCHome();
-                    },
-                  ),
-                  Obx(() => Text('${xc.matchdayHomeRedC.value.toString()}',
-                      style: subtext3)),
-                  IconButton(
-                    icon: Icon(
                       Icons.arrow_drop_down,
                       size: 30,
                       color: secondaryColor,
                     ),
                     onPressed: () {
                       xc.deccrementRedCHome();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayHomeRedC.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementRedCHome();
                     },
                   ),
                 ],
@@ -438,12 +456,12 @@ class _AddMatchsState extends State<AddMatch> {
 
   Widget _buildAwayScore() {
     return Expanded(
-          child: Column(
+      child: Column(
         children: <Widget>[
           Container(
             width: 30,
             height: 30,
-            color: primaryColor,
+            color: secondaryColor,
             child: Image.asset(
               'assets/images/whistle.png',
               fit: BoxFit.contain,
@@ -461,24 +479,24 @@ class _AddMatchsState extends State<AddMatch> {
                 children: <Widget>[
                   IconButton(
                     icon: Icon(
-                      Icons.arrow_drop_up,
-                      size: 30,
-                      color: secondaryColor,
-                    ),
-                    onPressed: () {
-                      xc.incrementScoreAway();
-                    },
-                  ),
-                  Obx(() => Text('${xc.matchdayAwayScore.value.toString()}',
-                      style: subtext3)),
-                  IconButton(
-                    icon: Icon(
                       Icons.arrow_drop_down,
                       size: 30,
                       color: secondaryColor,
                     ),
                     onPressed: () {
                       xc.deccrementScoreAway();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayAwayScore.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementScoreAway();
                     },
                   ),
                 ],
@@ -490,7 +508,7 @@ class _AddMatchsState extends State<AddMatch> {
 
   Widget _buildAwayYellowCards() {
     return Expanded(
-          child: Column(
+      child: Column(
         children: <Widget>[
           Container(
             width: 30,
@@ -513,24 +531,24 @@ class _AddMatchsState extends State<AddMatch> {
               children: <Widget>[
                 IconButton(
                   icon: Icon(
-                    Icons.arrow_drop_up,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {
-                    xc.incrementYellowCAway();
-                  },
-                ),
-                Obx(() => Text('${xc.matchdayAwayYellC.value.toString()}',
-                    style: subtext3)),
-                IconButton(
-                  icon: Icon(
                     Icons.arrow_drop_down,
                     size: 30,
                     color: secondaryColor,
                   ),
                   onPressed: () {
                     xc.deccrementYellowCAway();
+                  },
+                ),
+                Obx(() => Text('${xc.matchdayAwayYellC.value.toString()}',
+                    style: subtext3)),
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_drop_up,
+                    size: 30,
+                    color: secondaryColor,
+                  ),
+                  onPressed: () {
+                    xc.incrementYellowCAway();
                   },
                 ),
               ],
@@ -566,24 +584,24 @@ class _AddMatchsState extends State<AddMatch> {
                 children: <Widget>[
                   IconButton(
                     icon: Icon(
-                      Icons.arrow_drop_up,
-                      size: 30,
-                      color: secondaryColor,
-                    ),
-                    onPressed: () {
-                      xc.incrementRedCAway();
-                    },
-                  ),
-                  Obx(() => Text('${xc.matchdayAwayRedC.value.toString()}',
-                      style: subtext3)),
-                  IconButton(
-                    icon: Icon(
                       Icons.arrow_drop_down,
                       size: 30,
                       color: secondaryColor,
                     ),
                     onPressed: () {
                       xc.deccrementRedCAway();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayAwayRedC.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementRedCAway();
                     },
                   ),
                 ],
@@ -646,7 +664,19 @@ class _AddMatchsState extends State<AddMatch> {
   @override
   void initState() {
     _loadGenderList();
-    if (widget.matchDay != null) {}
+    if (widget.matchDay != null) {
+      id = widget.matchDayIndex;
+      matchdateController.text = widget.matchDay.matchdayDate.toString();
+      hometeamController.text = widget.matchDay.matchdayHome.toString();
+      awayteamController.text = widget.matchDay.matchdayAway.toString();
+      refereeController.text = widget.matchDay.matchdayReferee.toString();
+      xc.matchdayHomeScore.value = 0;
+      xc.matchdayHomeYellC.value = 0;
+      xc.matchdayHomeRedC.value = 0;
+      xc.matchdayAwayScore.value = 0;
+      xc.matchdayAwayYellC.value = 0;
+      xc.matchdayAwayRedC.value = 0;
+    }
     super.initState();
   }
 
@@ -654,125 +684,140 @@ class _AddMatchsState extends State<AddMatch> {
   Widget build(BuildContext context) {
     _loadGenderList();
     return Scaffold(
-      backgroundColor: primaryColorShade,
+      backgroundColor: primaryColor,
       body: Column(
         children: <Widget>[
           Expanded(
-                      child: ListView(
+            child: ListView(
               children: <Widget>[
                 Container(
-                    height: 140,
-                    child: Image.asset(
-                      'assets/images/decor.png',
-                      fit: BoxFit.cover,
-                    ),
+                  height: 140,
+                  child: Image.asset(
+                    'assets/images/decor.png',
+                    fit: BoxFit.cover,
                   ),
-                
+                ),
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Form(
                     key: _formKeyX,
-                                      child: Column(
+                    child: Column(
                       children: <Widget>[
                         _buildDateOfMatch(context),
-                    _buildMatchDayType(),
+                        _buildMatchDayType(),
                         _buildHomeTeam(),
                         Row(
-                    children: <Widget>[
-                      _buildHomeRedCard(),
-                      _buildHomeScore(),
-                      _buildHomeYellowCards(),
-                    ],
+                          children: <Widget>[
+                            _buildHomeRedCard(),
+                            _buildHomeScore(),
+                            _buildHomeYellowCards(),
+                          ],
                         ),
-                         SizedBox(
-                    height: 10,
-                ),
-               
-                         _buildAwayTeam(),
-                         Row(
-                children: <Widget>[
-                    _buildAwayRedCard(),
-                    _buildAwayScore(),
-                    _buildAwayYellowCards(),
-                ],
-                         ),
-                         SizedBox(
-                height: 10,
-                ),
-                          _buildReferee(),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buildAwayTeam(),
+                        Row(
+                          children: <Widget>[
+                            _buildAwayRedCard(),
+                            _buildAwayScore(),
+                            _buildAwayYellowCards(),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buildReferee(),
                       ],
                     ),
                   ),
                 ),
-               
-                
-               
                 SizedBox(
                   height: 20,
                 ),
                 widget.matchDay == null
                     ? Container(
-                      width: 200,
-                      child: RaisedButton(
-                  color: accentColor,
-                  child: Text(
-                      'Submit'.tr,
-                      style: maintext,
-                  ),
-                  onPressed: () {
-                      if (!_formKeyX.currentState.validate()) {
-                return;
-                      }
+                        width: 200,
+                        child: RaisedButton(
+                          color: accentColor,
+                          child: Text(
+                            'Submit'.tr,
+                            style: maintext,
+                          ),
+                          onPressed: () {
+                            if (!_formKeyX.currentState.validate()) {
+                              return;
+                            }
 
-                      _formKeyX.currentState.save();
-                      if (_formKeyX.currentState.validate()) {
-                Get.defaultDialog(
-                  middleText: 'confirmSave'.tr,
-                  onConfirm: () {
-                      _saveToDb(context);
-                      _flushAll();
-                      Navigator.pop(context, false);
-                      Get.to(HomePage());
-                  },
-                  onCancel: () {},
-                );
-                      } else {
-                Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
-                      backgroundColor: secondaryColor,
-                      colorText: primaryColor);
-                      }
-                  },
-                ),
-                    )
+                            _formKeyX.currentState.save();
+                            if (_formKeyX.currentState.validate()) {
+                              Get.defaultDialog(
+                                middleText: 'confirmSave'.tr,
+                                onConfirm: () {
+                                  _saveToDb(context);
+                                  _flushAll();
+                                  Navigator.pop(context, false);
+                                  Get.to(TeamHomePage());
+                                },
+                                onCancel: () {},
+                              );
+                            } else {
+                              Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
+                                  backgroundColor: secondaryColor,
+                                  colorText: primaryColor);
+                            }
+                          },
+                        ),
+                      )
                     : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RaisedButton(
-                color: accentColor,
-                child: Text(
-                  "Update".tr,
-                  style: TextStyle(
-                      color: primaryColor, fontSize: 16),
-                ),
-                onPressed: () {
-                  if (!_formKeyX.currentState.validate()) {
-                    return;
-                  }
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          RaisedButton(
+                            color: accentColor,
+                            child: Text(
+                              "Update".tr,
+                              style:
+                                  TextStyle(color: primaryColor, fontSize: 16),
+                            ),
+                            onPressed: () {
+                             
 
-                  _formKeyX.currentState.save();
-                },
-                    ),
-                    RaisedButton(
-                color: accentColor,
-                child: Text(
-                  "Cancel".tr,
-                  style: TextStyle(
-                      color: primaryColor, fontSize: 16),
-                ),
-                onPressed: () => Navigator.pop(context),
-                    ),
-                  ],
-                ),
+                      
+                              MatchDay matchDayToUpdate = new MatchDay(
+                                id: widget.matchDayIndex,
+                                matchdayDate: widget.matchDay.matchdayDate,
+                                matchdayHome: widget.matchDay.matchdayHome,
+                                matchdayAway: widget.matchDay.matchdayAway,
+                                matchdayReferee:
+                                    widget.matchDay.matchdayReferee,
+                                matchdayHomeScore:
+                                    widget.matchDay.matchdayHomeScore,
+                                matchdayHomeYellC:
+                                    widget.matchDay.matchdayHomeYellC,
+                                matchdayHomeRedC:
+                                    widget.matchDay.matchdayHomeRedC,
+                                matchdayAwayScore:
+                                    widget.matchDay.matchdayAwayScore,
+                                matchdayAwayYellC:
+                                    widget.matchDay.matchdayAwayYellC,
+                                matchdayAwayRedC:
+                                    widget.matchDay.matchdayAwayRedC,
+                              );
+
+                              cD.updateMatch(matchDayToUpdate);
+                            },
+                          ),
+                          RaisedButton(
+                            color: accentColor,
+                            child: Text(
+                              "Cancel".tr,
+                              style:
+                                  TextStyle(color: primaryColor, fontSize: 16),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ],
+                      ),
               ],
             ),
           ),
