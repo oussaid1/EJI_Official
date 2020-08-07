@@ -88,7 +88,7 @@ class CloudDatabase extends GetxController {
     return _db.collection('players').add(player.toMap());
   }
   Future<void> addMatch(MatchDay matchDay) {
-    return _db.collection('players').add(matchDay.toMap());
+    return _db.collection('matchday').add(matchDay.toMap());
   }
 
   Future<void> deletePlayer(String id) {

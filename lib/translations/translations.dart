@@ -72,9 +72,10 @@ class MyTranslations extends Translations {
           'insertScore': ' insert Score',
           'MacthDate': ' Match Date',
           'selectMacthDate': ' select Macth Date !',
-          'Friendly': ' Application',
-          'Friendly': ' Application',
-          'Friendly': ' Application',
+          'RefereeName': ' Referee Name',
+          'insertRefereeName': ' insert Referee Name',
+          'SomethingMissing': ' Something is missing !',
+          'Frissendly': ' Application',
          
          
         },

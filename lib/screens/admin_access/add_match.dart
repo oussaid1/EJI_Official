@@ -1,8 +1,8 @@
 import 'package:EJI/model/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/settings/params.dart';
-import 'package:EJI/shared/drawer_main.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -24,29 +24,26 @@ class AddMatch extends StatefulWidget {
 
 class _AddMatchsState extends State<AddMatch> {
   final CloudDatabase cD = Get.put(CloudDatabase());
+  final VariablesControler xc = Get.put(VariablesControler());
 
-  String _id;
-  String _matchdayDate;
-  String _matchdayType;
-  String _matchdayReferee;
-  String _matchdayHome;
-  String _matchdayAway;
-  String _matchdayHomeScore;
-  String _matchdayAwayScore;
-  int _matchdayHomeRedC;
-  int _matchdayAwayRedC;
-  int _matchdayHomeYellC;
-  int _matchdayAwayYellC;
+  String _matchdayDate='02-08-2020';
+  String _matchdayType='friendly';
+  String _matchdayReferee='Ali';
+  String _matchdayHome='EJI Fc';
+  String _matchdayAway='Tiskmodin Fc';
+  String _matchdayHomeScore='03';
+  String _matchdayAwayScore='01';
+  int _matchdayHomeRedC=0;
+  int _matchdayAwayRedC=0;
+  int _matchdayHomeYellC=0;
+  int _matchdayAwayYellC=0;
 
   String _myDate;
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController dateOfBirthController = TextEditingController();
-  TextEditingController regdateController = TextEditingController();
-  TextEditingController placeOfBirthController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
+  TextEditingController matchdateController = TextEditingController();
+  TextEditingController hometeamController = TextEditingController();
+  TextEditingController awayteamController = TextEditingController();
+  TextEditingController refereeController = TextEditingController();
 
   DateTime selectedDate = new DateTime.now();
   DateTime nowDate = new DateTime.now();
@@ -56,12 +53,12 @@ class _AddMatchsState extends State<AddMatch> {
       context: context,
       initialDate: selectedDate, // Refer step 1
       firstDate: DateTime(1980),
-      lastDate: nowDate,
+      lastDate: DateTime(2025),
     );
     if (picked != null && picked != selectedDate) {
       setState(() {
         _myDate = formatter.format(picked);
-        dateController.text = _myDate;
+        matchdateController.text = _myDate;
       });
     }
   }
@@ -85,30 +82,29 @@ class _AddMatchsState extends State<AddMatch> {
     }
   }
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyX = GlobalKey<FormState>();
 
   _saveToDb(BuildContext context) async {
     MatchDay matchDay = new MatchDay(
-        id: 'id',
-        matchdayDate: 'matchdaydate',
-        matchdayType: 'matchdaytype',
-        matchdayReferee: 'matchdayreferee',
-        matchdayHome: 'matchdayhome',
-        matchdayAway: 'matchdayaway',
-        matchdayHomeScore: 'matchdayhomescore',
-        matchdayAwayScore: 'matchdayawayscore',
-        matchdayHomeRedC: 2,
-        matchdayAwayRedC: 4,
-        matchdayHomeYellC: 1,
-        matchdayAwayYellC: 2);
-
+        matchdayDate: _matchdayDate,
+        matchdayType: _matchdayType,
+        matchdayReferee: _matchdayReferee,
+        matchdayHome: _matchdayHome,
+        matchdayAway: _matchdayAway,
+        matchdayHomeScore: _matchdayHomeScore,
+        matchdayAwayScore: _matchdayAwayScore,
+        matchdayHomeRedC: _matchdayHomeRedC,
+        matchdayAwayRedC: _matchdayAwayRedC,
+        matchdayHomeYellC: _matchdayHomeYellC,
+        matchdayAwayYellC: _matchdayAwayYellC);
+    print(matchDay);
     await cD.addMatch(matchDay);
   }
 
   Widget _buildDateOfMatch(BuildContext context) {
     return TextFormField(
       readOnly: true,
-      controller: dateController,
+      controller: matchdateController,
       onSaved: (value) {
         setState(() {});
       },
@@ -149,208 +145,244 @@ class _AddMatchsState extends State<AddMatch> {
 
   Widget _buildMatchDayType() {
     return Container(
-        height: 50,
-        child: Card(
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            side: BorderSide(color: secondaryColor, width: 1),
-          ),
-          color: primaryColor,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'MatchType'.tr,
-                  style: subtext1,
-                ),
-              )),
-              Expanded(
-                child: Container(
-                  width: 60.0,
-                  child: DropdownButtonHideUnderline(
-                    child: ButtonTheme(
-                      alignedDropdown: true,
-                      child: DropdownButton(
-                        isExpanded: true,
-                        value: _selectedGender,
-                        items: genderList,
-                        dropdownColor: primaryColor,
-                        style: maintext3,
-                        onChanged: (dynamic value) {
-                          setState(() {});
-                        },
-                      ),
+        height: 60,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                'MatchType'.tr,
+                style: subtext1,
+              ),
+            )),
+            Expanded(
+              child: Container(
+                width: 60.0,
+                child: DropdownButtonHideUnderline(
+                  child: ButtonTheme(
+                    alignedDropdown: true,
+                    child: DropdownButton(
+                      isExpanded: true,
+                      value: _selectedGender,
+                      items: genderList,
+                      dropdownColor: primaryColor,
+                      style: maintext3,
+                      onChanged: (dynamic value) {
+                        setState(() {
+                          _matchdayType = value;
+                          print(value.toString());
+                        });
+                      },
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ));
   }
 
   Widget _buildHomeTeam() {
     return Padding(
-        padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
-        child: new TextFormField(
-    controller: nameController,
-    cursorColor: Colors.white,
-    style: maintext2,
-    decoration: InputDecoration(
-        prefixIcon: Icon(Icons.home, color: secondaryColor),
-        suffixIcon: IconButton(
-          icon: Icon(
-            Icons.clear,
-            color: secondaryColor,
-          ),
-          onPressed: () {
-            setState(() {
-              nameController.clear();
-            });
-          },
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-              color: accentColor, style: BorderStyle.solid, width: 1),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-              color: secondaryColor, style: BorderStyle.solid, width: 1),
-        ),
-        labelText: 'HomeTeam'.tr,
-        labelStyle: hinttext),
-    validator: (value) {
-      if (value.length == 0) {
-        return 'insertHomeTeam'.tr;
-      } else
-        return null;
-    },
-    onSaved: (value) {
-      setState(() {});
-    },
-        ),
-      );
-  }
-
-  Widget _buildDescription(){
-    return Row(
-        children: <Widget>[
-    Container(
-      width: 50,
-      height: 50,
-      color: primaryColor,
-      child: Image.asset('assets/images/redcards.png',fit:BoxFit.contain,))
-        ],
-      );
+      padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
+      child: new TextFormField(
+        controller: hometeamController,
+        cursorColor: Colors.white,
+        style: maintext2,
+        decoration: InputDecoration(
+            prefixIcon: Icon(Icons.home, color: secondaryColor),
+            suffixIcon: IconButton(
+              icon: Icon(
+                Icons.clear,
+                color: secondaryColor,
+              ),
+              onPressed: () {
+                setState(() {
+                  hometeamController.clear();
+                });
+              },
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                  color: accentColor, style: BorderStyle.solid, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                  color: secondaryColor, style: BorderStyle.solid, width: 1),
+            ),
+            labelText: 'HomeTeam'.tr,
+            labelStyle: hinttext),
+        validator: (value) {
+          if (value.length == 0) {
+            return 'insertHomeTeam'.tr;
+          } else
+            return null;
+        },
+        onSaved: (value) {
+          setState(() {
+            _matchdayHome = value.toString();
+          });
+        },
+      ),
+    );
   }
 
   Widget _buildHomeScore() {
     return Expanded(
-      child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: secondaryColor),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          width: Get.width / 3,
-          child: Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_up,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-                Text('$_matchdayHomeScore',style:subtext3),
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
+          child: Column(
+        children: <Widget>[
+          Container(
+            width: 30,
+            height: 30,
+            color: primaryColor,
+            child: Image.asset(
+              'assets/images/whistle.png',
+              fit: BoxFit.contain,
             ),
-          )),
+          ),
+          Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: secondaryColor),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              width: Get.width / 3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementScoreHome();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayHomeScore.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.decrementScoreHome();
+                    },
+                  ),
+                ],
+              )),
+        ],
+      ),
     );
   }
 
   Widget _buildHomeYellowCards() {
     return Expanded(
-      child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: secondaryColor),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          width: Get.width / 3,
-          child: Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_up,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-                Text('$_matchdayHomeScore',style:subtext3),
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
+          child: Column(
+        children: <Widget>[
+          Container(
+            width: 30,
+            height: 30,
+            color: primaryColor,
+            child: Image.asset(
+              'assets/images/yellowcards.png',
+              fit: BoxFit.contain,
             ),
-          )),
+          ),
+          Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: secondaryColor),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              width: Get.width / 3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementYellowCHome();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayHomeYellC.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.deccrementYellowCHome();
+                    },
+                  ),
+                ],
+              )),
+        ],
+      ),
     );
   }
 
   Widget _buildHomeRedCard() {
     return Expanded(
-      child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: secondaryColor),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          width: Get.width / 3,
-          child: Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_up,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-                Text('$_matchdayHomeScore',style:subtext3),
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
+          child: Column(
+        children: <Widget>[
+          Container(
+            width: 30,
+            height: 30,
+            color: primaryColor,
+            child: Image.asset(
+              'assets/images/redcards.png',
+              fit: BoxFit.contain,
             ),
-          )),
+          ),
+          Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: secondaryColor),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              width: Get.width / 3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementRedCHome();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayHomeRedC.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.deccrementRedCHome();
+                    },
+                  ),
+                ],
+              )),
+        ],
+      ),
     );
   }
 
@@ -359,9 +391,11 @@ class _AddMatchsState extends State<AddMatch> {
       padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
       child: new TextFormField(
         onSaved: (value) {
-          setState(() {});
+          setState(() {
+            _matchdayAway = value.toString();
+          });
         },
-        controller: emailController,
+        controller: awayteamController,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
         style: maintext2,
@@ -376,7 +410,7 @@ class _AddMatchsState extends State<AddMatch> {
               ),
               onPressed: () {
                 setState(() {
-                  emailController.clear();
+                  awayteamController.clear();
                 });
               },
             ),
@@ -390,7 +424,7 @@ class _AddMatchsState extends State<AddMatch> {
               borderSide: BorderSide(
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
-            labelText: 'AwayTeam',
+            labelText: 'AwayTeam'.tr,
             labelStyle: hinttext),
         validator: (value) {
           if (value.length == 0) {
@@ -404,49 +438,77 @@ class _AddMatchsState extends State<AddMatch> {
 
   Widget _buildAwayScore() {
     return Expanded(
-      child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: secondaryColor),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          width: Get.width / 3,
-          child: Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_up,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-                Text('$_matchdayHomeScore',style:subtext3),
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
+          child: Column(
+        children: <Widget>[
+          Container(
+            width: 30,
+            height: 30,
+            color: primaryColor,
+            child: Image.asset(
+              'assets/images/whistle.png',
+              fit: BoxFit.contain,
             ),
-          )),
+          ),
+          Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: secondaryColor),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              width: Get.width / 3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementScoreAway();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayAwayScore.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.deccrementScoreAway();
+                    },
+                  ),
+                ],
+              )),
+        ],
+      ),
     );
   }
 
   Widget _buildAwayYellowCards() {
     return Expanded(
-          child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: secondaryColor),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          width: Get.width / 3,
-          child: Expanded(
+          child: Column(
+        children: <Widget>[
+          Container(
+            width: 30,
+            height: 30,
+            color: primaryColor,
+            child: Image.asset(
+              'assets/images/yellowcards.png',
+              fit: BoxFit.contain,
+            ),
+          ),
+          Container(
+            height: 50,
+            decoration: BoxDecoration(
+                border: Border.all(width: 1, color: secondaryColor),
+                borderRadius: BorderRadius.all(Radius.circular(8))),
+            width: Get.width / 3,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 IconButton(
@@ -455,55 +517,129 @@ class _AddMatchsState extends State<AddMatch> {
                     size: 30,
                     color: secondaryColor,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    xc.incrementYellowCAway();
+                  },
                 ),
-                Text('$_matchdayHomeScore',style:subtext3),
+                Obx(() => Text('${xc.matchdayAwayYellC.value.toString()}',
+                    style: subtext3)),
                 IconButton(
                   icon: Icon(
                     Icons.arrow_drop_down,
                     size: 30,
                     color: secondaryColor,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    xc.deccrementYellowCAway();
+                  },
                 ),
               ],
             ),
-          ),),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildAwayRedCard() {
     return Expanded(
-          child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: secondaryColor),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          width: Get.width / 3,
-          child: Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_up,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-                Text('$_matchdayHomeScore',style:subtext3),
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    size: 30,
-                    color: secondaryColor,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
+      child: Column(
+        children: <Widget>[
+          Container(
+            width: 30,
+            height: 30,
+            color: primaryColor,
+            child: Image.asset(
+              'assets/images/redcards.png',
+              fit: BoxFit.contain,
             ),
-          )),
+          ),
+          Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: secondaryColor),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              width: Get.width / 3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_up,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.incrementRedCAway();
+                    },
+                  ),
+                  Obx(() => Text('${xc.matchdayAwayRedC.value.toString()}',
+                      style: subtext3)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      size: 30,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      xc.deccrementRedCAway();
+                    },
+                  ),
+                ],
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReferee() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
+      child: new TextFormField(
+        onSaved: (value) {
+          setState(() {
+            _matchdayReferee = value.toString();
+          });
+        },
+        controller: refereeController,
+        keyboardType: TextInputType.emailAddress,
+        cursorColor: Colors.white,
+        style: maintext2,
+        decoration: InputDecoration(
+            prefixIcon:
+                Icon(FontAwesomeIcons.arrowRight, color: secondaryColor),
+            suffixIcon: IconButton(
+              icon: Icon(
+                Icons.clear,
+                color: secondaryColor,
+                size: 18,
+              ),
+              onPressed: () {
+                setState(() {
+                  refereeController.clear();
+                });
+              },
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                  color: accentColor, style: BorderStyle.solid, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                  color: secondaryColor, style: BorderStyle.solid, width: 1),
+            ),
+            labelText: 'RefereeName'.tr,
+            labelStyle: hinttext),
+        validator: (value) {
+          if (value.length == 0) {
+            return 'insertRefereeName'.tr;
+          } else
+            return null;
+        },
+      ),
     );
   }
 
@@ -518,123 +654,139 @@ class _AddMatchsState extends State<AddMatch> {
   Widget build(BuildContext context) {
     _loadGenderList();
     return Scaffold(
-      backgroundColor: primaryColor,
-      drawer: MyDrawer(),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: <Widget>[
-              SizedBox(
-                height: 40,
-              ),
-              _buildDateOfMatch(context),
-              _buildMatchDayType(),
-              Column(
-                children: <Widget>[
-                  _buildHomeTeam(),
-                  _buildDescription(),
-                  Row(
+      backgroundColor: primaryColorShade,
+      body: Column(
+        children: <Widget>[
+          Expanded(
+                      child: ListView(
+              children: <Widget>[
+                Container(
+                    height: 140,
+                    child: Image.asset(
+                      'assets/images/decor.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Form(
+                    key: _formKeyX,
+                                      child: Column(
+                      children: <Widget>[
+                        _buildDateOfMatch(context),
+                    _buildMatchDayType(),
+                        _buildHomeTeam(),
+                        Row(
                     children: <Widget>[
-                      
                       _buildHomeRedCard(),
                       _buildHomeScore(),
                       _buildHomeYellowCards(),
                     ],
-                  ),
-                ],
-              ),
-              Column(
+                        ),
+                         SizedBox(
+                    height: 10,
+                ),
+               
+                         _buildAwayTeam(),
+                         Row(
                 children: <Widget>[
-                  _buildAwayTeam(),
-                  Row(
-                    children: <Widget>[
-                     
-                      _buildAwayRedCard(),
-                      _buildAwayScore(),
-                      _buildAwayYellowCards(),
-                    ],
-                  ),
+                    _buildAwayRedCard(),
+                    _buildAwayScore(),
+                    _buildAwayYellowCards(),
                 ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              widget.matchDay == null
-                  ? RaisedButton(
-                      color: accentColor,
-                      child: Text(
-                        'Submit'.tr,
-                        style: maintext,
-                      ),
-                      onPressed: () {
-                        if (!_formKey.currentState.validate()) {
-                          return;
-                        }
-
-                        _formKey.currentState.save();
-                        if (cD.isComplete.value) {
-                          Get.defaultDialog(
-                            middleText: 'confirmSave'.tr,
-                            onConfirm: () {
-                              _saveToDb(context);
-                              _flushAll();
-                              Navigator.pop(context, false);
-                              Get.to(HomePage());
-                            },
-                            onCancel: () {},
-                          );
-                        } else {
-                          Get.snackbar('Alert'.tr, 'Imagenotuploaded!'.tr,
-                              backgroundColor: secondaryColor,
-                              colorText: primaryColor);
-                        }
-                      },
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        RaisedButton(
-                          color: accentColor,
-                          child: Text(
-                            "Update".tr,
-                            style: TextStyle(color: primaryColor, fontSize: 16),
-                          ),
-                          onPressed: () {
-                            if (!_formKey.currentState.validate()) {
-                              return;
-                            }
-
-                            _formKey.currentState.save();
-                          },
-                        ),
-                        RaisedButton(
-                          color: accentColor,
-                          child: Text(
-                            "Cancel".tr,
-                            style: TextStyle(color: primaryColor, fontSize: 16),
-                          ),
-                          onPressed: () => Navigator.pop(context),
-                        ),
+                         ),
+                         SizedBox(
+                height: 10,
+                ),
+                          _buildReferee(),
                       ],
                     ),
-            ],
+                  ),
+                ),
+               
+                
+               
+                SizedBox(
+                  height: 20,
+                ),
+                widget.matchDay == null
+                    ? Container(
+                      width: 200,
+                      child: RaisedButton(
+                  color: accentColor,
+                  child: Text(
+                      'Submit'.tr,
+                      style: maintext,
+                  ),
+                  onPressed: () {
+                      if (!_formKeyX.currentState.validate()) {
+                return;
+                      }
+
+                      _formKeyX.currentState.save();
+                      if (_formKeyX.currentState.validate()) {
+                Get.defaultDialog(
+                  middleText: 'confirmSave'.tr,
+                  onConfirm: () {
+                      _saveToDb(context);
+                      _flushAll();
+                      Navigator.pop(context, false);
+                      Get.to(HomePage());
+                  },
+                  onCancel: () {},
+                );
+                      } else {
+                Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
+                      backgroundColor: secondaryColor,
+                      colorText: primaryColor);
+                      }
+                  },
+                ),
+                    )
+                    : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                color: accentColor,
+                child: Text(
+                  "Update".tr,
+                  style: TextStyle(
+                      color: primaryColor, fontSize: 16),
+                ),
+                onPressed: () {
+                  if (!_formKeyX.currentState.validate()) {
+                    return;
+                  }
+
+                  _formKeyX.currentState.save();
+                },
+                    ),
+                    RaisedButton(
+                color: accentColor,
+                child: Text(
+                  "Cancel".tr,
+                  style: TextStyle(
+                      color: primaryColor, fontSize: 16),
+                ),
+                onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   void _flushAll() {
     setState(() {
-      nameController.clear();
-      emailController.clear();
-      phoneController.clear();
-      dateOfBirthController.clear();
-      regdateController.clear();
-      placeOfBirthController.clear();
-      dateController.clear();
+      matchdateController.clear();
+      hometeamController.clear();
+      awayteamController.clear();
+      refereeController.clear();
     });
   }
 }

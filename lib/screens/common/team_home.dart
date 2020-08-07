@@ -83,7 +83,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                         child: Column(
                           children: <Widget>[
                             Text(
-                                'MatchDay'.tr +
+                                'MatchDay '.tr +
                                     '${matchDay.matchdayDate.toString()}',
                                 style: maintext3),
                             SizedBox(
