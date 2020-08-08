@@ -7,8 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-void main() async{
- await GetStorage.init();
+void main() async {
+  await GetStorage.init();
   runApp(MyApp());
 }
 
@@ -17,23 +17,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-    color: primaryColor,
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(accentColor: accentColor,primaryColor: primaryColor),
-    translations: MyTranslations(),
-     locale:Locale('en'),
- initialRoute: '/SplashScreen',
+      color: primaryColor,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(accentColor: accentColor, primaryColor: primaryColor),
+      translations: MyTranslations(),
+      locale: Locale('en'),
+      home: SplashPage(),
+      initialRoute:'/splash',
       getPages: [
-        //Simple GetPage
-        GetPage(name: '/SplashScreen', page: () => SplashPage()),
-        // GetPage with custom transitions and bindings
-        GetPage(
-          name: '/home',
-          page: () => TeamHomePage(),
-        ),
+        GetPage(name: '/splash', page:()=> new SplashPage()),
       ],
-    home: MaterialApp(
-      
-    ));
+      // GetPage with custom transitions and bindings
+    );
   }
 }

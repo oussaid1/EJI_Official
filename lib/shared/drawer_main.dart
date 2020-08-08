@@ -24,40 +24,23 @@ final CloudDatabase cD = Get.put(CloudDatabase());
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            FutureBuilder(
-                future: cD.getProfileImage(context, image),
-                builder:
-                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done ||
-                      !snapshot.hasData) {
-                    return UserAccountsDrawerHeader(
-                      accountName: Text("EJI Idawlstane"),
-                      accountEmail: Text("Eji.Idawlstan@gmail.com"),
-                      currentAccountPicture: CircleAvatar(
-                          radius: 1,
-                          backgroundColor:
-                              Theme.of(context).platform == TargetPlatform.iOS
-                                  ? Colors.blue
-                                  : Colors.white,
-                          child: CircularProgressIndicator()),
-                    );
-                  } else {
-                    return UserAccountsDrawerHeader(
-                      accountName: Text("EJI Idawlstane"),
-                      accountEmail: Text("ashishrawat2911@gmail.com"),
-                      currentAccountPicture: CircleAvatar(
-                        backgroundColor:
-                            Theme.of(context).platform == TargetPlatform.iOS
-                                ? Colors.blue
-                                : Colors.white,
-                        child: Image.asset(
-                          'assets/images/logo.png',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    );
-                  }
-                }),
+            UserAccountsDrawerHeader(
+              accountName: Text("EJI Idawlstane"),
+              accountEmail:  Text(
+                'EJIBudget'.tr + '${cD.clubBudget.value.toString()}',
+                style: subtext4,
+              ),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor:
+                    Theme.of(context).platform == TargetPlatform.iOS
+                        ? Colors.blue
+                        : Colors.white,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
             ListTile(
               leading: Icon(Icons.list),
               subtitle: Text('teamsub'.tr),
@@ -103,7 +86,7 @@ final CloudDatabase cD = Get.put(CloudDatabase());
               subtitle: Text('SignOutsub'.tr),
               leading: Icon(Icons.exit_to_app),
               title: Text('SignOut'.tr),
-              onTap: () => Get.to(SplashPage()),
+              onTap: () => Get.offAll(SplashPage()),
             ),
           ],
         ),

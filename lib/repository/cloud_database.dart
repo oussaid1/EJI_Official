@@ -1,5 +1,8 @@
+import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/model/comments_model.dart';
 import 'package:EJI/model/matchday.dart';
 import 'package:EJI/model/player.dart';
+import 'package:EJI/model/staff.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -7,19 +10,20 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class CloudDatabase extends GetxController {
+  RxDouble clubBudget=0.0.obs;
   RxBool isAdmin = false.obs;
   RxBool isComplete = true.obs;
   var email = '1234'.obs;
   var password = '1234'.obs;
   var adminEmail = 'admin'.obs;
   var adminPassword = 'admin'.obs;
-
+    setbudget(double lbudget)=> clubBudget.value = lbudget;
   @override
   void onInit() {
     GetStorage mBox = GetStorage();
     mBox
         .write('adminkey', false)
-        .then((value) => isAdmin.value = mBox.read('adminkey'));
+       ;
   }
 
    setAdmin(bool adminkey) 
@@ -58,6 +62,43 @@ class CloudDatabase extends GetxController {
 
     return pLista;
   }
+  Stream<List<Comments>> getComments(String collectionName) {
+   
+    Stream<List<Comments>> pLista = _db.collection(collectionName.toString()).snapshots().map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => Comments.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        );
+
+    return pLista;
+  }
+  Stream<List<Staff>> getStaff(String staff) {
+   
+    Stream<List<Staff>> pLista = _db.collection(staff.toString()).snapshots().map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => Staff.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        );
+
+    return pLista;
+  }
+  
+  Stream<List<Expenses>> getExpenses(String expenses) {
+   
+    Stream<List<Expenses>> pLista = _db.collection(expenses.toString()).snapshots().map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => Expenses.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        );
+
+    return pLista;
+  }
 
   Future<List<Player>> getDocs() async {
     List<Player> pList = List<Player>();
@@ -90,9 +131,15 @@ class CloudDatabase extends GetxController {
   Future<void> addMatch(MatchDay matchDay) {
     return _db.collection('matchday').add(matchDay.toMap());
   }
+  Future<void> addComment(Comments comments) {
+    return _db.collection('remarks').add(comments.toMap());
+  }
 
   Future<void> deletePlayer(String id) {
     return _db.collection('players').document(id).delete();
+  }
+  Future<void> deleteObject(String collection,String id) {
+    return _db.collection(collection.toString()).document(id).delete();
   }
 
   Future<void> updatePlayer(Player player) {

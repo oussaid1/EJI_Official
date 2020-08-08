@@ -58,7 +58,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
               if (snapshot.hasError || !snapshot.hasData) {
                 return Center(
                     child: Icon(
-                  Icons.person,
+                  Icons.list,
                   size: 100,
                   color: secondaryColor,
                 ));

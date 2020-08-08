@@ -17,160 +17,334 @@ class MatchDetails extends StatefulWidget {
 }
 
 class _MatchDetailsState extends State<MatchDetails> {
- 
- MatchDay matchDay;
+  MatchDay matchDay;
   final CloudDatabase c = Get.put(CloudDatabase());
 
   @override
   void initState() {
-//mBox.write('adminkey',false).then((value) => isAdmin= mBox != null ? mBox.read('adminkey') :true);
     if (widget.matchDay != null) {
-       matchDay =widget.matchDay;
-
-
+      matchDay = widget.matchDay;
     }
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primaryColor,
-      drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
-      appBar: AppBar(),
-      body: Center(
-        child: Container(
-          width:Get.width-40,
-          height: Get.height/2,
-          child: Card(
-            color: primaryColorShade,
-            child: ListView(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Container(
-                    height: 300,
-                    child: Column(
-                      children: <Widget>[
-                        Text('MatchDay'.tr + '${matchDay.matchdayDate.toString()}',
-                            style: subtext3),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Text('${matchDay.matchdayHome.toString()}',
-                                    textAlign: TextAlign.center, style: subtext3x),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: 74,
-                                decoration: BoxDecoration(
-                                    color: primaryColorShade,
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: secondaryColor, width: 0.5)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Text(
-                                      '${matchDay.matchdayHomeScore.toString()}' +
-                                          ' : ' +
-                                          '${matchDay.matchdayAwayScore.toString()}',
-                                      textAlign: TextAlign.center,
-                                      style: subtext3xx),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Text('${matchDay.matchdayAway.toString()}',
-                                    textAlign: TextAlign.center, style: subtext3x),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                 
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Text('MatchType'.tr,
-                                        textAlign: TextAlign.center,
-                                        style: hinttext),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Text(
-                                      '${matchDay.matchdayType.toString()}',
-                                      style: subtextxx,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                   Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  c.isAdmin.value
-                                      ? IconButton(
-                                          icon: Icon(
-                                            Icons.edit,
-                                            color: secondaryColor,
-                                          ),
-                                          onPressed: () {
-                                            Get.to(AddMatch(
-                                              matchDay: matchDay,
-                                              matchDayIndex: matchDay.id,
-                                            ));
-                                          })
-                                      : SizedBox(width: 1, height: 1),
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Text('MatchType'.tr,
-                                        textAlign: TextAlign.center,
-                                        style: hinttext),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Text(
-                                      '${matchDay.matchdayType.toString()}',
-                                      style: subtextxx,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              
-                            ],
-                          ),
-                        ),
-                                ],
-                              ),
-                             
-                            ],
-                          ),
-                        ),
-                       
-                      ],
-                    ),
+  Widget _buildHome() {
+    return Container(
+      width: 170,
+      decoration: BoxDecoration(
+          color: secondaryColor,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: secondaryColor, width: 0.5)),
+      height: 220,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: 170,
+            height: 50,
+            decoration: BoxDecoration(
+                color: primaryColorShade,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: secondaryColor, width: 0.5)),
+            child: Text('${matchDay.matchdayHome.toString()}',
+                textAlign: TextAlign.center, style: subtext3x),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  color: secondaryColor,
+                  child: Image.asset(
+                    'assets/images/whistle.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Container(
+                  width: 74,
+                  decoration: BoxDecoration(
+                      color: primaryColorShade,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: secondaryColor, width: 0.5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text('${matchDay.matchdayHomeScore.toString()}',
+                        textAlign: TextAlign.center, style: subtext3xx),
                   ),
                 ),
               ],
             ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  color: secondaryColor,
+                  child: Image.asset(
+                    'assets/images/yellowcards.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Container(
+                  width: 74,
+                  decoration: BoxDecoration(
+                      color: primaryColorShade,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: secondaryColor, width: 0.5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text('${matchDay.matchdayHomeYellC.toString()}',
+                        textAlign: TextAlign.center, style: subtext3xx),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  color: secondaryColor,
+                  child: Image.asset(
+                    'assets/images/redcards.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Container(
+                  width: 74,
+                  decoration: BoxDecoration(
+                      color: primaryColorShade,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: secondaryColor, width: 0.5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text('${matchDay.matchdayHomeRedC.toString()}',
+                        textAlign: TextAlign.center, style: subtext3xx),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAway() {
+    return Container(
+      width: 170,
+      decoration: BoxDecoration(
+          color: secondaryColor,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: secondaryColor, width: 0.5)),
+      height: 220,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+       
+        children: <Widget>[
+          Container(
+            width: 170,
+            height: 50,
+            decoration: BoxDecoration(
+                color: primaryColorShade,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: secondaryColor, width: 0.5)),
+            child: Text('${matchDay.matchdayAway.toString()}',
+                textAlign: TextAlign.center, style: subtext3x),
+          ),
+           SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  color: secondaryColor,
+                  child: Image.asset(
+                    'assets/images/whistle.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Container(
+                  width: 74,
+                  decoration: BoxDecoration(
+                      color: primaryColorShade,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: secondaryColor, width: 0.5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text('${matchDay.matchdayAwayScore.toString()}',
+                        textAlign: TextAlign.center, style: subtext3xx),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  color: secondaryColor,
+                  child: Image.asset(
+                    'assets/images/yellowcards.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Container(
+                  width: 74,
+                  decoration: BoxDecoration(
+                      color: primaryColorShade,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: secondaryColor, width: 0.5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text('${matchDay.matchdayAwayYellC.toString()}',
+                        textAlign: TextAlign.center, style: subtext3xx),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  color: secondaryColor,
+                  child: Image.asset(
+                    'assets/images/redcards.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Container(
+                  width: 74,
+                  decoration: BoxDecoration(
+                      color: primaryColorShade,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: secondaryColor, width: 0.5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text('${matchDay.matchdayAwayRedC.toString()}',
+                        textAlign: TextAlign.center, style: subtext3xx),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
+      appBar: AppBar(),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            'assets/images/ejisplash.jpg',
+            fit: BoxFit.fill,
+          ),
+          Center(
+            child: Container(
+              width: Get.width - 20,
+              height: Get.height / 2,
+              child: Card(
+                color: primaryColorShade,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                              'MatchDay'.tr +
+                                  '${matchDay.matchdayDate.toString()}',
+                              style: maintext3),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text('MatchType'.tr,
+                              textAlign: TextAlign.center, style: hinttext),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            '${matchDay.matchdayType.toString()}',
+                            style: subtextxx,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildHome(),
+                          _buildAway(),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'MatchRef'.tr,
+                            style: hinttext,
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            '  ${matchDay.matchdayReferee.toString()}',
+                            style: subtextxx,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

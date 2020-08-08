@@ -1,6 +1,8 @@
+import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class InfoScreen extends StatelessWidget {
   const InfoScreen({Key key}) : super(key: key);
@@ -14,6 +16,9 @@ class InfoScreen extends StatelessWidget {
           'About EJI',
           style: maintext3,
         ),
+        actions: [
+          IconButton(icon: Icon(Icons.drag_handle,color: secondaryColor2,), onPressed: ()=> Get.to(EJILawScreen())),
+        ],
       ),
       backgroundColor: primaryColor,
       body: ListView(

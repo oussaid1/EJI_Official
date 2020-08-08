@@ -1,18 +1,22 @@
+import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/admin_access/admin_playerlist_screen.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
+import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/screens/common/team_home.dart';
+import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class AdminDrawer extends StatelessWidget {
-  const AdminDrawer({Key key}) : super(key: key);
+  AdminDrawer({Key key}) : super(key: key);
   final String image = "players/profileImages/logo.png";
+  final CloudDatabase cD = Get.put(CloudDatabase());
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,10 @@ class AdminDrawer extends StatelessWidget {
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: Text("EJI Idawlstane"),
-              accountEmail: Text("Eji.Idawlstan@gmail.com"),
+              accountEmail: Text(
+                'EJIBudget'.tr + '${cD.clubBudget.value.toString()}',
+                style: subtext4,
+              ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor:
                     Theme.of(context).platform == TargetPlatform.iOS
@@ -54,13 +61,11 @@ class AdminDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.people),
               subtitle: Text('PlayersListsub'.tr),
-              
               title: Text('PlayersList'.tr),
               onTap: () => Get.to(AdminPlayerList()),
             ),
             ListTile(
-              
-               leading: Icon(FontAwesomeIcons.personBooth),
+                leading: Icon(FontAwesomeIcons.personBooth),
                 title: Text('Staff'.tr),
                 subtitle: Text(
                   'Staffsub'.tr,
@@ -72,7 +77,9 @@ class AdminDrawer extends StatelessWidget {
                   'staffList'.tr,
                   style: TextStyle(fontSize: 14, color: Colors.red),
                 ),
-                onTap: () => {}),
+                onTap: () => {
+                      Get.to(StaffPage()),
+                    }),
             ListTile(
               leading: Icon(Icons.person_add),
               title: Text('AddPlayer'.tr),
@@ -92,11 +99,10 @@ class AdminDrawer extends StatelessWidget {
               onTap: () => Get.to(InfoScreen()),
             ),
             ListTile(
-              
               subtitle: Text('SignOutsub'.tr),
               leading: Icon(Icons.exit_to_app),
               title: Text('SignOut'.tr),
-              onTap: () => Get.to(SplashPage()),
+              onTap: () => Get.offAll(SplashPage()),
             ),
           ],
         ),

@@ -208,26 +208,26 @@ class PlayerDetails extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                  child: Row(
+                      
+                      mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'PlayerScores:'.tr,
+                          'Played Seasons:'.tr,
                           style: subtext1,
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Padding(
                               padding:
                                   const EdgeInsets.only(left: 8, right: 4),
                               child: Container(
-                                width: 160,
+                                width: 100,
                                 height: 40,
                                 color: primaryColorShade,
                                 child: Row(
@@ -240,7 +240,7 @@ class PlayerDetails extends StatelessWidget {
                                         children: <Widget>[
                                           IconButton(
                                             icon: Icon(
-                                              Icons.thumb_down,
+                                              Icons.thumb_up,
                                               color: accentColor,
                                             ),
                                             onPressed: () {},
@@ -250,7 +250,7 @@ class PlayerDetails extends StatelessWidget {
                                                 const EdgeInsets.fromLTRB(
                                                     4, 4, 2, 2),
                                             child: new Text(
-                                              '02',
+                                              '${player.seasons.toString()}',
                                               textAlign: TextAlign.center,
                                               style: maintext2,
                                             ),
@@ -258,21 +258,7 @@ class PlayerDetails extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    Row(
-                                      children: <Widget>[
-                                        new Text(
-                                          '54',
-                                          textAlign: TextAlign.center,
-                                          style: maintext3,
-                                        ),
-                                        IconButton(
-                                            icon: Icon(
-                                              Icons.thumb_up,
-                                              color: secondaryColor,
-                                            ),
-                                            onPressed: () {}),
-                                      ],
-                                    ),
+                                    
                                   ],
                                 ),
                               ),

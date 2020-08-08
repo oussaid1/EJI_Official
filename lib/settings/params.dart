@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Color primaryColor = Color(0xFF053354);
+Color secondaryColor2 = Color(0xFFF2C94C);
 Color secondaryColor = Color(0xEEEDCCA9);
 Color primaryColorShade = Color(0xbb144060);
 Color accentColor = Color(0xFFF1811E);
 Color accentColor2 = Color(0xFF6FCF97);
+Color accentColor3 = Color(0xFFF2C94C);
 
 ThemeData myThemed = ThemeData(
     accentColor: secondaryTextColor,
@@ -76,6 +79,12 @@ final TextStyle subtext3 = TextStyle(
   fontFamily: 'RobotoCondensed',
   fontSize: 18,
 );
+final TextStyle subtext3xy = TextStyle(
+  color: secondaryColor2,
+  fontWeight: FontWeight.w400,
+  fontFamily: 'RobotoCondensed',
+  fontSize: 18,
+);
 final TextStyle subtext3xx = TextStyle(
   color: accentColor,
   fontWeight: FontWeight.w400,
@@ -121,7 +130,32 @@ final TextStyle maintext4 = TextStyle(
   fontFamily: 'RobotoSlab',
   fontSize: 34,
 );
-
+final TextStyle maintext4x = TextStyle(
+  color: secondaryColor2,
+  fontFamily: 'RobotoSlab',
+  fontSize: 34,
+);
+final TextStyle maintext5 = TextStyle(
+  color: accentColor3,
+  fontWeight: FontWeight.bold,
+  fontFamily: 'RobotoSlab',
+  fontSize: 40,
+);
+final TextStyle maintext5x = TextStyle(
+  color: primaryColor,
+  fontWeight: FontWeight.bold,
+  fontFamily: 'RobotoSlab',
+  fontSize: 36,
+);
+final TextStyle maintext4b = TextStyle(
+  color: primaryColor,
+  fontWeight: FontWeight.bold,
+  fontFamily: 'RobotoSlab',
+  fontSize: 26,
+);
+ var shape= RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                  side: BorderSide(color: primaryColor));
 
 List pieColors = [
   Colors.indigo[400],
@@ -201,6 +235,4 @@ List<Map> moods = [
     String about ='كل من شاهد مباراة لفريق تسكموضين (مثلا) ولو لبرهة، سيندهش ويذهل بالتنظيم الجيد والمهنية العالية في احترام الأدوار والتخصصات. كل يؤدي دوره، وكان أحدا يمتل عصى موسى. وسرعان ما يقودك الإعجاب ويحولك الى مشجع وتنحاز عاطفتك اتجاههم وتنسيك انتمائك، انه سحر التنظيم والانضباط. كل من يعرف فريقنا او شاهده في الميدان تخنقه الحسرة وتمزقه غيرة البلاد لا لأن فريقا انهزم، ولكن لأن هزائمه يصعب استساغها ولأنها تفتقر لبعض المنطق. فالطاقات والمؤهلات الشابة والفتية، التي يزخر بها الفريق كما وكيفا، لا تبرر هزائمه. فتقول في نفسك، ما لذي ينقصنا؟ انه التنظيم ولانضباط.  فكيف لفريق يشارك في بطولة بذلك الحجم، ولم يقم ولو بحصة تدريبية واحدة. (من قطبان العيد الى رقعة الملعب..)  وكيف للاعب سرعان ما ينسى دوره وينصب نفسه تارة مدربا وتارة عميدا للفريق وتارة حكما وتارة .... متهورا....    وكيف لمشجع ينصب نفسه مدربا وموجها وتارة حكما.........كل هذا دون تخصص ولا كفاءة ولا تكليف، ويحسب نفسه بذلك يساعد الفريق بداعي الغيرة على البلاد. بل بذلك يساهم في تعميق الجرح ويساهم تسويق صورة البلد الغير منظم والفريق الغير منضبط والتسيير العشوائي.... فالفريق الذي يفتقر للانضباط والتنظيم فهو منهزم حتى قبل بداية المباراة، فهو منهزم ضد نفسه، ثم في المباراة يلعب مع الخصم ضد نفسه. فكيف لفريق يلعب ضد فريقين ان ينتصر. 22 لاعبا ضد 11. هذا ما يقع لفريقنا. كفى، كفى.. هكذا قلنا في اجتماع اخر مباراة. عقدنا العزم على ان ننتصر على أنفسنا والا نركز على الأهداف التي نستقبلها. فلتنهزم شباكنا وننتصر نحن. كل من تمعن في تلك المباراة سيدرك هذا جيدا. قدمنا نسخة تستحق التنويه. بعدها عقدنا اجتماعا تقييميا للمباراة. ووضعنا اللبنة الأولى لتصور فريق احترافي منظم ومنضبط. بعدها عقدنا سلسلة من الاجتماعات، قمنا فيها بتأسيس: المكتب المسير، الطاقم الإداري. اللجنة التأديبية والانضباط وهيئة المشجعين. بعدها قمنا بصياغة القوانين التنظيمية. وتمت المصادقة عليها. وسيتم انشاء الله موافاتكم بكل مستجد.  \n نرجى التوفيق من العلي القدير. ونرجو المساندة من كل فرد وعنصر لإنجاح هذا المشروع ';
     
 
-  
-    
-
+  String regulations ='';
