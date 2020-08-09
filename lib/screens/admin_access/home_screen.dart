@@ -13,10 +13,10 @@ class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
 
  
   
@@ -62,19 +62,12 @@ class _HomePageState extends State<HomePage> {
                     fit: BoxFit.fill,
                   ),
                 ),
-                Positioned(
-                  top: 160,
-                  left: 69,
-                  child: Container(
-                    child: IconButton(
-                      color: Colors.red[600],
-                      icon: Icon(
-                        Icons.person,
-                        size: 40,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
+                Row(
+                  children: [
+                    buildPositioned(),
+                    buildPositioned(),
+                    buildPositioned(),
+                  ],
                 ),
               ],
             ),
@@ -84,6 +77,24 @@ class _HomePageState extends State<HomePage> {
                 transform: Matrix4.translationValues(2, 2, 3),
                 child: CircleAvatar()),
           ),
+        ],
+      ),
+    );
+  }
+
+  Container buildPositioned() {
+    return Container(
+      child: Column(
+        children: [
+          IconButton(
+            color: Colors.red[600],
+            icon: Icon(
+              Icons.person,
+              size: 40,
+            ),
+            onPressed: () {},
+          ),
+          new Text('Yajor',style: TextStyle(color: Colors.red, fontSize: 23),),
         ],
       ),
     );

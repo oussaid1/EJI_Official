@@ -1,4 +1,3 @@
-import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/translations/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:EJI/screens/common/splash.dart';
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(accentColor: accentColor, primaryColor: primaryColor),
       translations: MyTranslations(),
-      locale: Locale('en'),
+      locale: Locale('ar'),
       home: SplashPage(),
       initialRoute:'/splash',
       getPages: [

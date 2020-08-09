@@ -22,7 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final _loginformKey1 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
+
   int ab = 12;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,199 +35,163 @@ class _LoginScreenState extends State<LoginScreen> {
             'assets/images/ejisplash.jpg',
             fit: BoxFit.fill,
           ),
-          Center(
-            child: Container(
-              width: Get.width - 40,
-              height: 500,
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.center,
-                    height: 100,
-                    child: Text('Sign In', style: maintext5),
-                  ),
-                  Container(
-                    child: Form(
-                      key: _loginformKey1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 8.0, left: 4, right: 4, bottom: 2),
-                                child: Text(
-                                  'Email',
-                                  style: subtext3xy,
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: primaryColorShade,
-                                  border: Border.all(color: primaryColor),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(6.0)),
-                                ),
-                                width: 340,
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(
-                                        Icons.email,
-                                        size: 28,
-                                        color: primaryColor,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: TextFormField(
-                                        style: subtext3,
-                                        validator: (text) {
-                                          if (text.isEmpty) {
-                                            return ('emailempty'.tr);
-                                          }
-                                          return null;
-                                        },
-                                        controller: emailController,
-                                        autofocus: true,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: ('emailempty'.tr),
-                                            focusColor: secondaryColor,
-                                            hintStyle: hinttext,
-                                            contentPadding:
-                                                EdgeInsets.only(left: 2)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 16.0, left: 4, right: 4, bottom: 2),
-                                child: Text(
-                                  'Password',
-                                  style: subtext3xy,
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: primaryColorShade,
-                                  border: Border.all(color: primaryColor),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                ),
-                                width: 340,
-                                height: 50,
-                                child: Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(
-                                        Icons.lock,
-                                        size: 28,
-                                        color: primaryColor,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: TextFormField(
-                                        style: subtext3,
-                                        obscureText: true,
-                                        controller: passController,
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'passempty'.tr;
-                                          } else
-                                            return null;
-                                        },
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'passempty'.tr,
-                                            hintStyle: hinttext,
-                                            contentPadding: EdgeInsets.all(4)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          StreamBuilder(
-                              stream: c.getExpenses('ClubExpenses'),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<List<Expenses>> snapshot) {
-                                List<Expenses> lista = snapshot.data;
-                                      print(lista);
-                                if (snapshot.hasError || !snapshot.hasData) {
-
-                                  return SizedBox(
-                                  height: 60,
-                                );
-                                }
-                              
-                                return SizedBox(
-                                  height: 60,
-                                );
-                              }),
-                          Container(
-                            width: 340,
-                            height: 50,
-                            child: new RaisedButton(
-                              elevation: 5.0,
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius:
-                                      new BorderRadius.circular(20.0)),
-                              color: accentColor3,
-                              child: new Text('LOGIN',
-                                  style: new TextStyle(
-                                      fontFamily: 'RobotoSlab',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30.0,
-                                      color: primaryColor)),
-                              onPressed: () => {
-                                if (emailController.text.trim() ==
-                                        c.adminEmail.value.toString() &&
-                                    passController.text.trim() ==
-                                        c.adminPassword.value.toString())
-                                  {
-                                    c.setAdmin(true),
-                                    Get.to(TeamHomePage()),
-                                  }
-                                else if (_loginformKey1.currentState.validate())
-                                  {
-                                    if (emailController.text.trim() ==
-                                            c.email.value.toString() &&
-                                        passController.text.trim() ==
-                                            c.password.value.toString())
-                                      {
-                                        c.setAdmin(false),
-                                        Get.to(TeamHomePage()),
-                                      }
-                                    else
-                                      {
-                                        Get.snackbar('Alert'.tr, 'loginnot'.tr,
-                                            snackPosition: SnackPosition.BOTTOM,
-                                            backgroundColor: secondaryColor,
-                                            colorText: primaryColor)
-                                      }
-                                  },
-                              },
+          Form(
+            key: _loginformKey1,
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(
+                   color: primaryColor.withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: Get.width - 40,
+               
+                height: Get.height/2,
+                child: ListView(
+                  children: <Widget>[
+                    Align(
+                        alignment: Alignment.topCenter,
+                        child: Text('Sign In', style: maintext5)),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        style: maintext3b,
+                        textAlign: TextAlign.center,
+                        validator: (text) {
+                          if (text.isEmpty) {
+                            return ('emailempty'.tr);
+                          }
+                          return null;
+                        },
+                        controller: emailController,
+                        autofocus: true,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(4.0))),
+                            hintText: ('emailempty'.tr),
+                            
+                            labelText: 'Email',
+                            floatingLabelBehavior:FloatingLabelBehavior.always,
+                            labelStyle: subtext5x,
+                            focusColor: accentColor2,
+                            hintStyle: hinttext,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: accentColor,
+                                  style: BorderStyle.solid,
+                                  width: 1),
                             ),
-                          ),
-                        ],
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: accentColor2,
+                                  style: BorderStyle.solid,
+                                  width: 1),
+                            ),
+                            contentPadding: EdgeInsets.only(left: 2)),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        style: maintext3b,
+                        obscureText: true,
+                        textAlign: TextAlign.center,
+                        validator: (text) {
+                          if (text.isEmpty) {
+                            return ('passempty'.tr);
+                          }
+                          return null;
+                        },
+                        controller: passController,
+                        autofocus: true,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(4.0))),
+                            hintText: ('passempty'.tr),
+                            
+                            labelText: 'Password',
+                            floatingLabelBehavior:FloatingLabelBehavior.always,
+                            labelStyle: subtext5x,
+                            focusColor: accentColor2,
+                            hintStyle: hinttext,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: accentColor,
+                                  style: BorderStyle.solid,
+                                  width: 1),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: accentColor2,
+                                  style: BorderStyle.solid,
+                                  width: 1),
+                            ),
+                            contentPadding: EdgeInsets.only(left: 2)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Container(
+                     
+                      height: 70,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: new RaisedButton(
+                          elevation: 5.0,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0)),
+                          color: accentColor3,
+                          child: new Text('LOGIN',
+                              style: new TextStyle(
+                                  fontFamily: 'RobotoSlab',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30.0,
+                                  color: primaryColor)),
+                          onPressed: () => {
+                            if (emailController.text.trim() ==
+                                    c.adminEmail.value.toString() &&
+                                passController.text.trim() ==
+                                    c.adminPassword.value.toString())
+                              {
+                                c.setAdmin(true),
+                                Get.to(TeamHomePage()),
+                              }
+                            else if (_loginformKey1.currentState.validate())
+                              {
+                                if (emailController.text.trim() ==
+                                        c.email.value.toString() &&
+                                    passController.text.trim() ==
+                                        c.password.value.toString())
+                                  {
+                                    c.setAdmin(false),
+                                    Get.to(TeamHomePage()),
+                                  }
+                                else
+                                  {
+                                    Get.snackbar('Alert'.tr, 'loginnot'.tr,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        backgroundColor: secondaryColor,
+                                        colorText: primaryColor)
+                                  }
+                              },
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

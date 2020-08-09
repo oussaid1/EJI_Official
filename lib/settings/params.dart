@@ -56,7 +56,12 @@ final TextStyle subtext1x = TextStyle(
 final TextStyle hinttext = TextStyle(
   color: secondaryColor,
   fontWeight: FontWeight.w100,
-  fontSize: 14,
+  fontSize: 16,
+);
+final TextStyle hinttextOr = TextStyle(
+  color: accentColor,
+  fontWeight: FontWeight.w200,
+  fontSize: 16,
 );
 final TextStyle hinttext1 = TextStyle(
   color: primaryColor,
@@ -109,6 +114,12 @@ final TextStyle subtext4x = TextStyle(
   fontFamily: 'RobotoCondensedLight',
   fontSize: 20,
 );
+final TextStyle subtext5x = TextStyle(
+  color: accentColor2,
+  fontWeight: FontWeight.w800,
+  fontFamily: 'RobotoCondensedLight',
+  fontSize: 24,
+);
 final TextStyle maintext1 = TextStyle(
   color: primaryColor,
   fontWeight: FontWeight.w400,
@@ -124,6 +135,12 @@ final TextStyle maintext3 = TextStyle(
   fontWeight: FontWeight.w400,
   fontFamily: 'Roboto',
   fontSize: 20,
+);
+final TextStyle maintext3b = TextStyle(
+  color: secondaryColor,
+  fontWeight: FontWeight.w500,
+  fontFamily: 'Roboto',
+  fontSize: 26,
 );
 final TextStyle maintext4 = TextStyle(
   color: secondaryColor,

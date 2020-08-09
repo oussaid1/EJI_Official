@@ -15,8 +15,8 @@ class CloudDatabase extends GetxController {
   RxBool isComplete = true.obs;
   var email = '1234'.obs;
   var password = '1234'.obs;
-  var adminEmail = 'admin'.obs;
-  var adminPassword = 'admin'.obs;
+  var adminEmail = 'rootEJI'.obs;
+  var adminPassword = 'EJIroot'.obs;
     setbudget(double lbudget)=> clubBudget.value = lbudget;
   @override
   void onInit() {

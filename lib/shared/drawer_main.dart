@@ -1,3 +1,4 @@
+import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/screens/public/player_list.dart';
@@ -54,7 +55,7 @@ final CloudDatabase cD = Get.put(CloudDatabase());
               onTap: () => Get.to(PlayerList()),
             ),
             ListTile(
-              subtitle: Text('PlayerStatisticssub'.tr),
+           
               leading: Icon(FontAwesomeIcons.chartLine),
               title: Text('PlayerStatistics'.tr),
               trailing: Row(
@@ -77,9 +78,14 @@ final CloudDatabase cD = Get.put(CloudDatabase());
             ),
             ListTile(
               leading: Icon(Icons.info),
+              title: Text('EJIRegulations'.tr),
+             
+              onTap: () => Get.to(EJILawScreen()),
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
               title: Text('AboutEJI'.tr),
-              subtitle: Text(
-                  'AboutEJIsub'.tr),
+             
               onTap: () => Get.to(InfoScreen()),
             ),
             ListTile(

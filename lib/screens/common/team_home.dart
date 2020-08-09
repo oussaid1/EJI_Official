@@ -139,17 +139,19 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
-                                      c.isAdmin.value 
+                                      c.isAdmin.value
                                           ? IconButton(
                                               icon: Icon(
                                                 Icons.edit,
                                                 color: secondaryColor,
                                               ),
                                               onPressed: () {
-
-                                                Get.to(AddMatch(matchDay:matchDay,matchDayIndex: matchDay.id,));
+                                                Get.to(AddMatch(
+                                                  matchDay: matchDay,
+                                                  matchDayIndex: matchDay.id,
+                                                ));
                                               })
-                                          : SizedBox(width:1,height:1),
+                                          : SizedBox(width: 1, height: 1),
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text('MatchType'.tr,
@@ -166,31 +168,24 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                       ),
                                     ],
                                   ),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              4, 4, 4, 4),
-                                          child: Text('MatchDetails'.tr,
-                                              textAlign: TextAlign.center,
-                                              style: hinttext),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: IconButton(
-                                            icon: IconButton(
-                                             icon:Icon( Icons.info),
-                                              color: secondaryColor, onPressed: () { 
-                                                Get.to(MatchDetails(matchDay:matchDay));
-                                               },
-                                            ),
-                                            onPressed: () {},
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            4, 4, 4, 4),
+                                        child: Text('MatchDetails'.tr,
+                                            textAlign: TextAlign.center,
+                                            style: hinttext),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.info),
+                                        color: secondaryColor,
+                                        onPressed: () {
+                                          Get.to(MatchDetails(
+                                              matchDay: matchDay));
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

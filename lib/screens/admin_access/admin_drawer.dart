@@ -1,12 +1,15 @@
+import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/admin_access/admin_playerlist_screen.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
+import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/screens/common/team_home.dart';
+import 'package:EJI/screens/public/player_details.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,20 @@ class AdminDrawer extends StatelessWidget {
   AdminDrawer({Key key}) : super(key: key);
   final String image = "players/profileImages/logo.png";
   final CloudDatabase cD = Get.put(CloudDatabase());
+  Player player = new Player(
+    dateOfBirth: '02-02-2002',
+    email: 'oussaid Abdellatif',
+    phone: '0611855535',
+    placeOfBirth: 'Idawlstanne',
+    playerName: 'Abdellatif Oussaid',
+    position: 'GK',
+    profileImage: "players/profileImages/logo.png",
+    regDate: '124',
+    regNum: 4545,
+    seasons: 23,
+    id: '1',
+
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +64,7 @@ class AdminDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.person),
+              leading: Icon(Icons.people),
               subtitle: Text('teamsub'.tr),
               title: Text('team'.tr),
               onTap: () => Get.to(TeamHomePage()),
@@ -65,7 +82,7 @@ class AdminDrawer extends StatelessWidget {
               onTap: () => Get.to(AdminPlayerList()),
             ),
             ListTile(
-                leading: Icon(FontAwesomeIcons.personBooth),
+                leading: Icon(Icons.store),
                 title: Text('Staff'.tr),
                 subtitle: Text(
                   'Staffsub'.tr,
@@ -87,10 +104,16 @@ class AdminDrawer extends StatelessWidget {
               onTap: () => Get.to(AddPlayers()),
             ),
             ListTile(
-              leading: Icon(Icons.person_add),
+              leading: Icon(Icons.add_location),
               title: Text('AddMatch'.tr),
               subtitle: Text('AddMatch'.tr),
               onTap: () => Get.to(AddMatch()),
+            ),
+             ListTile(
+              leading: Icon(Icons.info),
+              title: Text('EJIRegulations'.tr),
+             
+              onTap: () => Get.to(EJILawScreen()),
             ),
             ListTile(
               leading: Icon(Icons.info),
