@@ -38,28 +38,7 @@ class _SplashPageState extends State<SplashPage> {
               'assets/images/ejisplash.jpg',
               fit: BoxFit.fill,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Get.updateLocale(Locale('ar'));
-                },
-                child: Text(
-                  'Arabic',
-                  style: TextStyle(color: accentColor, fontSize: 18),
-                ),
-              ),
-              FlatButton(
-                onPressed: () {
-                  Get.updateLocale(Locale('en'));
-                },
-                child: Text(
-                  'English',
-                  style: TextStyle(color: accentColor, fontSize: 18),
-                ),
-              ),
-            ]),
+            
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(

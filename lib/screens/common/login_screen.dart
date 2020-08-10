@@ -1,7 +1,9 @@
 import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/settings/params.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,18 +14,54 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final CloudDatabase c = Get.put(CloudDatabase());
 
+ 
   final _loginformKey1 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
-  int ab = 12;
+  BannerAd myBanner;
+
+  BannerAd buildBannerAd() {
+    return BannerAd(
+        adUnitId: BannerAd.testAdUnitId,
+        size: AdSize.banner,
+        listener: (MobileAdEvent event) {
+          if (event == MobileAdEvent.loaded) {
+            myBanner..show();
+          }
+        });
+  }
+
+  BannerAd buildLargeBannerAd() {
+    return BannerAd(
+        adUnitId: BannerAd.testAdUnitId,
+        size: AdSize.largeBanner,
+        listener: (MobileAdEvent event) {
+          if (event == MobileAdEvent.loaded) {
+            myBanner
+              ..show(
+                  anchorType: AnchorType.top,
+                  anchorOffset: MediaQuery.of(context).size.height * 0.15);
+          }
+        });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+    myBanner = buildBannerAd()..load();
+    //myBanner = buildLargeBannerAd()..load();
+  }
+
+  @override
+  void dispose() {
+    myBanner.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +78,11 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Center(
               child: Container(
                 decoration: BoxDecoration(
-                   color: primaryColor.withOpacity(0.4),
+                  color: primaryColor.withOpacity(0.4),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 width: Get.width - 40,
-               
-                height: Get.height/2,
+                height: Get.height / 2,
                 child: ListView(
                   children: <Widget>[
                     Align(
@@ -72,9 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(4.0))),
                             hintText: ('emailempty'.tr),
-                            
                             labelText: 'Email',
-                            floatingLabelBehavior:FloatingLabelBehavior.always,
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelStyle: subtext5x,
                             focusColor: accentColor2,
                             hintStyle: hinttext,
@@ -97,6 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(
                       height: 20,
+                      
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -117,9 +154,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(4.0))),
                             hintText: ('passempty'.tr),
-                            
                             labelText: 'Password',
-                            floatingLabelBehavior:FloatingLabelBehavior.always,
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelStyle: subtext5x,
                             focusColor: accentColor2,
                             hintStyle: hinttext,
@@ -144,7 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 40,
                     ),
                     Container(
-                     
                       height: 70,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

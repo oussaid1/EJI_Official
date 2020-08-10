@@ -1,4 +1,6 @@
+import 'package:EJI/model/club_expenses.dart';
 import 'package:EJI/screens/common/eji_law.dart';
+import 'package:EJI/screens/common/finance_management.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/screens/public/player_list.dart';
@@ -75,6 +77,7 @@ final CloudDatabase cD = Get.put(CloudDatabase());
                   ),
                 ],
               ),
+              onTap: () => Get.to(ClubFinanceScreen()),
             ),
             ListTile(
               leading: Icon(Icons.info),

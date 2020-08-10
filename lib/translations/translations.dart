@@ -59,7 +59,6 @@ class MyTranslations extends Translations {
           'MatchDetails': ' Match Details',
           'MatchType': ' Match Type :',
           'AddMatch': ' Add a Match ',
-          
           'Friendly': ' Friendly',
           'Competetion': ' Competetion',
           'Qualifications': ' Qualifications',
@@ -96,9 +95,14 @@ class MyTranslations extends Translations {
           'MatchRef': ' Match Referee Name : ',
           'Played Seasons': 'Seasons Played',
           'EJIRegulations': ' EJI Regulations ',
+          'insertSpenton': ' insert the Item you bought !',
+          'DateSpent': ' Date Spent',
+          'selectDateSpent': ' select Date Spent',
+          'Send': ' Send ',
+          'Saved': ' Saved',
+          'inserAmountSpentiMad': ' inser Amount Spent in Mad',
+          'onlyNumbersAlowed': ' only Numbers are Allowed',
           'Frifgssendly': ' Application',
-         
-         
         },
         'ar': {
           'title': 'تطبيق EJI ',
@@ -156,7 +160,6 @@ class MyTranslations extends Translations {
           'MatchDetails': ' تفاصيل المباراة',
           'MatchType': 'نوع المباراة :',
           'AddMatch': ' أظف مباراة ',
-          
           'Friendly': ' مباراة ودية   ',
           'Competetion': ' مباراة منافسة',
           'Qualifications': ' مباراة اقصائية',
@@ -180,7 +183,7 @@ class MyTranslations extends Translations {
           'By': ' من : ',
           'Date': ' التاريخ  ',
           'AddRemark': ' أظف إقتراح او تعليق ',
-          'insertComment':  ' أظف إقتراح او تعليق ',
+          'insertComment': ' أظف إقتراح او تعليق ',
           'insertSubject': 'الموضوع',
           'insertYourname': ' اظف الإسم',
           'AddRemarksub': ' أنت مسؤول عن كلماتك',
@@ -194,8 +197,6 @@ class MyTranslations extends Translations {
           'PlayedSeasons': ' عددالمواسم ',
           'EJIRegulations': ' EJI القانون الأساسي لـ !',
           'Frifgssendly': ' Application',
-         
-         
         },
       };
 }

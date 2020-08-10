@@ -85,6 +85,7 @@ class _AddPlayersState extends State<AddPlayers> {
 
   int _selectedGender = 0;
   List<DropdownMenuItem<int>> genderList = [];
+  
   List<dynamic> itemsList = [
     'GK',
     '*****',
@@ -113,6 +114,8 @@ class _AddPlayersState extends State<AddPlayers> {
         value: i,
       ));
     }
+  
+
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

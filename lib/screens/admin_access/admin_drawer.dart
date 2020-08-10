@@ -5,6 +5,7 @@ import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/admin_access/admin_playerlist_screen.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
+import 'package:EJI/screens/common/finance_management.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
@@ -108,6 +109,12 @@ class AdminDrawer extends StatelessWidget {
               title: Text('AddMatch'.tr),
               subtitle: Text('AddMatch'.tr),
               onTap: () => Get.to(AddMatch()),
+            ),
+            ListTile(
+              leading: Icon(Icons.attach_money),
+              title: Text('ClubFinance'.tr),
+              subtitle: Text('Income and Spendings'.tr),
+              onTap: () => Get.to(ClubFinanceScreen()),
             ),
              ListTile(
               leading: Icon(Icons.info),

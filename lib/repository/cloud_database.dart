@@ -10,127 +10,120 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class CloudDatabase extends GetxController {
-  RxDouble clubBudget=0.0.obs;
+  RxDouble clubBudget = 0.0.obs;
   RxBool isAdmin = false.obs;
   RxBool isComplete = true.obs;
   var email = '1234'.obs;
   var password = '1234'.obs;
-  var adminEmail = 'rootEJI'.obs;
-  var adminPassword = 'EJIroot'.obs;
-    setbudget(double lbudget)=> clubBudget.value = lbudget;
+  var adminEmail = '112233'.obs;
+  var adminPassword = '112233'.obs;
+  setbudget(double lbudget) => clubBudget.value = lbudget;
   @override
   void onInit() {
     GetStorage mBox = GetStorage();
-    mBox
-        .write('adminkey', false)
-       ;
+    mBox.write('adminkey', false);
   }
 
-   setAdmin(bool adminkey) 
-  {
-     GetStorage mBox = GetStorage();
+  setAdmin(bool adminkey) {
+    GetStorage mBox = GetStorage();
     mBox
         .write('adminkey', adminkey)
         .then((value) => isAdmin.value = mBox.read('adminkey'));
-  } 
+  }
 
   static Future<dynamic> loadFromStorage(String image) async {
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 
- 
-
   Stream<List<Player>> getPlayerz(String collectionName) {
-    Stream<List<Player>> pList = _db.collection(collectionName.toString()).snapshots().map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Player.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
+    Stream<List<Player>> pList =
+        _db.collection(collectionName.toString()).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => Player.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
 
     return pList;
   }
+
   Stream<List<MatchDay>> getMatchDays(String collectionName) {
-    Stream<List<MatchDay>> pLista = _db.collection(collectionName.toString()).snapshots().map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
+    Stream<List<MatchDay>> pLista =
+        _db.collection(collectionName.toString()).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => MatchDay.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
 
     return pLista;
   }
+
   Stream<List<Comments>> getComments(String collectionName) {
-   
-    Stream<List<Comments>> pLista = _db.collection(collectionName.toString()).snapshots().map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Comments.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-
+    Stream<List<Comments>> pLista =
+        _db.collection(collectionName.toString()).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => Comments.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
     return pLista;
   }
+
   Stream<List<Staff>> getStaff(String staff) {
-   
-    Stream<List<Staff>> pLista = _db.collection(staff.toString()).snapshots().map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Staff.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-
-    return pLista;
-  }
-  
-  Stream<List<Expenses>> getExpenses(String expenses) {
-   
-    Stream<List<Expenses>> pLista = _db.collection(expenses.toString()).snapshots().map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Expenses.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
+    Stream<List<Staff>> pLista =
+        _db.collection(staff.toString()).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => Staff.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
 
     return pLista;
   }
 
-  Future<List<Player>> getDocs() async {
-    List<Player> pList = List<Player>();
-    QuerySnapshot querySnapshot =
-        await Firestore.instance.collection("players").getDocuments();
-    for (int i = 0; i < querySnapshot.documents.length; i++) {
-      var a = querySnapshot.documents[i];
-      pList.add(
-        new Player(
-            id: '01',
-            playerName: 'Mohamed',
-            dateOfBirth: '02-01-2000',
-            profileImage: 'assets/images/profilepic',
-            email: 'mohamed.ouabdche@gmail.com',
-            phone: '0623489736',
-            position: 'defence',
-            regNum: 349539,
-            regDate: '02-08-2020'),
-      );
-      print(a.documentID);
-    }
-   
-    return pList;
+  Stream<List<ClubIncome>> getClubIncomes(String a) {
+    Stream<List<ClubIncome>> pLista =
+        _db.collection(a.toString().trim()).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => ClubIncome.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
+    return pLista;
+  }
+  Stream<List<ClubSpendings>> getClubSpendings(String a) {
+    Stream<List<ClubSpendings>> pLista =
+        _db.collection(a.toString().trim()).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => ClubSpendings.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
+    return pLista;
   }
 
   Firestore _db = Firestore.instance;
+  Future<void> addSpendings(ClubSpendings clubSpendings) {
+    return _db.collection('ClubSpendings').add(clubSpendings.toMap());
+  }
   Future<void> addPlayers(Player player) {
     return _db.collection('players').add(player.toMap());
   }
+  Future<void> addIcome(ClubIncome clubIncome) {
+    return _db.collection('ClubIncome').add(clubIncome.toMap());
+  }
+
   Future<void> addMatch(MatchDay matchDay) {
     return _db.collection('matchday').add(matchDay.toMap());
   }
+
   Future<void> addComment(Comments comments) {
     return _db.collection('remarks').add(comments.toMap());
   }
@@ -138,7 +131,8 @@ class CloudDatabase extends GetxController {
   Future<void> deletePlayer(String id) {
     return _db.collection('players').document(id).delete();
   }
-  Future<void> deleteObject(String collection,String id) {
+
+  Future<void> deleteObject(String collection, String id) {
     return _db.collection(collection.toString()).document(id).delete();
   }
 
@@ -148,15 +142,27 @@ class CloudDatabase extends GetxController {
         .document(player.id.toString())
         .updateData(player.toMap());
   }
+
   Future<void> updateMatch(MatchDay matchDay) {
     return _db
         .collection('matchday')
         .document(matchDay.id.toString())
         .updateData(matchDay.toMap());
   }
+  Future<void> updateSpendings(ClubSpendings clubSpendings) {
+    return _db
+        .collection('ClubSpendings')
+        .document(clubSpendings.id.toString())
+        .updateData(clubSpendings.toMap());
+  }
+  Future<void> updateIncome(ClubIncome clubIncome) {
+    return _db
+        .collection('ClubIncome')
+        .document(clubIncome.id.toString())
+        .updateData(clubIncome.toMap());
+  }
 
-   Future<String> getProfileImage(
-      BuildContext context, String image) async {
+  Future<String> getProfileImage(BuildContext context, String image) async {
     String murl;
 
     await FirebaseStorage.instance

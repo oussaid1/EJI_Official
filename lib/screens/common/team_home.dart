@@ -18,21 +18,8 @@ class TeamHomePage extends StatefulWidget {
 }
 
 class _TeamHomePageState extends State<TeamHomePage> {
-  List<MatchDay> lista = [
-    new MatchDay(
-        id: 'id',
-        matchdayDate: 'matchdaydate',
-        matchdayType: 'matchdaytype',
-        matchdayReferee: 'matchdayreferee',
-        matchdayHome: 'matchdayhome',
-        matchdayAway: 'matchdayaway',
-        matchdayHomeScore: 'matchdayhomescore',
-        matchdayAwayScore: 'matchdayawayscore',
-        matchdayHomeRedC: '2',
-        matchdayAwayRedC: '4',
-        matchdayHomeYellC: '1',
-        matchdayAwayYellC: '2'),
-  ];
+  List<MatchDay> lista ;
+    
   bool isSwitched = false;
   final CloudDatabase c = Get.put(CloudDatabase());
   bool isEconomicMode;
