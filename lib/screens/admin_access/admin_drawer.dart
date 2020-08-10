@@ -3,9 +3,10 @@ import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/admin_access/admin_playerlist_screen.dart';
+import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
-import 'package:EJI/screens/common/finance_management.dart';
+import 'package:EJI/screens/admin_access/club_spendings.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
@@ -33,7 +34,6 @@ class AdminDrawer extends StatelessWidget {
     regNum: 4545,
     seasons: 23,
     id: '1',
-
   );
 
   @override
@@ -85,16 +85,6 @@ class AdminDrawer extends StatelessWidget {
             ListTile(
                 leading: Icon(Icons.store),
                 title: Text('Staff'.tr),
-                subtitle: Text(
-                  'Staffsub'.tr,
-                  style: TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-                trailing: Text(
-                  'staffList'.tr,
-                  style: TextStyle(fontSize: 14, color: Colors.red),
-                ),
                 onTap: () => {
                       Get.to(StaffPage()),
                     }),
@@ -114,12 +104,15 @@ class AdminDrawer extends StatelessWidget {
               leading: Icon(Icons.attach_money),
               title: Text('ClubFinance'.tr),
               subtitle: Text('Income and Spendings'.tr),
-              onTap: () => Get.to(ClubFinanceScreen()),
+              onTap: () {
+                Get.to(
+                  ClubTransactions(),
+                );
+              },
             ),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.info),
               title: Text('EJIRegulations'.tr),
-             
               onTap: () => Get.to(EJILawScreen()),
             ),
             ListTile(

@@ -12,12 +12,14 @@ import 'package:get_storage/get_storage.dart';
 class CloudDatabase extends GetxController {
   RxDouble clubBudget = 0.0.obs;
   RxBool isAdmin = false.obs;
+  RxBool isSuperAdmin = true.obs;
   RxBool isComplete = true.obs;
+  RxString sperAdminPass = '1234'.obs;
   var email = '1234'.obs;
   var password = '1234'.obs;
   var adminEmail = '112233'.obs;
   var adminPassword = '112233'.obs;
-  setbudget(double lbudget) => clubBudget.value = lbudget;
+
   @override
   void onInit() {
     GetStorage mBox = GetStorage();
@@ -29,6 +31,33 @@ class CloudDatabase extends GetxController {
     mBox
         .write('adminkey', adminkey)
         .then((value) => isAdmin.value = mBox.read('adminkey'));
+  }
+void queryValues() {
+  double total=0;
+   _db.collection('myCollection')
+        .snapshots()
+        .listen((snapshot) {
+      double tempTotal = snapshot.documents.fold(0, (tot, doc) => tot + doc.data['amount']);
+     total = tempTotal;
+     
+    });
+  }
+  void getClubIncomesAndSpendings() {
+    List<ClubIncome> mList = List<ClubIncome>();
+
+    _db
+        .collection('ClubIncome'.trim())
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => ClubIncome.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        
+        );
+
+    print('heeello'+ClubIncome.getIncome(mList).toString());
   }
 
   static Future<dynamic> loadFromStorage(String image) async {
@@ -88,7 +117,7 @@ class CloudDatabase extends GetxController {
 
   Stream<List<ClubIncome>> getClubIncomes(String a) {
     Stream<List<ClubIncome>> pLista =
-        _db.collection(a.toString().trim()).snapshots().map(
+        _db.collection(a.toString()).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
                     (doc) => ClubIncome.fromMap(doc.data, doc.documentID),
@@ -97,6 +126,7 @@ class CloudDatabase extends GetxController {
             );
     return pLista;
   }
+
   Stream<List<ClubSpendings>> getClubSpendings(String a) {
     Stream<List<ClubSpendings>> pLista =
         _db.collection(a.toString().trim()).snapshots().map(
@@ -113,10 +143,12 @@ class CloudDatabase extends GetxController {
   Future<void> addSpendings(ClubSpendings clubSpendings) {
     return _db.collection('ClubSpendings').add(clubSpendings.toMap());
   }
+
   Future<void> addPlayers(Player player) {
     return _db.collection('players').add(player.toMap());
   }
-  Future<void> addIcome(ClubIncome clubIncome) {
+
+  Future<void> addIncome(ClubIncome clubIncome) {
     return _db.collection('ClubIncome').add(clubIncome.toMap());
   }
 
@@ -149,12 +181,14 @@ class CloudDatabase extends GetxController {
         .document(matchDay.id.toString())
         .updateData(matchDay.toMap());
   }
+
   Future<void> updateSpendings(ClubSpendings clubSpendings) {
     return _db
         .collection('ClubSpendings')
         .document(clubSpendings.id.toString())
         .updateData(clubSpendings.toMap());
   }
+
   Future<void> updateIncome(ClubIncome clubIncome) {
     return _db
         .collection('ClubIncome')

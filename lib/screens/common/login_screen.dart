@@ -190,8 +190,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: accentColor3,
                           child: new Text('LOGIN',
                               style: new TextStyle(
-                                  fontFamily: 'RobotoSlab',
-                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'RobotoCondensed',
+                                  fontWeight: FontWeight.w800,
                                   fontSize: 30.0,
                                   color: primaryColor)),
                           onPressed: () => {

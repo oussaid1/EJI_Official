@@ -73,6 +73,11 @@ final TextStyle subtext2 = TextStyle(
   fontWeight: FontWeight.w300,
   fontSize: 16,
 );
+final TextStyle subtext2xy = TextStyle(
+  color: primaryColor,
+  fontWeight: FontWeight.bold,
+  fontSize: 16,
+);
 final TextStyle subtext2x = TextStyle(
   color: accentColor2,
   fontWeight: FontWeight.w300,

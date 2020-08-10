@@ -6,24 +6,24 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
-class AddSpendings extends StatefulWidget {
-  AddSpendings({Key key, this.clubSpendings}) : super(key: key);
-  final ClubSpendings clubSpendings;
+class AddIncome extends StatefulWidget {
+  AddIncome({Key key, this.clubIncome}) : super(key: key);
+  final ClubIncome clubIncome;
   @override
   _AddSpendingsState createState() => _AddSpendingsState();
 }
 
-class _AddSpendingsState extends State<AddSpendings> {
-  final TextEditingController spentOnControler = TextEditingController();
-  final TextEditingController spentAmountControler = TextEditingController();
-  final TextEditingController spentByControler = TextEditingController();
-  final TextEditingController spentOnDateController = TextEditingController();
+class _AddSpendingsState extends State<AddIncome> {
+  final TextEditingController givenForControler = TextEditingController();
+  final TextEditingController givenAmountControler = TextEditingController();
+  final TextEditingController givenByControler = TextEditingController();
+  final TextEditingController givenOnDateController = TextEditingController();
   final DateFormat mformatter = DateFormat('yyyy-MM-dd');
   final GlobalKey<FormState> _commentformKey = GlobalKey();
 
   String _id;
 
-  String _spentOnDate;
+  String _givenOnDate;
 
   final CloudDatabase cv = Get.put(CloudDatabase());
   DateTime selectedDate = new DateTime.now();
@@ -38,31 +38,31 @@ class _AddSpendingsState extends State<AddSpendings> {
     );
     if (picked != null && picked != selectedDate) {
       setState(() {
-        _spentOnDate = formatter.format(picked).toString();
-        spentOnDateController.text = _spentOnDate;
+        _givenOnDate = formatter.format(picked).toString();
+        givenOnDateController.text = _givenOnDate;
       });
     }
   }
 
   _saveToCloud() {
-    ClubSpendings clubSpendings = new ClubSpendings(
-        spentOn: spentOnControler.text.toString().trim(),
-        spentBy: spentByControler.text.trim().toString(),
-        spentOnDate: spentOnDateController.text,
-        spentAmount: int.parse(spentAmountControler.text.trim()));
+    ClubIncome clubIncome = new ClubIncome(
+        givenFor: givenForControler.text.toString().trim(),
+        givenBy: givenByControler.text.trim().toString(),
+        givenOnDate: givenOnDateController.text,
+        givenAmount: int.parse(givenAmountControler.text.trim()));
 
-    cv.addSpendings(clubSpendings);
+    cv.addIncome(clubIncome);
   }
 
   _updateInCloud() {
-    ClubSpendings clubSpendings = new ClubSpendings(
-        id: _id,
-        spentOn: spentOnControler.text.toString().trim(),
-        spentBy: spentByControler.text.trim().toString(),
-        spentOnDate: spentOnDateController.text,
-        spentAmount: int.parse(spentAmountControler.text.trim()));
+   ClubIncome clubIncome = new ClubIncome(
+     id: _id,
+        givenFor: givenForControler.text.toString().trim(),
+        givenBy: givenByControler.text.trim().toString(),
+        givenOnDate: givenOnDateController.text,
+        givenAmount: int.parse(givenAmountControler.text.trim()));
 
-    cv.updateSpendings(clubSpendings);
+    cv.updateIncome(clubIncome);
   }
 
   Widget _buildSpentOn() {
@@ -77,14 +77,14 @@ class _AddSpendingsState extends State<AddSpendings> {
           }
           return null;
         },
-        controller: spentOnControler,
+        controller: givenForControler,
         autofocus: true,
         decoration: InputDecoration(
             prefixIcon: Icon(
               Icons.shopping_cart,
               color: secondaryColor,
             ),
-            hintText: ('insertSpenton'.tr),
+            hintText: ('insertGivenFor'.tr),
             fillColor: primaryColor,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -111,7 +111,7 @@ class _AddSpendingsState extends State<AddSpendings> {
       width: 300,
       child: TextFormField(
         readOnly: true,
-        controller: spentOnDateController,
+        controller: givenOnDateController,
         style: subtext3xx,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
@@ -138,11 +138,11 @@ class _AddSpendingsState extends State<AddSpendings> {
               _selectDate(context);
             },
           ),
-          hintText: 'DateSpent'.tr,
+          hintText: 'DateGiven'.tr,
         ),
         validator: (value) {
           if (value.length == 0) {
-            return 'selectDateSpent'.tr;
+            return 'selectDateGivenOn'.tr;
           } else
             return null;
         },
@@ -162,7 +162,7 @@ class _AddSpendingsState extends State<AddSpendings> {
           }
           return null;
         },
-        controller: spentByControler,
+        controller: givenByControler,
         autofocus: true,
         decoration: InputDecoration(
             hintText: ('insertYourname'.tr),
@@ -200,12 +200,12 @@ class _AddSpendingsState extends State<AddSpendings> {
         style: subtext3xx,
         validator: (text) {
           if (text.isEmpty) {
-            return ('inserAmountSpentiMad'.tr);
+            return ('insertGivenAmountInMad'.tr);
           }
 
           return null;
         },
-        controller: spentAmountControler,
+        controller: givenAmountControler,
         autofocus: true,
         decoration: InputDecoration(
             fillColor: primaryColor,
@@ -214,7 +214,7 @@ class _AddSpendingsState extends State<AddSpendings> {
               Icons.monetization_on,
               color: secondaryColor,
             ),
-            hintText: ('inserAmountSpentiMad'.tr),
+            hintText: ('insertGivenAmountInMad'.tr),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelStyle: subtext5x,
             focusColor: accentColor2,
@@ -236,12 +236,12 @@ class _AddSpendingsState extends State<AddSpendings> {
 
   @override
   void initState() {
-    if (widget.clubSpendings != null) {
-      _id = widget.clubSpendings.id;
-      spentOnControler.text = widget.clubSpendings.spentOn;
-      spentOnDateController.text = widget.clubSpendings.spentOnDate;
-      spentAmountControler.text = widget.clubSpendings.spentAmount.toString();
-      spentByControler.text = widget.clubSpendings.spentBy;
+    if (widget.clubIncome != null) {
+      _id = widget.clubIncome.id;
+      givenForControler.text = widget.clubIncome.givenFor;
+      givenOnDateController.text = widget.clubIncome.givenOnDate;
+     givenAmountControler.text = widget.clubIncome.givenAmount.toString();
+      givenByControler.text = widget.clubIncome.givenBy;
     }
     super.initState();
   }
@@ -272,7 +272,7 @@ class _AddSpendingsState extends State<AddSpendings> {
             SizedBox(
               height: 20,
             ),
-            widget.clubSpendings == null
+            widget.clubIncome == null
                 ? Container(
                     width: 300,
                     height: 40,
@@ -366,7 +366,7 @@ class _AddSpendingsState extends State<AddSpendings> {
                                             .trim()) {
                                       Navigator.pop(context);
                                       cv.deleteObject('ClubSpendings',
-                                          widget.clubSpendings.id);
+                                          widget.clubIncome.id);
                                       _flushAll();
                                     }
                                   },
@@ -392,9 +392,9 @@ class _AddSpendingsState extends State<AddSpendings> {
   }
 
   _flushAll() {
-    spentOnControler.clear();
-    spentOnDateController.clear();
-    spentAmountControler.clear();
-    spentByControler.clear();
+    givenForControler.clear();
+   givenOnDateController.clear();
+    givenAmountControler.clear();
+    givenByControler.clear();
   }
 }

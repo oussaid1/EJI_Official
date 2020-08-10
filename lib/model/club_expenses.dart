@@ -16,17 +16,26 @@ class ClubIncome {
     return {
       'givenBy': givenBy,
       'givenFor': givenFor,
-      'givenOnDate': givenOnDate,
+      'givenDate': givenOnDate,
       'givenAmount': givenAmount,
     };
   }
 
   ClubIncome.fromMap(Map<String, dynamic> map, String id)
       : id = id,
-        givenBy = map['budget'],
-        givenFor = map['spendings'],
-        givenOnDate = map['spendings'],
-        givenAmount = map['spendings'];
+        givenBy = map['givenBy'],
+        givenFor = map['givenFor'],
+        givenOnDate = map['givenDate'],
+        givenAmount = map['givenAmount'];
+
+  static double getIncome(List<ClubIncome> income) {
+    double sum = 0;
+    for (var i = 0; i < income.length; i++) {
+      sum += income[i].givenAmount;
+    }
+
+    return sum;
+  }
 }
 
 class ClubSpendings {
@@ -51,20 +60,13 @@ class ClubSpendings {
     };
   }
 
-  static List<ClubSpendings> getSpendings(List<ClubSpendings> spendings) {
-    List<ClubSpendings> loo = new List<ClubSpendings>();
-
+  static double getSpendings(List<ClubSpendings> spendings) {
+    double sum = 0;
     for (var i = 0; i < spendings.length; i++) {
-      loo.add(
-        ClubSpendings(
-            spentOn: 'Shirts',
-            spentBy: 'Jamal',
-            spentOnDate: '02-02-2020',
-            spentAmount: 34255),
-      );
+      sum += spendings[i].spentAmount;
     }
 
-    return loo;
+    return sum;
   }
 
   ClubSpendings.fromMap(Map<String, dynamic> map, String id)

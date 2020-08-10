@@ -23,7 +23,6 @@ class _ListPageState extends State<PlayerList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: primaryColor,
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(),
         body: StreamBuilder(
@@ -50,7 +49,7 @@ class _ListPageState extends State<PlayerList> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    color: primaryColorShade,
+                    color: primaryColor,
                     child: ListTile(
                       contentPadding: EdgeInsets.only(left: 8, right: 8),
                       leading: Stack(

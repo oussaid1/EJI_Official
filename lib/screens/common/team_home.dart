@@ -35,7 +35,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: primaryColor,
+      
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(),
         body: StreamBuilder(
@@ -66,7 +66,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        color: primaryColorShade,
+                        color: primaryColor,
                         child: Column(
                           children: <Widget>[
                             Text(

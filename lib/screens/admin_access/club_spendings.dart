@@ -6,17 +6,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ClubFinanceScreen extends StatefulWidget {
-  ClubFinanceScreen({Key key}) : super(key: key);
+class ClubSpendingsScreen extends StatefulWidget {
+  ClubSpendingsScreen({Key key}) : super(key: key);
 
   @override
-  _ClubFinanceScreenState createState() => _ClubFinanceScreenState();
+  _ClubSpendingsScreenState createState() => _ClubSpendingsScreenState();
 }
 
-class _ClubFinanceScreenState extends State<ClubFinanceScreen> {
+class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
   List<ClubSpendings> clubSpendings;
   List<ClubSpendings> selectedclubSpendings;
   bool sort;
+  int rowIndex;
   final CloudDatabase c = Get.put(CloudDatabase());
   @override
   void initState() {
@@ -31,23 +32,14 @@ class _ClubFinanceScreenState extends State<ClubFinanceScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-                    onPressed: () {Get.to(AddSpendings());},
-                    icon: Icon(Icons.add_to_home_screen),
-                  ),
+         
           IconButton(
               icon: Icon(Icons.add_shopping_cart, color: Colors.yellow),
               onPressed: () {
                 Get.defaultDialog(
-
-                  confirm: RaisedButton(
-                    onPressed: () {},
-                    child: Text('Add'),
-                  ),
-                  cancel: RaisedButton(
-                    onPressed: () {},
-                    child: Text('Cancel'),
-                  ),
+                  title: 'AddSpendings'.tr,
+                  content: Expanded(child: AddSpendings()),
+                  
                 );
               })
         ],
@@ -65,21 +57,27 @@ class _ClubFinanceScreenState extends State<ClubFinanceScreen> {
               return Column(
                 children: [
                   DataTable(
+                    columnSpacing: 20,
+                    dividerThickness: 2,
+                    horizontalMargin: 12,
+                    sortColumnIndex: 3,
+                    sortAscending: true,
                     columns: [
                       DataColumn(
-                        label: Text("spentOn"),
+                      
+                        label: Text("spentOn".tr,style: subtext2xy,),
                         numeric: false,
                       ),
                       DataColumn(
-                        label: Text("spentBy"),
+                        label: Text("spentBy".tr,style: subtext2xy,),
                         numeric: false,
                       ),
                       DataColumn(
-                        label: Text("spentOnDate"),
+                        label: Text("spentOnDate".tr,style: subtext2xy,),
                         numeric: false,
                       ),
                       DataColumn(
-                        label: Text("spentAmunt"),
+                        label: Text("spentAmount".tr,style: subtext2xy,),
                         numeric: false,
                       ),
                     ],
@@ -92,7 +90,9 @@ class _ClubFinanceScreenState extends State<ClubFinanceScreen> {
                                 DataCell(
                                   Text(clubSpendings.spentOn.toString()),
                                   onTap: () {
-                                    // write your code..
+                                    Get.to(AddSpendings(
+                                      clubSpendings: clubSpendings,
+                                    ));
                                   },
                                 ),
                                 DataCell(
@@ -107,6 +107,16 @@ class _ClubFinanceScreenState extends State<ClubFinanceScreen> {
                               ]),
                         )
                         .toList(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Total'.tr,style: maintext2,),
+                        Text('${ClubSpendings.getSpendings(clubSpendings).toString() }'.tr,style: maintext2,),
+                      ],
+                    ),
                   ),
                 ],
               );

@@ -1,6 +1,7 @@
 import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/common/eji_law.dart';
-import 'package:EJI/screens/common/finance_management.dart';
+import 'package:EJI/screens/admin_access/club_spendings.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/screens/public/player_list.dart';
@@ -13,9 +14,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class MyDrawer extends StatelessWidget {
-   MyDrawer({Key key}) : super(key: key);
+  MyDrawer({Key key}) : super(key: key);
   final String image = "players/profileImages/logo.png";
-final CloudDatabase cD = Get.put(CloudDatabase());
+  final CloudDatabase cD = Get.put(CloudDatabase());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +30,7 @@ final CloudDatabase cD = Get.put(CloudDatabase());
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: Text("EJI Idawlstane"),
-              accountEmail:  Text(
+              accountEmail: Text(
                 'EJIBudget'.tr + '${cD.clubBudget.value.toString()}',
                 style: subtext4,
               ),
@@ -57,38 +58,42 @@ final CloudDatabase cD = Get.put(CloudDatabase());
               onTap: () => Get.to(PlayerList()),
             ),
             ListTile(
-           
+                leading: Icon(FontAwesomeIcons.levelUpAlt),
+                title: Text('PlayerStatistics'.tr),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Icon(
+                      Icons.star,
+                      color: accentColor,
+                      size: 20,
+                    ),
+                    Icon(
+                      Icons.star,
+                      size: 20,
+                      color: accentColor,
+                    ),
+                    Icon(
+                      Icons.star,
+                      size: 20,
+                      color: accentColor,
+                    ),
+                  ],
+                ),
+                onTap: () {}),
+            ListTile(
               leading: Icon(FontAwesomeIcons.chartLine),
-              title: Text('PlayerStatistics'.tr),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Icon(
-                    Icons.star,
-                    color: accentColor,size: 20,
-                  ),
-                  Icon(
-                    Icons.star,size: 20,
-                    color: accentColor,
-                  ),
-                  Icon(
-                    Icons.star,size: 20,
-                    color: accentColor,
-                  ),
-                ],
-              ),
-              onTap: () => Get.to(ClubFinanceScreen()),
+              title: Text('ClubTransactions'.tr),
+              onTap: () => Get.to(ClubTransactions()),
             ),
             ListTile(
               leading: Icon(Icons.info),
               title: Text('EJIRegulations'.tr),
-             
               onTap: () => Get.to(EJILawScreen()),
             ),
             ListTile(
               leading: Icon(Icons.info),
               title: Text('AboutEJI'.tr),
-             
               onTap: () => Get.to(InfoScreen()),
             ),
             ListTile(
