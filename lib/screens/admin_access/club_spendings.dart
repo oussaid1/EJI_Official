@@ -126,24 +126,24 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
               );
             }),
       ),
-      floatingActionButton: Padding(
+      floatingActionButton: c.isAdmin.value ?Padding(
         padding: const EdgeInsets.only(bottom: 100),
         child: FloatingActionButton(
-            elevation: 8,
-            onPressed: () {
-Get.defaultDialog(
-          title: 'AddSpendings'.tr,
-          content: Expanded(child: AddSpendings()),
-        );
-            },
-            child: Icon(
-              Icons.add_shopping_cart,size: 36,
-            ),
-            shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(16.0))),
+          elevation: 8,
+          onPressed: () {
+            Get.defaultDialog(
+              title: 'AddSpendings'.tr,
+              content: Expanded(child: AddSpendings()),
+            );
+          },
+          child: Icon(
+            Icons.add_shopping_cart,
+            size: 36,
           ),
-      ),
-     
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16.0))),
+        ),
+      ):null,
     );
   }
 }

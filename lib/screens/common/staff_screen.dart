@@ -15,7 +15,7 @@ class StaffPage extends StatelessWidget {
 
   Widget _buildPresident(Staff staff) {
     return Container(
-      width: Get.width / 1.14,
+      width: Get.width -60,
       decoration: BoxDecoration(
           color: secondaryColor,
           borderRadius: BorderRadius.circular(10),
@@ -49,7 +49,7 @@ class StaffPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
                 child: Padding(
-                  padding: const EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Text('${staff.presedent}',
                       textAlign: TextAlign.center, style: subtext3xx),
                 ),
@@ -63,18 +63,18 @@ class StaffPage extends StatelessWidget {
   }
   Widget _buildTechnicalStuff(Staff staff) {
     return Container(
-      width: Get.width / 1.14,
+      width: Get.width,
       decoration: BoxDecoration(
           color: secondaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
-      height: Get.height / 3,
+      
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
             width: Get.width / 1.14,
-            height: Get.height / 17,
+          
             decoration: BoxDecoration(
                 color: primaryColorShade,
                 borderRadius: BorderRadius.circular(5),
@@ -103,7 +103,7 @@ class StaffPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('Main Coach'.tr,
                             textAlign: TextAlign.center, style: subtext3),
                       ),
@@ -114,7 +114,7 @@ class StaffPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('${staff.coach}',
                             textAlign: TextAlign.center, style: subtext3xx),
                       ),
@@ -132,7 +132,7 @@ class StaffPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: secondaryColor, width: 0.5)),
                   child: Padding(
-                    padding: const EdgeInsets.all(2.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Text('Assistant Coach'.tr,
                         textAlign: TextAlign.center, style: subtext3),
                   ),
@@ -143,7 +143,7 @@ class StaffPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: secondaryColor, width: 0.5)),
                   child: Padding(
-                    padding: const EdgeInsets.all(2.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Text('${staff.coachAssistant}',
                         textAlign: TextAlign.center, style: subtext3xx),
                   ),
@@ -169,7 +169,7 @@ class StaffPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('Physical Trainer'.tr,
                             textAlign: TextAlign.center, style: subtext3),
                       ),
@@ -180,7 +180,7 @@ class StaffPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('${staff.trainerPHY}',
                             textAlign: TextAlign.center, style: subtext3xx),
                       ),
@@ -197,7 +197,7 @@ class StaffPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('Medical Assistant'.tr,
                             textAlign: TextAlign.center, style: subtext3),
                       ),
@@ -208,7 +208,7 @@ class StaffPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('${staff.medicalAssistant}',
                             textAlign: TextAlign.center, style: subtext3xx),
                       ),
@@ -231,7 +231,7 @@ class StaffPage extends StatelessWidget {
             color: secondaryColor,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: secondaryColor, width: 0.5)),
-        height: Get.height / 2,
+      
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -266,7 +266,7 @@ class StaffPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
-                          padding: const EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('Coordinators'.tr,
                               textAlign: TextAlign.center, style: subtext3),
                         ),
@@ -277,7 +277,7 @@ class StaffPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
-                          padding: const EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.coordinator1}',
                               textAlign: TextAlign.center, style: subtext3xx),
                         ),
@@ -288,7 +288,7 @@ class StaffPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
-                          padding: const EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.coordinator2}',
                               textAlign: TextAlign.center, style: subtext3xx),
                         ),
@@ -306,7 +306,7 @@ class StaffPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: secondaryColor, width: 0.5)),
                     child: Padding(
-                      padding: const EdgeInsets.all(2.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text('Chief Excutive'.tr,
                           textAlign: TextAlign.center, style: subtext3),
                     ),
@@ -317,7 +317,7 @@ class StaffPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: secondaryColor, width: 0.5)),
                     child: Padding(
-                      padding: const EdgeInsets.all(2.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text('${staff.chefExc} ',
                           textAlign: TextAlign.center, style: subtext3xx),
                     ),
@@ -340,7 +340,7 @@ class StaffPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: secondaryColor, width: 0.5)),
                     child: Padding(
-                      padding: const EdgeInsets.all(2.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text('Finance Director'.tr,
                           textAlign: TextAlign.center, style: subtext3),
                     ),
@@ -351,7 +351,7 @@ class StaffPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: secondaryColor, width: 0.5)),
                     child: Padding(
-                      padding: const EdgeInsets.all(2.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text('${staff.financeDir}',
                           textAlign: TextAlign.center, style: subtext3xx),
                     ),
@@ -369,7 +369,7 @@ class StaffPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
-                          padding: const EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('Councellors'.tr,
                               textAlign: TextAlign.center, style: subtext3),
                         ),
@@ -380,7 +380,7 @@ class StaffPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
-                          padding: const EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.counceler1}',
                               textAlign: TextAlign.center, style: subtext3xx),
                         ),
@@ -391,7 +391,7 @@ class StaffPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
-                          padding: const EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.counceler2}',
                               textAlign: TextAlign.center, style: subtext3xx),
                         ),
@@ -402,7 +402,7 @@ class StaffPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
-                          padding: const EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.counceler3}',
                               textAlign: TextAlign.center, style: subtext3xx),
                         ),
@@ -419,7 +419,9 @@ class StaffPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Center(child: Text('EJI Staff'.tr, style: maintext4)),
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -432,30 +434,25 @@ class StaffPage extends StatelessWidget {
               width: Get.width - 10,
               height: Get.height / 1.2,
               child: Card(
-                color: primaryColorShade,
+               
                 child: StreamBuilder(
                   stream: c.getStaff('adminStaff'),
                   builder: (BuildContext context, AsyncSnapshot<List<Staff>> snapshot) {
                     staff=snapshot.data[0];
                     return ListView(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('EJI Staff'.tr, style: maintext4),
-                            ],
-                          ),
-                        ),
-                        Row(
+                       
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text('2019-2022',
-                                  textAlign: TextAlign.center, style: hinttext),
-                            ),
+                             Text(
+                                'CurrentSituation'.tr,
+                                style: subtextxx,
+                                textAlign: TextAlign.center,
+                              ),
+                            Text('2019-2022',
+                                textAlign: TextAlign.center, style: hinttext),
+                            
                           ],
                         ),
                         Padding(
@@ -477,18 +474,9 @@ class StaffPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'CurrentSituation'.tr,
-                                style: subtextxx,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
+                       
+                        SizedBox(
+                          height: 60,
                         ),
                       ],
                     );

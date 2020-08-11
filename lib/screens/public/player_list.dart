@@ -3,7 +3,6 @@ import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/screens/public/player_details.dart';
 import 'package:EJI/settings/params.dart';
-import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';

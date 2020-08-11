@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Color primaryColor = Color(0xFF053354);
 Color secondaryColor2 = Color(0xFFF2C94C);
@@ -16,9 +15,7 @@ ThemeData myThemed = ThemeData(
     appBarTheme: AppBarTheme(
       color: Colors.teal[900],
       elevation: 0,
-      textTheme: TextTheme(
-     
-      ),
+      textTheme: TextTheme(),
     ),
     buttonColor: Colors.yellow[900],
     primarySwatch: Colors.white,
@@ -43,16 +40,10 @@ final TextStyle subtextxx = TextStyle(
   color: accentColor,
   fontSize: 14,
 );
-final TextStyle subtext1 = TextStyle(
-  color: secondaryColor,
-  fontSize: 16,
-  fontWeight: FontWeight.w300
-);
-final TextStyle subtext1x = TextStyle(
-  color: accentColor2,
-  fontSize: 16,
-  fontWeight: FontWeight.w300
-);
+final TextStyle subtext1 =
+    TextStyle(color: secondaryColor, fontSize: 16, fontWeight: FontWeight.w300);
+final TextStyle subtext1x =
+    TextStyle(color: accentColor2, fontSize: 16, fontWeight: FontWeight.w300);
 final TextStyle hinttext = TextStyle(
   color: secondaryColor,
   fontWeight: FontWeight.w100,
@@ -181,9 +172,9 @@ final TextStyle maintext4b = TextStyle(
   fontFamily: 'RobotoSlab',
   fontSize: 26,
 );
- var shape= RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: primaryColor));
+var shape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(18.0),
+    side: BorderSide(color: primaryColor));
 
 List pieColors = [
   Colors.indigo[400],
@@ -199,21 +190,52 @@ var icon3 = Icons.sentiment_neutral;
 var icon4 = Icons.sentiment_satisfied;
 var icon5 = Icons.sentiment_very_satisfied;
 
-Map avatars= {
-'GK':Icon(Icons.person,color: Colors.yellow,),
-'DF':Icon(Icons.person,color: Colors.blue,),
-'DM':Icon(Icons.person,color: Colors.blue,),
-'CM':Icon(Icons.person,color: Colors.green,),
-'AMF':Icon(Icons.person,color: Colors.green,),
-'RMF':Icon(Icons.person,color: Colors.yellow,),
-'LMF':Icon(Icons.person,color: Colors.yellow,),
-'SS':Icon(Icons.person,color: Colors.yellow,),
-'LWF':Icon(Icons.person,color: Colors.yellow,),
-'RWF':Icon(Icons.person,color: Colors.yellow,),
-'CF':Icon(Icons.person,color: Colors.yellow,),
+Map avatars = {
+  'GK': Icon(
+    Icons.person,
+    color: Colors.yellow,
+  ),
+  'DF': Icon(
+    Icons.person,
+    color: Colors.blue,
+  ),
+  'DM': Icon(
+    Icons.person,
+    color: Colors.blue,
+  ),
+  'CM': Icon(
+    Icons.person,
+    color: Colors.green,
+  ),
+  'AMF': Icon(
+    Icons.person,
+    color: Colors.green,
+  ),
+  'RMF': Icon(
+    Icons.person,
+    color: Colors.yellow,
+  ),
+  'LMF': Icon(
+    Icons.person,
+    color: Colors.yellow,
+  ),
+  'SS': Icon(
+    Icons.person,
+    color: Colors.yellow,
+  ),
+  'LWF': Icon(
+    Icons.person,
+    color: Colors.yellow,
+  ),
+  'RWF': Icon(
+    Icons.person,
+    color: Colors.yellow,
+  ),
+  'CF': Icon(
+    Icons.person,
+    color: Colors.yellow,
+  ),
 };
-
-
 
 List<Map> moods = [
   {
@@ -275,8 +297,18 @@ List<Map> moods = [
     'dayMoodNColor': (Colors.tealAccent[400]),
   }
 ];*/
+Map imagesArchive = {
+  '1':"'https://i.ibb.co/V06Xq7b/20190901-193709.jpg'",
+  '2':'https://i.ibb.co/R0RvyzP/20190901-190839.jpg',
+ '3': 'https://i.ibb.co/SmWv4TD/20190830-184123.jpg',
+ '4': 'https://i.ibb.co/HtdM4qG/20190829-183910.jpg',
+  '5':'https://i.ibb.co/NZGRRBR/20190829-183627.jpg',
+ '6': 'https://i.ibb.co/hyTNHDp/IMG-20190824-WA0009.jpg',
+ '7': 'https://i.ibb.co/3rczSvt/IMG-20190824-WA0007.jpg',
+ 
+};
 
-    String about ='كل من شاهد مباراة لفريق تسكموضين (مثلا) ولو لبرهة، سيندهش ويذهل بالتنظيم الجيد والمهنية العالية في احترام الأدوار والتخصصات. كل يؤدي دوره، وكان أحدا يمتل عصى موسى. وسرعان ما يقودك الإعجاب ويحولك الى مشجع وتنحاز عاطفتك اتجاههم وتنسيك انتمائك، انه سحر التنظيم والانضباط. كل من يعرف فريقنا او شاهده في الميدان تخنقه الحسرة وتمزقه غيرة البلاد لا لأن فريقا انهزم، ولكن لأن هزائمه يصعب استساغها ولأنها تفتقر لبعض المنطق. فالطاقات والمؤهلات الشابة والفتية، التي يزخر بها الفريق كما وكيفا، لا تبرر هزائمه. فتقول في نفسك، ما لذي ينقصنا؟ انه التنظيم ولانضباط.  فكيف لفريق يشارك في بطولة بذلك الحجم، ولم يقم ولو بحصة تدريبية واحدة. (من قطبان العيد الى رقعة الملعب..)  وكيف للاعب سرعان ما ينسى دوره وينصب نفسه تارة مدربا وتارة عميدا للفريق وتارة حكما وتارة .... متهورا....    وكيف لمشجع ينصب نفسه مدربا وموجها وتارة حكما.........كل هذا دون تخصص ولا كفاءة ولا تكليف، ويحسب نفسه بذلك يساعد الفريق بداعي الغيرة على البلاد. بل بذلك يساهم في تعميق الجرح ويساهم تسويق صورة البلد الغير منظم والفريق الغير منضبط والتسيير العشوائي.... فالفريق الذي يفتقر للانضباط والتنظيم فهو منهزم حتى قبل بداية المباراة، فهو منهزم ضد نفسه، ثم في المباراة يلعب مع الخصم ضد نفسه. فكيف لفريق يلعب ضد فريقين ان ينتصر. 22 لاعبا ضد 11. هذا ما يقع لفريقنا. كفى، كفى.. هكذا قلنا في اجتماع اخر مباراة. عقدنا العزم على ان ننتصر على أنفسنا والا نركز على الأهداف التي نستقبلها. فلتنهزم شباكنا وننتصر نحن. كل من تمعن في تلك المباراة سيدرك هذا جيدا. قدمنا نسخة تستحق التنويه. بعدها عقدنا اجتماعا تقييميا للمباراة. ووضعنا اللبنة الأولى لتصور فريق احترافي منظم ومنضبط. بعدها عقدنا سلسلة من الاجتماعات، قمنا فيها بتأسيس: المكتب المسير، الطاقم الإداري. اللجنة التأديبية والانضباط وهيئة المشجعين. بعدها قمنا بصياغة القوانين التنظيمية. وتمت المصادقة عليها. وسيتم انشاء الله موافاتكم بكل مستجد.  \n نرجى التوفيق من العلي القدير. ونرجو المساندة من كل فرد وعنصر لإنجاح هذا المشروع ';
-    
+String about =
+    'كل من شاهد مباراة لفريق تسكموضين (مثلا) ولو لبرهة، سيندهش ويذهل بالتنظيم الجيد والمهنية العالية في احترام الأدوار والتخصصات. كل يؤدي دوره، وكان أحدا يمتل عصى موسى. وسرعان ما يقودك الإعجاب ويحولك الى مشجع وتنحاز عاطفتك اتجاههم وتنسيك انتمائك، انه سحر التنظيم والانضباط. كل من يعرف فريقنا او شاهده في الميدان تخنقه الحسرة وتمزقه غيرة البلاد لا لأن فريقا انهزم، ولكن لأن هزائمه يصعب استساغها ولأنها تفتقر لبعض المنطق. فالطاقات والمؤهلات الشابة والفتية، التي يزخر بها الفريق كما وكيفا، لا تبرر هزائمه. فتقول في نفسك، ما لذي ينقصنا؟ انه التنظيم ولانضباط.  فكيف لفريق يشارك في بطولة بذلك الحجم، ولم يقم ولو بحصة تدريبية واحدة. (من قطبان العيد الى رقعة الملعب..)  وكيف للاعب سرعان ما ينسى دوره وينصب نفسه تارة مدربا وتارة عميدا للفريق وتارة حكما وتارة .... متهورا....    وكيف لمشجع ينصب نفسه مدربا وموجها وتارة حكما.........كل هذا دون تخصص ولا كفاءة ولا تكليف، ويحسب نفسه بذلك يساعد الفريق بداعي الغيرة على البلاد. بل بذلك يساهم في تعميق الجرح ويساهم تسويق صورة البلد الغير منظم والفريق الغير منضبط والتسيير العشوائي.... فالفريق الذي يفتقر للانضباط والتنظيم فهو منهزم حتى قبل بداية المباراة، فهو منهزم ضد نفسه، ثم في المباراة يلعب مع الخصم ضد نفسه. فكيف لفريق يلعب ضد فريقين ان ينتصر. 22 لاعبا ضد 11. هذا ما يقع لفريقنا. كفى، كفى.. هكذا قلنا في اجتماع اخر مباراة. عقدنا العزم على ان ننتصر على أنفسنا والا نركز على الأهداف التي نستقبلها. فلتنهزم شباكنا وننتصر نحن. كل من تمعن في تلك المباراة سيدرك هذا جيدا. قدمنا نسخة تستحق التنويه. بعدها عقدنا اجتماعا تقييميا للمباراة. ووضعنا اللبنة الأولى لتصور فريق احترافي منظم ومنضبط. بعدها عقدنا سلسلة من الاجتماعات، قمنا فيها بتأسيس: المكتب المسير، الطاقم الإداري. اللجنة التأديبية والانضباط وهيئة المشجعين. بعدها قمنا بصياغة القوانين التنظيمية. وتمت المصادقة عليها. وسيتم انشاء الله موافاتكم بكل مستجد.  \n نرجى التوفيق من العلي القدير. ونرجو المساندة من كل فرد وعنصر لإنجاح هذا المشروع ';
 
-  String regulations ='';
+String regulations = '';

@@ -1,3 +1,4 @@
+import 'package:EJI/model/club_archive.dart';
 import 'package:EJI/model/club_expenses.dart';
 import 'package:EJI/model/comments_model.dart';
 import 'package:EJI/model/matchday.dart';
@@ -7,7 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import 'package:get_storage/get_storage.dart';
 
@@ -16,11 +16,11 @@ class CloudDatabase extends GetxController {
   RxBool isAdmin = false.obs;
   RxBool isSuperAdmin = true.obs;
   RxBool isComplete = true.obs;
-  RxString sperAdminPass = '1234'.obs;
-  var email = '1234'.obs;
-  var password = '1234'.obs;
-  var adminEmail = '112233'.obs;
-  var adminPassword = '112233'.obs;
+  RxString sperAdminPass = '1243'.obs;
+  var email = 'Idawlstane'.obs;
+  var password = 'Idawlstane'.obs;
+  var adminEmail = 'E20J19I'.obs;
+  var adminPassword = 'E20J19I'.obs;
 
  setBudget(double d)=> clubBudget.value= d ;
   @override
@@ -35,8 +35,8 @@ class CloudDatabase extends GetxController {
         .write('adminkey', adminkey)
         .then((value) => isAdmin.value = mBox.read('adminkey'));
   }
-void queryValues() {
-  double total=0;
+/*void queryValues() {
+ 
    _db.collection('myCollection')
         .snapshots()
         .listen((snapshot) {
@@ -44,7 +44,7 @@ void queryValues() {
      total = tempTotal;
      
     });
-  }
+  }*/
   void getClubIncomesAndSpendings() {
     List<ClubIncome> mList = List<ClubIncome>();
 
@@ -79,6 +79,19 @@ void queryValues() {
 
     return pList;
   }
+  Stream<List<ClubArcive>> getClubArcivePictures(String clubArcive) {
+    Stream<List<ClubArcive>> pLdist =
+        _db.collection(clubArcive.toString().trim()).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => ClubArcive.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
+
+    return pLdist;
+  }
+
   Stream<List<JuniorPlayer>> getJuniorPlayers(String collectionName) {
     Stream<List<JuniorPlayer>> pList =
         _db.collection(collectionName.toString()).snapshots().map(
@@ -217,7 +230,7 @@ bool isAdult2(String birthDateString) {
   }
 
   Future<void> deleteObject(String collection, String id) {
-    return _db.collection(collection.toString()).document(id).delete();
+    return _db.collection(collection.toString().trim()).document(id).delete();
   }
 
   Future<void> updatePlayer(Player player) {

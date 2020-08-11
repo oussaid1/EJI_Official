@@ -73,7 +73,7 @@ class _AddSpendingsState extends State<AddIncome> {
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
-            return ('insertSpenton'.tr);
+            return ('insertGivenFor'.tr);
           }
           return null;
         },
@@ -200,7 +200,7 @@ class _AddSpendingsState extends State<AddIncome> {
         style: subtext3xx,
         validator: (text) {
           if (text.isEmpty) {
-            return ('insertGivenAmountInMad'.tr);
+            return ('insertGivenAmount'.tr);
           }
 
           return null;
@@ -214,7 +214,7 @@ class _AddSpendingsState extends State<AddIncome> {
               Icons.monetization_on,
               color: secondaryColor,
             ),
-            hintText: ('insertGivenAmountInMad'.tr),
+            hintText: ('insertGivenAmount'.tr),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelStyle: subtext5x,
             focusColor: accentColor2,
@@ -315,7 +315,7 @@ class _AddSpendingsState extends State<AddIncome> {
                             onPressed: () {
                               if (_commentformKey.currentState.validate()) {
                                 Get.defaultDialog(
-                                  title: 'SperAdmin'.tr,
+                                  title: 'SuperAdmin'.tr,
                                   content: TextField(
                                     decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.lock)),
@@ -365,22 +365,14 @@ class _AddSpendingsState extends State<AddIncome> {
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);
-                                      cv.deleteObject('ClubSpendings',
+                                      cv.deleteObject('ClubIncome',
                                           widget.clubIncome.id);
                                       _flushAll();
                                     }
                                   },
                                 ),
                               );
-                              /* if (cv.isSuperAdmin.value == true) {
-                       
-                          Get.snackbar('Succsess'.tr, 'deleted'.tr,
-                              snackPosition: SnackPosition.BOTTOM);
-                        } else {
-                           cv.deleteObject('ClubSpendings', widget.clubSpendings.id);
-                          Get.snackbar('Error'.tr, 'notDeleted'.tr,
-                              snackPosition: SnackPosition.BOTTOM);
-                        }*/
+                              
                             }),
                       ),
                     ],

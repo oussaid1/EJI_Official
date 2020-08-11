@@ -1,12 +1,9 @@
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/admin_access/add_income.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/screens/admin_access/club_incomes.dart';
 import 'package:EJI/screens/admin_access/club_spendings.dart';
-import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class ClubTransactions extends StatelessWidget {

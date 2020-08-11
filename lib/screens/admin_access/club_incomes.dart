@@ -1,6 +1,7 @@
 import 'package:EJI/model/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_income.dart';
+// ignore: unused_import
 import 'package:EJI/screens/admin_access/add_spendings.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,7 +33,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Padding(
+      floatingActionButton:c.isAdmin.value ?  Padding(
         padding: const EdgeInsets.only(bottom: 100),
         child: FloatingActionButton(
           elevation: 8,
@@ -49,7 +50,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16.0))),
         ),
-      ),
+      ): null,
       
       body: Center(
         child: StreamBuilder(
@@ -107,11 +108,11 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                               cells: [
                                 DataCell(
                                   Text(clubIncome.givenFor.toString()),
-                                  onTap: () {
+                                  onTap: () => c.isAdmin.value ?
                                     Get.to(AddIncome(
                                       clubIncome: clubIncome,
-                                    ));
-                                  },
+                                    )): null 
+                                  
                                 ),
                                 DataCell(
                                   Text(clubIncome.givenBy.toString()),

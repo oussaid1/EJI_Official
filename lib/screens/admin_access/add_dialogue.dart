@@ -29,7 +29,7 @@ class _AddPlayersState extends State<AddPlayers> {
   final CloudDatabase cD = Get.put(CloudDatabase());
   bool isJunior = false;
   String _profileImage = "players/profileImages/logo.png";
-  int _regNum = 00001;
+  int _regNum = 9;
   String _playerName;
   String _dateOfBirth = '02-02-2000';
   String _placeOfBirth = 'Idawlstane';
@@ -567,8 +567,9 @@ class _AddPlayersState extends State<AddPlayers> {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
 
     setState(() {
+      _regNum=DateTime.now().millisecondsSinceEpoch;
       _image = File(pickedFile.path);
-      _profileImage = 'players/profileImages/${nameController.text}.png';
+      _profileImage = 'players/profileImages/$_regNum.png';
     });
   }
 
@@ -576,8 +577,9 @@ class _AddPlayersState extends State<AddPlayers> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
+       _regNum=DateTime.now().millisecondsSinceEpoch;
       _image = File(pickedFile.path);
-      _profileImage = 'players/profileImages/${nameController.text}.png';
+      _profileImage = 'players/profileImages/$_regNum.png';
     });
   }
 
@@ -591,8 +593,8 @@ class _AddPlayersState extends State<AddPlayers> {
   /// Starts an upload task
   void _startUpload(BuildContext context) {
     /// Unique file name for the file
-    String filePath = 'players/profileImages/${nameController.text}.png';
-
+    String filePath = 'players/profileImages/$_regNum.png';
+_profileImage=filePath;
     setState(() {
       _uploadTask = _storage.ref().child(filePath).putFile(_image);
     });
@@ -652,7 +654,7 @@ class _AddPlayersState extends State<AddPlayers> {
                               _saveToDb(context);
                               _flushAll();
                               Navigator.pop(context, false);
-                              Get.to(HomePage());
+                             
                             },
                             onCancel: () {},
                           );

@@ -1,5 +1,4 @@
-import 'package:EJI/model/club_expenses.dart';
-import 'package:EJI/model/player.dart';
+import 'package:EJI/ad_manager.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/settings/params.dart';
@@ -16,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final CloudDatabase c = Get.put(CloudDatabase());
 
- 
+ bool isArabic = false;
   final _loginformKey1 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -25,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   BannerAd buildBannerAd() {
     return BannerAd(
-        adUnitId: BannerAd.testAdUnitId,
+        adUnitId: AdManager.bannerAdUnitId,
         size: AdSize.banner,
         listener: (MobileAdEvent event) {
           if (event == MobileAdEvent.loaded) {
@@ -48,11 +47,11 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  @override
+  @override 
   void initState() {
     super.initState();
 
-    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+    FirebaseAdMob.instance.initialize(appId: AdManager.appId);
     myBanner = buildBannerAd()..load();
     //myBanner = buildLargeBannerAd()..load();
   }
@@ -177,7 +176,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 50,
+                      child:  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: isArabic? new Text(
+                          'عربية'.tr,textAlign: TextAlign.center,
+                          style: maintext3,
+                        )
+                        : new Text(
+                          'English'.tr,textAlign: TextAlign.center,
+                          style: maintext3,
+                        ),
+                      ),
+                      Switch(
+                          value: isArabic,
+                          onChanged: (value) {
+                            setState(() {
+                              isArabic = value;
+                              
+                            });
+                          }),
+                    ],
+                  ),
                     ),
                     Container(
                       height: 70,
@@ -202,7 +224,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               {
                                 c.setAdmin(true),
                                 Get.to(TeamHomePage()),
+                                 isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')), 
                               }
+                            
                             else if (_loginformKey1.currentState.validate())
                               {
                                 if (emailController.text.trim() ==
@@ -212,6 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   {
                                     c.setAdmin(false),
                                     Get.to(TeamHomePage()),
+                                      isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')), 
                                   }
                                 else
                                   {

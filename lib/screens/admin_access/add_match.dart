@@ -31,11 +31,17 @@ class _AddMatchsState extends State<AddMatch> {
   String _matchdayReferee = 'Ali';
   String _matchdayHome = 'EJI Fc';
   String _matchdayAway = 'Tiskmodin Fc';
+  // ignore: unused_field
   String _matchdayHomeScore = '03';
+  // ignore: unused_field
   String _matchdayAwayScore = '01';
+  // ignore: unused_field
   String _matchdayHomeRedC = '0';
+  // ignore: unused_field
   String _matchdayAwayRedC = '0';
+  // ignore: unused_field
   String _matchdayHomeYellC = '0';
+  // ignore: unused_field
   String _matchdayAwayYellC = '0';
 
   String _myDate;

@@ -108,5 +108,5 @@ class JuniorPlayer {
         placeOfBirth = map['placeOfBirth'],
         seasons = map['seasons'],
         profileImage = map['profileImage'];
-       
+      
 }

@@ -1,8 +1,10 @@
 import 'package:EJI/model/club_expenses.dart';
+// ignore: unused_import
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
+import 'package:EJI/screens/admin_access/picture_archive_list.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
@@ -110,6 +112,11 @@ class _AdminDrawerState extends State<AdminDrawer> {
               subtitle: Text('PlayersListsub'.tr),
               title: Text('PlayersList'.tr),
               onTap: () => Get.to(PlayersList()),
+            ),
+            ListTile(
+              leading: Icon(Icons.comment),
+              title: Text('PictureArchive'.tr),
+             onTap:()=> Get.to(PicturesArchiveList()),
             ),
             ListTile(
                 leading: Icon(Icons.store),

@@ -1,13 +1,10 @@
-import 'dart:math';
 import 'dart:ui';
 
-import 'package:EJI/model/club_expenses.dart';
 import 'package:EJI/model/squad_player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';

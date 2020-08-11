@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(accentColor: accentColor, primaryColor: primaryColor,cardColor: primaryColorShade),
       translations: MyTranslations(),
-      locale: Locale('ar'),
+      locale: Locale('en'),
       home: SplashPage(),
       initialRoute:'/splash',
       getPages: [

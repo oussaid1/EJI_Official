@@ -159,12 +159,14 @@ class AddComment extends StatelessWidget {
                   _flushAll();
                   Get.snackbar('Succsess'.tr, 'YourComsav'.tr,
                       snackPosition: SnackPosition.BOTTOM);
+                } else {
+                  Get.snackbar('Error'.tr, 'notsaved'.tr,
+                      snackPosition: SnackPosition.BOTTOM);
                 }
-                Get.snackbar('Error'.tr, 'notsaved'.tr,
-                    snackPosition: SnackPosition.BOTTOM);
               },
             ),
-          )
+          ),
+         
         ],
       ),
     );
