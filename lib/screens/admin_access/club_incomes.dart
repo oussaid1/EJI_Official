@@ -5,6 +5,7 @@ import 'package:EJI/screens/admin_access/add_spendings.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class ClubIncomeScreen extends StatefulWidget {
@@ -31,20 +32,25 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-         
-          IconButton(
-              icon: Icon(Icons.add_shopping_cart, color: Colors.yellow),
-              onPressed: () {
-                Get.defaultDialog(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 100),
+        child: FloatingActionButton(
+          elevation: 8,
+          onPressed: () {
+             Get.defaultDialog(
                   title: 'AddIncome'.tr,
                   content: Expanded(child: AddIncome()),
-                  
                 );
-              })
-        ],
+          },
+          child: Icon(
+            FontAwesomeIcons.dollarSign,
+            size: 36,
+          ),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16.0))),
+        ),
       ),
+      
       body: Center(
         child: StreamBuilder(
             stream: c.getClubIncomes('ClubIncome'),
@@ -66,27 +72,38 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                     columns: [
                       DataColumn(
                         tooltip: 'kk',
-                        label: Text("GivenFor".tr,style: subtext2xy,),
+                        label: Text(
+                          "GivenFor".tr,
+                          style: subtext2xy,
+                        ),
                         numeric: false,
                       ),
                       DataColumn(
-                        label: Text("GivenBy".tr,style: subtext2xy,),
+                        label: Text(
+                          "GivenBy".tr,
+                          style: subtext2xy,
+                        ),
                         numeric: false,
                       ),
                       DataColumn(
-                        label: Text("GivenOnDate".tr,style: subtext2xy,),
+                        label: Text(
+                          "GivenOnDate".tr,
+                          style: subtext2xy,
+                        ),
                         numeric: false,
                       ),
                       DataColumn(
-                        label: Text("GivenAmount".tr,style: subtext2xy,),
+                        label: Text(
+                          "GivenAmount".tr,
+                          style: subtext2xy,
+                        ),
                         numeric: false,
                       ),
                     ],
                     rows: clubIncome
                         .map(
                           (clubIncome) => DataRow(
-                              selected:
-                                  selectedclubIncome.contains(clubIncome),
+                              selected: selectedclubIncome.contains(clubIncome),
                               cells: [
                                 DataCell(
                                   Text(clubIncome.givenFor.toString()),
@@ -114,8 +131,14 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Total'.tr,style: maintext2,),
-                        Text('${ClubIncome.getIncome(clubIncome).toString() }'.tr,style: maintext2,),
+                        Text(
+                          'Total'.tr,
+                          style: maintext2,
+                        ),
+                        Text(
+                          '${ClubIncome.getIncome(clubIncome).toString()}'.tr,
+                          style: maintext2,
+                        ),
                       ],
                     ),
                   ),

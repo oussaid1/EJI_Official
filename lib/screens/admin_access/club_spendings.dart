@@ -30,20 +30,6 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-         
-          IconButton(
-              icon: Icon(Icons.add_shopping_cart, color: Colors.yellow),
-              onPressed: () {
-                Get.defaultDialog(
-                  title: 'AddSpendings'.tr,
-                  content: Expanded(child: AddSpendings()),
-                  
-                );
-              })
-        ],
-      ),
       body: Center(
         child: StreamBuilder(
             stream: c.getClubSpendings('ClubSpendings'),
@@ -54,7 +40,7 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                 );
               } else
                 clubSpendings = snapshot.data;
-              return Column(
+              return ListView(
                 children: [
                   DataTable(
                     columnSpacing: 20,
@@ -64,20 +50,31 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                     sortAscending: true,
                     columns: [
                       DataColumn(
-                      
-                        label: Text("spentOn".tr,style: subtext2xy,),
+                        label: Text(
+                          "spentOn".tr,
+                          style: subtext2xy,
+                        ),
                         numeric: false,
                       ),
                       DataColumn(
-                        label: Text("spentBy".tr,style: subtext2xy,),
+                        label: Text(
+                          "spentBy".tr,
+                          style: subtext2xy,
+                        ),
                         numeric: false,
                       ),
                       DataColumn(
-                        label: Text("spentOnDate".tr,style: subtext2xy,),
+                        label: Text(
+                          "spentOnDate".tr,
+                          style: subtext2xy,
+                        ),
                         numeric: false,
                       ),
                       DataColumn(
-                        label: Text("spentAmount".tr,style: subtext2xy,),
+                        label: Text(
+                          "spentAmount".tr,
+                          style: subtext2xy,
+                        ),
                         numeric: false,
                       ),
                     ],
@@ -113,8 +110,15 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Total'.tr,style: maintext2,),
-                        Text('${ClubSpendings.getSpendings(clubSpendings).toString() }'.tr,style: maintext2,),
+                        Text(
+                          'Total'.tr,
+                          style: maintext2,
+                        ),
+                        Text(
+                          '${ClubSpendings.getSpendings(clubSpendings).toString()}'
+                              .tr,
+                          style: maintext2,
+                        ),
                       ],
                     ),
                   ),
@@ -122,6 +126,24 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
               );
             }),
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 100),
+        child: FloatingActionButton(
+            elevation: 8,
+            onPressed: () {
+Get.defaultDialog(
+          title: 'AddSpendings'.tr,
+          content: Expanded(child: AddSpendings()),
+        );
+            },
+            child: Icon(
+              Icons.add_shopping_cart,size: 36,
+            ),
+            shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16.0))),
+          ),
+      ),
+     
     );
   }
 }

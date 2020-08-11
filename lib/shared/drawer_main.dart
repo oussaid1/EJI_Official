@@ -1,5 +1,7 @@
 import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
+import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/admin_access/club_spendings.dart';
 import 'package:EJI/screens/common/info_screen.dart';
@@ -13,10 +15,26 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   MyDrawer({Key key}) : super(key: key);
+
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
   final String image = "players/profileImages/logo.png";
+
   final CloudDatabase cD = Get.put(CloudDatabase());
+
+  List<ClubSpendings> clubSpendings;
+
+  List<ClubIncome> clubIncome;
+
+   double d=0;
+
+   double c=0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,10 +47,37 @@ class MyDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("EJI Idawlstane"),
-              accountEmail: Text(
-                'EJIBudget'.tr + '${cD.clubBudget.value.toString()}',
-                style: subtext4,
+              accountName:StreamBuilder(
+              stream: cD.getClubSpendings('ClubSpendings'),
+            builder: (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
+               if (!snapshot.hasData || snapshot.hasError) {
+                return  Text("EJI Idawlstane");
+              } else
+                clubSpendings = snapshot.data;
+                d= cD.setBudget(ClubSpendings.getSpendings(clubSpendings))
+                ;
+                return  Text("EJI Idawlstane");
+                }
+              ),
+              accountEmail: StreamBuilder(
+              stream: cD.getClubIncomes('ClubIncome'),
+            builder: (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
+               if (!snapshot.hasData || snapshot.hasError) {
+                return Text(
+                    'EJIBudget'.tr + 'DH ' +'-- ',
+                    textDirection: TextDirection.rtl,
+                    style: subtext4,
+                  );
+              } else
+                clubIncome = snapshot.data;
+                c= ClubIncome.getIncome(clubIncome);
+                
+                return Text(
+                    'EJIBudget'.tr + 'DH ' '${(c-d).toString()} ',
+                    textDirection: TextDirection.rtl,
+                    style: subtext4,
+                  );
+                }
               ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor:
@@ -55,7 +100,7 @@ class MyDrawer extends StatelessWidget {
               subtitle: Text('PlayersListsub'.tr),
               leading: Icon(Icons.people),
               title: Text('PlayersList'.tr),
-              onTap: () => Get.to(PlayerList()),
+              onTap: () => Get.to(PlayersList()),
             ),
             ListTile(
                 leading: Icon(FontAwesomeIcons.levelUpAlt),
@@ -81,6 +126,11 @@ class MyDrawer extends StatelessWidget {
                   ],
                 ),
                 onTap: () {}),
+            ListTile(
+              leading: Icon(Icons.comment),
+              title: Text('Comments'.tr),
+              onTap: () => Get.to(CommentScreen()),
+            ),
             ListTile(
               leading: Icon(FontAwesomeIcons.chartLine),
               title: Text('ClubTransactions'.tr),

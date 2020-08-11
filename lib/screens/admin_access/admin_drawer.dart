@@ -1,40 +1,42 @@
+import 'package:EJI/model/club_expenses.dart';
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
-import 'package:EJI/screens/admin_access/admin_playerlist_screen.dart';
+import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
+import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
-import 'package:EJI/screens/admin_access/club_spendings.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/screens/common/team_home.dart';
-import 'package:EJI/screens/public/player_details.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class AdminDrawer extends StatelessWidget {
+class AdminDrawer extends StatefulWidget {
   AdminDrawer({Key key}) : super(key: key);
-  final String image = "players/profileImages/logo.png";
+
+  @override
+  _AdminDrawerState createState() => _AdminDrawerState();
+}
+
+class _AdminDrawerState extends State<AdminDrawer> {
+   final String image = "players/profileImages/logo.png";
+
   final CloudDatabase cD = Get.put(CloudDatabase());
-  Player player = new Player(
-    dateOfBirth: '02-02-2002',
-    email: 'oussaid Abdellatif',
-    phone: '0611855535',
-    placeOfBirth: 'Idawlstanne',
-    playerName: 'Abdellatif Oussaid',
-    position: 'GK',
-    profileImage: "players/profileImages/logo.png",
-    regDate: '124',
-    regNum: 4545,
-    seasons: 23,
-    id: '1',
-  );
+
+  List<ClubSpendings> clubSpendings;
+
+  List<ClubIncome> clubIncome;
+
+   double d=0;
+
+   double c=0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +50,37 @@ class AdminDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("EJI Idawlstane"),
-              accountEmail: Text(
-                'EJIBudget'.tr + '${cD.clubBudget.value.toString()}',
-                style: subtext4,
+              accountName:StreamBuilder(
+              stream: cD.getClubSpendings('ClubSpendings'),
+            builder: (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
+               if (!snapshot.hasData || snapshot.hasError) {
+                return  Text("EJI Idawlstane");
+              } else
+                clubSpendings = snapshot.data;
+                d= cD.setBudget(ClubSpendings.getSpendings(clubSpendings))
+                ;
+                return  Text("EJI Idawlstane");
+                }
+              ),
+              accountEmail: StreamBuilder(
+              stream: cD.getClubIncomes('ClubIncome'),
+            builder: (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
+               if (!snapshot.hasData || snapshot.hasError) {
+                return Text(
+                    'EJIBudget'.tr + 'DH ' +'-- ',
+                    textDirection: TextDirection.rtl,
+                    style: subtext4,
+                  );
+              } else
+                clubIncome = snapshot.data;
+                c= ClubIncome.getIncome(clubIncome);
+                
+                return Text(
+                    'EJIBudget'.tr + 'DH ' '${(c-d).toString()} ',
+                    textDirection: TextDirection.rtl,
+                    style: subtext4,
+                  );
+                }
               ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor:
@@ -80,7 +109,7 @@ class AdminDrawer extends StatelessWidget {
               leading: Icon(Icons.people),
               subtitle: Text('PlayersListsub'.tr),
               title: Text('PlayersList'.tr),
-              onTap: () => Get.to(AdminPlayerList()),
+              onTap: () => Get.to(PlayersList()),
             ),
             ListTile(
                 leading: Icon(Icons.store),
@@ -109,6 +138,11 @@ class AdminDrawer extends StatelessWidget {
                   ClubTransactions(),
                 );
               },
+            ),
+            ListTile(
+              leading: Icon(Icons.comment),
+              title: Text('Comments'.tr),
+              onTap: () => Get.to(CommentScreen()),
             ),
             ListTile(
               leading: Icon(Icons.info),

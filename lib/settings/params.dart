@@ -89,6 +89,12 @@ final TextStyle subtext3 = TextStyle(
   fontFamily: 'RobotoCondensed',
   fontSize: 18,
 );
+final TextStyle subtext3y = TextStyle(
+  color: primaryColor,
+  fontWeight: FontWeight.w400,
+  fontFamily: 'RobotoCondensed',
+  fontSize: 18,
+);
 final TextStyle subtext3xy = TextStyle(
   color: secondaryColor2,
   fontWeight: FontWeight.w400,
@@ -192,6 +198,22 @@ var icon2 = Icons.sentiment_dissatisfied;
 var icon3 = Icons.sentiment_neutral;
 var icon4 = Icons.sentiment_satisfied;
 var icon5 = Icons.sentiment_very_satisfied;
+
+Map avatars= {
+'GK':Icon(Icons.person,color: Colors.yellow,),
+'DF':Icon(Icons.person,color: Colors.blue,),
+'DM':Icon(Icons.person,color: Colors.blue,),
+'CM':Icon(Icons.person,color: Colors.green,),
+'AMF':Icon(Icons.person,color: Colors.green,),
+'RMF':Icon(Icons.person,color: Colors.yellow,),
+'LMF':Icon(Icons.person,color: Colors.yellow,),
+'SS':Icon(Icons.person,color: Colors.yellow,),
+'LWF':Icon(Icons.person,color: Colors.yellow,),
+'RWF':Icon(Icons.person,color: Colors.yellow,),
+'CF':Icon(Icons.person,color: Colors.yellow,),
+};
+
+
 
 List<Map> moods = [
   {

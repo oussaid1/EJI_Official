@@ -48,7 +48,7 @@ class Staff {
       'financeDirector': financeDir,
       'councelor1': counceler1,
       'councelor2': counceler2,
-      'councelor3': counceler3,
+      'councellor3': counceler3,
     };
   }
   Staff.fromMap(Map<String, dynamic> map, String id)
@@ -64,7 +64,7 @@ class Staff {
         financeDir = map['financeDirector'],
         counceler1 = map['councelor1'],
         counceler2 = map['councelor2'],
-        counceler3 = map['councelor3'];
+        counceler3 = map['councellor3'];
        
        
 }

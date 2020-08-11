@@ -1,16 +1,14 @@
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/admin_access/add_income.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
-import 'package:EJI/screens/admin_access/club_incomes.dart';
-import 'package:EJI/screens/admin_access/club_spendings.dart';
+import 'package:EJI/screens/common/junior_playerlist.dart';
+import 'package:EJI/screens/public/player_list.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class ClubTransactions extends StatelessWidget {
-  ClubTransactions({Key key}) : super(key: key);
+class PlayersList extends StatelessWidget {
+  PlayersList({Key key}) : super(key: key);
 
   final TextEditingController codeControler = TextEditingController();
   final CloudDatabase c = Get.put(CloudDatabase());
@@ -26,16 +24,21 @@ class ClubTransactions extends StatelessWidget {
           elevation: 0,
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.monetization_on),text: ('Incomes'.tr),),
-              Tab(icon: Icon(Icons.money_off),text: ('Spendings'.tr),),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Seniors'.tr, style: maintext3),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Juniors'.tr, style: maintext3),
+              ),
             ],
           ),
-        ), 
+        ),
         body: TabBarView(
           children: [
-            
-            ClubIncomeScreen(),
-            ClubSpendingsScreen(),
+            SeniorPlayerList(),
+            JuniorPlayerList(),
           ],
         ),
       ),

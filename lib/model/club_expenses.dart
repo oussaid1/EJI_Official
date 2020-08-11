@@ -76,3 +76,51 @@ class ClubSpendings {
         spentOnDate = map['spentOnDate'],
         spentAmount = map['spentAmount'];
 }
+
+
+/*
+class IncomeSpendings {
+  String id;
+  double income;
+  double spendings;
+  String date;
+ 
+  IncomeSpendings(
+      {this.id,
+      this.income,
+      this.spendings,
+      this.date
+    });
+  Map<String, dynamic> toMap() {
+    return {
+      'income': income,
+      'spendings': spendings,
+     
+      
+    };
+  }
+
+ static double getIcomes(List<IncomeSpendings> spendings) {
+    double sum = 0;
+    for (var i = 0; i < spendings.length; i++) {
+      sum += spendings[i].income;
+    }
+
+    return sum;
+  }
+ static double getSpendings(List<IncomeSpendings> spendings) {
+    double sum = 0;
+    for (var i = 0; i < spendings.length; i++) {
+      sum += spendings[i].spendings;
+    }
+
+    return sum;
+  }
+
+  IncomeSpendings.fromMap(Map<String, dynamic> map, String id)
+      : id = id,
+        income = map['income'],
+        spendings = map['spendings'];
+       
+}
+*/

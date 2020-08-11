@@ -740,8 +740,8 @@ class _AddMatchsState extends State<AddMatch> {
                       padding: const EdgeInsets.all(8.0),
                       child: RaisedButton(
                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(20.0)),
-                        color: secondaryColor,
+                              borderRadius: new BorderRadius.circular(10.0)),
+                        color: accentColor,
                         child: Text(
                           'Submit'.tr,
                           style: maintext5x,
@@ -827,6 +827,9 @@ class _AddMatchsState extends State<AddMatch> {
                           ),
                         ],
                       ),
+                       SizedBox(
+                  height: 60,
+                ),
               ],
             ),
           ),

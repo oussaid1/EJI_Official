@@ -54,3 +54,59 @@ class Player {
         profileImage = map['profileimage'];
        
 }
+class JuniorPlayer {
+  String id;
+  String profileImage;
+  int regNum;
+  String playerName;
+  String dateOfBirth;
+  String placeOfBirth;
+  String email;
+  String phone;
+  String regDate;
+  String position;
+  int seasons;
+
+  JuniorPlayer(
+      {this.id,
+      this.playerName,
+      this.dateOfBirth,
+      this.profileImage,
+      this.email,
+      this.phone,
+      this.position,
+      this.regNum,
+      this.regDate,
+      this.seasons,
+      this.placeOfBirth});
+  Map<String, dynamic> toMap() {
+    return {
+      'profileImage': profileImage,
+      'regNum': regNum,
+      'playerName': playerName,
+      'dateOfBirth': dateOfBirth,
+      'placeOfBirth': placeOfBirth,
+      'email': email,
+      'phone': phone,
+      'regDate': regDate,
+      'position': position,
+      'seasons': seasons,
+      
+      
+    };
+  }
+
+  JuniorPlayer.fromMap(Map<String, dynamic> map, String id)
+      : id = id,
+        playerName = map['playerName'],
+        dateOfBirth = map['dateOfBirth'],
+        phone = map['phone'],
+        position = map['position'],
+        regNum = map['regNum'],
+        regDate = map['regDate'],
+        email = map['email'],
+        placeOfBirth = map['placeOfBirth'],
+        seasons = map['seasons'],
+        profileImage = map['profileImage'];
+       
+}

@@ -154,7 +154,6 @@ class _MatchDetailsState extends State<MatchDetails> {
       height: 220,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-       
         children: <Widget>[
           Container(
             width: 170,
@@ -166,7 +165,7 @@ class _MatchDetailsState extends State<MatchDetails> {
             child: Text('${matchDay.matchdayAway.toString()}',
                 textAlign: TextAlign.center, style: subtext3x),
           ),
-           SizedBox(
+          SizedBox(
             height: 20,
           ),
           Padding(
@@ -276,71 +275,75 @@ class _MatchDetailsState extends State<MatchDetails> {
           Center(
             child: Container(
               width: Get.width - 20,
-              height: Get.height / 2,
-              child: Card(
-                color: primaryColorShade,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                              'MatchDay'.tr +
-                                  '${matchDay.matchdayDate.toString()}',
-                              style: maintext3),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+              height: Get.height / 1.8,
+              child: ListView(
+                children: <Widget>[
+                  Card(
+                    color: primaryColorShade,
+                    child: Column(
+                      children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text('MatchType'.tr,
-                              textAlign: TextAlign.center, style: hinttext),
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                  'MatchDay'.tr +
+                                      '${matchDay.matchdayDate.toString()}',
+                                  style: maintext3),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text('MatchType'.tr,
+                                  textAlign: TextAlign.center, style: hinttext),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                '${matchDay.matchdayType.toString()}',
+                                style: subtextxx,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              _buildHome(),
+                              _buildAway(),
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            '${matchDay.matchdayType.toString()}',
-                            style: subtextxx,
-                            textAlign: TextAlign.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'MatchRef'.tr,
+                                style: hinttext,
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                '  ${matchDay.matchdayReferee.toString()}',
+                                style: subtextxx,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildHome(),
-                          _buildAway(),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'MatchRef'.tr,
-                            style: hinttext,
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            '  ${matchDay.matchdayReferee.toString()}',
-                            style: subtextxx,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

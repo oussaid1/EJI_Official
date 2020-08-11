@@ -27,7 +27,7 @@ class AddPlayers extends StatefulWidget {
 
 class _AddPlayersState extends State<AddPlayers> {
   final CloudDatabase cD = Get.put(CloudDatabase());
-
+  bool isJunior = false;
   String _profileImage = "players/profileImages/logo.png";
   int _regNum = 00001;
   String _playerName;
@@ -85,7 +85,7 @@ class _AddPlayersState extends State<AddPlayers> {
 
   int _selectedGender = 0;
   List<DropdownMenuItem<int>> genderList = [];
-  
+
   List<dynamic> itemsList = [
     'GK',
     '*****',
@@ -114,74 +114,113 @@ class _AddPlayersState extends State<AddPlayers> {
         value: i,
       ));
     }
-  
-
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   _saveToDb(BuildContext context) async {
-    Player player = new Player(
-      profileImage: _profileImage,
-      playerName: _playerName,
-      phone: _phone,
-      email: _email,
-      regDate: _regDate,
-      position: _position,
-      dateOfBirth: _dateOfBirth,
-      placeOfBirth: _placeOfBirth,
-      seasons: _seasons,
-      regNum: _regNum,
-    );
-    await cD.addPlayers(player);
+    if (!isJunior) {
+      Player player = new Player(
+        profileImage: _profileImage,
+        playerName: _playerName,
+        phone: _phone,
+        email: _email,
+        regDate: _regDate,
+        position: _position,
+        dateOfBirth: _dateOfBirth,
+        placeOfBirth: _placeOfBirth,
+        seasons: _seasons,
+        regNum: _regNum,
+      );
+      await cD.addPlayers(player);
+    } else if (isJunior) {
+      JuniorPlayer juniorPlayer = new JuniorPlayer(
+        profileImage: _profileImage,
+        playerName: _playerName,
+        phone: _phone,
+        email: _email,
+        regDate: _regDate,
+        position: _position,
+        dateOfBirth: _dateOfBirth,
+        placeOfBirth: _placeOfBirth,
+        seasons: _seasons,
+        regNum: _regNum,
+      );
+      await cD.addJuniorPlayer(juniorPlayer);
+    }
   }
 
   Widget _buildPlayerPosition() {
     return Container(
-        height: 50,
+        height: 60,
         child: Card(
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            side: BorderSide(color: secondaryColor, width: 1),
-          ),
-          color: primaryColor,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'PlayerPosition'.tr,
-                  style: subtext1,
-                ),
-              )),
-              Expanded(
-                child: Container(
-                  width: 60.0,
-                  child: DropdownButtonHideUnderline(
-                    child: ButtonTheme(
-                      alignedDropdown: true,
-                      child: DropdownButton(
-                        isExpanded: true,
-                        value: _selectedGender,
-                        items: genderList,
-                        dropdownColor: primaryColor,
-                        style: maintext3,
-                        onChanged: (dynamic value) {
-                          setState(() {
-                            _selectedGender = value;
-                            _position = itemsList[value];
-                          });
-                        },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: BorderSide(color: primaryColor, width: 1),
+            ),
+            color: primaryColor,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: isJunior? new Text(
+                          'Juniors'.tr,textAlign: TextAlign.center,
+                          style: maintext3,
+                        )
+                        : new Text(
+                          'Seniors'.tr,textAlign: TextAlign.center,
+                          style: maintext3,
+                        ),
                       ),
-                    ),
+                      Switch(
+                          value: isJunior,
+                          onChanged: (value) {
+                            setState(() {
+                              isJunior = value;
+                              print(isJunior);
+                            });
+                          }),
+                    ],
                   ),
-                ),
-              ),
-            ],
-          ),
-        ));
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 80.0,
+                        child: DropdownButtonHideUnderline(
+                          child: ButtonTheme(
+                            alignedDropdown: true,
+                            child: DropdownButton(
+                              isExpanded: true,
+                              value: _selectedGender,
+                              items: genderList,
+                              dropdownColor: primaryColor,
+                              style: maintext3,
+                              onChanged: (dynamic value) {
+                                setState(() {
+                                  _selectedGender = value;
+                                  _position = itemsList[value];
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'PlayerPosition'.tr,textAlign: TextAlign.center,
+                          style: subtext1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ])));
   }
 
   Widget _buildName() {
@@ -565,17 +604,23 @@ class _AddPlayersState extends State<AddPlayers> {
     return Scaffold(
       backgroundColor: primaryColor,
       drawer: MyDrawer(),
+      appBar: new AppBar(
+        actions: [
+          IconButton(icon: Icon(Icons.check,color:secondaryColor,), onPressed: null)
+        ],
+      ),
       body: Form(
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
-              SizedBox(
-                height: 40,
-              ),
+             
               Container(
                   alignment: Alignment.topCenter, child: _buildUpload(context)),
+                  SizedBox(
+                    height: 10,
+                  ),
               _imagePlayer(),
               _buildPlayerPosition(),
               _buildName(),
@@ -645,6 +690,9 @@ class _AddPlayersState extends State<AddPlayers> {
                         ),
                       ],
                     ),
+                     SizedBox(
+                height: 60,
+              ),
             ],
           ),
         ),
@@ -706,7 +754,7 @@ class _AddPlayersState extends State<AddPlayers> {
           });
     }
     return Container(
-      height: 20,
+      height: 30,
       child: Row(
         children: <Widget>[
           Text(

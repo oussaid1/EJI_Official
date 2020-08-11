@@ -7,6 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
 import 'package:get_storage/get_storage.dart';
 
 class CloudDatabase extends GetxController {
@@ -20,6 +22,7 @@ class CloudDatabase extends GetxController {
   var adminEmail = '112233'.obs;
   var adminPassword = '112233'.obs;
 
+ setBudget(double d)=> clubBudget.value= d ;
   @override
   void onInit() {
     GetStorage mBox = GetStorage();
@@ -76,7 +79,53 @@ void queryValues() {
 
     return pList;
   }
+  Stream<List<JuniorPlayer>> getJuniorPlayers(String collectionName) {
+    Stream<List<JuniorPlayer>> pList =
+        _db.collection(collectionName.toString()).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => JuniorPlayer.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
 
+    return pList;
+  }
+/*
+bool isAdult2(String birthDateString) {
+  String datePattern = "dd-MM-yyyy";
+
+  // Current time - at this moment
+  DateTime today = DateTime.now();
+
+  // Parsed date to check
+  DateTime birthDate = DateFormat(datePattern).parse(birthDateString);
+
+  // Date to check but moved 18 years ahead
+  DateTime adultDate = DateTime(
+    birthDate.year + 18,
+    birthDate.month,
+    birthDate.day,
+  );
+
+  return adultDate.isBefore(today);
+}
+
+
+
+  Stream<List<Player>> getPlayerdz(String collectionName) {
+    Stream<List<Player>> pList =
+        _db.collection(collectionName.toString()).snapshots().whereEqualTo().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => Player.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
+
+    return pList;
+  }
+*/
   Stream<List<MatchDay>> getMatchDays(String collectionName) {
     Stream<List<MatchDay>> pLista =
         _db.collection(collectionName.toString()).snapshots().map(
@@ -138,7 +187,7 @@ void queryValues() {
             );
     return pLista;
   }
-
+ 
   Firestore _db = Firestore.instance;
   Future<void> addSpendings(ClubSpendings clubSpendings) {
     return _db.collection('ClubSpendings').add(clubSpendings.toMap());
@@ -146,6 +195,9 @@ void queryValues() {
 
   Future<void> addPlayers(Player player) {
     return _db.collection('players').add(player.toMap());
+  }
+  Future<void> addJuniorPlayer(JuniorPlayer juniorPlayer) {
+    return _db.collection('Juniors').add(juniorPlayer.toMap());
   }
 
   Future<void> addIncome(ClubIncome clubIncome) {
@@ -198,14 +250,21 @@ void queryValues() {
 
   Future<String> getProfileImage(BuildContext context, String image) async {
     String murl;
-
-    await FirebaseStorage.instance
+ try {  
+     await FirebaseStorage.instance
         .ref()
         .child(image)
         .getDownloadURL()
         .then((downloadUrl) {
       murl = downloadUrl.toString();
     });
-    return murl;
+    
+
+   }  
+   catch(e) { 
+      print('download_error, Object does not exist at location.'); 
+   } 
+   return murl;
+   
   }
 }

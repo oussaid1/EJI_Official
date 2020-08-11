@@ -8,26 +8,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class SeniorPlayerList extends StatefulWidget {
-   SeniorPlayerList({Key key}) : super(key: key);
+class JuniorPlayerList extends StatefulWidget {
+   JuniorPlayerList({Key key}) : super(key: key);
 
   @override
-  _SeniorListPageState createState() => _SeniorListPageState();
+  _JuniorListPageState createState() => _JuniorListPageState();
 }
 
-class _SeniorListPageState extends State< SeniorPlayerList> {
+class _JuniorListPageState extends State< JuniorPlayerList> {
   final String image = "players/profileImages/logo.png";
-  List<Player> lista;
+  List<JuniorPlayer> lista;
 
   CloudDatabase c = Get.put(CloudDatabase());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       
+      
         body: StreamBuilder(
-            stream: c.getPlayerz('players'),
+            stream: c.getJuniorPlayers('Juniors'),
             builder:
-                (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
+                (BuildContext context, AsyncSnapshot<List<JuniorPlayer>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {
                 return Center(
                     child: Icon(
@@ -42,7 +42,7 @@ class _SeniorListPageState extends State< SeniorPlayerList> {
               return ListView.builder(
                 itemCount: lista.length != 0 ? lista.length : 0,
                 itemBuilder: (BuildContext context, int index) {
-                  Player player = lista[index];
+                  JuniorPlayer juniorplayer = lista[index];
                   return Card(
                     margin: EdgeInsets.fromLTRB(8, 2, 8, 2),
                     shape: RoundedRectangleBorder(
@@ -62,9 +62,9 @@ class _SeniorListPageState extends State< SeniorPlayerList> {
                             ),
                             child:  new FutureBuilder<String>(
                               future: c.getProfileImage(
-                                  context, player.profileImage.toString()),
+                                  context, juniorplayer.profileImage.toString()),
                               builder: (context, snapshot) {
-                                print(player.profileImage.toString());
+                                print(juniorplayer.profileImage.toString());
                                 return CircleAvatar(
                                   radius: 80,
                                   backgroundColor: secondaryColor,
@@ -87,20 +87,20 @@ class _SeniorListPageState extends State< SeniorPlayerList> {
                         ],
                       ),
                       title: new Text(
-                        '${player.playerName}',
+                        '${juniorplayer.playerName}',
                         style: subtext3,
                       ),
                       trailing: new Text(
-                        '${player.position}',
+                        '${juniorplayer.position}',
                         style: subtext1,
                       ),
                       subtitle: new Text(
-                        '${player.dateOfBirth}',
+                        '${juniorplayer.dateOfBirth}',
                         style: hinttext,
                       ),
                       onTap: () {
-                        Player player = snapshot.data[index];
-                        Get.to(new PlayerDetails(player: player));
+                        JuniorPlayer juniorplayer = snapshot.data[index];
+                        Get.to(new JuniorPlayerDetails(juniorplayer: juniorplayer));
                       },
                     ),
                   );
