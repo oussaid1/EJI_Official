@@ -1,3 +1,4 @@
+import 'package:EJI/model/club_archive.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
@@ -16,6 +17,7 @@ class PicturesArchiveList extends StatefulWidget {
 
 class _PicturesArchiveListState extends State<PicturesArchiveList> {
   CloudDatabase c = Get.put(CloudDatabase());
+  List<ClubArcive> myList;
   Future<String> getProfileImage(BuildContext context, String image) async {
     String murl;
 
@@ -39,101 +41,32 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
     return new Scaffold(
         drawer: new AdminDrawer(),
         appBar: new AppBar(),
-        body: ListView(
-          children:<Widget>[
-
-          
-          new Container(
-            color: primaryColorShade,
-            height: 300,
-            width: 400,
-            child: new Card(
-                borderOnForeground: true,
-                elevation: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: Image.network(
-                    'https://i.ibb.co/V06Xq7b/20190901-193709.jpg',fit: BoxFit.fill,)),
-          ),
-          new Container(
-            color: primaryColorShade,
-            height: 300,
-            width: 400,
-            child: new Card(
-                borderOnForeground: true,
-                elevation: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: Image.network(
-                    'https://i.ibb.co/R0RvyzP/20190901-190839.jpg',fit: BoxFit.fill,)),
-          ),
-          new Container(
-            color: primaryColorShade,
-            height: 300,
-            width: 400,
-            child: new Card(
-                borderOnForeground: true,
-                elevation: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: Image.network(
-                    'https://i.ibb.co/SmWv4TD/20190830-184123.jpg',fit: BoxFit.fill,)),
-          ),
-          new Container(
-            color: primaryColorShade,
-            height: 300,
-            width: 400,
-            child: new Card(
-                borderOnForeground: true,
-                elevation: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: Image.network(
-                    'https://i.ibb.co/HtdM4qG/20190829-183910.jpg',fit: BoxFit.fill,)),
-          ),
-          new Container(
-            color: primaryColorShade,
-            height: 300,
-            width: 400,
-            child: new Card(
-                borderOnForeground: true,
-                elevation: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: Image.network(
-                   'https://i.ibb.co/NZGRRBR/20190829-183627.jpg',fit: BoxFit.fill,)),
-          ),
-          new Container(
-            color: primaryColorShade,
-            height: 300,
-            width: 400,
-            child: new Card(
-                borderOnForeground: true,
-                elevation: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: Image.network(
-                   'https://i.ibb.co/hyTNHDp/IMG-20190824-WA0009.jpg',fit: BoxFit.fill,)),
-          ),
-          new Container(
-            color: primaryColorShade,
-            height: 300,
-            width: 400,
-            child: new Card(
-                borderOnForeground: true,
-                elevation: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: Image.network(
-                   'https://i.ibb.co/3rczSvt/IMG-20190824-WA0007.jpg',fit: BoxFit.fill,)),
-          ),
-          ]));
-  }
+        body: StreamBuilder(
+          stream: c.getClubArcivePictures('ClubPitureArchive'),
+          builder: (context, AsyncSnapshot<List<ClubArcive>> snapshot) {
+            myList=snapshot.data;
+         
+            return ListView.builder(
+              itemCount: myList !=null ? myList.length:0,
+              itemBuilder: (BuildContext context , index){
+                   ClubArcive clubArcive= myList[index];
+            return  new Container(
+                color: primaryColorShade,
+                height: 300,
+                width: 400,
+                child: new Card(
+                    borderOnForeground: true,
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                    child: Image.network(
+                        clubArcive.imageLocation,fit: BoxFit.fill,)),
+              );
+            
+              });
+          }
+        ));
+  
+}
 }
