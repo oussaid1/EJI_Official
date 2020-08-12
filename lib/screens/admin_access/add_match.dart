@@ -26,23 +26,8 @@ class _AddMatchsState extends State<AddMatch> {
   final CloudDatabase cD = Get.put(CloudDatabase());
   final VariablesControler xc = Get.put(VariablesControler());
   String id;
-  String _matchdayDate = '02-08-2020';
+
   String _matchdayType = 'friendly'.tr;
-  String _matchdayReferee = 'Ali';
-  String _matchdayHome = 'EJI Fc';
-  String _matchdayAway = 'Tiskmodin Fc';
-  // ignore: unused_field
-  String _matchdayHomeScore = '03';
-  // ignore: unused_field
-  String _matchdayAwayScore = '01';
-  // ignore: unused_field
-  String _matchdayHomeRedC = '0';
-  // ignore: unused_field
-  String _matchdayAwayRedC = '0';
-  // ignore: unused_field
-  String _matchdayHomeYellC = '0';
-  // ignore: unused_field
-  String _matchdayAwayYellC = '0';
 
   String _myDate;
 
@@ -64,9 +49,8 @@ class _AddMatchsState extends State<AddMatch> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         _myDate = formatter.format(picked);
-        _matchdayDate = _myDate;
+
         matchdateController.text = _myDate;
-        print(_matchdayDate);
       });
     }
   }
@@ -95,42 +79,40 @@ class _AddMatchsState extends State<AddMatch> {
 
   _saveToDb(BuildContext context) async {
     MatchDay matchDay = new MatchDay(
-        matchdayDate: _matchdayDate,
+        matchdayDate: matchdateController.text.trim().toString(),
         matchdayType: _matchdayType,
-        matchdayReferee: _matchdayReferee,
-        matchdayHome: _matchdayHome,
-        matchdayAway: _matchdayAway,
-        matchdayHomeScore: _selectedGender == 4
-            ? '--'
-            : _matchdayHomeScore = xc.matchdayHomeScore.value.toString(),
-        matchdayAwayScore: _selectedGender == 4
-            ? '--'
-            : _matchdayAwayScore = xc.matchdayAwayScore.value.toString(),
-        matchdayHomeRedC: _selectedGender == 4
-            ? '0'
-            : _matchdayHomeRedC = xc.matchdayHomeRedC.value.toString(),
-        matchdayAwayRedC: _selectedGender == 4
-            ? '0'
-            : _matchdayAwayRedC = xc.matchdayAwayRedC.value.toString(),
-        matchdayHomeYellC: _selectedGender == 4
-            ? '0'
-            : _matchdayHomeYellC = xc.matchdayHomeYellC.value.toString(),
-        matchdayAwayYellC: _selectedGender == 4
-            ? '0'
-            : _matchdayAwayYellC = xc.matchdayAwayYellC.value.toString());
-    print(matchDay);
+        matchdayReferee: refereeController.text.trim().toString(),
+        matchdayHome: hometeamController.text.trim().toString(),
+        matchdayAway: awayteamController.text.trim().toString(),
+        matchdayHomeScore: xc.matchdayHomeScore.value,
+        matchdayAwayScore: xc.matchdayAwayScore.value,
+        matchdayHomeRedC: xc.matchdayHomeRedC.value,
+        matchdayAwayRedC: xc.matchdayAwayRedC.value,
+        matchdayHomeYellC: xc.matchdayHomeYellC.value,
+        matchdayAwayYellC: xc.matchdayAwayYellC.value);
     await cD.addMatch(matchDay);
+  }
+  _updateInDb(BuildContext context) async {
+    MatchDay matchDay = new MatchDay(
+      id: widget.matchDay.id,
+        matchdayDate: matchdateController.text.trim().toString(),
+        matchdayType: _matchdayType,
+        matchdayReferee: refereeController.text.trim().toString(),
+        matchdayHome: hometeamController.text.trim().toString(),
+        matchdayAway: awayteamController.text.trim().toString(),
+        matchdayHomeScore: xc.matchdayHomeScore.value,
+        matchdayAwayScore: xc.matchdayAwayScore.value,
+        matchdayHomeRedC: xc.matchdayHomeRedC.value,
+        matchdayAwayRedC: xc.matchdayAwayRedC.value,
+        matchdayHomeYellC: xc.matchdayHomeYellC.value,
+        matchdayAwayYellC: xc.matchdayAwayYellC.value);
+    await cD.updateMatch(matchDay);
   }
 
   Widget _buildDateOfMatch(BuildContext context) {
     return TextFormField(
       readOnly: true,
       controller: matchdateController,
-      onSaved: (value) {
-        setState(() {
-          _matchdayDate = value;
-        });
-      },
       cursorColor: Colors.white,
       style: maintext2,
       decoration: InputDecoration(
@@ -195,7 +177,6 @@ class _AddMatchsState extends State<AddMatch> {
                         setState(() {
                           _selectedGender = value;
                           _matchdayType = itemsList[value];
-                          print(_matchdayType);
                         });
                       },
                     ),
@@ -244,11 +225,6 @@ class _AddMatchsState extends State<AddMatch> {
             return 'insertHomeTeam'.tr;
           } else
             return null;
-        },
-        onSaved: (value) {
-          setState(() {
-            _matchdayHome = value.toString();
-          });
         },
       ),
     );
@@ -414,11 +390,6 @@ class _AddMatchsState extends State<AddMatch> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
       child: new TextFormField(
-        onSaved: (value) {
-          setState(() {
-            _matchdayAway = value.toString();
-          });
-        },
         controller: awayteamController,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
@@ -621,11 +592,6 @@ class _AddMatchsState extends State<AddMatch> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
       child: new TextFormField(
-        onSaved: (value) {
-          setState(() {
-            _matchdayReferee = value.toString();
-          });
-        },
         controller: refereeController,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
@@ -666,22 +632,65 @@ class _AddMatchsState extends State<AddMatch> {
       ),
     );
   }
+int _switchMatchType(String string){
+  
 
+switch (string) {
+
+  case 'Friendly':
+    return 0;
+    break;
+  case 'Competetion':
+    return 1;
+    break;
+  case 'Qualifications':
+    return 2;
+    break;
+  case 'Training':
+    return 3;
+    break;
+  case 'Schedueled':
+    return 4;
+    break;
+
+  case 'مباراة ودية':
+    return 0;
+    break;
+  case 'مباراة منافسة':
+    return 1;
+    break;
+  case'مباراة اقصائية':
+    return 2;
+    break;
+  case'مباراة تدريبية':
+    return 3;
+    break;
+  case 'مباراة مبرمجة':
+    return 4;
+    break;
+ 
+  default:return 0;
+}
+
+}
   @override
   void initState() {
     _loadGenderList();
     if (widget.matchDay != null) {
+
       id = widget.matchDayIndex;
+      _selectedGender=_switchMatchType(widget.matchDay.matchdayType.trim().toString());
       matchdateController.text = widget.matchDay.matchdayDate.toString();
       hometeamController.text = widget.matchDay.matchdayHome.toString();
       awayteamController.text = widget.matchDay.matchdayAway.toString();
       refereeController.text = widget.matchDay.matchdayReferee.toString();
-      xc.matchdayHomeScore.value =widget.matchDay.matchdayType =='Schedueled'.trim()?  0 : int.parse(widget.matchDay.matchdayAwayScore);
-      xc.matchdayHomeYellC.value = 0;
-      xc.matchdayHomeRedC.value = 0;
-      xc.matchdayAwayScore.value  =widget.matchDay.matchdayType =='Schedueled'.trim()?  0 : int.parse(widget.matchDay.matchdayAwayScore);
-      xc.matchdayAwayYellC.value = 0;
-      xc.matchdayAwayRedC.value = 0;
+      xc.matchdayHomeScore.value = widget.matchDay.matchdayHomeScore;
+      xc.matchdayHomeYellC.value =  widget.matchDay.matchdayHomeYellC;
+      xc.matchdayHomeRedC.value =  widget.matchDay.matchdayHomeRedC;
+      xc.matchdayAwayScore.value = widget.matchDay.matchdayAwayScore;
+      xc.matchdayAwayYellC.value =  widget.matchDay.matchdayAwayYellC;
+      xc.matchdayAwayRedC.value =  widget.matchDay.matchdayAwayRedC;
+
     }
     super.initState();
   }
@@ -743,40 +752,40 @@ class _AddMatchsState extends State<AddMatch> {
                 ),
                 widget.matchDay == null
                     ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: RaisedButton(
-                         shape: new RoundedRectangleBorder(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RaisedButton(
+                          shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(10.0)),
-                        color: accentColor,
-                        child: Text(
-                          'Submit'.tr,
-                          style: maintext5x,
-                        ),
-                        onPressed: () {
-                          if (!_formKeyX.currentState.validate()) {
-                            return;
-                          }
+                          color: accentColor,
+                          child: Text(
+                            'Submit'.tr,
+                            style: maintext5x,
+                          ),
+                          onPressed: () {
+                            if (!_formKeyX.currentState.validate()) {
+                              return;
+                            }
 
-                          _formKeyX.currentState.save();
-                          if (_formKeyX.currentState.validate()) {
-                            Get.defaultDialog(
-                              middleText: 'confirmSave'.tr,
-                              onConfirm: () {
-                                _saveToDb(context);
-                                _flushAll();
-                                Navigator.pop(context, false);
-                                Get.to(TeamHomePage());
-                              },
-                              onCancel: () {},
-                            );
-                          } else {
-                            Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
-                                backgroundColor: secondaryColor,
-                                colorText: primaryColor);
-                          }
-                        },
-                      ),
-                    )
+                            _formKeyX.currentState.save();
+                            if (_formKeyX.currentState.validate()) {
+                              Get.defaultDialog(
+                                middleText: 'confirmSave'.tr,
+                                onConfirm: () {
+                                  _saveToDb(context);
+                                  _flushAll();
+                                  Navigator.pop(context, false);
+                                  Get.to(TeamHomePage());
+                                },
+                                onCancel: () {},
+                              );
+                            } else {
+                              Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
+                                  backgroundColor: secondaryColor,
+                                  colorText: primaryColor);
+                            }
+                          },
+                        ),
+                      )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
@@ -788,38 +797,27 @@ class _AddMatchsState extends State<AddMatch> {
                                   TextStyle(color: primaryColor, fontSize: 16),
                             ),
                             onPressed: () {
-                             
+                              if (!_formKeyX.currentState.validate()) {
+                                return;
+                              }
 
-                      
-                              MatchDay matchDayToUpdate = new MatchDay(
-                                id: widget.matchDayIndex,
-                               matchdayDate: _matchdayDate,
-        matchdayType: _matchdayType,
-        matchdayReferee: _matchdayReferee,
-        matchdayHome: _matchdayHome,
-        matchdayAway: _matchdayAway,
-        matchdayHomeScore: _selectedGender == 4
-            ? '--'
-            : _matchdayHomeScore = xc.matchdayHomeScore.value.toString(),
-        matchdayAwayScore: _selectedGender == 4
-            ? '--'
-            : _matchdayAwayScore = xc.matchdayAwayScore.value.toString(),
-        matchdayHomeRedC: _selectedGender == 4
-            ? '0'
-            : _matchdayHomeRedC = xc.matchdayHomeRedC.value.toString(),
-        matchdayAwayRedC: _selectedGender == 4
-            ? '0'
-            : _matchdayAwayRedC = xc.matchdayAwayRedC.value.toString(),
-        matchdayHomeYellC: _selectedGender == 4
-            ? '0'
-            : _matchdayHomeYellC = xc.matchdayHomeYellC.value.toString(),
-        matchdayAwayYellC: _selectedGender == 4
-            ? '0'
-            : _matchdayAwayYellC = xc.matchdayAwayYellC.value.toString());
-    print(matchDayToUpdate);
-                              
-
-                              cD.updateMatch(matchDayToUpdate);
+                              _formKeyX.currentState.save();
+                              if (_formKeyX.currentState.validate()) {
+                                Get.defaultDialog(
+                                  middleText: 'confirmSave'.tr,
+                                  onConfirm: () {
+                                   _updateInDb(context);
+                                    _flushAll();
+                                    Navigator.pop(context, false);
+                                    Get.to(TeamHomePage());
+                                  },
+                                  onCancel: () {},
+                                );
+                              } else {
+                                Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
+                                    backgroundColor: secondaryColor,
+                                    colorText: primaryColor);
+                              }
                             },
                           ),
                           RaisedButton(
@@ -833,7 +831,7 @@ class _AddMatchsState extends State<AddMatch> {
                           ),
                         ],
                       ),
-                       SizedBox(
+                SizedBox(
                   height: 60,
                 ),
               ],

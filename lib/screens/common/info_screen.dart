@@ -17,28 +17,34 @@ class InfoScreen extends StatelessWidget {
           style: maintext3,
         ),
         actions: [
-          IconButton(icon: Icon(Icons.drag_handle,color: secondaryColor2,), onPressed: ()=> Get.to(EJILawScreen())),
+          IconButton(
+              icon: Icon(
+                Icons.drag_handle,
+                color: secondaryColor2,
+              ),
+              onPressed: () => Get.to(EJILawScreen())),
         ],
       ),
       backgroundColor: primaryColor,
       body: ListView(
         children: <Widget>[
-          Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 400,
-                          child: Text(
-                           
-              about.toString(),
-              style: subtext2,
-               overflow:TextOverflow.ellipsis,
-               maxLines: 60,
-               textAlign: TextAlign.justify,
-               textDirection: TextDirection.rtl,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 400,
+              child: Text(
+                about.toString(),
+                style: subtext2,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 60,
+                textAlign: TextAlign.justify,
+                textDirection: TextDirection.rtl,
+              ),
             ),
-                        ),
-                      ),
+          ),
+
+          SizedBox(
+            height: 50,
           ),
         ],
       ),

@@ -5,12 +5,12 @@ class MatchDay {
   String matchdayReferee;
   String matchdayHome;
   String matchdayAway;
-  String matchdayHomeScore;
-  String matchdayAwayScore;
-  String matchdayHomeRedC;
-  String matchdayAwayRedC;
-  String matchdayHomeYellC;
-  String matchdayAwayYellC;
+  int matchdayHomeScore;
+  int matchdayAwayScore;
+  int matchdayHomeRedC;
+  int matchdayAwayRedC;
+  int matchdayHomeYellC;
+  int matchdayAwayYellC;
 
   MatchDay({
     this.id,

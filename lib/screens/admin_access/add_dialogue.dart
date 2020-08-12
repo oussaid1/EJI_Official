@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

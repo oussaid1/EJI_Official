@@ -19,7 +19,7 @@ class ClubIncomeScreen extends StatefulWidget {
 class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
   List<ClubIncome> clubIncome;
   List<ClubIncome> selectedclubIncome;
-  bool sort;
+  bool sort; 
   int rowIndex;
   final CloudDatabase c = Get.put(CloudDatabase());
   @override
@@ -72,7 +72,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                     sortAscending: true,
                     columns: [
                       DataColumn(
-                        tooltip: 'kk',
+                        tooltip: 'For',
                         label: Text(
                           "GivenFor".tr,
                           style: subtext2xy,

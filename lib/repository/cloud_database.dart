@@ -10,18 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
-
+ 
 class CloudDatabase extends GetxController {
   RxDouble clubBudget = 0.0.obs;
   RxBool isAdmin = false.obs;
   RxBool isSuperAdmin = true.obs;
   RxBool isComplete = true.obs;
   RxString sperAdminPass = '1243'.obs;
+  RxString presidentialPass = '12343'.obs;
   var email = 'Idawlstane'.obs;
   var password = 'Idawlstane'.obs;
   var adminEmail = 'E20J19I'.obs;
   var adminPassword = 'E20J19I'.obs;
-
+Firestore _db = Firestore.instance;
  setBudget(double d)=> clubBudget.value= d ;
   @override
   void onInit() {
@@ -201,13 +202,18 @@ bool isAdult2(String birthDateString) {
     return pLista;
   }
  
-  Firestore _db = Firestore.instance;
+  
+
+
   Future<void> addSpendings(ClubSpendings clubSpendings) {
     return _db.collection('ClubSpendings').add(clubSpendings.toMap());
   }
 
   Future<void> addPlayers(Player player) {
     return _db.collection('players').add(player.toMap());
+  }
+  Future<void> addArchivePictures(ClubArcive clubArcive) {
+    return _db.collection('ClubPitureArchive').add(clubArcive.toMap());
   }
   Future<void> addJuniorPlayer(JuniorPlayer juniorPlayer) {
     return _db.collection('Juniors').add(juniorPlayer.toMap());
@@ -259,6 +265,12 @@ bool isAdult2(String birthDateString) {
         .collection('ClubIncome')
         .document(clubIncome.id.toString())
         .updateData(clubIncome.toMap());
+  }
+  Future<void> updateArchivePiture(ClubArcive clubArcive) {
+    return _db
+        .collection('ClubPitureArchive')
+        .document(clubArcive.id.toString())
+        .updateData(clubArcive.toMap());
   }
 
   Future<String> getProfileImage(BuildContext context, String image) async {

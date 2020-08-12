@@ -99,12 +99,17 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                             color: secondaryColor, width: 0.5)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(2.0),
-                                      child: Text(
+                                      child: matchDay.matchdayType.trim() != 'مباراة مبرمجة'.toString() || matchDay.matchdayType.trim() != 'Schedueled'.tr.trim().toString() ? Text(
                                           '${matchDay.matchdayHomeScore.toString()}' +
                                               ' : ' +
                                               '${matchDay.matchdayAwayScore.toString()}',
                                           textAlign: TextAlign.center,
-                                          style: subtext3xx),
+                                          style: subtext3xx):Text(
+                                          '--' +
+                                              ' : ' +
+                                              '--',
+                                          textAlign: TextAlign.center,
+                                          style: subtext3xx)
                                     ),
                                   ),
                                 ),

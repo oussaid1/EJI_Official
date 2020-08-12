@@ -1,8 +1,8 @@
 class ClubArcive {
   String id;
   String imageLocation;
-  String thumbsUp;
-  String thumbsDown;
+  int thumbsUp;
+  int thumbsDown;
   String season;
   String takenBy;
 
