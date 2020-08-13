@@ -5,12 +5,12 @@ import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
- 
+
 void main() async {
   await GetStorage.init();
   runApp(MyApp());
 }
- 
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -18,13 +18,19 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       color: primaryColor,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(accentColor: accentColor, primaryColor: primaryColor,cardColor: primaryColorShade),
+      theme: ThemeData(
+          accentColor: accentColor,
+          dialogBackgroundColor: secondaryColor,
+          appBarTheme: AppBarTheme(iconTheme:IconThemeData( color: secondaryColor) ),
+          iconTheme: IconThemeData(color: secondaryColor),
+          primaryColor: primaryColor,
+          cardColor: primaryColorShade),
       translations: MyTranslations(),
       locale: Locale('ar'),
       home: SplashPage(),
-      initialRoute:'/splash',
+      initialRoute: '/splash',
       getPages: [
-        GetPage(name: '/splash', page:()=> new SplashPage()),
+        GetPage(name: '/splash', page: () => new SplashPage()),
       ],
       // GetPage with custom transitions and bindings
     );

@@ -13,6 +13,7 @@ class Comments {
       this.commentsReply,
       this.commentsText,
       this.subject});
+
   Map<String, dynamic> toMap() {
     return {
       'subject': subject,
@@ -20,7 +21,11 @@ class Comments {
       'remark': commentsText,
       'by': commentsBy,
       'answer': commentsReply,
-      
+    };
+  }
+  Map<String, dynamic> toMapone() {
+    return {
+      'answer': commentsReply,
     };
   }
 
@@ -30,6 +35,5 @@ class Comments {
         commentsDate = map['remarkdate'],
         commentsText = map['remark'],
         commentsBy = map['by'],
-        commentsReply = map['answer']
-       ;
+        commentsReply = map['answer'];
 }
