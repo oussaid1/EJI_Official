@@ -91,9 +91,9 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.list),
-              subtitle: Text('teamsub'.tr),
-              title: Text('team'.tr),
+              leading: Icon(Icons.people),
+              title: Text('Matches&Anounces'.tr),
+             
               onTap: () => Get.to(AnouncesTab()),
             ),
             ListTile(

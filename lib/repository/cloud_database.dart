@@ -267,6 +267,12 @@ bool isAdult2(String birthDateString) {
         .document(anounce.id.toString())
         .updateData(anounce.toMap());
   }
+  Future<void> addReply(Comments comments) {
+    return _db
+        .collection('remarks')
+        .document(comments.id.toString())
+        .updateData(comments.toMapone());
+  }
 
   Future<void> updateMatch(MatchDay matchDay) {
     return _db

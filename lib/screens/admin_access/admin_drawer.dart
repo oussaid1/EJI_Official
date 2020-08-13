@@ -142,7 +142,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
             ),
             ListTile(
               leading: Icon(Icons.attach_money),
-              title: Text('ClubFinance'.tr),
+              title: Text('ClubTransactions'.tr),
               subtitle: Text('Income and Spendings'.tr),
               onTap: () {
                 Get.to(

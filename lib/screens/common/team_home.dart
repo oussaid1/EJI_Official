@@ -143,12 +143,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                                 ));
                                               })
                                           : SizedBox(width: 1, height: 1),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text('MatchType'.tr,
-                                            textAlign: TextAlign.center,
-                                            style: hinttext),
-                                      ),
+                                      
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text(
@@ -156,6 +151,12 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                           style: subtextxx,
                                           textAlign: TextAlign.center,
                                         ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text('MatchType'.tr,
+                                            textAlign: TextAlign.center,
+                                            style: hinttext),
                                       ),
                                     ],
                                   ),

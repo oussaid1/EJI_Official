@@ -296,11 +296,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text('MatchType'.tr,
-                                  textAlign: TextAlign.center, style: hinttext),
-                            ),
+                            
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
@@ -308,6 +304,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 style: subtextxx,
                                 textAlign: TextAlign.center,
                               ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text('MatchType'.tr,
+                                  textAlign: TextAlign.center, style: hinttext),
                             ),
                           ],
                         ),
@@ -326,16 +327,17 @@ class _MatchDetailsState extends State<MatchDetails> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                               Text(
+                                '  ${matchDay.matchdayReferee.toString()}',
+                                style: subtextxx,
+                                textAlign: TextAlign.center,
+                              ),
                               Text(
                                 'MatchRef'.tr,
                                 style: hinttext,
                                 textAlign: TextAlign.center,
                               ),
-                              Text(
-                                '  ${matchDay.matchdayReferee.toString()}',
-                                style: subtextxx,
-                                textAlign: TextAlign.center,
-                              ),
+                             
                             ],
                           ),
                         ),
