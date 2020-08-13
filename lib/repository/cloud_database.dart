@@ -1,3 +1,4 @@
+import 'package:EJI/model/anounce.dart';
 import 'package:EJI/model/club_archive.dart';
 import 'package:EJI/model/club_expenses.dart';
 import 'package:EJI/model/comments_model.dart';
@@ -74,6 +75,18 @@ Firestore _db = Firestore.instance;
               (snapshot) => snapshot.documents
                   .map(
                     (doc) => Player.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
+
+    return pList;
+  }
+  Stream<List<Anounce>> getAnounces(String collectionName) {
+    Stream<List<Anounce>> pList =
+        _db.collection(collectionName.toString()).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => Anounce.fromMap(doc.data, doc.documentID),
                   )
                   .toList(),
             );
@@ -222,6 +235,9 @@ bool isAdult2(String birthDateString) {
   Future<void> addIncome(ClubIncome clubIncome) {
     return _db.collection('ClubIncome').add(clubIncome.toMap());
   }
+  Future<void> addAnounce(Anounce anounce, String anouncecolection) {
+    return _db.collection(anouncecolection.toString().trim()).add(anounce.toMap());
+  }
 
   Future<void> addMatch(MatchDay matchDay) {
     return _db.collection('matchday').add(matchDay.toMap());
@@ -244,6 +260,12 @@ bool isAdult2(String birthDateString) {
         .collection('players')
         .document(player.id.toString())
         .updateData(player.toMap());
+  }
+  Future<void> updateAnounce(Anounce anounce) {
+    return _db
+        .collection('anounces')
+        .document(anounce.id.toString())
+        .updateData(anounce.toMap());
   }
 
   Future<void> updateMatch(MatchDay matchDay) {

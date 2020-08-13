@@ -1,12 +1,12 @@
 import 'package:EJI/model/club_expenses.dart';
 import 'package:EJI/screens/admin_access/picture_archive_list.dart';
+import 'package:EJI/screens/common/anounces_tab.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
-import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,7 +94,7 @@ class _MyDrawerState extends State<MyDrawer> {
               leading: Icon(Icons.list),
               subtitle: Text('teamsub'.tr),
               title: Text('team'.tr),
-              onTap: () => Get.to(TeamHomePage()),
+              onTap: () => Get.to(AnouncesTab()),
             ),
             ListTile(
               subtitle: Text('PlayersListsub'.tr),

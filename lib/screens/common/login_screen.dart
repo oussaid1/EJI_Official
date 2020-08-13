@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'anounces_tab.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -175,32 +177,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             contentPadding: EdgeInsets.only(left: 2)),
                       ),
                     ),
-                    SizedBox(
-                      height: 50,
-                      child:  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: isArabic? new Text(
-                          'عربية'.tr,textAlign: TextAlign.center,
-                          style: maintext3,
-                        )
-                        : new Text(
-                          'English'.tr,textAlign: TextAlign.center,
-                          style: maintext3,
-                        ),
-                      ),
-                      Switch(
-                          value: isArabic,
-                          onChanged: (value) {
-                            setState(() {
-                              isArabic = value;
-                              
-                            });
-                          }),
-                    ],
-                  ),
-                    ),
+                   SizedBox(
+                     height: 30,
+                   ),
                     Container(
                       height: 70,
                       child: Padding(
@@ -223,8 +202,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     c.adminPassword.value.toString())
                               {
                                 c.setAdmin(true),
-                                Get.to(TeamHomePage()),
-                                 isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')), 
+                                Get.to(AnouncesTab()),
+                               //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')), 
                               }
                             
                             else if (_loginformKey1.currentState.validate())
@@ -235,8 +214,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         c.password.value.toString())
                                   {
                                     c.setAdmin(false),
-                                    Get.to(TeamHomePage()),
-                                      isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')), 
+                                    Get.to(AnouncesTab()),
+                                    //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')), 
                                   }
                                 else
                                   {
@@ -260,3 +239,32 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+bool isArabic= true;
+
+var languageSwitch= SizedBox(
+                      height: 50,
+                      child:  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: isArabic? new Text(
+                          'عربية'.tr,textAlign: TextAlign.center,
+                          style: maintext3,
+                        )
+                        : new Text(
+                          'English'.tr,textAlign: TextAlign.center,
+                          style: maintext3,
+                        ),
+                      ),
+                      Switch(
+                          value: isArabic,
+                          onChanged: (value) {
+                            
+                              isArabic = value;
+                              
+                         
+                          }),
+                    ],
+                  ),
+                    );

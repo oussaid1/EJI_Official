@@ -36,8 +36,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-        drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
-        appBar: AppBar(),
+       
         body: StreamBuilder(
             stream: c.getMatchDays('matchday'),
             builder:

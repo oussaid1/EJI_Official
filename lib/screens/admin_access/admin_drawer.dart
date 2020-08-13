@@ -5,6 +5,8 @@ import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/admin_access/picture_archive_list.dart';
+import 'package:EJI/screens/common/announces_screen.dart';
+import 'package:EJI/screens/common/anounces_tab.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
@@ -97,9 +99,9 @@ class _AdminDrawerState extends State<AdminDrawer> {
             ),
             ListTile(
               leading: Icon(Icons.people),
-              subtitle: Text('teamsub'.tr),
-              title: Text('team'.tr),
-              onTap: () => Get.to(TeamHomePage()),
+              subtitle: Text('Matches&Anounces'.tr),
+              title: Text('managematches&Anounces'.tr),
+              onTap: () => Get.to(AnouncesTab()),
             ),
             ListTile(
               leading: Icon(FontAwesomeIcons.list),

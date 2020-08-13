@@ -1,13 +1,13 @@
 import 'package:EJI/model/comments_model.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/common/add_comment.dart';
+import 'package:EJI/screens/common/add_anounce.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CommentScreen extends StatelessWidget {
-  CommentScreen({
+class AnouncesScreen extends StatelessWidget {
+  AnouncesScreen({
     Key key,
   }) : super(key: key);
   final CloudDatabase xc = Get.put(CloudDatabase());
@@ -16,32 +16,8 @@ class CommentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Comments> lista;
     return Scaffold(
-      drawer: MyDrawer(),
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-                    'Remarks&Sugestion'.tr,
-                    style: maintext3,
-                  ),
-        ),
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.add_comment,
-                color: secondaryColor,
-              ),
-              onPressed: () {
-                Get.defaultDialog(
-                  backgroundColor: Colors.blue[100],
-                  title: ('AddRemark'.tr),
-                  middleText: 'you are responsible of your words'.tr,
-                  content: AddComment(),
-                );
-              } // Get.to(AddComment()),
-              )
-        ],
-      ),
-      backgroundColor: primaryColor,
+     
+      backgroundColor: primaryColorShade,
       body: Column(
         children: [
          
@@ -69,6 +45,7 @@ class CommentScreen extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
+
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: primaryColorShade,
@@ -80,10 +57,13 @@ class CommentScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(comment.subject.toString(),
-                                      style: subtext2x),
-                                  Text('Subject'.tr, style: subtext3xy),
-                                  
+                                   Padding(
+                                     padding: const EdgeInsets.all(4.0),
+                                     child: Text(comment.subject.toString(),
+                                        style: subtext3x),
+                                   ),
+                                  Text('Subject'.tr, style: subtext3xy,textDirection:TextDirection.rtl ,),
+                                 
                                 ],
                               ),
                             ),
@@ -106,7 +86,7 @@ class CommentScreen extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(4.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -114,15 +94,18 @@ class CommentScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(comment.commentsDate.toString(),
-                                          style: hinttext,textDirection: TextDirection.rtl,),
+                                          style: hinttext),
                                     ],
                                   ),
                                   Row(
                                     children: [
-                                       Text(comment.commentsBy.toString(),
-                                          style: subtext2x),
-                                      Text('By'.tr, style: subtext3xy),
                                      
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text(comment.commentsBy.toString(),
+                                            style: subtext2x),
+                                      ),
+                                           Text('By'.tr, style: hinttext),
                                     ],
                                   ),
                                 ],
