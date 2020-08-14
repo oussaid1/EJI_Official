@@ -10,7 +10,14 @@ class Player {
   String regDate;
   String position;
   int seasons;
-
+  int trainingScore;
+  int descipline;
+  int positionMaster;
+  int availability;
+  int oVR;
+Player.getScore(){
+  oVR=trainingScore+descipline+positionMaster+availability;
+}
   Player(
       {this.id,
       this.playerName,

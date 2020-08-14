@@ -241,6 +241,7 @@ class MyTranslations extends Translations {
           'selectDateSpent': ' اختر التاريخ',
           'Send': ' ارسل ',
           'Saved': ' تم الحفظ',
+          'Save': 'حفظ',
           'inserAmountSpentiMad': ' ادخل المبلغ ',
           'onlyNumbersAlowed': ' ارقام فقط',
           'AddSpendings': ' أظف النفقات',

@@ -57,6 +57,7 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
                                             .trim()) {
                                       Navigator.pop(context);
                                       setState(() {
+                                         Get.off(AddPicture());
                                         isOussaid=true;
                                       });
                                      
@@ -64,12 +65,8 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
                                   },
                                 ),
                               );
-            }):
-           isOussaid? IconButton(icon: Icon(Icons.add_a_photo,color: accentColor,), onPressed: () {
-             
-               Get.off(AddPicture());
-            
-            }): Container(),
+            }):new Container(),
+           
           ],
         ),
         body: StreamBuilder(

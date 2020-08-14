@@ -4,6 +4,8 @@ import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'add_anounce.dart';
+
 class AnouncesScreen extends StatelessWidget {
   AnouncesScreen({
     Key key,
@@ -14,7 +16,21 @@ class AnouncesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Anounce> lista;
     return Scaffold(
-     
+      floatingActionButtonLocation:FloatingActionButtonLocation.startTop ,
+     floatingActionButton: Padding(
+       padding: const EdgeInsets.fromLTRB(2,8,4,4),
+       child: FloatingActionButton(
+         elevation: 40,
+        
+         child: Icon(Icons.add,size:30,color: primaryColor,),
+         onPressed: (){  Get.defaultDialog(
+                    backgroundColor: Colors.blue[100],
+                    title: ('Anounces'.tr),
+                    middleText: '',
+                    
+                    content: AddAnounce(),
+                  );}),
+     ),
       body: Column(
         children: [
          

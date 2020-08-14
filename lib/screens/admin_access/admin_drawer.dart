@@ -49,128 +49,142 @@ class _AdminDrawerState extends State<AdminDrawer> {
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
         // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName:StreamBuilder(
-              stream: cD.getClubSpendings('ClubSpendings'),
-            builder: (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
-               if (!snapshot.hasData || snapshot.hasError) {
-                return  Text("EJI Idawlstane");
-              } else
-                clubSpendings = snapshot.data;
-                d= cD.setBudget(ClubSpendings.getSpendings(clubSpendings))
-                ;
-                return  Text("EJI Idawlstane");
-                }
+        child: Column(
+          children: [
+
+             UserAccountsDrawerHeader(
+                    accountName:StreamBuilder(
+                    stream: cD.getClubSpendings('ClubSpendings'),
+                  builder: (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
+                     if (!snapshot.hasData || snapshot.hasError) {
+                      return  Text("EJI Idawlstane");
+                    } else
+                      clubSpendings = snapshot.data;
+                      d= cD.setBudget(ClubSpendings.getSpendings(clubSpendings))
+                      ;
+                      return  Text("EJI Idawlstane");
+                      }
+                    ),
+                    accountEmail: StreamBuilder(
+                    stream: cD.getClubIncomes('ClubIncome'),
+                  builder: (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
+                     if (!snapshot.hasData || snapshot.hasError) {
+                      return Text(
+                          'EJIBudget'.tr + 'DH ' +'-- ',
+                          textDirection: TextDirection.rtl,
+                          style: subtext4,
+                        );
+                    } else
+                      clubIncome = snapshot.data;
+                      c= ClubIncome.getIncome(clubIncome);
+                      
+                      return Text(
+                          'EJIBudget'.tr + 'DH ' '${(c-d).toString()} ',
+                          textDirection: TextDirection.rtl,
+                          style: subtext4,
+                        );
+                      }
+                    ),
+                    currentAccountPicture: CircleAvatar(
+                      backgroundColor:
+                          Theme.of(context).platform == TargetPlatform.iOS
+                              ? Colors.blue
+                              : Colors.white,
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    otherAccountsPictures: [
+                    //     Text('Sign-Out',style: subtext2,),
+                    //    IconButton(icon: Icon(FontAwesomeIcons.powerOff, size: 24,color: secondaryColor,), onPressed: (){}),
+                       
+
+                    ],
+                  ),
+            Expanded(
+                          child: ListView(
+                // Important: Remove any padding from the ListView.
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                 
+                  ListTile(
+                    leading: Icon(Icons.people),
+                    subtitle: Text('Matches&Anounces'.tr),
+                    title: Text('managematches&Anounces'.tr),
+                    onTap: () => Get.to(AnouncesTab()),
+                  ),
+                  ListTile(
+                    leading: Icon(FontAwesomeIcons.list),
+                    //subtitle: Text('teamManagersub'.tr),
+                    subtitle: Text('underDevelopment'.tr),
+                    title: Text('teamManager'.tr),
+                    
+                    onTap: () {Get.to(HomePage());},
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.people),
+                    subtitle: Text('PlayersListsub'.tr),
+                    title: Text('PlayersList'.tr),
+                    onTap: () => Get.to(PlayersList()),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.comment),
+                    title: Text('PictureArchive'.tr),
+                   onTap:()=> Get.to(PicturesArchiveList()),
+                  ),
+                  ListTile(
+                      leading: Icon(Icons.store),
+                      title: Text('Staff'.tr),
+                      onTap: () => {
+                            Get.to(StaffPage()),
+                          }),
+                  ListTile(
+                    leading: Icon(Icons.person_add),
+                    title: Text('AddPlayer'.tr),
+                    subtitle: Text('AddPlayersub'.tr),
+                    onTap: () => Get.to(AddPlayers()),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.add_location),
+                    title: Text('AddMatch'.tr),
+                    subtitle: Text('AddMatch'.tr),
+                    onTap: () => Get.to(AddMatch()),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.attach_money),
+                    title: Text('ClubTransactions'.tr),
+                    subtitle: Text('Income and Spendings'.tr),
+                    onTap: () {
+                      Get.to(
+                        ClubTransactions(),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.comment),
+                    title: Text('Comments'.tr),
+                    onTap: () => Get.to(CommentScreen()),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.info),
+                    title: Text('EJIRegulations'.tr),
+                    onTap: () => Get.to(EJILawScreen()),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.info),
+                    title: Text('AboutEJI'.tr),
+                    subtitle: Text('AboutEJIsub'.tr),
+                    onTap: () => Get.to(InfoScreen()),
+                  ),
+                  ListTile(
+                    subtitle: Text('SignOutsub'.tr),
+                    leading: Icon(Icons.exit_to_app),
+                    title: Text('SignOut'.tr),
+                    onTap: () => Get.offAll(SplashPage()),
+                  ),
+                ],
               ),
-              accountEmail: StreamBuilder(
-              stream: cD.getClubIncomes('ClubIncome'),
-            builder: (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
-               if (!snapshot.hasData || snapshot.hasError) {
-                return Text(
-                    'EJIBudget'.tr + 'DH ' +'-- ',
-                    textDirection: TextDirection.rtl,
-                    style: subtext4,
-                  );
-              } else
-                clubIncome = snapshot.data;
-                c= ClubIncome.getIncome(clubIncome);
-                
-                return Text(
-                    'EJIBudget'.tr + 'DH ' '${(c-d).toString()} ',
-                    textDirection: TextDirection.rtl,
-                    style: subtext4,
-                  );
-                }
-              ),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor:
-                    Theme.of(context).platform == TargetPlatform.iOS
-                        ? Colors.blue
-                        : Colors.white,
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.people),
-              subtitle: Text('Matches&Anounces'.tr),
-              title: Text('managematches&Anounces'.tr),
-              onTap: () => Get.to(AnouncesTab()),
-            ),
-            ListTile(
-              leading: Icon(FontAwesomeIcons.list),
-              //subtitle: Text('teamManagersub'.tr),
-              subtitle: Text('underDevelopment'.tr),
-              title: Text('teamManager'.tr),
-              
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(Icons.people),
-              subtitle: Text('PlayersListsub'.tr),
-              title: Text('PlayersList'.tr),
-              onTap: () => Get.to(PlayersList()),
-            ),
-            ListTile(
-              leading: Icon(Icons.comment),
-              title: Text('PictureArchive'.tr),
-             onTap:()=> Get.to(PicturesArchiveList()),
-            ),
-            ListTile(
-                leading: Icon(Icons.store),
-                title: Text('Staff'.tr),
-                onTap: () => {
-                      Get.to(StaffPage()),
-                    }),
-            ListTile(
-              leading: Icon(Icons.person_add),
-              title: Text('AddPlayer'.tr),
-              subtitle: Text('AddPlayersub'.tr),
-              onTap: () => Get.to(AddPlayers()),
-            ),
-            ListTile(
-              leading: Icon(Icons.add_location),
-              title: Text('AddMatch'.tr),
-              subtitle: Text('AddMatch'.tr),
-              onTap: () => Get.to(AddMatch()),
-            ),
-            ListTile(
-              leading: Icon(Icons.attach_money),
-              title: Text('ClubTransactions'.tr),
-              subtitle: Text('Income and Spendings'.tr),
-              onTap: () {
-                Get.to(
-                  ClubTransactions(),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.comment),
-              title: Text('Comments'.tr),
-              onTap: () => Get.to(CommentScreen()),
-            ),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text('EJIRegulations'.tr),
-              onTap: () => Get.to(EJILawScreen()),
-            ),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text('AboutEJI'.tr),
-              subtitle: Text('AboutEJIsub'.tr),
-              onTap: () => Get.to(InfoScreen()),
-            ),
-            ListTile(
-              subtitle: Text('SignOutsub'.tr),
-              leading: Icon(Icons.exit_to_app),
-              title: Text('SignOut'.tr),
-              onTap: () => Get.offAll(SplashPage()),
             ),
           ],
         ),

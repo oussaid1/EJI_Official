@@ -18,27 +18,13 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  SquadPlayer _squadPlayer = new SquadPlayer(
-    abriviation: 'GK',
-    avatar: 'GK',
-    markings: 1,
-    position: 'GK',
-  );
+double height=Get.height,width=Get.width;
 
-Widget person= Icon(
-        Icons.person,
-        size: 30,
-      );
-
+  bool isAccepted = false;
   bool isSwitched = false;
-  var plyer = Icon(
-    Icons.person,
-    size: 40,
-  );
+
   final CloudDatabase c = Get.put(CloudDatabase());
-  bool isEconomicMode;
-  double limit = 400;
-  GetStorage mBox = GetStorage();
+
   @override
   void initState() {
 //mBox.write('adminkey',false).then((value) => isAdmin= mBox != null ? mBox.read('adminkey') :true);
@@ -54,53 +40,82 @@ Widget person= Icon(
       appBar: AppBar(
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.person),
-            onPressed: () {},
+            icon: Icon(Icons.clear),
+            onPressed: () {
+              setState(() {
+                isAccepted = false;
+              });
+            },
           )
         ],
       ),
       body: Stack(
+        fit: StackFit.passthrough,
         children: <Widget>[
-          Image.asset('assets/images/field.png', fit: BoxFit.fill),
-          Positioned(
-              top: 300,
-              left: 20,
-              child: buildPositioned()),
-          Positioned(
-            top: 300,
-            left: 120,
-            child: DragTarget<Widget>(
-              builder: ( context, inComing,
-                   rejected) {
-                return Container(
-                  width: 160,
-                  height: 160,
-                  color: secondaryColor,
-                );
-              },
-              onAccept: (data) { data=person;},
-              onWillAccept: (data) {
-                return true;
-              },
-            ),
-          )
+          Padding(
+            padding: const EdgeInsets.only(left: 2),
+            child: Image.asset('assets/images/field.png', fit: BoxFit.contain),
+          ),
+          // GoalKeeper 
+          buildPositionedPlayer(bottm: height/50, left:width/2.7),
+         //deffence
+          buildPositionedPlayer(bottm:height/7, left:width/20),
+          buildPositionedPlayer(bottm:height/7, left:width/3.5),
+          buildPositionedPlayer(bottm:height/7, right:width/3.5),
+          buildPositionedPlayer(bottm:height/7, right:width/20),
+          //MiddleField
+          buildPositionedPlayer(bottm:height/3, right:width/20),
+          buildPositionedPlayer(bottm:height/3, right:width/2.55),
+          buildPositionedPlayer(bottm:height/3, left:width/20),
+
+          //Forward 
+          buildPositionedPlayer(top:height/6, right:width/20),
+          buildPositionedPlayer(top:height/10, right:width/2.55),
+          buildPositionedPlayer(top:height/6, left:width/20),
+        
         ],
       ),
     );
   }
 
-  Widget  buildPositioned() {
-    return Draggable<Widget>(
-      data: person,
+  Positioned buildPositionedPlayer({double bottm,double left,double right,double top}) {
+    return Positioned(
+          bottom: bottm,
+          left:left ,
+          right: right,
+          top: top,
+        
+          child: Container(
+            height: 140,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new SquadPlayer(),
+                ),
+              ],
+            ),
+          ),
+        );
+  }
+
+  Widget buildPositioned() {
+    return Draggable<String>(
+      data: 'person',
       feedback: Icon(
         Icons.person,
         size: 30,
       ),
       childWhenDragging: Icon(
         Icons.person,
+        color: primaryColor,
         size: 30,
       ),
-      child: _squadPlayer,
+      child: Icon(
+        Icons.person,
+        size: 30,
+        color: accentColor2,
+      ),
     );
   }
 }

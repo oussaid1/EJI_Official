@@ -33,22 +33,25 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton:c.isAdmin.value ?  Padding(
-        padding: const EdgeInsets.only(bottom: 100),
+        padding: const EdgeInsets.fromLTRB(8,8,8,50),
         child: FloatingActionButton(
           elevation: 8,
           onPressed: () {
              Get.defaultDialog(
                   title: 'AddIncome'.tr,
                   content: Expanded(child: AddIncome()),
+                 
                 );
           },
           child: Icon(
-            FontAwesomeIcons.dollarSign,
-            size: 36,
+           Icons.add,
+            size: 40,
+            color: primaryColor,
           ),
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16.0))),
+              borderRadius: BorderRadius.all(Radius.circular(100.0))),
         ),
       ): null,
       
@@ -62,7 +65,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                 );
               } else
                 clubIncome = snapshot.data;
-              return Column(
+              return ListView(
                 children: [
                   DataTable(
                     columnSpacing: 20,
@@ -143,6 +146,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 50,),
                 ],
               );
             }),

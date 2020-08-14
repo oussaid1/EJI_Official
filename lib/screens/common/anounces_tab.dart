@@ -21,22 +21,6 @@ class AnouncesTab extends StatelessWidget {
       child: Scaffold(
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(
-          actions: [
-             c.isAdmin.value? IconButton(
-              icon: Icon(
-                Icons.add_comment,
-                color: secondaryColor,
-              ),
-              onPressed: () {
-                Get.defaultDialog(
-                  backgroundColor: Colors.blue[100],
-                  title: ('Anounces'.tr),
-                  middleText: '',
-                  content: AddAnounce(),
-                );
-              } // Get.to(AddComment()),
-              ): Container(),
-          ],
           elevation: 0,
           bottom: TabBar(
             tabs: [

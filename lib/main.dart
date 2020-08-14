@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-void main() async {
+void main() async { 
   await GetStorage.init();
   runApp(MyApp());
 }
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           accentColor: accentColor,
-          dialogBackgroundColor: secondaryColor,
+        
           appBarTheme: AppBarTheme(iconTheme:IconThemeData( color: secondaryColor) ),
           iconTheme: IconThemeData(color: secondaryColor),
           primaryColor: primaryColor,

@@ -275,7 +275,7 @@ class _AddSpendingsState extends State<AddIncome> {
             widget.clubIncome == null
                 ? Container(
                     width: 300,
-                    height: 40,
+                    height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
@@ -284,7 +284,7 @@ class _AddSpendingsState extends State<AddIncome> {
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(color: primaryColor)),
                       color: secondaryColor2,
-                      child: Text('Send'.tr, style: maintext4b),
+                      child: Text('Save'.tr, style: maintext4b),
                       onPressed: () {
                         if (_commentformKey.currentState.validate()) {
                           _saveToCloud();

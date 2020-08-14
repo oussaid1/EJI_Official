@@ -67,6 +67,7 @@ class _AddAnounceState extends State<AddAnounce> {
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8),
         child: TextFormField(
+          textAlign: TextAlign.center,
           style: subtext3,
           validator: (text) {
             if (text.isEmpty) {
@@ -81,6 +82,7 @@ class _AddAnounceState extends State<AddAnounce> {
               hintText: ('insertSubject'.tr),
               focusColor: secondaryColor,
               hintStyle: hinttext,
+              
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -98,6 +100,8 @@ class _AddAnounceState extends State<AddAnounce> {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: TextFormField(
+                    textAlign: TextAlign.center,
+
           maxLines: 8,
           style: subtext3,
           validator: (text) {
@@ -130,6 +134,8 @@ class _AddAnounceState extends State<AddAnounce> {
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: TextFormField(
+                    textAlign: TextAlign.center,
+
           style: subtext3,
           validator: (text) {
             if (text.isEmpty) {
@@ -148,7 +154,7 @@ class _AddAnounceState extends State<AddAnounce> {
         ),
       ),
     );
-  }
+  } 
 
   Widget _buildDuration() {
     return Container(
