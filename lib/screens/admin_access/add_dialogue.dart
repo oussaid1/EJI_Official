@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
-import 'package:EJI/shared/drawer_main.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,7 +46,6 @@ class _AddPlayersState extends State<AddPlayers> {
   TextEditingController dateOfBirthController = TextEditingController();
   TextEditingController regdateController = TextEditingController();
   TextEditingController placeOfBirthController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
 
   DateTime selectedDate = new DateTime.now();
   DateTime nowDate = new DateTime.now();
@@ -62,7 +60,7 @@ class _AddPlayersState extends State<AddPlayers> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         _myDate = formatter.format(picked);
-        dateController.text = _myDate;
+        dateOfBirthController.text = _myDate;
       });
     }
   }
@@ -130,6 +128,11 @@ class _AddPlayersState extends State<AddPlayers> {
         placeOfBirth: _placeOfBirth,
         seasons: _seasons,
         regNum: _regNum,
+        availability: 1,
+        desciplineScore: 1,
+        positionMaster: 1,
+        trainingScore: 1,
+        oVR: 4,
       );
       await cD.addPlayers(player);
     } else if (isJunior) {
@@ -151,7 +154,8 @@ class _AddPlayersState extends State<AddPlayers> {
 
   Widget _buildPlayerPosition() {
     return Container(
-        height: 60,
+        width: Get.width - 40,
+        height: 100,
         child: Card(
             elevation: 0,
             shape: RoundedRectangleBorder(
@@ -159,38 +163,46 @@ class _AddPlayersState extends State<AddPlayers> {
               side: BorderSide(color: primaryColor, width: 1),
             ),
             color: primaryColor,
-            child: Row(
+            child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: isJunior? new Text(
-                          'Juniors'.tr,textAlign: TextAlign.center,
-                          style: maintext3,
-                        )
-                        : new Text(
-                          'Seniors'.tr,textAlign: TextAlign.center,
-                          style: maintext3,
+                  SizedBox(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: isJunior
+                              ? new Text(
+                                  'Juniors'.tr,
+                                  textAlign: TextAlign.center,
+                                  style: maintext3,
+                                )
+                              : new Text(
+                                  'Seniors'.tr,
+                                  textAlign: TextAlign.center,
+                                  style: maintext3,
+                                ),
                         ),
-                      ),
-                      Switch(
-                          value: isJunior,
-                          onChanged: (value) {
-                            setState(() {
-                              isJunior = value;
-                              print(isJunior);
-                            });
-                          }),
-                    ],
+                        Switch(
+                            value: isJunior,
+                            onChanged: (value) {
+                              setState(() {
+                                isJunior = value;
+                                print(isJunior);
+                              });
+                            }),
+                      ],
+                    ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: 80.0,
+                        height: 40,
+                        width: 100.0,
                         child: DropdownButtonHideUnderline(
                           child: ButtonTheme(
                             alignedDropdown: true,
@@ -213,7 +225,8 @@ class _AddPlayersState extends State<AddPlayers> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'PlayerPosition'.tr,textAlign: TextAlign.center,
+                          'PlayerPosition'.tr,
+                          textAlign: TextAlign.center,
                           style: subtext1,
                         ),
                       ),
@@ -418,7 +431,7 @@ class _AddPlayersState extends State<AddPlayers> {
   Widget _buildDateOfBirth(BuildContext context) {
     return TextFormField(
       readOnly: true,
-      controller: dateController,
+      controller: dateOfBirthController,
       onSaved: (value) {
         setState(() {
           _dateOfBirth = value;
@@ -556,7 +569,15 @@ class _AddPlayersState extends State<AddPlayers> {
   @override
   void initState() {
     super.initState();
-    if (widget.player != null) {}
+    if (widget.player != null) {
+      nameController.text = widget.player.playerName;
+      emailController.text = widget.player.email;
+      phoneController.text = widget.player.phone;
+      dateOfBirthController.text = widget.player.dateOfBirth;
+      regdateController.text = widget.player.regDate;
+      placeOfBirthController.text = widget.player.placeOfBirth;
+     
+    }
   }
 
   File _image;
@@ -566,7 +587,7 @@ class _AddPlayersState extends State<AddPlayers> {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
 
     setState(() {
-      _regNum=DateTime.now().millisecondsSinceEpoch;
+      _regNum = DateTime.now().millisecondsSinceEpoch;
       _image = File(pickedFile.path);
       _profileImage = 'players/profileImages/$_regNum.png';
     });
@@ -576,7 +597,7 @@ class _AddPlayersState extends State<AddPlayers> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
-       _regNum=DateTime.now().millisecondsSinceEpoch;
+      _regNum = DateTime.now().millisecondsSinceEpoch;
       _image = File(pickedFile.path);
       _profileImage = 'players/profileImages/$_regNum.png';
     });
@@ -593,7 +614,7 @@ class _AddPlayersState extends State<AddPlayers> {
   void _startUpload(BuildContext context) {
     /// Unique file name for the file
     String filePath = 'players/profileImages/$_regNum.png';
-_profileImage=filePath;
+    _profileImage = filePath;
     setState(() {
       _uploadTask = _storage.ref().child(filePath).putFile(_image);
     });
@@ -604,24 +625,17 @@ _profileImage=filePath;
     _loadGenderList();
     return Scaffold(
       backgroundColor: primaryColor,
-      drawer: MyDrawer(),
-      appBar: new AppBar(
-        actions: [
-          IconButton(icon: Icon(Icons.check,color:secondaryColor,), onPressed: null)
-        ],
-      ),
       body: Form(
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
-             
               Container(
                   alignment: Alignment.topCenter, child: _buildUpload(context)),
-                  SizedBox(
-                    height: 10,
-                  ),
+              SizedBox(
+                height: 10,
+              ),
               _imagePlayer(),
               _buildPlayerPosition(),
               _buildName(),
@@ -653,7 +667,6 @@ _profileImage=filePath;
                               _saveToDb(context);
                               _flushAll();
                               Navigator.pop(context, false);
-                             
                             },
                             onCancel: () {},
                           );
@@ -691,7 +704,7 @@ _profileImage=filePath;
                         ),
                       ],
                     ),
-                     SizedBox(
+              SizedBox(
                 height: 60,
               ),
             ],
@@ -788,7 +801,7 @@ _profileImage=filePath;
       dateOfBirthController.clear();
       regdateController.clear();
       placeOfBirthController.clear();
-      dateController.clear();
+    
       _image = null;
       isComplete = false;
     });

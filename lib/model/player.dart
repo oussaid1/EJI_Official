@@ -11,25 +11,35 @@ class Player {
   String position;
   int seasons;
   int trainingScore;
-  int descipline;
+  int desciplineScore;
   int positionMaster;
   int availability;
   int oVR;
-Player.getScore(){
-  oVR=trainingScore+descipline+positionMaster+availability;
-}
-  Player(
-      {this.id,
-      this.playerName,
-      this.dateOfBirth,
-      this.profileImage,
-      this.email,
-      this.phone,
-      this.position,
-      this.regNum,
-      this.regDate,
-      this.seasons,
-      this.placeOfBirth});
+
+  getScore() {
+    return trainingScore + desciplineScore + positionMaster + availability;
+  }
+
+  Player({
+    this.id,
+    this.playerName,
+    this.dateOfBirth,
+    this.profileImage,
+    this.email,
+    this.phone,
+    this.position,
+    this.regNum,
+    this.regDate,
+    this.seasons,
+    this.placeOfBirth,
+    this.desciplineScore,
+    this.positionMaster,
+    this.availability,
+    this.oVR,
+    this.trainingScore,
+  }) {
+    this.oVR = trainingScore + desciplineScore + positionMaster + availability;
+  }
   Map<String, dynamic> toMap() {
     return {
       'profileimage': profileImage,
@@ -42,8 +52,11 @@ Player.getScore(){
       'regdate': regDate,
       'position': position,
       'seasons': seasons,
-      
-      
+      'desciplineScore': desciplineScore,
+      'positionMaster': positionMaster,
+      'availability': availability,
+      'oVR': oVR,
+      'trainingScore': trainingScore,
     };
   }
 
@@ -58,9 +71,14 @@ Player.getScore(){
         email = map['email'],
         placeOfBirth = map['placeofbirth'],
         seasons = map['seasons'],
-        profileImage = map['profileimage'];
-       
+        profileImage = map['profileimage'],
+        trainingScore = map['trainingScore'],
+        oVR = map['oVR'],
+        availability = map['availability'],
+        positionMaster = map['positionMaster'],
+        desciplineScore = map['desciplineScore'];
 }
+
 class JuniorPlayer {
   String id;
   String profileImage;
@@ -73,19 +91,30 @@ class JuniorPlayer {
   String regDate;
   String position;
   int seasons;
+  int trainingScore;
+  int desciplineScore;
+  int positionMaster;
+  int availability;
+  int oVR;
+  JuniorPlayer({
+    this.id,
+    this.playerName,
+    this.dateOfBirth,
+    this.profileImage,
+    this.email,
+    this.phone,
+    this.position,
+    this.regNum,
+    this.regDate,
+    this.seasons,
+    this.placeOfBirth,
+    this.desciplineScore,
+    this.positionMaster,
+    this.availability,
+    this.oVR,
+    this.trainingScore,
+  });
 
-  JuniorPlayer(
-      {this.id,
-      this.playerName,
-      this.dateOfBirth,
-      this.profileImage,
-      this.email,
-      this.phone,
-      this.position,
-      this.regNum,
-      this.regDate,
-      this.seasons,
-      this.placeOfBirth});
   Map<String, dynamic> toMap() {
     return {
       'profileImage': profileImage,
@@ -98,8 +127,11 @@ class JuniorPlayer {
       'regDate': regDate,
       'position': position,
       'seasons': seasons,
-      
-      
+      'desciplineScore': desciplineScore,
+      'positionMaster': positionMaster,
+      'availability': availability,
+      'oVR': oVR,
+      'trainingScore': trainingScore,
     };
   }
 
@@ -114,6 +146,10 @@ class JuniorPlayer {
         email = map['email'],
         placeOfBirth = map['placeOfBirth'],
         seasons = map['seasons'],
-        profileImage = map['profileImage'];
-      
+        profileImage = map['profileImage'],
+        trainingScore = map['trainingScore'],
+        oVR = map['oVR'],
+        availability = map['availability'],
+        positionMaster = map['positionMaster'],
+        desciplineScore = map['desciplineScore'];
 }

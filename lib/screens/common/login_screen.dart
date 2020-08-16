@@ -1,6 +1,5 @@
 import 'package:EJI/ad_manager.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';

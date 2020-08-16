@@ -6,7 +6,6 @@ import 'package:EJI/screens/admin_access/add_spendings.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class ClubIncomeScreen extends StatefulWidget {

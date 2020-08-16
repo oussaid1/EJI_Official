@@ -1,5 +1,6 @@
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/public/player_details.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +15,34 @@ class SeniorPlayerList extends StatefulWidget {
 }
 
 class _SeniorListPageState extends State< SeniorPlayerList> {
-  final String image = "players/profileImages/logo.png";
+ 
   List<Player> lista;
 
   CloudDatabase c = Get.put(CloudDatabase());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton:c.isAdmin.value ?  Padding(
+        padding: const EdgeInsets.fromLTRB(8,8,8,50),
+        child: FloatingActionButton(
+          elevation: 8,
+          onPressed: () {
+             Get.defaultDialog(
+                  title: 'AddIncome'.tr,
+                  content: Expanded(child: AddPlayers()),
+                 
+                );
+          },
+          child: Icon(
+           Icons.person_add,
+            size: 40,
+            color: primaryColor,
+          ),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(100.0))),
+        ),
+      ): null,
         body: StreamBuilder(
             stream: c.getPlayerz('players'),
             builder:
@@ -64,9 +85,10 @@ class _SeniorListPageState extends State< SeniorPlayerList> {
                               builder: (context, snapshot) {
                               
                                 return CircleAvatar(
-                                  radius: 80,
+                                  radius: 100,
                                   backgroundColor: secondaryColor,
-                                  child:  new ClipOval(
+                                  child:  new ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
                                     child:
                                         (snapshot == null || !snapshot.hasData)
                                             ?  new Image.asset(
@@ -75,7 +97,7 @@ class _SeniorListPageState extends State< SeniorPlayerList> {
                                               )
                                             :  new Image.network(
                                                 snapshot.data.toString(),
-                                                fit: BoxFit.fill,
+                                                fit: BoxFit.contain,
                                               ),
                                   ),
                                 );

@@ -2,11 +2,10 @@ import 'package:EJI/model/club_expenses.dart';
 // ignore: unused_import
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/admin_access/picture_archive_list.dart';
-import 'package:EJI/screens/common/announces_screen.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
+import 'package:EJI/screens/common/player_ranking.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
@@ -15,7 +14,6 @@ import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
-import 'package:EJI/screens/common/team_home.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -140,10 +138,10 @@ class _AdminDrawerState extends State<AdminDrawer> {
                             Get.to(StaffPage()),
                           }),
                   ListTile(
-                    leading: Icon(Icons.person_add),
-                    title: Text('AddPlayer'.tr),
-                    subtitle: Text('AddPlayersub'.tr),
-                    onTap: () => Get.to(AddPlayers()),
+                    leading: Icon(FontAwesomeIcons.chartLine),
+                    title: Text('PlayerRanking'.tr),
+                    subtitle: Text('PlayerRankingsub'.tr),
+                    onTap: () => Get.to(PlayerRanking()),
                   ),
                   ListTile(
                     leading: Icon(Icons.add_location),
