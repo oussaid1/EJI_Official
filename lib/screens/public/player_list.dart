@@ -6,16 +6,16 @@ import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SeniorPlayerList extends StatefulWidget {
-   SeniorPlayerList({Key key}) : super(key: key);
+  SeniorPlayerList({Key key}) : super(key: key);
 
   @override
   _SeniorListPageState createState() => _SeniorListPageState();
 }
 
-class _SeniorListPageState extends State< SeniorPlayerList> {
- 
+class _SeniorListPageState extends State<SeniorPlayerList> {
   List<Player> lista;
 
   CloudDatabase c = Get.put(CloudDatabase());
@@ -23,26 +23,27 @@ class _SeniorListPageState extends State< SeniorPlayerList> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton:c.isAdmin.value ?  Padding(
-        padding: const EdgeInsets.fromLTRB(8,8,8,50),
-        child: FloatingActionButton(
-          elevation: 8,
-          onPressed: () {
-             Get.defaultDialog(
-                  title: 'AddIncome'.tr,
-                  content: Expanded(child: AddPlayers()),
-                 
-                );
-          },
-          child: Icon(
-           Icons.person_add,
-            size: 40,
-            color: primaryColor,
-          ),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(100.0))),
-        ),
-      ): null,
+        floatingActionButton: c.isAdmin.value
+            ? Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 50),
+                child: FloatingActionButton(
+                  elevation: 8,
+                  onPressed: () {
+                    Get.defaultDialog(
+                      title: 'AddIncome'.tr,
+                      content: Expanded(child: AddPlayers()),
+                    );
+                  },
+                  child: Icon(
+                    Icons.person_add,
+                    size: 40,
+                    color: primaryColor,
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(100.0))),
+                ),
+              )
+            : null,
         body: StreamBuilder(
             stream: c.getPlayerz('players'),
             builder:
@@ -79,28 +80,40 @@ class _SeniorListPageState extends State< SeniorPlayerList> {
                               shape: BoxShape.circle,
                               border: Border.all(color: secondaryColor),
                             ),
-                            child:  new FutureBuilder<String>(
+                            child: new FutureBuilder<String>(
                               future: c.getProfileImage(
                                   context, player.profileImage.toString()),
-                              builder: (context, snapshot) {
-                              
-                                return CircleAvatar(
-                                  radius: 100,
-                                  backgroundColor: secondaryColor,
-                                  child:  new ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child:
-                                        (snapshot == null || !snapshot.hasData)
-                                            ?  new Image.asset(
-                                                'assets/images/logo.png',
-                                                fit: BoxFit.fill,
-                                              )
-                                            :  new Image.network(
-                                                snapshot.data.toString(),
-                                                fit: BoxFit.contain,
-                                              ),
-                                  ),
-                                );
+                              builder: (context, snapshotImage) {
+                                if (snapshotImage == null ||
+                                    !snapshotImage.hasData ||
+                                    snapshotImage.hasError) {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(60),
+                                    child: new Image.asset(
+                                      'assets/images/logo.png',
+                                      fit: BoxFit.fill,
+                                      width: 54,
+                                      height: 54,
+                                    ),
+                                  );
+                                } else
+                                  return CircleAvatar(
+                                    radius: 100,
+                                    backgroundColor: secondaryColor,
+                                    child: new ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: CachedNetworkImage(
+                                        imageUrl: snapshotImage.data,
+                                        placeholder: (context, url) =>
+                                            new Image.asset(
+                                          'assets/images/logo.png',
+                                          fit: BoxFit.fill,
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                    ),
+                                  );
                               },
                             ),
                           ),

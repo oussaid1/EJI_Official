@@ -18,6 +18,7 @@ class CloudDatabase extends GetxController {
   RxBool isSuperAdmin = true.obs;
   RxBool isComplete = true.obs;
   RxString sperAdminPass = '1243'.obs;
+  RxString coachAdminPass = '532'.obs;
   RxString presidentialPass = '12343'.obs;
   var email = 'Idawlstane'.obs;
   var password = 'Idawlstane'.obs;
@@ -62,7 +63,7 @@ Firestore _db = Firestore.instance;
         
         );
 
-    print('heeello'+ClubIncome.getIncome(mList).toString());
+  
   }
 
   static Future<dynamic> loadFromStorage(String image) async {
@@ -71,7 +72,31 @@ Firestore _db = Firestore.instance;
 
   Stream<List<Player>> getPlayerz(String collectionName) {
     Stream<List<Player>> pList =
-        _db.collection(collectionName.toString()).snapshots().map(
+        _db.collection('players').snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => Player.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
+
+    return pList;
+  }
+  Stream<List<Player>> get11Playerz(String collectionName) {
+    Stream<List<Player>> pList =
+        _db.collection('players').where('isGK',isEqualTo:false).orderBy('oVR',descending: true).limit(11).snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => Player.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
+
+    return pList;
+  }
+  Stream<List<Player>> getGK() {
+    Stream<List<Player>> pList =
+        _db.collection('players').where('position',isEqualTo: 'GK').orderBy('oVR',descending: true).limit(1).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
                     (doc) => Player.fromMap(doc.data, doc.documentID),
@@ -261,6 +286,12 @@ bool isAdult2(String birthDateString) {
         .document(player.id.toString())
         .updateData(player.toMap());
   }
+  Future<void> updateJuniorPlayer(JuniorPlayer player) {
+    return _db
+        .collection('Juniors')
+        .document(player.id.toString())
+        .updateData(player.toMap());
+  }
   Future<void> updateAnounce(Anounce anounce) {
     return _db
         .collection('anounces')
@@ -315,7 +346,7 @@ bool isAdult2(String birthDateString) {
 
    }  
    catch(e) { 
-      print('download_error, Object does not exist at location.'); 
+     
    } 
    return murl;
    

@@ -119,7 +119,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                     title: Text('teamManager'.tr),
                     
                     onTap: () {Get.to(HomePage());},
-                  ),
+                  ), 
                   ListTile(
                     leading: Icon(Icons.people),
                     subtitle: Text('PlayersListsub'.tr),
@@ -139,8 +139,8 @@ class _AdminDrawerState extends State<AdminDrawer> {
                           }),
                   ListTile(
                     leading: Icon(FontAwesomeIcons.chartLine),
-                    title: Text('PlayerRanking'.tr),
-                    subtitle: Text('PlayerRankingsub'.tr),
+                    title: Text('PlayerStatistics'.tr),
+                    subtitle: Text('PlayerStatisticssub'.tr),
                     onTap: () => Get.to(PlayerRanking()),
                   ),
                   ListTile(

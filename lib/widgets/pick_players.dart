@@ -1,6 +1,7 @@
 import 'package:EJI/model/player.dart';
 import 'package:EJI/model/squad.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,76 +9,90 @@ import 'package:get/get.dart';
 class PickPlayers extends StatefulWidget {
   const PickPlayers({
     Key key,
-    this.playersList,
   }) : super(key: key);
-  final List<Player> playersList;
 
   @override
   _PickPlayersState createState() => _PickPlayersState();
 }
 
 class _PickPlayersState extends State<PickPlayers> {
-  Squad _squad;
+  Offset _offset = Offset(213.7, 509.7);
   List<Player> lista;
   final CloudDatabase c = Get.put(CloudDatabase());
   bool _isChecked = false;
+  List<Player> candidatePlayersList = new List<Player>();
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+    return Scaffold(
+      floatingActionButton: Positioned(
+        left: _offset.dx,
+        top: _offset.dy,
+              child: Draggable(
+            feedback: Container(
+              child: FloatingActionButton(
+                  child: Icon(Icons.drag_handle), onPressed: () {}),
+            ),
+            child: Container(
+              child: FloatingActionButton(
+                    child: Icon(Icons.drag_handle), onPressed: () {}),
+            ),
+            childWhenDragging: Container(),
+            onDragEnd: (details) {
+              setState(() {
+                _offset = details.offset;
+              });
+
+             
+            }),
       ),
-      elevation: 0.0,
-      backgroundColor: primaryColor,
-      child: StreamBuilder(
-          stream: c.getPlayerz('players'),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
-            if (snapshot.hasError || !snapshot.hasData) {
-              return Center(
-                  child: Icon(
-                Icons.person,
-                size: 100,
-                color: secondaryColor,
-              ));
-            } else {
-              lista = snapshot.data;
-            }
+      body: Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        elevation: 0.0,
+        backgroundColor: primaryColor,
+        child: StreamBuilder(
+            stream: c.getPlayerz('players'),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
+              if (snapshot.hasError || !snapshot.hasData) {
+                return Center(
+                    child: Icon(
+                  Icons.person,
+                  size: 100,
+                  color: secondaryColor,
+                ));
+              } else {
+                lista = snapshot.data;
+              }
 
-            return ListView.builder(
-                itemCount: widget.playersList != null
-                    ? widget.playersList.length
-                    : lista.length,
-                itemBuilder: (context, index) {
-                  Player player = widget.playersList != null
-                      ? widget.playersList[index]
-                      : lista[index];
+              return ListView.builder(
+                  itemCount: lista != null ? lista.length : 0,
+                  itemBuilder: (context, index) {
+                    Player player = lista[index];
 
-                  return ListTile(
-                    title: Row(
-                      children: [
-                        Text('${player.playerName}', style: maintext3),
-                      ],
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.person_add,
-                      ),
-                      color: accentColor,
-                      onPressed: () {
-                        setState(() {
-                          //addToSquad(player)
-                        });
-                      },
-                    ),
-                    subtitle: Text(
-                      '${player.oVR}',
-                      style: subtext2,
-                    ),
-                  );
-                });
-          }),
+                    return ListTile(
+                        onTap: () {
+                          setState(() {
+                            //addToSquad(player)
+                            candidatePlayersList.add(player);
+                         
+                          });
+                        },
+                        trailing: Text('${player.position}', style: maintext3),
+                        title: Text('${player.playerName}', style: maintext3),
+                        leading: Icon(
+                          Icons.person_add,
+                          color: accentColor,
+                        ),
+                        subtitle: Text(
+                          'Score ${player.oVR}',
+                          style: hinttext,
+                        ));
+                  });
+            }),
+      ),
     );
   }
 }

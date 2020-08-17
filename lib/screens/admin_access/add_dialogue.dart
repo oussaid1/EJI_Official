@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:EJI/screens/common/playerlist_tab.dart';
 
 class AddPlayers extends StatefulWidget {
   final Player player;
@@ -26,8 +27,9 @@ class AddPlayers extends StatefulWidget {
 class _AddPlayersState extends State<AddPlayers> {
   final CloudDatabase cD = Get.put(CloudDatabase());
   bool isJunior = false;
+  String _id;
   String _profileImage = "players/profileImages/logo.png";
-  int _regNum = 9;
+  int _regNum = 0;
   String _playerName;
   String _dateOfBirth = '02-02-2000';
   String _placeOfBirth = 'Idawlstane';
@@ -36,7 +38,13 @@ class _AddPlayersState extends State<AddPlayers> {
   String _regDate;
   String _position = 'GK';
   int _seasons = 2;
-
+  int _trainingScore;
+  int _desciplineScore;
+  int _positionMaster;
+  int _availability;
+  int _oVR;
+  bool _rateable = false;
+  bool _isGK = false;
   String _myDate;
   String _myDate2;
 
@@ -98,7 +106,7 @@ class _AddPlayersState extends State<AddPlayers> {
     '*****',
     'RWF',
     'SS',
-    'LMF',
+    'LWF',
     '*****',
     'CF'
   ];
@@ -116,8 +124,11 @@ class _AddPlayersState extends State<AddPlayers> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   _saveToDb(BuildContext context) async {
+    if (_position == 'GK') {
+      return _isGK = true;
+    }
     if (!isJunior) {
-      Player player = new Player(
+      Player pL1 = new Player(
         profileImage: _profileImage,
         playerName: _playerName,
         phone: _phone,
@@ -133,10 +144,62 @@ class _AddPlayersState extends State<AddPlayers> {
         positionMaster: 1,
         trainingScore: 1,
         oVR: 4,
+        rateable: false,
+        isGK: _isGK,
       );
-      await cD.addPlayers(player);
+      await cD.addPlayers(pL1);
     } else if (isJunior) {
       JuniorPlayer juniorPlayer = new JuniorPlayer(
+        profileImage: _profileImage,
+        playerName: nameController.text,
+        phone: phoneController.text,
+        email: emailController.text,
+        regDate: regdateController.text,
+        position: _position,
+        dateOfBirth: dateOfBirthController.text,
+        placeOfBirth: placeOfBirthController.text,
+        seasons: _seasons,
+        regNum: _regNum,
+        availability: 1,
+        desciplineScore: 1,
+        positionMaster: 1,
+        trainingScore: 1,
+        oVR: 4,
+        rateable: false,
+        isGK: _isGK,
+      );
+      await cD.addJuniorPlayer(juniorPlayer);
+    }
+  }
+
+  _updateInDb(BuildContext context) async {
+    if (_position == 'GK') {
+      return _isGK = true;
+    }
+    if (!isJunior) {
+      Player pLEdited = new Player(
+        id: _id,
+        profileImage: _profileImage,
+        regNum: _regNum,
+        seasons: _seasons,
+        playerName: nameController.text,
+        phone: phoneController.text,
+        email: emailController.text,
+        regDate: regdateController.text,
+        position: _position,
+        dateOfBirth: dateOfBirthController.text,
+        placeOfBirth: placeOfBirthController.text,
+        availability: 1,
+        desciplineScore: 1,
+        positionMaster: 1,
+        trainingScore: 1,
+        oVR: 4,
+        rateable: false,
+        isGK: _isGK,
+      );
+      await cD.updatePlayer(pLEdited);
+    } else if (isJunior) {
+      JuniorPlayer juniorPlayerEd = new JuniorPlayer(
         profileImage: _profileImage,
         playerName: _playerName,
         phone: _phone,
@@ -147,8 +210,15 @@ class _AddPlayersState extends State<AddPlayers> {
         placeOfBirth: _placeOfBirth,
         seasons: _seasons,
         regNum: _regNum,
+        availability: 1,
+        desciplineScore: 1,
+        positionMaster: 1,
+        trainingScore: 1,
+        oVR: 4,
+        rateable: false,
+        isGK: _isGK,
       );
-      await cD.addJuniorPlayer(juniorPlayer);
+      await cD.updateJuniorPlayer(juniorPlayerEd);
     }
   }
 
@@ -191,7 +261,7 @@ class _AddPlayersState extends State<AddPlayers> {
                             onChanged: (value) {
                               setState(() {
                                 isJunior = value;
-                                print(isJunior);
+                             
                               });
                             }),
                       ],
@@ -544,8 +614,8 @@ class _AddPlayersState extends State<AddPlayers> {
                         _image,
                         fit: BoxFit.fill,
                       )
-                    : Image.network(
-                        "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+                    : Image.asset(
+                        "assets/images/logo.png",
                         fit: BoxFit.fill,
                       ),
               ),
@@ -570,13 +640,20 @@ class _AddPlayersState extends State<AddPlayers> {
   void initState() {
     super.initState();
     if (widget.player != null) {
+      _id = widget.player.id;
+      _profileImage = widget.player.profileImage;
+      _regNum = widget.player.regNum;
+      _regDate = widget.player.regDate;
       nameController.text = widget.player.playerName;
       emailController.text = widget.player.email;
       phoneController.text = widget.player.phone;
       dateOfBirthController.text = widget.player.dateOfBirth;
       regdateController.text = widget.player.regDate;
       placeOfBirthController.text = widget.player.placeOfBirth;
-     
+      _position = widget.player.position;
+      _rateable = widget.player.rateable;
+
+      isJunior = false;
     }
   }
 
@@ -692,6 +769,17 @@ class _AddPlayersState extends State<AddPlayers> {
                             }
 
                             _formKey.currentState.save();
+
+                            Get.defaultDialog(
+                              middleText: 'confirmSave'.tr,
+                              onConfirm: () {
+                                _updateInDb(context);
+                                _flushAll();
+
+                                Navigator.pop(context, false);
+                               
+                              },
+                            );
                           },
                         ),
                         RaisedButton(
@@ -801,7 +889,7 @@ class _AddPlayersState extends State<AddPlayers> {
       dateOfBirthController.clear();
       regdateController.clear();
       placeOfBirthController.clear();
-    
+
       _image = null;
       isComplete = false;
     });

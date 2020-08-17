@@ -1,6 +1,8 @@
 import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/screens/admin_access/picture_archive_list.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
+import 'package:EJI/screens/common/player_ranking.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
@@ -89,13 +91,21 @@ class _MyDrawerState extends State<MyDrawer> {
                   fit: BoxFit.fill,
                 ),
               ),
-            ),
+            ), 
             ListTile(
               leading: Icon(Icons.people),
               title: Text('Matches&Anounces'.tr),
              
               onTap: () => Get.to(AnouncesTab()),
             ),
+            ListTile(
+                    leading: Icon(FontAwesomeIcons.list),
+                    //subtitle: Text('teamManagersub'.tr),
+                    subtitle: Text('AltimteSquadsub'.tr),
+                    title: Text('AltimteSquad'.tr),
+                    
+                    onTap: () {Get.to(HomePage());},
+                  ),
             ListTile(
               subtitle: Text('PlayersListsub'.tr),
               leading: Icon(Icons.people),
@@ -104,8 +114,8 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             ListTile(
                 leading: Icon(FontAwesomeIcons.levelUpAlt),
-                subtitle: Text('underDevelopment'.tr),
-                title: Text('PlayerStatistics'.tr),
+                subtitle: Text('PlayerStatistics'.tr),
+                title: Text('PlayerStatisticssub'.tr),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -122,7 +132,7 @@ class _MyDrawerState extends State<MyDrawer> {
                    
                   ],
                 ),
-                onTap: () {}),
+                onTap: () {Get.to(PlayerRanking());}),
             ListTile(
               leading: Icon(Icons.comment),
               title: Text('Comments'.tr),

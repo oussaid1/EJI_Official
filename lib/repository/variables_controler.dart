@@ -1,14 +1,22 @@
+import 'package:EJI/model/player.dart';
 import 'package:get/get.dart';
 
 class VariablesControler extends GetxController {
-  
   RxInt matchdayHomeScore = 0.obs;
   RxInt matchdayAwayScore = 0.obs;
   RxInt matchdayHomeRedC = 0.obs;
   RxInt matchdayAwayRedC = 0.obs;
   RxInt matchdayHomeYellC = 0.obs;
   RxInt matchdayAwayYellC = 0.obs;
+  List<Player> selectedPlayers ;
 
+
+addToList(Player player){
+    selectedPlayers.add(player);
+}
+removeFromList(Player player){
+    selectedPlayers.remove(player);
+}
   incrementScoreHome() => matchdayHomeScore.value++;
   incrementScoreAway() => matchdayAwayScore.value++;
   incrementYellowCHome() => matchdayHomeYellC.value++;

@@ -20,16 +20,16 @@ class Squad {
   Squad.main433({List<Player> list11Players}) {
 
     this.pGK = list11Players[0];
-    this.pCB5 = list11Players[2];
-    this.pCB4 = list11Players[3];
-    this.pRB = list11Players[4];
-    this.pLB = list11Players[5];
-    this.pCMF = list11Players[6];
-    this.pRMF = list11Players[7];
-    this.pLMF = list11Players[8];
-    this.pLWF = list11Players[9];
-    this.pRWFF = list11Players[10];
-    this.pCF = list11Players[11];
+    this.pCB5 = list11Players[1];
+    this.pCB4 = list11Players[2];
+    this.pRB = list11Players[3];
+    this.pLB = list11Players[4];
+    this.pCMF = list11Players[5];
+    this.pRMF = list11Players[6];
+    this.pLMF = list11Players[7];
+    this.pLWF = list11Players[8];
+    this.pRWFF = list11Players[9];
+    this.pCF = list11Players[10];
   }
 
   Squad.main4123({

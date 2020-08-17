@@ -32,7 +32,7 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
       murl = downloadUrl.toString();
     });
 
-    print('download_error, Object does not exist at location.');
+   
 
     return murl;
   }
@@ -57,7 +57,7 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
                                             .trim()) {
                                       Navigator.pop(context);
                                       setState(() {
-                                         Get.off(AddPicture());
+                                         Get.to(AddPicture());
                                         isOussaid=true;
                                       });
                                      

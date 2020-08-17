@@ -15,8 +15,9 @@ class Player {
   int positionMaster;
   int availability;
   int oVR;
-
-  getScore() {
+  bool rateable;
+ bool isGK;
+  getoVR() {
     return trainingScore + desciplineScore + positionMaster + availability;
   }
 
@@ -37,6 +38,8 @@ class Player {
     this.availability,
     this.oVR,
     this.trainingScore,
+    this.rateable,
+    this.isGK,
   }) {
     this.oVR = trainingScore + desciplineScore + positionMaster + availability;
   }
@@ -57,6 +60,8 @@ class Player {
       'availability': availability,
       'oVR': oVR,
       'trainingScore': trainingScore,
+      'rateable': rateable,
+      'isGK': isGK,
     };
   }
 
@@ -76,7 +81,9 @@ class Player {
         oVR = map['oVR'],
         availability = map['availability'],
         positionMaster = map['positionMaster'],
-        desciplineScore = map['desciplineScore'];
+        desciplineScore = map['desciplineScore'],
+        rateable = map['rateable'],
+        isGK = map['isGK'];
 }
 
 class JuniorPlayer {
@@ -96,6 +103,8 @@ class JuniorPlayer {
   int positionMaster;
   int availability;
   int oVR;
+  bool rateable;
+  bool isGK;
   JuniorPlayer({
     this.id,
     this.playerName,
@@ -113,6 +122,8 @@ class JuniorPlayer {
     this.availability,
     this.oVR,
     this.trainingScore,
+    this.rateable,
+    this.isGK,
   });
 
   Map<String, dynamic> toMap() {
@@ -132,6 +143,8 @@ class JuniorPlayer {
       'availability': availability,
       'oVR': oVR,
       'trainingScore': trainingScore,
+      'rateable': rateable,
+      'isGK': isGK,
     };
   }
 
@@ -151,5 +164,7 @@ class JuniorPlayer {
         oVR = map['oVR'],
         availability = map['availability'],
         positionMaster = map['positionMaster'],
-        desciplineScore = map['desciplineScore'];
+        desciplineScore = map['desciplineScore'],
+        rateable = map['rateable'],
+        isGK = map['isGK'];
 }

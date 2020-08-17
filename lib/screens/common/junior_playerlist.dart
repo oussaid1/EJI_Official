@@ -62,7 +62,7 @@ class _JuniorListPageState extends State< JuniorPlayerList> {
                               future: c.getProfileImage(
                                   context, juniorplayer.profileImage.toString()),
                               builder: (context, snapshot) {
-                                print(juniorplayer.profileImage.toString());
+                           
                                 return CircleAvatar(
                                   radius: 80,
                                   backgroundColor: secondaryColor,

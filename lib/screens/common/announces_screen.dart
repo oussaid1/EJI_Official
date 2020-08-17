@@ -17,132 +17,135 @@ class AnouncesScreen extends StatelessWidget {
     List<Anounce> lista;
     return Scaffold(
       floatingActionButtonLocation:FloatingActionButtonLocation.startTop ,
-     floatingActionButton: Padding(
-       padding: const EdgeInsets.fromLTRB(2,8,4,4),
-       child: FloatingActionButton(
-         elevation: 40,
-        
-         child: Icon(Icons.add,size:30,color: primaryColor,),
-         onPressed: (){  Get.defaultDialog(
-                    backgroundColor: Colors.blue[100],
-                    title: ('Anounces'.tr),
-                    middleText: '',
-                    
-                    content: AddAnounce(),
-                  );}),
-     ),
-      body: Column(
+     floatingActionButton: FloatingActionButton(
+       elevation: 40,
+      
+       child: Icon(Icons.add,size:30,color: primaryColor,),
+       onPressed: (){  Get.defaultDialog(
+                  backgroundColor: Colors.blue[100],
+                  title: ('Anounces'.tr),
+                  middleText: '',
+                  
+                  content: AddAnounce(),
+                );}),
+      body: Stack(
+        fit: StackFit.expand,
         children: [
-         
-          StreamBuilder(
-            stream: xc.getAnounces('anounces'),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Anounce>> snapshot) {
-              if (snapshot.hasError || !snapshot.hasData) {
-                return Center(
-                    child: Icon(
-                  Icons.list,
-                  size: 100,
-                  color: secondaryColor,
-                ));
-              } else {
-                lista = snapshot.data;
-              }
+           new Image.asset('assets/images/meeting.png',fit:BoxFit.fill),
+          Column(
+            children: [
+             
+              StreamBuilder(
+                stream: xc.getAnounces('anounces'),
+                builder:
+                    (BuildContext context, AsyncSnapshot<List<Anounce>> snapshot) {
+                  if (snapshot.hasError || !snapshot.hasData) {
+                    return Center(
+                        child: Icon(
+                      Icons.list,
+                      size: 100,
+                      color: secondaryColor,
+                    ));
+                  } else {
+                    lista = snapshot.data;
+                  }
 
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: lista.length != 0 ? lista.length : 0,
-                  itemBuilder: (context, int index) {
-                    Anounce anounce = lista[index];
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: lista.length != 0 ? lista.length : 0,
+                      itemBuilder: (context, int index) {
+                        Anounce anounce = lista[index];
 
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
 
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: primaryColorShade,
-                        ),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                   Padding(
-                                     padding: const EdgeInsets.fromLTRB(16,4,16,4),
-                                     child: Text(anounce.subject.toString(),
-                                        style: subtext3x),
-                                   ),
-                                  Text('Subject'.tr, style: subtext3xy,textDirection:TextDirection.rtl ,),
-                                 
-                                ],
-                              ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: primaryColorShade,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(6)),
-                                  color: primaryColor,
-                                ),
-                                width: 400,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(4, 8, 4, 8),
-                                  child: Text(
-                                    anounce.anounceText.toString(),
-                                    style: subtext2,textDirection:TextDirection.rtl,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 10,
-                                    textAlign: TextAlign.justify,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text(anounce.anounceDate.toString(),
-                                          style: hinttext),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
+                                       Padding(
+                                         padding: const EdgeInsets.fromLTRB(16,4,16,4),
+                                         child: Text(anounce.subject.toString(),
+                                            style: subtext3x),
+                                       ),
+                                      Text('Subject'.tr, style: subtext3xy,textDirection:TextDirection.rtl ,),
                                      
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(anounce.anounceBy.toString(),
-                                            style: subtext2x),
-                                      ),
-                                           Padding(
-                                             padding: const EdgeInsets.only(right:8.0),
-                                             child: Text('By'.tr, style: subtext3xx),
-                                           ),
                                     ],
                                   ),
-                                ],
-                              ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(6)),
+                                      color: primaryColor,
+                                    ),
+                                    width: 400,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(4, 8, 4, 8),
+                                      child: Text(
+                                        anounce.anounceText.toString(),
+                                        style: subtext2,textDirection:TextDirection.rtl,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 10,
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(anounce.anounceDate.toString(),
+                                              style: hinttext),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                         
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Text(anounce.anounceBy.toString(),
+                                                style: subtext2x),
+                                          ),
+                                               Padding(
+                                                 padding: const EdgeInsets.only(right:8.0),
+                                                 child: Text('By'.tr, style: subtext3xx),
+                                               ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              );
-            },
-            
-          ),
-            SizedBox(
-            height: 60,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+                
+              ),
+                SizedBox(
+                height: 60,
+              ),
+            ],
           ),
         ],
       ),
