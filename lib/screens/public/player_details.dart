@@ -28,19 +28,19 @@ class PlayerDetails extends StatelessWidget {
       drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
       appBar: AppBar(
         actions: [
-          IconButton(
+        cD.isAdmin.value?  IconButton(
               icon: Icon(Icons.edit_attributes),
               onPressed: () {
                 Get.to(AddPlayers(
                   player: player,
                 ));
-              })
+              }):Container(),
         ],
       ),
       body: Stack(
         fit: StackFit.expand,
         children: [
-           new Image.asset('assets/images/player.png',fit:BoxFit.fill),
+           new Image.asset('assets/images/player.jpg',fit:BoxFit.fill),
           ListView(
             children: [
               Center(

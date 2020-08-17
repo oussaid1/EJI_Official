@@ -15,7 +15,7 @@ class PlayerRanking extends StatefulWidget {
 }
 
 class _PlayerRankingState extends State<PlayerRanking> {
-  Player player;
+ 
   final String image = "players/profileImages/logo.png";
   bool enabledDsc = true;
   bool enabledTr = true;
@@ -29,405 +29,425 @@ class _PlayerRankingState extends State<PlayerRanking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: c.isAdmin.value
-            ? FloatingActionButton(
-                child: Icon(Icons.exposure_plus_1),
-                onPressed: () {
-                  Get.defaultDialog(
-                    backgroundColor: Colors.blue[100],
-                    title: '',
-                    content: ScoreBoard(
-                      playerToRate: player,
-                    ),
-                  );
-                })
-            : FloatingActionButton(onPressed: null),
-        backgroundColor: primaryColor,
-        appBar: AppBar(),
-        body: Stack(
-          fit: StackFit.expand,
-          children: [
-            new Image.asset('assets/images/trainingx.png',fit:BoxFit.fill),
-            ListView(
-              children: [
-                StreamBuilder(
-                    stream: c.getPlayerz('players'),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<Player>> snapshot) {
-                      if (snapshot.hasError || !snapshot.hasData) {
-                        return Center(
-                            child: Icon(
-                          Icons.person,
-                          size: 100,
-                          color: secondaryColor,
-                        ));
-                      } else {
-                        lista = snapshot.data;
-                      }
+      backgroundColor: primaryColor,
+      appBar: AppBar(),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          new Image.asset('assets/images/trainingx.jpg', fit: BoxFit.fill),
+          ListView(
+            children: [
+              StreamBuilder(
+                stream: c.getPlayerz('players'),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Player>> snapshot) {
+                  if (snapshot.hasError || !snapshot.hasData) {
+                    return Center(
+                        child: Icon(
+                      Icons.person,
+                      size: 100,
+                      color: secondaryColor,
+                    ));
+                  } else {
+                    lista = snapshot.data;
+                  }
 
-                      return Container(
-                        height: 340,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 10),
-                          child: ListView.builder(
-                              itemCount: lista != null ? lista.length : 0,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (BuildContext context, int index) {
-                                player = lista[index];
-                                return Padding(
-                                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                                  child: SizedBox(
-                                    width: 260,
-                                    height: 276,
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          width: 260,
-                                          height: 276,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            color: const Color(0x7f144060),
-                                            border: Border.all(
-                                                width: 1.0,
-                                                color: const Color(0xff707070)),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: const Color(0xff000000),
-                                                offset: Offset(6, 6),
-                                                blurRadius: 20,
-                                              ),
-                                            ],
+                  return Container(
+                    height: 340,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: ListView.builder(
+                          itemCount: lista != null ? lista.length : 0,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                          Player  player = lista[index];
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                              child: SizedBox(
+                                width: 260,
+                                height: 276,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      width: 260,
+                                      height: 276,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        color: const Color(0x7f144060),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: const Color(0xff707070)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0xff000000),
+                                            offset: Offset(6, 6),
+                                            blurRadius: 20,
                                           ),
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.fromLTRB(
-                                                    8, 8, 8, 0),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: FutureBuilder(
-                                                          future: c.getProfileImage(
-                                                              context,
-                                                              player.profileImage
-                                                                  .toString()),
-                                                          builder: (context,
-                                                              imagesnapshot) {
-                                                            if (imagesnapshot ==
-                                                                    null ||
-                                                                !imagesnapshot
-                                                                    .hasData ||
-                                                                imagesnapshot
-                                                                    .hasError) {
-                                                              return ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            60),
-                                                                child:
-                                                                    new Image.asset(
+                                        ],
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                8, 8, 8, 0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: FutureBuilder(
+                                                      future: c.getProfileImage(
+                                                          context,
+                                                          player.profileImage
+                                                              .toString()),
+                                                      builder: (context,
+                                                          imagesnapshot) {
+                                                        if (imagesnapshot ==
+                                                                null ||
+                                                            !imagesnapshot
+                                                                .hasData ||
+                                                            imagesnapshot
+                                                                .hasError) {
+                                                          return ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        60),
+                                                            child:
+                                                                new Image.asset(
+                                                              'assets/images/logo.png',
+                                                              fit: BoxFit.fill,
+                                                              width: 80,
+                                                              height: 80,
+                                                            ),
+                                                          );
+                                                        } else
+                                                          return SizedBox(
+                                                            width: 80,
+                                                            height: 80,
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          60),
+                                                              child:
+                                                                  CachedNetworkImage(
+                                                                width: 80,
+                                                                height: 80,
+                                                                imageUrl:
+                                                                    imagesnapshot
+                                                                        .data,
+                                                                placeholder: (context,
+                                                                        url) =>
+                                                                    new Image
+                                                                        .asset(
                                                                   'assets/images/logo.png',
-                                                                  fit: BoxFit.fill,
+                                                                  fit: BoxFit
+                                                                      .fill,
                                                                   width: 80,
                                                                   height: 80,
                                                                 ),
-                                                              );
-                                                            } else
-                                                              return SizedBox(
-                                                                width: 80,
-                                                                height: 80,
-                                                                child: ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              60),
-                                                                  child:
-                                                                      CachedNetworkImage(
-                                                                    width: 80,
-                                                                    height: 80,
-                                                                    imageUrl:
-                                                                        imagesnapshot
-                                                                            .data,
-                                                                    placeholder: (context,
-                                                                            url) =>
-                                                                        new Image
-                                                                            .asset(
-                                                                      'assets/images/logo.png',
-                                                                      fit: BoxFit
-                                                                          .fill,
-                                                                      width: 80,
-                                                                      height: 80,
-                                                                    ),
-                                                                    errorWidget: (context,
-                                                                            url,
-                                                                            error) =>
-                                                                        new Image
-                                                                            .asset(
-                                                                      'assets/images/logo.png',
-                                                                      width: 80,
-                                                                      height: 80,
-                                                                      fit: BoxFit
-                                                                          .fill,
-                                                                    ),
-                                                                  ),
+                                                                errorWidget: (context,
+                                                                        url,
+                                                                        error) =>
+                                                                    new Image
+                                                                        .asset(
+                                                                  'assets/images/logo.png',
+                                                                  width: 80,
+                                                                  height: 80,
+                                                                  fit: BoxFit
+                                                                      .fill,
                                                                 ),
-                                                              );
-                                                          }),
-                                                    ),
-                                                    Column(
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            Text.rich(
-                                                              TextSpan(
-                                                                style: TextStyle(
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  fontSize: 42,
-                                                                  color:
-                                                                      accentColor2,
-                                                                ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        '${player.oVR.toString()}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    text: 'pts',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize: 16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300,
-                                                                    ),
-                                                                  ),
-                                                                ],
                                                               ),
-                                                              textAlign:
-                                                                  TextAlign.center,
                                                             ),
-                                                          ],
-                                                        ),
-                                                        Text(
-                                                          ' ${player.playerName.toString()}',
-                                                          maxLines: 1,
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: 18,
-                                                            color: const Color(
-                                                                0xffffffff),
-                                                            fontWeight:
-                                                                FontWeight.w300,
+                                                          );
+                                                      }),
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text.rich(
+                                                          TextSpan(
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Roboto',
+                                                              fontSize: 42,
+                                                              color:
+                                                                  accentColor2,
+                                                            ),
+                                                            children: [
+                                                              TextSpan(
+                                                                text:
+                                                                    '${player.oVR.toString()}',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                              TextSpan(
+                                                                text: 'pts',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                           textAlign:
                                                               TextAlign.center,
                                                         ),
                                                       ],
                                                     ),
+                                                    Text(
+                                                      ' ${player.playerName.toString()}',
+                                                      maxLines: 1,
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 18,
+                                                        color: const Color(
+                                                            0xffffffff),
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
                                                   ],
                                                 ),
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                              ],
+                                            ),
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                     '${player.position.toString()}',
                                                     style: TextStyle(
                                                       fontFamily: 'Roboto',
                                                       fontSize: 42,
-                                                      color:
-                                                          const Color(0xffedcca9),
-                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(
+                                                          0xffedcca9),
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
                                                     textAlign: TextAlign.center,
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.fromLTRB(
-                                                            14, 0, 14, 2),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          '${player.desciplineScore.toString()}',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: 20,
-                                                            color: const Color(
-                                                                0xfff1811e),
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                        Text(
-                                                          'الإنضباط',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: 18,
-                                                            color: const Color(
-                                                                0xffedcca9),
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.fromLTRB(
-                                                            14, 0, 14, 2),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          '${player.trainingScore.toString()}',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: 20,
-                                                            color: const Color(
-                                                                0xfff1811e),
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                        Text(
-                                                          'التداريب',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: 18,
-                                                            color: const Color(
-                                                                0xffedcca9),
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.fromLTRB(
-                                                            14, 0, 14, 2),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          '${player.positionMaster.toString()}',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: 20,
-                                                            color: const Color(
-                                                                0xfff1811e),
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                        Text(
-                                                          'اتقان المركز',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: 18,
-                                                            color: const Color(
-                                                                0xffedcca9),
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.fromLTRB(
-                                                            14, 0, 14, 2),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          '${player.availability.toString()}',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: 20,
-                                                            color: const Color(
-                                                                0xfff1811e),
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                        Text(
-                                                          'المتاحية',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: 18,
-                                                            color: const Color(
-                                                                0xffedcca9),
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ],
-                                                    ),
+                                                  Container(
+                                                    child: c.isAdmin.value
+                                                        ? SizedBox(
+                                                            height: 30,
+                                                            width: 30,
+                                                            child: IconButton(
+                                                              icon: Icon(Icons
+                                                                  .exposure_plus_1,size: 30,color: accentColor3,),
+                                                              onPressed: () {
+                                                                Get.defaultDialog(
+                                                                  backgroundColor:
+                                                                      Colors.blue[
+                                                                          100],
+                                                                  title:
+                                                                      '${player.playerName.toString()}',
+                                                                  content:
+                                                                      ScoreBoard(
+                                                                    playerToRate:
+                                                                        player,
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ))
+                                                        : SizedBox(),
                                                   ),
                                                 ],
                                               ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        14, 0, 14, 2),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      '${player.desciplineScore.toString()}',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 20,
+                                                        color: const Color(
+                                                            0xfff1811e),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    Text(
+                                                      'الإنضباط',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 18,
+                                                        color: const Color(
+                                                            0xffedcca9),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        14, 0, 14, 2),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      '${player.trainingScore.toString()}',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 20,
+                                                        color: const Color(
+                                                            0xfff1811e),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    Text(
+                                                      'التداريب',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 18,
+                                                        color: const Color(
+                                                            0xffedcca9),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        14, 0, 14, 2),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      '${player.positionMaster.toString()}',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 20,
+                                                        color: const Color(
+                                                            0xfff1811e),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    Text(
+                                                      'اتقان المركز',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 18,
+                                                        color: const Color(
+                                                            0xffedcca9),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        14, 0, 14, 2),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      '${player.availability.toString()}',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 20,
+                                                        color: const Color(
+                                                            0xfff1811e),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    Text(
+                                                      'المتاحية',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 18,
+                                                        color: const Color(
+                                                            0xffedcca9),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ],
                                           ),
-                                        ),
-                                        Positioned(
-                                          bottom: 34,
-                                          left: 120,
-                                          height: 120,
-                                          child: VerticalDivider(
-                                            width: 4,
-                                            color: secondaryColor,
-                                            thickness: 4,
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }),
-                        ),
-                      );
-                    }),
-               
-              ],
-            ),
-          ],
-        ));
+                                    Positioned(
+                                      bottom: 34,
+                                      left: 120,
+                                      height: 120,
+                                      child: VerticalDivider(
+                                        width: 4,
+                                        color: secondaryColor,
+                                        thickness: 4,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -753,7 +773,6 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                     middleText: ' !هل انت متاكد ',
                                     backgroundColor: Colors.blue[100],
                                     onConfirm: () {
-                                     
                                       Get.defaultDialog(
                                         title: 'SuperAdmin'.tr,
                                         content: TextField(
@@ -770,11 +789,9 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                           },
                                         ),
                                       );
-                                      
                                     },
                                     onCancel: () => Navigator.pop(context),
                                   );
-                                
                                 }),
                             RaisedButton(
                               color: accentColor,
