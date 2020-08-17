@@ -753,6 +753,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                     middleText: ' !هل انت متاكد ',
                                     backgroundColor: Colors.blue[100],
                                     onConfirm: () {
+                                     
                                       Get.defaultDialog(
                                         title: 'SuperAdmin'.tr,
                                         content: TextField(
@@ -769,6 +770,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                           },
                                         ),
                                       );
+                                      
                                     },
                                     onCancel: () => Navigator.pop(context),
                                   );

@@ -28,7 +28,7 @@ class AdminDrawer extends StatefulWidget {
 }
 
 class _AdminDrawerState extends State<AdminDrawer> {
-   final String image = "players/profileImages/logo.png";
+  final String image = "players/profileImages/logo.png";
 
   final CloudDatabase cD = Get.put(CloudDatabase());
 
@@ -36,9 +36,9 @@ class _AdminDrawerState extends State<AdminDrawer> {
 
   List<ClubIncome> clubIncome;
 
-   double d=0;
+  double d = 0;
 
-   double c=0;
+  double c = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -49,63 +49,57 @@ class _AdminDrawerState extends State<AdminDrawer> {
         // space to fit everything.
         child: Column(
           children: [
-
-             UserAccountsDrawerHeader(
-                    accountName:StreamBuilder(
-                    stream: cD.getClubSpendings('ClubSpendings'),
-                  builder: (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
-                     if (!snapshot.hasData || snapshot.hasError) {
-                      return  Text("EJI Idawlstane");
+            UserAccountsDrawerHeader(
+              accountName: StreamBuilder(
+                  stream: cD.getClubSpendings('ClubSpendings'),
+                  builder:
+                      (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
+                    if (!snapshot.hasData || snapshot.hasError) {
+                      return Text("EJI Idawlstane");
                     } else
                       clubSpendings = snapshot.data;
-                      d= cD.setBudget(ClubSpendings.getSpendings(clubSpendings))
-                      ;
-                      return  Text("EJI Idawlstane");
-                      }
-                    ),
-                    accountEmail: StreamBuilder(
-                    stream: cD.getClubIncomes('ClubIncome'),
+                    d = cD.setBudget(ClubSpendings.getSpendings(clubSpendings));
+                    return Text("EJI Idawlstane");
+                  }),
+              accountEmail: StreamBuilder(
+                  stream: cD.getClubIncomes('ClubIncome'),
                   builder: (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
-                     if (!snapshot.hasData || snapshot.hasError) {
+                    if (!snapshot.hasData || snapshot.hasError) {
                       return Text(
-                          'EJIBudget'.tr + 'DH ' +'-- ',
-                          textDirection: TextDirection.rtl,
-                          style: subtext4,
-                        );
+                        'EJIBudget'.tr + 'DH ' + '-- ',
+                        textDirection: TextDirection.rtl,
+                        style: subtext4,
+                      );
                     } else
                       clubIncome = snapshot.data;
-                      c= ClubIncome.getIncome(clubIncome);
-                      
-                      return Text(
-                          'EJIBudget'.tr + 'DH ' '${(c-d).toString()} ',
-                          textDirection: TextDirection.rtl,
-                          style: subtext4,
-                        );
-                      }
-                    ),
-                    currentAccountPicture: CircleAvatar(
-                      backgroundColor:
-                          Theme.of(context).platform == TargetPlatform.iOS
-                              ? Colors.blue
-                              : Colors.white,
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    otherAccountsPictures: [
-                    //     Text('Sign-Out',style: subtext2,),
-                    //    IconButton(icon: Icon(FontAwesomeIcons.powerOff, size: 24,color: secondaryColor,), onPressed: (){}),
-                       
+                    c = ClubIncome.getIncome(clubIncome);
 
-                    ],
-                  ),
+                    return Text(
+                      'EJIBudget'.tr + 'DH ' '${(c - d).toString()} ',
+                      textDirection: TextDirection.rtl,
+                      style: subtext4,
+                    );
+                  }),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor:
+                    Theme.of(context).platform == TargetPlatform.iOS
+                        ? Colors.blue
+                        : Colors.white,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+              otherAccountsPictures: [
+                //     Text('Sign-Out',style: subtext2,),
+                //    IconButton(icon: Icon(FontAwesomeIcons.powerOff, size: 24,color: secondaryColor,), onPressed: (){}),
+              ],
+            ),
             Expanded(
-                          child: ListView(
+              child: ListView(
                 // Important: Remove any padding from the ListView.
                 padding: EdgeInsets.zero,
                 children: <Widget>[
-                 
                   ListTile(
                     leading: Icon(Icons.people),
                     subtitle: Text('Matches&Anounces'.tr),
@@ -114,12 +108,12 @@ class _AdminDrawerState extends State<AdminDrawer> {
                   ),
                   ListTile(
                     leading: Icon(FontAwesomeIcons.list),
-                    //subtitle: Text('teamManagersub'.tr),
-                    subtitle: Text('underDevelopment'.tr),
+                    subtitle: Text('teamManagersub'.tr),
                     title: Text('teamManager'.tr),
-                    
-                    onTap: () {Get.to(HomePage());},
-                  ), 
+                    onTap: () {
+                      Get.to(HomePage());
+                    },
+                  ),
                   ListTile(
                     leading: Icon(Icons.people),
                     subtitle: Text('PlayersListsub'.tr),
@@ -129,7 +123,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                   ListTile(
                     leading: Icon(Icons.comment),
                     title: Text('PictureArchive'.tr),
-                   onTap:()=> Get.to(PicturesArchiveList()),
+                    onTap: () => Get.to(PicturesArchiveList()),
                   ),
                   ListTile(
                       leading: Icon(Icons.store),

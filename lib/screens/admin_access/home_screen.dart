@@ -44,31 +44,13 @@ class HomePageState extends State<HomePage> {
       return Scaffold(
         backgroundColor: primaryColor,
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
-        appBar: AppBar(
-          actions: <Widget>[
-            Row(
-              children: [
-                Text(
-                  'Add Players',
-                  style: subtext1,
-                ),
-                IconButton(
-                  icon: Icon(Icons.group_add),
-                  onPressed: () {
-                    Get.to(PickPlayers());
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
+        appBar: AppBar(),
         body: Stack(
           fit: StackFit.passthrough,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 2),
-              child:
-                  Image.asset('assets/images/field2.png', fit: BoxFit.fill),
+              child: Image.asset('assets/images/field2.png', fit: BoxFit.fill),
             ),
             // GoalKeeper
             buildPositionedPlayer(
@@ -122,104 +104,87 @@ class HomePageState extends State<HomePage> {
       return Scaffold(
         backgroundColor: primaryColor,
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
-        appBar: AppBar(
-          actions: <Widget>[
-            Row(
-              children: [
-                Text(
-                  'Add Players',
-                  style: subtext1,
-                ),
-                IconButton(
-                  icon: Icon(Icons.group_add),
-                  onPressed: () {
-                    Get.to(PickPlayers());
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
+        appBar: AppBar(),
         body: StreamBuilder(
             stream: c.get11Playerz('players'),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {
-                return null;
+                return Container();
               } else {
                 //lista = snapshot.data;
                 selectedSquad = new Squad.main433(list11Players: snapshot.data);
+
+                return StreamBuilder(
+                    stream: c.getGK(),
+                    builder: (context, snapshotGK) {
+                      if (snapshotGK.hasError || !snapshotGK.hasData) {
+                        return Container();
+                      } else {
+                        listaGK = snapshotGK.data;
+                        Player goalKeeper = listaGK[0];
+                        return Stack(
+                          fit: StackFit.passthrough,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2),
+                              child: Image.asset('assets/images/field2.png',
+                                  fit: BoxFit.contain),
+                            ),
+                            // GoalKeeper
+                            buildPositionedPlayer(
+                                bottm: height / 50,
+                                left: width / 2.7,
+                                playerCandidate: goalKeeper),
+                            //deffence
+                            buildPositionedPlayer(
+                                bottm: height / 7,
+                                left: width / 20,
+                                playerCandidate: selectedSquad.pCB4),
+                            buildPositionedPlayer(
+                                bottm: height / 7,
+                                left: width / 3.5,
+                                playerCandidate: selectedSquad.pCB5),
+                            buildPositionedPlayer(
+                                bottm: height / 7,
+                                right: width / 3.5,
+                                playerCandidate: selectedSquad.pLB),
+                            buildPositionedPlayer(
+                                bottm: height / 7,
+                                right: width / 20,
+                                playerCandidate: selectedSquad.pRB),
+                            //MiddleField
+                            buildPositionedPlayer(
+                                bottm: height / 3,
+                                right: width / 20,
+                                playerCandidate: selectedSquad.pRMF),
+                            buildPositionedPlayer(
+                                bottm: height / 3,
+                                right: width / 2.55,
+                                playerCandidate: selectedSquad.pLMF),
+                            buildPositionedPlayer(
+                                bottm: height / 3,
+                                left: width / 20,
+                                playerCandidate: selectedSquad.pCMF),
+
+                            //Forward
+                            buildPositionedPlayer(
+                                top: height / 6,
+                                right: width / 20,
+                                playerCandidate: selectedSquad.pRWFF),
+                            buildPositionedPlayer(
+                                top: height / 10,
+                                right: width / 2.55,
+                                playerCandidate: selectedSquad.pLWF),
+                            buildPositionedPlayer(
+                                top: height / 6,
+                                left: width / 20,
+                                playerCandidate: selectedSquad.pCF),
+                          ],
+                        );
+                      }
+                    });
               }
-
-              return StreamBuilder(
-                  stream: c.getGK(),
-                  builder: (context, snapshotGK) {
-                    if (snapshotGK.hasError || !snapshotGK.hasData) {
-                      return null;
-                    } else {
-                      listaGK = snapshotGK.data;
-                      Player goalKeeper=listaGK[0]; 
-                      return Stack(
-                        fit: StackFit.passthrough,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(left: 2),
-                            child: Image.asset('assets/images/field2.png',
-                                fit: BoxFit.contain),
-                          ),
-                          // GoalKeeper
-                          buildPositionedPlayer(
-                              bottm: height / 50,
-                              left: width / 2.7,
-                              playerCandidate: goalKeeper),
-                          //deffence
-                          buildPositionedPlayer(
-                              bottm: height / 7,
-                              left: width / 20,
-                              playerCandidate: selectedSquad.pCB4),
-                          buildPositionedPlayer(
-                              bottm: height / 7,
-                              left: width / 3.5,
-                              playerCandidate: selectedSquad.pCB5),
-                          buildPositionedPlayer(
-                              bottm: height / 7,
-                              right: width / 3.5,
-                              playerCandidate: selectedSquad.pLB),
-                          buildPositionedPlayer(
-                              bottm: height / 7,
-                              right: width / 20,
-                              playerCandidate: selectedSquad.pRB),
-                          //MiddleField
-                          buildPositionedPlayer(
-                              bottm: height / 3,
-                              right: width / 20,
-                              playerCandidate: selectedSquad.pRMF),
-                          buildPositionedPlayer(
-                              bottm: height / 3,
-                              right: width / 2.55,
-                              playerCandidate: selectedSquad.pLMF),
-                          buildPositionedPlayer(
-                              bottm: height / 3,
-                              left: width / 20,
-                              playerCandidate: selectedSquad.pCMF),
-
-                          //Forward
-                          buildPositionedPlayer(
-                              top: height / 6,
-                              right: width / 20,
-                              playerCandidate: selectedSquad.pRWFF),
-                          buildPositionedPlayer(
-                              top: height / 10,
-                              right: width / 2.55,
-                              playerCandidate: selectedSquad.pLWF),
-                          buildPositionedPlayer(
-                              top: height / 6,
-                              left: width / 20,
-                              playerCandidate: selectedSquad.pCF),
-                        ],
-                      );
-                    }
-                  });
             }),
       );
   }
