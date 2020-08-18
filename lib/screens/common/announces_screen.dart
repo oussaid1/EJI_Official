@@ -16,8 +16,10 @@ class AnouncesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Anounce> lista;
     return Scaffold(
-      floatingActionButtonLocation:FloatingActionButtonLocation.startTop ,
-     floatingActionButton: FloatingActionButton(
+    
+   
+ floatingActionButtonLocation: FloatingActionButtonLocation.startTop ,
+     floatingActionButton:xc.isAdmin.value? FloatingActionButton(
        elevation: 40,
       
        child: Icon(Icons.add,size:30,color: primaryColor,),
@@ -27,7 +29,7 @@ class AnouncesScreen extends StatelessWidget {
                   middleText: '',
                   
                   content: AddAnounce(),
-                );}),
+                );}):Container(),
       body: Stack(
         fit: StackFit.expand,
         children: [

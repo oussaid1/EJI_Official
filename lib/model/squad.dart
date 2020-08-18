@@ -12,14 +12,14 @@ class Squad {
   Player pLMF;
   Player pRMF;
   Player pAMF;
-  Player pRWFF;
+  Player pRWF;
   Player pLWF;
   Player pSS;
   Player pCF;
 
   Squad.main433({List<Player> list11Players}) {
 
-    this.pGK = list11Players[0];
+    this.pCF = list11Players[0];
     this.pCB5 = list11Players[1];
     this.pCB4 = list11Players[2];
     this.pRB = list11Players[3];
@@ -28,8 +28,8 @@ class Squad {
     this.pRMF = list11Players[6];
     this.pLMF = list11Players[7];
     this.pLWF = list11Players[8];
-    this.pRWFF = list11Players[9];
-    this.pCF = list11Players[10];
+    this.pRWF = list11Players[9];
+    
   }
 
   Squad.main4123({
@@ -46,7 +46,7 @@ class Squad {
     this.pLMF,
     this.pLWF,
     this.pRMF,
-    this.pRWFF,
+    this.pRWF,
     this.pSS,
   });
 }

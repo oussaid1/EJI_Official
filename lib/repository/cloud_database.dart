@@ -84,7 +84,7 @@ Firestore _db = Firestore.instance;
   }
   Stream<List<Player>> get11Playerz(String collectionName) {
     Stream<List<Player>> pList =
-        _db.collection(collectionName.trim().toString()).where('isGK',isEqualTo:false).orderBy('oVR',descending: true).limit(11).snapshots().map(
+        _db.collection(collectionName.trim().toString()).where('isGK',isEqualTo:false).orderBy('oVR',descending: true).limit(10).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
                     (doc) => Player.fromMap(doc.data, doc.documentID),

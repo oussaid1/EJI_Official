@@ -171,7 +171,7 @@ class HomePageState extends State<HomePage> {
                             buildPositionedPlayer(
                                 top: height / 6,
                                 right: width / 20,
-                                playerCandidate: selectedSquad.pRWFF),
+                                playerCandidate: selectedSquad.pRWF),
                             buildPositionedPlayer(
                                 top: height / 10,
                                 right: width / 2.55,
