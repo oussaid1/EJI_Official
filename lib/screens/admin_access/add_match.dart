@@ -69,7 +69,7 @@ class _AddMatchsState extends State<AddMatch> {
 
     for (int i = 0; i < itemsList.length; i++) {
       genderList.add(new DropdownMenuItem(
-        child: new Text(itemsList[i], style: maintext2),
+        child: new Text(itemsList[i], style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
         value: i,
       ));
     }
@@ -114,7 +114,7 @@ class _AddMatchsState extends State<AddMatch> {
       readOnly: true,
       controller: matchdateController,
       cursorColor: Colors.white,
-      style: maintext2,
+      style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
       decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: Icon(
@@ -138,7 +138,7 @@ class _AddMatchsState extends State<AddMatch> {
                 color: secondaryColor, style: BorderStyle.solid, width: 1),
           ),
           labelText: 'MacthDate'.tr,
-          labelStyle: hinttext),
+          labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
       validator: (value) {
         if (value.length == 0) {
           return 'selectMacthDate'.tr;
@@ -158,7 +158,7 @@ class _AddMatchsState extends State<AddMatch> {
               padding: const EdgeInsets.all(4.0),
               child: Text(
                 'MatchType'.tr,
-                style: subtext1,
+                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
               ),
             )),
             Expanded(
@@ -172,7 +172,7 @@ class _AddMatchsState extends State<AddMatch> {
                       value: _selectedGender,
                       items: genderList,
                       dropdownColor: primaryColor,
-                      style: maintext3,
+                      style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                       onChanged: (dynamic value) {
                         setState(() {
                           _selectedGender = value;
@@ -194,7 +194,7 @@ class _AddMatchsState extends State<AddMatch> {
       child: new TextFormField(
         controller: hometeamController,
         cursorColor: Colors.white,
-        style: maintext2,
+        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.home, color: secondaryColor),
             suffixIcon: IconButton(
@@ -219,7 +219,7 @@ class _AddMatchsState extends State<AddMatch> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'HomeTeam'.tr,
-            labelStyle: hinttext),
+            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'insertHomeTeam'.tr;
@@ -264,7 +264,7 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayHomeScore.value.toString()}',
-                      style: subtext3)),
+                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -316,7 +316,7 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayHomeYellC.value.toString()}',
-                      style: subtext3)),
+                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -368,7 +368,7 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayHomeRedC.value.toString()}',
-                      style: subtext3)),
+                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -393,7 +393,7 @@ class _AddMatchsState extends State<AddMatch> {
         controller: awayteamController,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
-        style: maintext2,
+        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
         decoration: InputDecoration(
             prefixIcon:
                 Icon(FontAwesomeIcons.arrowRight, color: secondaryColor),
@@ -420,7 +420,7 @@ class _AddMatchsState extends State<AddMatch> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'AwayTeam'.tr,
-            labelStyle: hinttext),
+            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'insertAwayTeam'.tr;
@@ -465,7 +465,7 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayAwayScore.value.toString()}',
-                      style: subtext3)),
+                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -517,7 +517,7 @@ class _AddMatchsState extends State<AddMatch> {
                   },
                 ),
                 Obx(() => Text('${xc.matchdayAwayYellC.value.toString()}',
-                    style: subtext3)),
+                    style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
                 IconButton(
                   icon: Icon(
                     Icons.arrow_drop_up,
@@ -570,7 +570,7 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayAwayRedC.value.toString()}',
-                      style: subtext3)),
+                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -595,7 +595,7 @@ class _AddMatchsState extends State<AddMatch> {
         controller: refereeController,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
-        style: maintext2,
+        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
         decoration: InputDecoration(
             prefixIcon:
                 Icon(FontAwesomeIcons.arrowRight, color: secondaryColor),
@@ -622,7 +622,7 @@ class _AddMatchsState extends State<AddMatch> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'RefereeName'.tr,
-            labelStyle: hinttext),
+            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'insertRefereeName'.tr;
@@ -759,7 +759,7 @@ switch (string) {
                           color: accentColor,
                           child: Text(
                             'Submit'.tr,
-                            style: maintext5x,
+                            style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                           ),
                           onPressed: () {
                             if (!_formKeyX.currentState.validate()) {

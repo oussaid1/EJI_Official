@@ -1,7 +1,5 @@
 import 'package:EJI/model/player.dart';
-import 'package:EJI/model/squad.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -80,15 +78,15 @@ class _PickPlayersState extends State<PickPlayers> {
                          
                           });
                         },
-                        trailing: Text('${player.position}', style: maintext3),
-                        title: Text('${player.playerName}', style: maintext3),
+                        trailing: Text('${player.position}', style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
+                        title: Text('${player.playerName}', style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
                         leading: Icon(
                           Icons.person_add,
                           color: accentColor,
                         ),
                         subtitle: Text(
                           'Score ${player.oVR}',
-                          style: hinttext,
+                          style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
                         ));
                   });
             }),

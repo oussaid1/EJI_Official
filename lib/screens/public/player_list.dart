@@ -73,63 +73,60 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
                       contentPadding: EdgeInsets.only(left: 8, right: 8),
                       leading: Stack(
                         children: <Widget>[
-                          Container(
-                            height: 54,
-                            width: 54,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: secondaryColor),
-                            ),
-                            child: new FutureBuilder<String>(
-                              future: c.getProfileImage(
-                                  context, player.profileImage.toString()),
-                              builder: (context, snapshotImage) {
-                                if (snapshotImage == null ||
-                                    !snapshotImage.hasData ||
-                                    snapshotImage.hasError) {
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(60),
-                                    child: new Image.asset(
-                                      'assets/images/logo.png',
-                                      fit: BoxFit.fill,
-                                      width: 54,
-                                      height: 54,
+                          new FutureBuilder<String>(
+                            future: c.getProfileImage(
+                                context, player.profileImage.toString()),
+                            builder: (context, snapshotImage) {
+                              if (snapshotImage == null ||
+                                  !snapshotImage.hasData ||
+                                  snapshotImage.hasError) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: new Image.asset(
+                                    'assets/images/logo.png',
+                                    fit: BoxFit.fill,
+                                    width: 54,
+                                    height: 54,
+                                  ),
+                                );
+                              } else
+                                return new ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Container(
+                                    height: 54,
+                                    width: 54,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius:BorderRadius.circular(8),
+                                      
                                     ),
-                                  );
-                                } else
-                                  return CircleAvatar(
-                                    radius: 100,
-                                    backgroundColor: secondaryColor,
-                                    child: new ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: CachedNetworkImage(
-                                        imageUrl: snapshotImage.data,
-                                        placeholder: (context, url) =>
-                                            new Image.asset(
-                                          'assets/images/logo.png',
-                                          fit: BoxFit.fill,
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
+                                    child: CachedNetworkImage(
+                                      imageUrl: snapshotImage.data, fit: BoxFit.fill,
+                                      placeholder: (context, url) =>
+                                          new Image.asset(
+                                        'assets/images/logo.png',
+                                        fit: BoxFit.fill,
                                       ),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
                                     ),
-                                  );
-                              },
-                            ),
+                                  ),
+                                );
+                            },
                           ),
                         ],
                       ),
                       title: new Text(
                         '${player.playerName}',
-                        style: subtext3,
+                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                       ),
                       trailing: new Text(
                         '${player.position}',
-                        style: subtext1,
+                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                       ),
                       subtitle: new Text(
                         '${player.dateOfBirth}',
-                        style: hinttext,
+                        style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
                       ),
                       onTap: () {
                         Player player = snapshot.data[index];

@@ -40,7 +40,7 @@ class AddComment extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8),
         child: TextFormField(
-          style: subtext3,
+          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertSubject'.tr);
@@ -53,7 +53,7 @@ class AddComment extends StatelessWidget {
               border: InputBorder.none,
               hintText: ('insertSubject'.tr),
               focusColor: secondaryColor,
-              hintStyle: hinttext,
+              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -72,7 +72,7 @@ class AddComment extends StatelessWidget {
         padding: const EdgeInsets.all(4.0),
         child: TextFormField(
           maxLines: 8,
-          style: subtext3,
+          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertComment'.tr);
@@ -85,7 +85,7 @@ class AddComment extends StatelessWidget {
               border: InputBorder.none,
               hintText: ('insertComment'.tr),
               focusColor: secondaryColor,
-              hintStyle: hinttext,
+              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -103,7 +103,7 @@ class AddComment extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: TextFormField(
-          style: subtext3,
+          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertYourname'.tr);
@@ -116,7 +116,7 @@ class AddComment extends StatelessWidget {
               border: InputBorder.none,
               hintText: ('insertYourname'.tr),
               focusColor: secondaryColor,
-              hintStyle: hinttext,
+              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -151,8 +151,8 @@ class AddComment extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                   side: BorderSide(color: primaryColor)),
-              color: secondaryColor2,
-              child: Text('Send', style: maintext4b),
+              color: secondaryColor,
+              child: Text('Send', style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
               onPressed: () {
                 if (_commentformKey.currentState.validate()) {
                   _saveToCloud();

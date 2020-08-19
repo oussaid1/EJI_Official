@@ -52,28 +52,28 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                       DataColumn(
                         label: Text(
                           "spentOn".tr,
-                          style: subtext2xy,
+                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "spentBy".tr,
-                          style: subtext2xy,
+                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "spentOnDate".tr,
-                          style: subtext2xy,
+                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "spentAmount".tr,
-                          style: subtext2xy,
+                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
                         numeric: false,
                       ),
@@ -110,14 +110,15 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Total'.tr,
-                          style: maintext2,
-                        ),
+                       
                         Text(
                           '${ClubSpendings.getSpendings(clubSpendings).toString()}'
                               .tr,
-                          style: maintext2,
+                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w900,color: secondaryColor),
+                        ),
+                         Text(
+                          'Total'.tr,
+                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
                       ],
                     ),

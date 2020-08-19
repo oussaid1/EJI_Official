@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme( color: primaryColor.withOpacity(0.9),iconTheme:IconThemeData( color: secondaryColor) ),
           iconTheme: IconThemeData(color: secondaryColor),
           primaryColor: primaryColor,
-          cardColor: primaryColorShade),
+          cardColor: secondaryColor.withOpacity(0.8)),
       translations: MyTranslations(),
       locale: Locale('ar'),
       home: SplashPage(),

@@ -31,7 +31,7 @@ class _MatchDetailsState extends State<MatchDetails> {
     return Container(
       width: 170,
       decoration: BoxDecoration(
-          color: secondaryColor,
+          color: primaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
       height: 220,
@@ -42,11 +42,11 @@ class _MatchDetailsState extends State<MatchDetails> {
             width: 170,
             height: 50,
             decoration: BoxDecoration(
-                color: primaryColorShade,
+                color: secondaryColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
             child: Text('${matchDay.matchdayHome.toString()}',
-                textAlign: TextAlign.center, style: subtext3x),
+                textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor)),
           ),
           SizedBox(
             height: 20,
@@ -59,7 +59,6 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 30,
                   height: 30,
-                  color: secondaryColor,
                   child: Image.asset(
                     'assets/images/whistle.png',
                     fit: BoxFit.contain,
@@ -68,13 +67,13 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 74,
                   decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: secondaryColor, width: 0.5)),
+                      border: Border.all(color: primaryColor, width: 0.5)),
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayHomeScore.toString()}',
-                        textAlign: TextAlign.center, style: subtext3xx),
+                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                   ),
                 ),
               ],
@@ -88,7 +87,6 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 30,
                   height: 30,
-                  color: secondaryColor,
                   child: Image.asset(
                     'assets/images/yellowcards.png',
                     fit: BoxFit.contain,
@@ -97,13 +95,13 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 74,
                   decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: secondaryColor, width: 0.5)),
+                      border: Border.all(color: primaryColor, width: 0.5)),
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayHomeYellC.toString()}',
-                        textAlign: TextAlign.center, style: subtext3xx),
+                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                   ),
                 ),
               ],
@@ -117,7 +115,6 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 30,
                   height: 30,
-                  color: secondaryColor,
                   child: Image.asset(
                     'assets/images/redcards.png',
                     fit: BoxFit.contain,
@@ -126,13 +123,13 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 74,
                   decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: secondaryColor, width: 0.5)),
+                      border: Border.all(color: primaryColor, width: 0.5)),
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayHomeRedC.toString()}',
-                        textAlign: TextAlign.center, style: subtext3xx),
+                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                   ),
                 ),
               ],
@@ -147,7 +144,7 @@ class _MatchDetailsState extends State<MatchDetails> {
     return Container(
       width: 170,
       decoration: BoxDecoration(
-          color: secondaryColor,
+          color: primaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
       height: 220,
@@ -158,11 +155,11 @@ class _MatchDetailsState extends State<MatchDetails> {
             width: 170,
             height: 50,
             decoration: BoxDecoration(
-                color: primaryColorShade,
+                color: secondaryColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
             child: Text('${matchDay.matchdayAway.toString()}',
-                textAlign: TextAlign.center, style: subtext3x),
+                textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor)),
           ),
           SizedBox(
             height: 20,
@@ -175,7 +172,6 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 30,
                   height: 30,
-                  color: secondaryColor,
                   child: Image.asset(
                     'assets/images/whistle.png',
                     fit: BoxFit.contain,
@@ -184,13 +180,13 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 74,
                   decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: secondaryColor, width: 0.5)),
+                      border: Border.all(color: primaryColor, width: 0.5)),
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayAwayScore.toString()}',
-                        textAlign: TextAlign.center, style: subtext3xx),
+                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                   ),
                 ),
               ],
@@ -204,7 +200,6 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 30,
                   height: 30,
-                  color: secondaryColor,
                   child: Image.asset(
                     'assets/images/yellowcards.png',
                     fit: BoxFit.contain,
@@ -213,13 +208,13 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 74,
                   decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: secondaryColor, width: 0.5)),
+                      border: Border.all(color: primaryColor, width: 0.5)),
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayAwayYellC.toString()}',
-                        textAlign: TextAlign.center, style: subtext3xx),
+                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                   ),
                 ),
               ],
@@ -233,7 +228,6 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 30,
                   height: 30,
-                  color: secondaryColor,
                   child: Image.asset(
                     'assets/images/redcards.png',
                     fit: BoxFit.contain,
@@ -242,13 +236,13 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Container(
                   width: 74,
                   decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: secondaryColor, width: 0.5)),
+                      border: Border.all(color: primaryColor, width: 0.5)),
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayAwayRedC.toString()}',
-                        textAlign: TextAlign.center, style: subtext3xx),
+                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                   ),
                 ),
               ],
@@ -278,7 +272,7 @@ class _MatchDetailsState extends State<MatchDetails> {
               child: ListView(
                 children: <Widget>[
                   Card(
-                    color: primaryColorShade,
+                    color: secondaryColor.withOpacity(0.8),
                     child: Column(
                       children: <Widget>[
                         Padding(
@@ -289,7 +283,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               Text(
                                   'MatchDay'.tr +
                                       '${matchDay.matchdayDate.toString()}',
-                                  style: maintext3),
+                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
                             ],
                           ),
                         ),
@@ -301,14 +295,14 @@ class _MatchDetailsState extends State<MatchDetails> {
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
                                 '${matchDay.matchdayType.toString()}',
-                                style: subtextxx,
+                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Text('MatchType'.tr,
-                                  textAlign: TextAlign.center, style: hinttext),
+                                  textAlign: TextAlign.center, style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
                             ),
                           ],
                         ),
@@ -329,12 +323,12 @@ class _MatchDetailsState extends State<MatchDetails> {
                             children: [
                                Text(
                                 '  ${matchDay.matchdayReferee.toString()}',
-                                style: subtextxx,
+                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                                 textAlign: TextAlign.center,
                               ),
                               Text(
                                 'MatchRef'.tr,
-                                style: hinttext,
+                                style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
                                 textAlign: TextAlign.center,
                               ),
                              

@@ -87,7 +87,7 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
                   itemBuilder: (BuildContext context, index) {
                     ClubArcive clubArcive = myList[index];
                     return new Container(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       height: 300,
                       width: 400,
                       child: new Card(

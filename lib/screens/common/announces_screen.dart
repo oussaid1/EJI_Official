@@ -19,17 +19,21 @@ class AnouncesScreen extends StatelessWidget {
     
    
  floatingActionButtonLocation: FloatingActionButtonLocation.startTop ,
-     floatingActionButton:xc.isAdmin.value? FloatingActionButton(
-       elevation: 40,
-      
-       child: Icon(Icons.add,size:30,color: primaryColor,),
-       onPressed: (){  Get.defaultDialog(
-                  backgroundColor: Colors.blue[100],
-                  title: ('Anounces'.tr),
-                  middleText: '',
-                  
-                  content: AddAnounce(),
-                );}):Container(),
+     floatingActionButton:xc.isAdmin.value? SizedBox(
+       height: 40,
+       width: 40,
+            child: FloatingActionButton(
+         elevation: 40,
+        
+         child: Icon(Icons.add,size:30,color: primaryColor,),
+         onPressed: (){  Get.defaultDialog(
+                    backgroundColor: Colors.blue[100],
+                    title: ('Anounces'.tr),
+                    middleText: '',
+                    
+                    content: AddAnounce(),
+                  );}),
+     ):Container(),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -64,7 +68,7 @@ class AnouncesScreen extends StatelessWidget {
 
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
-                              color: primaryColorShade,
+                              color: secondaryColor.withOpacity(0.5),
                             ),
                             child: Column(
                               children: [
@@ -76,9 +80,9 @@ class AnouncesScreen extends StatelessWidget {
                                        Padding(
                                          padding: const EdgeInsets.fromLTRB(16,4,16,4),
                                          child: Text(anounce.subject.toString(),
-                                            style: subtext3x),
+                                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: whitefontColor)),
                                        ),
-                                      Text('Subject'.tr, style: subtext3xy,textDirection:TextDirection.rtl ,),
+                                      Text('Subject'.tr, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),textDirection:TextDirection.rtl ,),
                                      
                                     ],
                                   ),
@@ -97,7 +101,7 @@ class AnouncesScreen extends StatelessWidget {
                                           const EdgeInsets.fromLTRB(4, 8, 4, 8),
                                       child: Text(
                                         anounce.anounceText.toString(),
-                                        style: subtext2,textDirection:TextDirection.rtl,
+                                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),textDirection:TextDirection.rtl,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 10,
                                         textAlign: TextAlign.justify,
@@ -114,7 +118,7 @@ class AnouncesScreen extends StatelessWidget {
                                       Row(
                                         children: [
                                           Text(anounce.anounceDate.toString(),
-                                              style: hinttext),
+                                              style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
                                         ],
                                       ),
                                       Row(
@@ -123,11 +127,11 @@ class AnouncesScreen extends StatelessWidget {
                                           Padding(
                                             padding: const EdgeInsets.all(4.0),
                                             child: Text(anounce.anounceBy.toString(),
-                                                style: subtext2x),
+                                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: whitefontColor)),
                                           ),
                                                Padding(
                                                  padding: const EdgeInsets.only(right:8.0),
-                                                 child: Text('By'.tr, style: subtext3xx),
+                                                 child: Text('By'.tr, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor)),
                                                ),
                                         ],
                                       ),

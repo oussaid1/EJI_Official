@@ -68,7 +68,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 return Text(
                     'EJIBudget'.tr + 'DH ' +'-- ',
                     textDirection: TextDirection.rtl,
-                    style: subtext4,
+                    style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),
                   );
               } else
                 clubIncome = snapshot.data;
@@ -77,7 +77,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 return Text(
                     'EJIBudget'.tr + 'DH ' '${(c-d).toString()} ',
                     textDirection: TextDirection.rtl,
-                    style: subtext4,
+                    style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),
                   );
                 }
               ),
@@ -121,13 +121,13 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: <Widget>[
                     Icon(
                       Icons.star,
-                      color: accentColor,
+                      color: Colors.yellow,
                       size: 20,
                     ),
                     Icon(
                       Icons.star,
                       size: 20,
-                      color: accentColor,
+                      color: Colors.yellow,
                     ),
                    
                   ],

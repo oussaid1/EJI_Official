@@ -74,7 +74,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
-                                        color: const Color(0x7f144060),
+                                        color: const Color(0x7f0E1F04),
                                         border: Border.all(
                                             width: 1.0,
                                             color: const Color(0xff707070)),
@@ -179,7 +179,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
                                                                   'Roboto',
                                                               fontSize: 42,
                                                               color:
-                                                                  accentColor2,
+                                                                  accentColor,
                                                             ),
                                                             children: [
                                                               TextSpan(
@@ -255,7 +255,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
                                                             width: 30,
                                                             child: IconButton(
                                                               icon: Icon(Icons
-                                                                  .exposure_plus_1,size: 30,color: accentColor3,),
+                                                                  .exposure_plus_1,size: 30,color: accentColor,),
                                                               onPressed: () {
                                                                 Get.defaultDialog(
                                                                   backgroundColor:
@@ -430,7 +430,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
                                       height: 120,
                                       child: VerticalDivider(
                                         width: 4,
-                                        color: secondaryColor,
+                                        color: accentColor,
                                         thickness: 4,
                                       ),
                                     ),
@@ -504,7 +504,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                       text: isOpenToRate ? 'مفتوح' : 'مغلق',
                       style: TextStyle(
                         fontSize: 28,
-                        color: isOpenToRate ? accentColor2 : Colors.red[600],
+                        color: isOpenToRate ? accentColor : Colors.red[600],
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -528,8 +528,8 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_up,
                                       color: isOpenToRate
-                                          ? accentColor2
-                                          : primaryColorShade),
+                                          ? accentColor
+                                          : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.incrementDescipline();
                                   }),
@@ -549,7 +549,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                   icon: Icon(Icons.thumb_down,
                                       color: isOpenToRate
                                           ? accentColor
-                                          : primaryColorShade),
+                                          : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.deccrementDescipline();
                                   }),
@@ -581,8 +581,8 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_up,
                                       color: isOpenToRate
-                                          ? accentColor2
-                                          : primaryColorShade),
+                                          ? accentColor
+                                          : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.incrementTraining();
                                   }),
@@ -602,7 +602,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                   icon: Icon(Icons.thumb_down,
                                       color: isOpenToRate
                                           ? accentColor
-                                          : primaryColorShade),
+                                          : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.deccrementTraining();
                                   }),
@@ -634,8 +634,8 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_up,
                                       color: isOpenToRate
-                                          ? accentColor2
-                                          : primaryColorShade),
+                                          ? accentColor
+                                          : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.incrementPositionMastery();
                                   }),
@@ -655,7 +655,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                   icon: Icon(Icons.thumb_down,
                                       color: isOpenToRate
                                           ? accentColor
-                                          : primaryColorShade),
+                                          : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.decrementPositionMastery();
                                   }),
@@ -687,8 +687,8 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_up,
                                       color: isOpenToRate
-                                          ? accentColor2
-                                          : primaryColorShade),
+                                          ? accentColor
+                                          : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.incrementAvailability();
                                   }),
@@ -708,7 +708,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                   icon: Icon(Icons.thumb_down,
                                       color: isOpenToRate
                                           ? accentColor
-                                          : primaryColorShade),
+                                          : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.decrementAvailability();
                                   }),

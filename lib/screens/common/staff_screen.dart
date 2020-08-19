@@ -28,13 +28,13 @@ class StaffPage extends StatelessWidget {
             width: Get.width / 1.14,
             height: Get.height / 18,
             decoration: BoxDecoration(
-                color: primaryColorShade,
+                color: secondaryColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Text('President'.tr,
-                  textAlign: TextAlign.center, style: subtext3x),
+                  textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
             ),
           ),
           SizedBox(
@@ -45,13 +45,13 @@ class StaffPage extends StatelessWidget {
             children: [
               Container(
                decoration: BoxDecoration(
-                color: primaryColorShade,
+                color: secondaryColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text('${staff.presedent}',
-                      textAlign: TextAlign.center, style: subtext3xx),
+                      textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                 ),
               ),
              
@@ -76,13 +76,13 @@ class StaffPage extends StatelessWidget {
             width: Get.width / 1.14,
           
             decoration: BoxDecoration(
-                color: primaryColorShade,
+                color: secondaryColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text('TechnicalStuff'.tr,
-                  textAlign: TextAlign.center, style: subtext4x),
+                  textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
             ),
           ),
           SizedBox(
@@ -99,24 +99,24 @@ class StaffPage extends StatelessWidget {
                   children: [
                     Container(
                      decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('Main Coach'.tr,
-                            textAlign: TextAlign.center, style: subtext3),
+                            textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                       ),
                     ),
                     Container(
                      decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('${staff.coach}',
-                            textAlign: TextAlign.center, style: subtext3xx),
+                            textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                       ),
                     ),
                   ],
@@ -128,24 +128,24 @@ class StaffPage extends StatelessWidget {
               children: [
                 Container(
                  decoration: BoxDecoration(
-                  color: primaryColorShade,
+                  color: secondaryColor.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: secondaryColor, width: 0.5)),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text('Assistant Coach'.tr,
-                        textAlign: TextAlign.center, style: subtext3),
+                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                   ),
                 ),
                 Container(
                  decoration: BoxDecoration(
-                  color: primaryColorShade,
+                  color: secondaryColor.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: secondaryColor, width: 0.5)),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text('${staff.coachAssistant}',
-                        textAlign: TextAlign.center, style: subtext3xx),
+                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                   ),
                 ),
               ],
@@ -165,24 +165,24 @@ class StaffPage extends StatelessWidget {
                   children: [
                     Container(
                      decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('Physical Trainer'.tr,
-                            textAlign: TextAlign.center, style: subtext3),
+                            textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                       ),
                     ),
                     Container(
                      decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('${staff.trainerPHY}',
-                            textAlign: TextAlign.center, style: subtext3xx),
+                            textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                       ),
                     ),
                   ],
@@ -193,24 +193,24 @@ class StaffPage extends StatelessWidget {
                   children: [
                     Container(
                      decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('Medical Assistant'.tr,
-                            textAlign: TextAlign.center, style: subtext3),
+                            textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                       ),
                     ),
                     Container(
                      decoration: BoxDecoration(
-                      color: primaryColorShade,
+                      color: secondaryColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: secondaryColor, width: 0.5)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('${staff.medicalAssistant}',
-                            textAlign: TextAlign.center, style: subtext3xx),
+                            textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                       ),
                     ),
                   ],
@@ -239,13 +239,13 @@ class StaffPage extends StatelessWidget {
               width: Get.width / 1.14,
               height: Get.height / 17,
               decoration: BoxDecoration(
-                  color: primaryColorShade,
+                  color: secondaryColor.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: secondaryColor, width: 0.5)),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text('AdminStaff'.tr,
-                    textAlign: TextAlign.center, style: subtext4x),
+                    textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
               ),
             ),
             SizedBox(
@@ -262,35 +262,35 @@ class StaffPage extends StatelessWidget {
                     children: [
                       Container(
                        decoration: BoxDecoration(
-                        color: primaryColorShade,
+                        color: secondaryColor.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Coordinators'.tr,
-                              textAlign: TextAlign.center, style: subtext3),
+                              textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                         ),
                       ),
                       Container(
                        decoration: BoxDecoration(
-                        color: primaryColorShade,
+                        color: secondaryColor.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.coordinator1}',
-                              textAlign: TextAlign.center, style: subtext3xx),
+                              textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                         ),
                       ),
                       Container(
                        decoration: BoxDecoration(
-                        color: primaryColorShade,
+                        color: secondaryColor.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.coordinator2}',
-                              textAlign: TextAlign.center, style: subtext3xx),
+                              textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                         ),
                       ),
                     ],
@@ -302,24 +302,24 @@ class StaffPage extends StatelessWidget {
                 children: [
                   Container(
                    decoration: BoxDecoration(
-                    color: primaryColorShade,
+                    color: secondaryColor.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: secondaryColor, width: 0.5)),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text('Chief Excutive'.tr,
-                          textAlign: TextAlign.center, style: subtext3),
+                          textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                     ),
                   ),
                   Container(
                    decoration: BoxDecoration(
-                    color: primaryColorShade,
+                    color: secondaryColor.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: secondaryColor, width: 0.5)),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text('${staff.chefExc} ',
-                          textAlign: TextAlign.center, style: subtext3xx),
+                          textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                     ),
                   ),
                 ],
@@ -336,24 +336,24 @@ class StaffPage extends StatelessWidget {
                 children: [
                   Container(
                    decoration: BoxDecoration(
-                    color: primaryColorShade,
+                    color: secondaryColor.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: secondaryColor, width: 0.5)),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text('Finance Director'.tr,
-                          textAlign: TextAlign.center, style: subtext3),
+                          textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                     ),
                   ),
                   Container(
                    decoration: BoxDecoration(
-                    color: primaryColorShade,
+                    color: secondaryColor.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: secondaryColor, width: 0.5)),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text('${staff.financeDir}',
-                          textAlign: TextAlign.center, style: subtext3xx),
+                          textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                     ),
                   ),
                 ],
@@ -365,46 +365,46 @@ class StaffPage extends StatelessWidget {
                     children: [
                       Container(
                        decoration: BoxDecoration(
-                        color: primaryColorShade,
+                        color: secondaryColor.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Councellors'.tr,
-                              textAlign: TextAlign.center, style: subtext3),
+                              textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                         ),
                       ),
                       Container(
                        decoration: BoxDecoration(
-                        color: primaryColorShade,
+                        color: secondaryColor.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.counceler1}',
-                              textAlign: TextAlign.center, style: subtext3xx),
+                              textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                         ),
                       ),
                       Container(
                        decoration: BoxDecoration(
-                        color: primaryColorShade,
+                        color: secondaryColor.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.counceler2}',
-                              textAlign: TextAlign.center, style: subtext3xx),
+                              textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                         ),
                       ),
                       Container(
                        decoration: BoxDecoration(
-                        color: primaryColorShade,
+                        color: secondaryColor.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: secondaryColor, width: 0.5)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('${staff.counceler3}',
-                              textAlign: TextAlign.center, style: subtext3xx),
+                              textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
                         ),
                       ),
                     ],
@@ -420,7 +420,7 @@ class StaffPage extends StatelessWidget {
     return Scaffold(
       drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
       appBar: AppBar(
-        title: Center(child: Text('EJI Staff'.tr, style: maintext4)),
+        title: Center(child: Text('EJI Staff'.tr, style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor))),
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -447,11 +447,11 @@ class StaffPage extends StatelessWidget {
                           children: [
                              Text(
                                 'CurrentSituation'.tr,
-                                style: subtextxx,
+                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                                 textAlign: TextAlign.center,
                               ),
                             Text('2019-2022',
-                                textAlign: TextAlign.center, style: hinttext),
+                                textAlign: TextAlign.center, style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
                             
                           ],
                         ),

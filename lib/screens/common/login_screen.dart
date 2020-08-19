@@ -82,19 +82,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 width: Get.width - 40,
-                height: Get.height / 2,
+                height: Get.height / 1.8,
                 child: ListView(
                   children: <Widget>[
                     Align(
                         alignment: Alignment.topCenter,
-                        child: Text('Sign In', style: maintext5)),
+                        child: Text('Sign In', style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor))),
                     SizedBox(
                       height: 20,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        style: maintext3b,
+                        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                         textAlign: TextAlign.center,
                         validator: (text) {
                           if (text.isEmpty) {
@@ -111,9 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: ('emailempty'.tr),
                             labelText: 'Email',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelStyle: subtext5x,
-                            focusColor: accentColor2,
-                            hintStyle: hinttext,
+                            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                            focusColor: accentColor,
+                            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
-                                  color: accentColor2,
+                                  color: accentColor,
                                   style: BorderStyle.solid,
                                   width: 1),
                             ),
@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        style: maintext3b,
+                        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                         obscureText: true,
                         textAlign: TextAlign.center,
                         validator: (text) {
@@ -156,9 +156,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: ('passempty'.tr),
                             labelText: 'Password',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelStyle: subtext5x,
-                            focusColor: accentColor2,
-                            hintStyle: hinttext,
+                            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                            focusColor: accentColor,
+                            hintStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w200,color: fontColor),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
-                                  color: accentColor2,
+                                  color: accentColor,
                                   style: BorderStyle.solid,
                                   width: 1),
                             ),
@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           elevation: 5.0,
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(10.0)),
-                          color: accentColor3,
+                          color: accentColor,
                           child: new Text('LOGIN',
                               style: new TextStyle(
                                   fontFamily: 'RobotoCondensed',
@@ -249,11 +249,11 @@ var languageSwitch= SizedBox(
                         padding: const EdgeInsets.all(8.0),
                         child: isArabic? new Text(
                           'عربية'.tr,textAlign: TextAlign.center,
-                          style: maintext3,
+                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                         )
                         : new Text(
                           'English'.tr,textAlign: TextAlign.center,
-                          style: maintext3,
+                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                         ),
                       ),
                       Switch(

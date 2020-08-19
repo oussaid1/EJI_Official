@@ -61,7 +61,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                       return Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
-                          height: 130,
+                          height: 144,
                           child: Card(
                             margin: EdgeInsets.fromLTRB(8, 2, 8, 2),
                             shape: RoundedRectangleBorder(
@@ -73,7 +73,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                 Text(
                                     'MatchDay'.tr +
                                         '${matchDay.matchdayDate.toString()}',
-                                    style: maintext3),
+                                    style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -86,7 +86,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                         child: Text(
                                             '${matchDay.matchdayHome.toString()}',
                                             textAlign: TextAlign.center,
-                                            style: subtext3x),
+                                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor)),
                                       ),
                                     ),
                                     Padding(
@@ -94,7 +94,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                       child: Container(
                                         width: 74,
                                         decoration: BoxDecoration(
-                                            color: primaryColorShade,
+                                            color: secondaryColor.withOpacity(0.8),
                                             borderRadius: BorderRadius.circular(5),
                                             border: Border.all(
                                                 color: secondaryColor, width: 0.5)),
@@ -105,14 +105,14 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                                   ' : ' +
                                                   '${matchDay.matchdayAwayScore.toString()}',
                                               textAlign: TextAlign.center,
-                                              style: subtext3xx):Text(
+                                              style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: whitefontColor)):Text(
                                               '--' +
                                                   ' : ' +
                                                   '--',
                                               textAlign: TextAlign.center,
-                                              style: subtext3xx)
+                                              style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))
                                         ),
-                                      ),
+                                      ), 
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -120,7 +120,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                         child: Text(
                                             '${matchDay.matchdayAway.toString()}',
                                             textAlign: TextAlign.center,
-                                            style: subtext3x),
+                                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor)),
                                       ),
                                     ),
                                   ],
@@ -150,7 +150,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                             padding: const EdgeInsets.all(4.0),
                                             child: Text(
                                               '${matchDay.matchdayType.toString()}',
-                                              style: subtextxx,
+                                              style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
@@ -158,7 +158,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                             padding: const EdgeInsets.all(4.0),
                                             child: Text('MatchType'.tr,
                                                 textAlign: TextAlign.center,
-                                                style: hinttext),
+                                                style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
                                           ),
                                         ],
                                       ),
@@ -169,7 +169,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                                 4, 4, 4, 4),
                                             child: Text('MatchDetails'.tr,
                                                 textAlign: TextAlign.center,
-                                                style: hinttext),
+                                                style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
                                           ),
                                           IconButton(
                                             icon: Icon(Icons.info),

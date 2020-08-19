@@ -59,7 +59,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                     } else
                       clubSpendings = snapshot.data;
                     d = cD.setBudget(ClubSpendings.getSpendings(clubSpendings));
-                    return Text("EJI Idawlstane");
+                    return Text("EJI Idawlstane",style: TextStyle(color:fontColor),);
                   }),
               accountEmail: StreamBuilder(
                   stream: cD.getClubIncomes('ClubIncome'),
@@ -68,7 +68,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                       return Text(
                         'EJIBudget'.tr + 'DH ' + '-- ',
                         textDirection: TextDirection.rtl,
-                        style: subtext4,
+                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),
                       );
                     } else
                       clubIncome = snapshot.data;
@@ -77,21 +77,21 @@ class _AdminDrawerState extends State<AdminDrawer> {
                     return Text(
                       'EJIBudget'.tr + 'DH ' '${(c - d).toString()} ',
                       textDirection: TextDirection.rtl,
-                      style: subtext4,
+                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),
                     );
                   }),
               currentAccountPicture: CircleAvatar(
                 backgroundColor:
                     Theme.of(context).platform == TargetPlatform.iOS
                         ? Colors.blue
-                        : Colors.white,
+                        : secondaryColor,
                 child: Image.asset(
                   'assets/images/logo.png',
                   fit: BoxFit.fill,
                 ),
               ),
               otherAccountsPictures: [
-                //     Text('Sign-Out',style: subtext2,),
+                //     Text('Sign-Out',style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),),
                 //    IconButton(icon: Icon(FontAwesomeIcons.powerOff, size: 24,color: secondaryColor,), onPressed: (){}),
               ],
             ),

@@ -66,7 +66,7 @@ double progressPercent=0.5;
 
                 // Progress bar
                 LinearProgressIndicator(value: progressPercent),
-                Text('${(progressPercent * 100).toStringAsFixed(2)} % ',style: subtext1,),
+                Text('${(progressPercent * 100).toStringAsFixed(2)} % ',style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),),
               ],
             );
           });

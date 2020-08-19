@@ -48,24 +48,7 @@ Firestore _db = Firestore.instance;
      
     });
   }*/
-  void getClubIncomesAndSpendings() {
-    List<ClubIncome> mList = List<ClubIncome>();
-
-    _db
-        .collection('ClubIncome'.trim())
-        .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => ClubIncome.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        
-        );
-
-  
-  }
-
+ 
   static Future<dynamic> loadFromStorage(String image) async {
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }

@@ -26,11 +26,11 @@ class PlayersList extends StatelessWidget {
             tabs: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Seniors'.tr, style: maintext3),
+                child: Text('Seniors'.tr, style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Juniors'.tr, style: maintext3),
+                child: Text('Juniors'.tr, style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
               ),
             ],
           ),

@@ -96,7 +96,7 @@ class PlayerDetails extends StatelessWidget {
                             ),
                             Container(
                               height: 40,
-                              color: primaryColorShade,
+                              color: secondaryColor.withOpacity(0.8),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
@@ -140,13 +140,13 @@ class PlayerDetails extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'PlayerName'.tr,
-                                style: subtext1,
+                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8, right: 4),
                                 child: Text(
                                   '${player.playerName.toString()}',
-                                  style: maintext2,
+                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                                 ),
                               ),
                             ],
@@ -158,13 +158,13 @@ class PlayerDetails extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'Date&PlaceofBirth'.tr,
-                                style: subtext1,
+                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 4, right: 4),
                                 child: Text(
                                   '${player.dateOfBirth.toString()}/ ${player.placeOfBirth.toString()} ',
-                                  style: maintext2,
+                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                                 ),
                               ),
                             ],
@@ -176,13 +176,13 @@ class PlayerDetails extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'Email'.tr,
-                                style: subtext1,
+                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8, right: 4),
                                 child: Text(
                                   '${player.email.toString()}',
-                                  style: maintext2,
+                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                                 ),
                               ),
                             ],
@@ -194,13 +194,13 @@ class PlayerDetails extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'PhoneNumber:'.tr,
-                                style: subtext1,
+                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8, right: 4),
                                 child: Text(
                                   '${player.phone.toString()}',
-                                  style: maintext2,
+                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                                 ),
                               ),
                             ],
@@ -212,13 +212,13 @@ class PlayerDetails extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'Position'.tr,
-                                style: subtext1,
+                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8, right: 4),
                                 child: Text(
                                   '${player.position.toString()}',
-                                  style: maintext2,
+                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                                 ),
                               ),
                             ],
@@ -231,14 +231,14 @@ class PlayerDetails extends StatelessWidget {
                               children: <Widget>[
                                 Text(
                                   'PlayedSeasons'.tr,
-                                  style: subtext1,
+                                  style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(4, 4, 2, 2),
                                   child: new Text(
                                     '${player.seasons.toString()}',
                                     textAlign: TextAlign.center,
-                                    style: maintext2,
+                                    style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                                   ),
                                 ),
                               ]),
@@ -320,7 +320,7 @@ class JuniorPlayerDetails extends StatelessWidget {
                         ),
                         Container(
                           height: 40,
-                          color: primaryColorShade,
+                          color: secondaryColor.withOpacity(0.8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -362,13 +362,13 @@ class JuniorPlayerDetails extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             'PlayerName'.tr,
-                            style: subtext1,
+                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 8, right: 4),
                             child: Text(
                               '${juniorplayer.playerName.toString()}',
-                              style: maintext2,
+                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                             ),
                           ),
                         ],
@@ -380,13 +380,13 @@ class JuniorPlayerDetails extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             'Date&PlaceofBirth'.tr,
-                            style: subtext1,
+                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 4, right: 4),
                             child: Text(
                               '${juniorplayer.dateOfBirth.toString()}/ ${juniorplayer.placeOfBirth.toString()} ',
-                              style: maintext2,
+                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                             ),
                           ),
                         ],
@@ -398,13 +398,13 @@ class JuniorPlayerDetails extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             'Email'.tr,
-                            style: subtext1,
+                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 8, right: 4),
                             child: Text(
                               '${juniorplayer.email.toString()}',
-                              style: maintext2,
+                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                             ),
                           ),
                         ],
@@ -416,13 +416,13 @@ class JuniorPlayerDetails extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             'PhoneNumber:'.tr,
-                            style: subtext1,
+                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 8, right: 4),
                             child: Text(
                               '${juniorplayer.phone.toString()}',
-                              style: maintext2,
+                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                             ),
                           ),
                         ],
@@ -434,13 +434,13 @@ class JuniorPlayerDetails extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             'Position'.tr,
-                            style: subtext1,
+                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 8, right: 4),
                             child: Text(
                               '${juniorplayer.position.toString()}',
-                              style: maintext2,
+                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                             ),
                           ),
                         ],
@@ -453,14 +453,14 @@ class JuniorPlayerDetails extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               'PlayedSeasons'.tr,
-                              style: subtext1,
+                              style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(4, 4, 2, 2),
                               child: new Text(
                                 '${juniorplayer.seasons.toString()}',
                                 textAlign: TextAlign.center,
-                                style: maintext2,
+                                style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
                               ),
                             ),
                           ]),

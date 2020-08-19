@@ -68,7 +68,7 @@ class _AddAnounceState extends State<AddAnounce> {
         padding: const EdgeInsets.only(left: 8.0, right: 8),
         child: TextFormField(
           textAlign: TextAlign.center,
-          style: subtext3,
+          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertSubject'.tr);
@@ -81,7 +81,7 @@ class _AddAnounceState extends State<AddAnounce> {
               border: InputBorder.none,
               hintText: ('insertSubject'.tr),
               focusColor: secondaryColor,
-              hintStyle: hinttext,
+              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
               
               contentPadding: EdgeInsets.only(left: 2)),
         ),
@@ -103,7 +103,7 @@ class _AddAnounceState extends State<AddAnounce> {
                     textAlign: TextAlign.center,
 
           maxLines: 8,
-          style: subtext3,
+          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertAnounce'.tr);
@@ -116,7 +116,7 @@ class _AddAnounceState extends State<AddAnounce> {
               border: InputBorder.none,
               hintText: ('insertAnounce'.tr),
               focusColor: secondaryColor,
-              hintStyle: hinttext,
+              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -136,7 +136,7 @@ class _AddAnounceState extends State<AddAnounce> {
         child: TextFormField(
                     textAlign: TextAlign.center,
 
-          style: subtext3,
+          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertYourname'.tr);
@@ -149,7 +149,7 @@ class _AddAnounceState extends State<AddAnounce> {
               border: InputBorder.none,
               hintText: ('insertYourname'.tr),
               focusColor: secondaryColor,
-              hintStyle: hinttext,
+              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -220,8 +220,8 @@ class _AddAnounceState extends State<AddAnounce> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                   side: BorderSide(color: primaryColor)),
-              color: secondaryColor2,
-              child: Text('Send', style: maintext4b),
+              color: secondaryColor,
+              child: Text('Send', style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
               onPressed: () {
                 if (_anounceformKey.currentState.validate()) {
                   _saveToCloud();
@@ -240,8 +240,8 @@ class _AddAnounceState extends State<AddAnounce> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: primaryColor)),
-                color: secondaryColor2,
-                child: Text('Update', style: maintext4b),
+                color: secondaryColor,
+                child: Text('Update', style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
                 onPressed: () {
                   if (_anounceformKey.currentState.validate()) {
                     _updateInCloud();
@@ -258,8 +258,8 @@ class _AddAnounceState extends State<AddAnounce> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: primaryColor)),
-                color: secondaryColor2,
-                child: Text('Delete', style: maintext4b),
+                color: secondaryColor,
+                child: Text('Delete', style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
                 onPressed: () {
                   if (_anounceformKey.currentState.validate()) {
                     cv.deleteObject('anounces',widget.anounce.id);

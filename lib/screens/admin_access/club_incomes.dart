@@ -77,28 +77,28 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                         tooltip: 'For',
                         label: Text(
                           "GivenFor".tr,
-                          style: subtext2xy,
+                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "GivenBy".tr,
-                          style: subtext2xy,
+                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "GivenOnDate".tr,
-                          style: subtext2xy,
+                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "GivenAmount".tr,
-                          style: subtext2xy,
+                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
                         numeric: false,
                       ),
@@ -123,7 +123,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                                   Text(clubIncome.givenOnDate.toString()),
                                 ),
                                 DataCell(
-                                  Text(clubIncome.givenAmount.toString()),
+                                  Text(clubIncome.givenAmount.toString(),style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: primaryColor,),textAlign: TextAlign.center,),
                                 ),
                               ]),
                         )
@@ -134,14 +134,15 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                         Text(
+                          '${ClubIncome.getIncome(clubIncome).toString()}'.tr,
+                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w900,color: secondaryColor),
+                        ),
                         Text(
                           'Total'.tr,
-                          style: maintext2,
+                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w900,color: secondaryColor),
                         ),
-                        Text(
-                          '${ClubIncome.getIncome(clubIncome).toString()}'.tr,
-                          style: maintext2,
-                        ),
+                       
                       ],
                     ),
                   ),

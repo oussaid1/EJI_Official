@@ -43,12 +43,12 @@ class _EJILawScreenState extends State<EJILawScreen> {
       appBar: AppBar(
         title: Text(
           'EJILaw'.tr,
-          style: maintext3,
+          style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
         ),
       ),
       backgroundColor: primaryColor,
       body:!isLoaded ? Center(child: CircularProgressIndicator(),) : PDFViewer(document: _doc, 
-      indicatorBackground: accentColor2,
+      indicatorBackground: accentColor,
       // showIndicator: false,
       // showPicker: false,
        ),

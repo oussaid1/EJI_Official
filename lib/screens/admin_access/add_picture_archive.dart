@@ -72,7 +72,7 @@ class _AddPictureState extends State<AddPicture> {
     return SizedBox(
       width: 300,
       child: TextFormField(
-        style: subtext3xx,
+        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
@@ -91,9 +91,9 @@ class _AddPictureState extends State<AddPicture> {
             fillColor: primaryColor,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelStyle: subtext5x,
-            focusColor: accentColor2,
-            hintStyle: hinttext,
+            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+            focusColor: accentColor,
+            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
@@ -102,7 +102,7 @@ class _AddPictureState extends State<AddPicture> {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                  color: accentColor2, style: BorderStyle.solid, width: 1),
+                  color: accentColor, style: BorderStyle.solid, width: 1),
             ),
             contentPadding: EdgeInsets.all(8)),
       ),
@@ -115,15 +115,15 @@ class _AddPictureState extends State<AddPicture> {
       child: TextFormField(
         readOnly: true,
         controller: imageYearControler,
-        style: subtext3xx,
+        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           fillColor: primaryColor,
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelStyle: subtext5x,
-          focusColor: accentColor2,
-          hintStyle: hinttext,
+          labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+          focusColor: accentColor,
+          hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
@@ -132,7 +132,7 @@ class _AddPictureState extends State<AddPicture> {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
-                color: accentColor2, style: BorderStyle.solid, width: 1),
+                color: accentColor, style: BorderStyle.solid, width: 1),
           ),
           contentPadding: EdgeInsets.all(8),
           prefixIcon: IconButton(
@@ -157,7 +157,7 @@ class _AddPictureState extends State<AddPicture> {
     return SizedBox(
       width: 300,
       child: TextFormField(
-        style: subtext3xx,
+        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
@@ -176,9 +176,9 @@ class _AddPictureState extends State<AddPicture> {
             fillColor: primaryColor,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelStyle: subtext5x,
-            focusColor: accentColor2,
-            hintStyle: hinttext,
+            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+            focusColor: accentColor,
+            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
@@ -187,7 +187,7 @@ class _AddPictureState extends State<AddPicture> {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                  color: accentColor2, style: BorderStyle.solid, width: 1),
+                  color: accentColor, style: BorderStyle.solid, width: 1),
             ),
             contentPadding: EdgeInsets.all(8)),
       ),
@@ -240,8 +240,8 @@ class _AddPictureState extends State<AddPicture> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(color: primaryColor)),
-                      color: secondaryColor2,
-                      child: Text('Send'.tr, style: maintext4b),
+                      color: secondaryColor,
+                      child: Text('Send'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
                       onPressed: () {
                         if (_commentformKey.currentState.validate()) {
                           _saveToCloud();
@@ -270,8 +270,8 @@ class _AddPictureState extends State<AddPicture> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                                 side: BorderSide(color: primaryColor)),
-                            color: secondaryColor2,
-                            child: Text('Update'.tr, style: maintext4b),
+                            color: secondaryColor,
+                            child: Text('Update'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
                             onPressed: () {
                               if (_commentformKey.currentState.validate()) {
                                 Get.defaultDialog(
@@ -310,8 +310,8 @@ class _AddPictureState extends State<AddPicture> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                                 side: BorderSide(color: primaryColor)),
-                            color: secondaryColor2,
-                            child: Text('Delete'.tr, style: maintext4b),
+                            color: secondaryColor,
+                            child: Text('Delete'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
                             onPressed: () {
                               Get.defaultDialog(
                                 title: 'SperAdmin'.tr,

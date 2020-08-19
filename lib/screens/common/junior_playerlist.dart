@@ -86,15 +86,15 @@ class _JuniorListPageState extends State< JuniorPlayerList> {
                       ),
                       title: new Text(
                         '${juniorplayer.playerName}',
-                        style: subtext3,
+                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                       ),
                       trailing: new Text(
                         '${juniorplayer.position}',
-                        style: subtext1,
+                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
                       ),
                       subtitle: new Text(
                         '${juniorplayer.dateOfBirth}',
-                        style: hinttext,
+                        style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
                       ),
                       onTap: () {
                         JuniorPlayer juniorplayer = snapshot.data[index];

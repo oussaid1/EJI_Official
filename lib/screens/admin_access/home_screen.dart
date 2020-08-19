@@ -134,36 +134,36 @@ class HomePageState extends State<HomePage> {
                             // GoalKeeper
                             buildPositionedPlayer(
                                 bottm: height / 50,
-                                left: width / 2.7,
+                                left: width / 2.44,
                                 playerCandidate: goalKeeper),
                             //deffence
                             buildPositionedPlayer(
-                                bottm: height / 7,
+                                bottm: height / 5,
                                 left: width / 20,
                                 playerCandidate: selectedSquad.pCB4),
                             buildPositionedPlayer(
-                                bottm: height / 7,
+                                bottm: height / 5,
                                 left: width / 3.5,
                                 playerCandidate: selectedSquad.pCB5),
                             buildPositionedPlayer(
-                                bottm: height / 7,
+                                bottm: height / 5,
                                 right: width / 3.5,
                                 playerCandidate: selectedSquad.pLB),
                             buildPositionedPlayer(
-                                bottm: height / 7,
+                                bottm: height / 5,
                                 right: width / 20,
                                 playerCandidate: selectedSquad.pRB),
                             //MiddleField
                             buildPositionedPlayer(
-                                bottm: height / 3,
+                                bottm: height / 2.5,
                                 right: width / 20,
                                 playerCandidate: selectedSquad.pRMF),
                             buildPositionedPlayer(
-                                bottm: height / 3,
-                                right: width / 2.55,
+                                bottm: height / 2.5,
+                                right: width / 2.34,
                                 playerCandidate: selectedSquad.pLMF),
                             buildPositionedPlayer(
-                                bottm: height / 3,
+                                bottm: height / 2.5,
                                 left: width / 20,
                                 playerCandidate: selectedSquad.pCMF),
 
@@ -174,7 +174,7 @@ class HomePageState extends State<HomePage> {
                                 playerCandidate: selectedSquad.pRWF),
                             buildPositionedPlayer(
                                 top: height / 10,
-                                right: width / 2.55,
+                                right: width / 2.34,
                                 playerCandidate: selectedSquad.pLWF),
                             buildPositionedPlayer(
                                 top: height / 6,
@@ -200,46 +200,55 @@ class HomePageState extends State<HomePage> {
       left: left,
       right: right,
       top: top,
-      child: Stack(
-        children: [
-          Container(
-            child: DragTarget(
-              builder: (BuildContext context, List<dynamic> candidateData,
-                  List<dynamic> rejectedData) {
-                if (!isAccepted) {
-                  return new Container();
-                } else
-                  return playerCandidate != null
-                      ? new SquadPlayer(
-                          squadPlayer: playerCandidate,
-                        )
-                      : new SquadPlayer();
-              },
-            ),
-          ),
-          Container(
-            child: Draggable(
-              childWhenDragging: Container(
-                height: 10,
-                width: 10,
-                color: secondaryColor,
+      child: SizedBox(
+        height: 90,
+        width: 65,
+              child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  color: fontColor,
+                  borderRadius: BorderRadius.circular(8)),
+              height: 90,
+              width: 65,
+              child: DragTarget(
+                builder: (BuildContext context, List<dynamic> candidateData,
+                    List<dynamic> rejectedData) {
+                  if (!isAccepted) {
+                    return new Container();
+                  } else
+                    return playerCandidate != null
+                        ? new SquadPlayer(
+                            squadPlayer: playerCandidate,
+                          )
+                        : new SquadPlayer();
+                },
               ),
-              feedback: playerCandidate != null
-                  ? new SquadPlayer(
-                      squadPlayer: playerCandidate,
-                    )
-                  : new SquadPlayer(),
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: playerCandidate != null
+            ),
+             Container(
+
+              child: Draggable(
+                childWhenDragging: Container(
+                
+                ),
+                feedback: playerCandidate != null
                     ? new SquadPlayer(
                         squadPlayer: playerCandidate,
                       )
                     : new SquadPlayer(),
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: playerCandidate != null
+                      ? new SquadPlayer(
+                          squadPlayer: playerCandidate,
+                        )
+                      : new SquadPlayer(),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
