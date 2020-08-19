@@ -75,6 +75,12 @@ class StaffPage extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('2019-2021',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w100,
+                    color: fontColor)),
             Text('EJI Staff'.tr,
                 style: TextStyle(
                     fontSize: 24,
