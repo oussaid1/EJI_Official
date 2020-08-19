@@ -23,11 +23,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
- 
+
   percent_indicator: ^2.1.5
   flutter_slidable: null
- 
-  
+
   splashscreen: ^1.2.0
   firebase_storage: any
   image_picker: ^0.6.7+4
@@ -48,7 +47,8 @@ dependencies:
   firebase_admob: ^0.9.3+4
   firebase_auth: ^0.16.1
   audioplayers: ^0.15.1
-  cached_network_image: 
+  cached_network_image: null
+  adobe_xd: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:

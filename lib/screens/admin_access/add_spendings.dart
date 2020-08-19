@@ -291,9 +291,12 @@ class _AddSpendingsState extends State<AddSpendings> {
                           _flushAll();
                           Get.snackbar('Succsess'.tr, 'Saved'.tr,
                               snackPosition: SnackPosition.BOTTOM);
-                        }
-                        Get.snackbar('Error'.tr, 'notsaved'.tr,
+                        }else {
+
+                           Get.snackbar('Error'.tr, 'notsaved'.tr,
                             snackPosition: SnackPosition.BOTTOM);
+                        }
+                       
                       },
                     ),
                   )
@@ -372,15 +375,7 @@ class _AddSpendingsState extends State<AddSpendings> {
                                   },
                                 ),
                               );
-                              /* if (cv.isSuperAdmin.value == true) {
-                       
-                          Get.snackbar('Succsess'.tr, 'deleted'.tr,
-                              snackPosition: SnackPosition.BOTTOM);
-                        } else {
-                           cv.deleteObject('ClubSpendings', widget.clubSpendings.id);
-                          Get.snackbar('Error'.tr, 'notDeleted'.tr,
-                              snackPosition: SnackPosition.BOTTOM);
-                        }*/
+                          
                             }),
                       ),
                     ],

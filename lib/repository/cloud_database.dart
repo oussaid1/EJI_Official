@@ -91,7 +91,7 @@ Firestore _db = Firestore.instance;
   }
   Stream<List<Anounce>> getAnounces(String collectionName) {
     Stream<List<Anounce>> pList =
-        _db.collection(collectionName.toString()).snapshots().map(
+        _db.collection(collectionName.toString()).orderBy('anounceDate',).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
                     (doc) => Anounce.fromMap(doc.data, doc.documentID),
@@ -163,7 +163,7 @@ bool isAdult2(String birthDateString) {
 */
   Stream<List<MatchDay>> getMatchDays(String collectionName) {
     Stream<List<MatchDay>> pLista =
-        _db.collection(collectionName.toString()).snapshots().map(
+        _db.collection(collectionName.toString()).orderBy('matchdaydate',descending: true).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
                     (doc) => MatchDay.fromMap(doc.data, doc.documentID),
@@ -176,7 +176,7 @@ bool isAdult2(String birthDateString) {
 
   Stream<List<Comments>> getComments(String collectionName) {
     Stream<List<Comments>> pLista =
-        _db.collection(collectionName.toString()).snapshots().map(
+        _db.collection(collectionName.toString()).orderBy('remarkdate',descending: true).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
                     (doc) => Comments.fromMap(doc.data, doc.documentID),
@@ -201,7 +201,7 @@ bool isAdult2(String birthDateString) {
 
   Stream<List<ClubIncome>> getClubIncomes(String a) {
     Stream<List<ClubIncome>> pLista =
-        _db.collection(a.toString()).snapshots().map(
+        _db.collection(a.toString()).orderBy('givenDate',descending: true).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
                     (doc) => ClubIncome.fromMap(doc.data, doc.documentID),
@@ -213,7 +213,7 @@ bool isAdult2(String birthDateString) {
 
   Stream<List<ClubSpendings>> getClubSpendings(String a) {
     Stream<List<ClubSpendings>> pLista =
-        _db.collection(a.toString().trim()).snapshots().map(
+        _db.collection(a.toString().trim()).orderBy('spentOnDate',descending: true).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
                     (doc) => ClubSpendings.fromMap(doc.data, doc.documentID),

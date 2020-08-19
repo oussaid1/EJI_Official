@@ -331,15 +331,7 @@ class _AddPictureState extends State<AddPicture> {
                                   },
                                 ),
                               );
-                              /* if (cv.isSuperAdmin.value == true) {
-                       
-                          Get.snackbar('Succsess'.tr, 'deleted'.tr,
-                              snackPosition: SnackPosition.BOTTOM);
-                        } else {
-                           cv.deleteObject('ClubSpendings', widget.clubSpendings.id);
-                          Get.snackbar('Error'.tr, 'notDeleted'.tr,
-                              snackPosition: SnackPosition.BOTTOM);
-                        }*/
+                           
                             }),
                       ),
                     ],

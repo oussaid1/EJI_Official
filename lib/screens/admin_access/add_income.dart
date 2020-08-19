@@ -291,9 +291,10 @@ class _AddSpendingsState extends State<AddIncome> {
                           _flushAll();
                           Get.snackbar('Succsess'.tr, 'Saved'.tr,
                               snackPosition: SnackPosition.BOTTOM);
-                        }
-                        Get.snackbar('Error'.tr, 'notsaved'.tr,
+                              
+                        } else  Get.snackbar('Error'.tr, 'notsaved'.tr,
                             snackPosition: SnackPosition.BOTTOM);
+                       
                       },
                     ),
                   )
