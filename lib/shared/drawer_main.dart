@@ -85,7 +85,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 backgroundColor:
                     Theme.of(context).platform == TargetPlatform.iOS
                         ? Colors.blue
-                        : Colors.white,
+                        : fontColor,
                 child: Image.asset(
                   'assets/images/logo.png',
                   fit: BoxFit.fill,

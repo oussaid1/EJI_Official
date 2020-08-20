@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.0.5+25
+version: 2.0.6+26
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -70,27 +70,12 @@ flutter:
     - assets/
 
 fonts:
-  - family: RobotoMono
+  - family: Couriernew
     fonts:
-      - asset: fonts/RobotoMono-Regular.ttf
-      - asset: fonts/RobotoMono-Bold.ttf
-      - asset: fonts/RobotoMono-ExtraLight.ttf
-      - asset: fonts/RobotoMono-Italic.ttf
-
-  - family: RobotoSlab
-    fonts:
-      - asset: fonts/RobotoSlab-Bold.ttf
-
-  - family: RobotoCondensedLight
-    fonts:
-      - asset: fonts/RobotoCondensed-Light.ttf
-
-  - family: RobotoCondensed
-    fonts:
-      - asset: fonts/RobotoCondensed-Light.ttf
-      - asset: fonts/RobotoCondensed-LightItalic.ttf
-      - asset: fonts/RobotoCondensed-Bold.ttf
-      - asset: fonts/RobotoCondensed-BoldItalic.ttf
+      - asset: fonts/couriernew.ttf
+      - asset: fonts/cour.ttf
+      
+ 
 
 # An image asset can refer to one or more resolution-specific "variants", see
 # https://flutter.dev/assets-and-images/#resolution-aware.

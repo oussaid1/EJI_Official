@@ -17,7 +17,7 @@ class CommentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Comments> lista;
     return Scaffold(
-      backgroundColor: secondaryColor,
+    
       drawer: MyDrawer(),
       appBar: AppBar(
         title: Center(
@@ -47,7 +47,7 @@ class CommentScreen extends StatelessWidget {
         fit: StackFit.expand,
          
         children: [
-          
+             new Image.asset('assets/images/meeting.png',fit:BoxFit.fill),
           Column(
             children: [
               StreamBuilder(

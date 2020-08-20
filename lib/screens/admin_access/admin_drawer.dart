@@ -84,7 +84,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 backgroundColor:
                     Theme.of(context).platform == TargetPlatform.iOS
                         ? Colors.blue
-                        : secondaryColor,
+                        : fontColor,
                 child: Image.asset(
                   'assets/images/logo.png',
                   fit: BoxFit.fill,

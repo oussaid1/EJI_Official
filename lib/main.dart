@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-void main() async { 
+void main() async {
   await GetStorage.init();
   runApp(MyApp());
 }
@@ -17,12 +17,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       color: primaryColor,
+      
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           accentColor: accentColor,
-        
-          appBarTheme: AppBarTheme( color: primaryColor.withOpacity(0.9),iconTheme:IconThemeData( color: secondaryColor) ),
-          iconTheme: IconThemeData(color: secondaryColor),
+          fontFamily: 'Couriernew',
+          appBarTheme: AppBarTheme(
+              color: primaryColor,
+              iconTheme: IconThemeData(color: fontColor)),
+          iconTheme: IconThemeData(color: accentColor),
           primaryColor: primaryColor,
           cardColor: secondaryColor.withOpacity(0.8)),
       translations: MyTranslations(),

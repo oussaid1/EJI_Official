@@ -35,7 +35,7 @@ class StaffPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
       child: new Image.asset(
-        'assets/images/adminstaff.png',
+        'assets/images/technicalstaff.png',
         fit: BoxFit.contain,
       ),
     );
@@ -61,7 +61,7 @@ class StaffPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
       child: new Image.asset(
-        'assets/images/councellors.png',
+        'assets/images/adminstaff.png',
         fit: BoxFit.contain,
       ),
     );
@@ -85,7 +85,7 @@ class StaffPage extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
-                    color: whitefontColor)),
+                    color: fontColor)),
           ],
         ),
       ),
@@ -129,11 +129,11 @@ class StaffPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: _buildTechnicalStuff(),
+                  child: _buildDirectory(),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: _buildDirectory(),
+                  child: _buildTechnicalStuff(),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class PlayerDetails extends StatelessWidget {
   final Player player;
-  PlayerDetails({Key key, @required this.player});
+  PlayerDetails({Key key, @required this.player,});
 
   final CloudDatabase cD = Get.put(CloudDatabase());
 
@@ -28,220 +28,263 @@ class PlayerDetails extends StatelessWidget {
       drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
       appBar: AppBar(
         actions: [
-        cD.isAdmin.value?  IconButton(
-              icon: Icon(Icons.edit_attributes),
-              onPressed: () {
-                Get.to(AddPlayers(
-                  player: player,
-                ));
-              }):Container(),
+          cD.isAdmin.value
+              ? IconButton(
+                  icon: Icon(Icons.edit_attributes),
+                  onPressed: () {
+                    Get.to(AddPlayers(
+                      player: player,
+                    ));
+                  })
+              : Container(),
         ],
       ),
       body: Stack(
         fit: StackFit.expand,
         children: [
-           new Image.asset('assets/images/player.jpg',fit:BoxFit.fill),
+           new Image.asset('assets/images/trainingx.jpg',
+                            fit: BoxFit.fill),
           ListView(
             children: [
               Center(
-                child: Card(
-                  color: primaryColor.withOpacity(0.85),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Container(
-                    width: Get.width - 40,
-                    height: Get.height / 1.3,
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 120,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(color: secondaryColor),
-                                ),
-                                child: FutureBuilder<String>(
-                                  future: cD.getProfileImage(
-                                      context, player.profileImage.toString()),
-                                  builder: (context, snapshot) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: (snapshot == null || !snapshot.hasData)
-                                          ? Image.asset(
-                                              'assets/images/logo.png',
-                                              fit: BoxFit.fill,
-                                            )
-                                          : CachedNetworkImage(
-                                              imageUrl: snapshot.data,fit: BoxFit.fill,
-                                              placeholder: (context, url) =>
-                                                 Image.asset(
-                                              'assets/images/logo.png',
-                                              fit: BoxFit.fill,
-                                            ),
-                                              errorWidget: (context, url, error) =>
-                                                 Image.asset(
-                                              'assets/images/logo.png',
-                                              fit: BoxFit.fill,
-                                            ),
-                                            ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 40,
-                              color: secondaryColor.withOpacity(0.8),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.score,
-                                    color: accentColor,
+                child: Container(
+                  width: Get.width - 40,
+                  height: Get.height / 1.2,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        new Image.asset('assets/images/playercard.png',
+                            fit: BoxFit.fill),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 120,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: accentColor),
+                                    ),
+                                    child: FutureBuilder<String>(
+                                      future: cD.getProfileImage(context,
+                                          player.profileImage.toString()),
+                                      builder: (context, snapshot) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: (snapshot == null ||
+                                                  !snapshot.hasData)
+                                              ? Image.asset(
+                                                  'assets/images/logo.png',
+                                                  height: 116,
+                                                  width: 116,
+                                                  fit: BoxFit.fill,
+                                                )
+                                              : ClipOval(
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: snapshot.data,
+                                                    fit: BoxFit.fill,
+                                                    height: 116,
+                                                    width: 116,
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            Image.asset(
+                                                      'assets/images/logo.png',
+                                                      height: 116,
+                                                      width: 116,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Image.asset(
+                                                      'assets/images/logo.png',
+                                                      fit: BoxFit.contain,
+                                                      height: 116,
+                                                      width: 116,
+                                                    ),
+                                                  ),
+                                                ),
+                                        );
+                                      },
+                                    ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: RatingBar(
-                                        initialRating: player.seasons != null
-                                            ? player.seasons < 5
-                                                ? player.seasons - 0.5
-                                                : 5
-                                            : 0,
-                                        minRating: 0,
-                                        direction: Axis.horizontal,
-                                        ignoreGestures: true,
-                                        allowHalfRating: true,
-                                        itemCount: 5,
-                                        itemSize: 30,
-                                        itemPadding:
-                                            EdgeInsets.symmetric(horizontal: 0),
-                                        itemBuilder: (context, _) => Icon(
-                                              Icons.star,
-                                              color: Colors.yellow,
-                                            ),
-                                        onRatingUpdate: (rating) {}),
-                                  )
-                                ],
-                              ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      'ID :',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontFamily: 'Couriernew',
+                                          fontWeight: FontWeight.w600,
+                                          color: fontColor),
+                                    ),
+                                    Text(
+                                      '${player.regNum.toString()}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Couriernew',
+                                          fontWeight: FontWeight.w200,
+                                          color: fontColor),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: RatingBar(
+                                      initialRating: player.seasons != null
+                                          ? player.seasons < 5
+                                              ? player.seasons - 0.5
+                                              : 5
+                                          : 0,
+                                      minRating: 0,
+                                      direction: Axis.horizontal,
+                                      ignoreGestures: true,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 24,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 0),
+                                      itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Colors.yellow,
+                                          ),
+                                      onRatingUpdate: (rating) {}),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0), 
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'PlayerName'.tr,
-                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8, right: 4),
-                                child: Text(
-                                  '${player.playerName.toString()}',
-                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Date&PlaceofBirth'.tr,
-                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 4, right: 4),
-                                child: Text(
-                                  '${player.dateOfBirth.toString()}/ ${player.placeOfBirth.toString()} ',
-                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Email'.tr,
-                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8, right: 4),
-                                child: Text(
-                                  '${player.email.toString()}',
-                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'PhoneNumber:'.tr,
-                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8, right: 4),
-                                child: Text(
-                                  '${player.phone.toString()}',
-                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Position'.tr,
-                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8, right: 4),
-                                child: Text(
-                                  '${player.position.toString()}',
-                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  'PlayedSeasons'.tr,
-                                  style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                                ),
+                        Positioned(
+                          bottom: Get.height / 3.5,
+                          right: 40,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(4, 4, 2, 2),
-                                  child: new Text(
-                                    '${player.seasons.toString()}',
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '${player.playerName.toString()}',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+                                    style: TextStyle(
+                                        fontSize: 26,
+                                        fontFamily: 'Couriernew',
+                                        fontWeight: FontWeight.w800,
+                                        color: accentColor),
                                   ),
                                 ),
-                              ]),
+                                Text(
+                                  '${player.dateOfBirth.toString()} /${player.placeOfBirth.toString()} ',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                      color: fontColor),
+                                ),
+                                Text(
+                                  '${player.email.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Couriernew',
+                                      fontWeight: FontWeight.w200,
+                                      color: fontColor),
+                                ),
+                                Text(
+                                  '${player.phone.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w200,
+                                      color: fontColor),
+                                ),
+                                new Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    new Text(
+                                      '${player.seasons.toString()}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.w200,
+                                          color: fontColor),
+                                    ),
+                                    new Text(
+                                      'PlayedSeasons'.tr,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'couriernew',
+                                          fontWeight: FontWeight.w300,
+                                          color: fontColor),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  '${toArabic[player.position.toString()]}',
+                                  style: TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w800,
+                                      color: fontColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 100,
+                          left: 20,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8, right: 12),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '${player.oVR.toString()}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 56,
+                                          fontFamily: 'Couriernew',
+                                          fontWeight: FontWeight.w600,
+                                          color: accentColor),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Pts',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: 'Couriernew',
+                                            fontWeight: FontWeight.w600,
+                                            color: accentColor),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -274,201 +317,257 @@ class JuniorPlayerDetails extends StatelessWidget {
     return Scaffold(
       drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
       appBar: AppBar(),
-      body: ListView(
+      body:Stack(
+        fit: StackFit.expand,
         children: [
-          Center(
-            child: Card(
-              color: primaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Container(
-                width: Get.width - 40,
-                height: Get.height / 1.3,
-                child: Column(
-                  children: <Widget>[
-                    Row(
+          ListView(
+            children: [
+              Center(
+                child: Container(
+                  width: Get.width - 40,
+                  height: Get.height / 1.2,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: Stack(
+                      fit: StackFit.expand,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 120,
-                            width: 120,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              border: Border.all(color: secondaryColor),
+                        new Image.asset('assets/images/playercard.png',
+                            fit: BoxFit.fill),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 120,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: accentColor),
+                                    ),
+                                    child: FutureBuilder<String>(
+                                      future: cD.getProfileImage(context,
+                                          juniorplayer.profileImage.toString()),
+                                      builder: (context, snapshot) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: (snapshot == null ||
+                                                  !snapshot.hasData)
+                                              ? Image.asset(
+                                                  'assets/images/logo.png',
+                                                  height: 116,
+                                                  width: 116,
+                                                  fit: BoxFit.fill,
+                                                )
+                                              : ClipOval(
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: snapshot.data,
+                                                    fit: BoxFit.fill,
+                                                    height: 116,
+                                                    width: 116,
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            Image.asset(
+                                                      'assets/images/logo.png',
+                                                      height: 116,
+                                                      width: 116,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Image.asset(
+                                                      'assets/images/logo.png',
+                                                      fit: BoxFit.contain,
+                                                      height: 116,
+                                                      width: 116,
+                                                    ),
+                                                  ),
+                                                ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      'ID :',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontFamily: 'Couriernew',
+                                          fontWeight: FontWeight.w600,
+                                          color: fontColor),
+                                    ),
+                                    Text(
+                                      '${juniorplayer.regNum.toString()}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Couriernew',
+                                          fontWeight: FontWeight.w200,
+                                          color: fontColor),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            child: FutureBuilder<String>(
-                              future: cD.getProfileImage(context,
-                                  juniorplayer.profileImage.toString()),
-                              builder: (context, snapshot) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: (snapshot == null || !snapshot.hasData)
-                                      ? Image.asset(
-                                          'assets/images/logo.png',
-                                          fit: BoxFit.fill,
-                                        )
-                                      : Image.network(
-                                          snapshot.data.toString(),
-                                          fit: BoxFit.fill,
-                                        ),
-                                );
-                              },
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: RatingBar(
+                                      initialRating: juniorplayer.seasons != null
+                                          ? juniorplayer.seasons < 5
+                                              ? juniorplayer.seasons - 0.5
+                                              : 5
+                                          : 0,
+                                      minRating: 0,
+                                      direction: Axis.horizontal,
+                                      ignoreGestures: true,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 24,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 0),
+                                      itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Colors.yellow,
+                                          ),
+                                      onRatingUpdate: (rating) {}),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                          bottom: Get.height / 3.5,
+                          right: 40,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '${juniorplayer.playerName.toString()}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 26,
+                                        fontFamily: 'Couriernew',
+                                        fontWeight: FontWeight.w800,
+                                        color: accentColor),
+                                  ),
+                                ),
+                                Text(
+                                  '${juniorplayer.dateOfBirth.toString()} /${juniorplayer.placeOfBirth.toString()} ',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                      color: fontColor),
+                                ),
+                                Text(
+                                  '${juniorplayer.email.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Couriernew',
+                                      fontWeight: FontWeight.w200,
+                                      color: fontColor),
+                                ),
+                                Text(
+                                  '${juniorplayer.phone.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w200,
+                                      color: fontColor),
+                                ),
+                                new Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    new Text(
+                                      '${juniorplayer.seasons.toString()}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.w200,
+                                          color: fontColor),
+                                    ),
+                                    new Text(
+                                      'PlayedSeasons'.tr,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'couriernew',
+                                          fontWeight: FontWeight.w300,
+                                          color: fontColor),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  '${toArabic[juniorplayer.position.toString()]}',
+                                  style: TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w800,
+                                      color: fontColor),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        Container(
-                          height: 40,
-                          color: secondaryColor.withOpacity(0.8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Icon(
-                                Icons.score,
-                                color: accentColor,
+                        Positioned(
+                          bottom: 100,
+                          left: 20,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8, right: 12),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '${juniorplayer.oVR.toString()}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 56,
+                                          fontFamily: 'Couriernew',
+                                          fontWeight: FontWeight.w600,
+                                          color: accentColor),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Pts',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: 'Couriernew',
+                                            fontWeight: FontWeight.w600,
+                                            color: accentColor),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: RatingBar(
-                                    initialRating: juniorplayer.seasons < 5
-                                        ? juniorplayer.seasons - 0.5
-                                        : 5,
-                                    minRating: 0,
-                                    direction: Axis.horizontal,
-                                    ignoreGestures: true,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemSize: 30,
-                                    itemPadding:
-                                        EdgeInsets.symmetric(horizontal: 0),
-                                    itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Colors.yellow,
-                                        ),
-                                    onRatingUpdate: (rating) {}),
-                              )
-                            ],
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'PlayerName'.tr,
-                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 4),
-                            child: Text(
-                              '${juniorplayer.playerName.toString()}',
-                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Date&PlaceofBirth'.tr,
-                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 4, right: 4),
-                            child: Text(
-                              '${juniorplayer.dateOfBirth.toString()}/ ${juniorplayer.placeOfBirth.toString()} ',
-                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Email'.tr,
-                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 4),
-                            child: Text(
-                              '${juniorplayer.email.toString()}',
-                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'PhoneNumber:'.tr,
-                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 4),
-                            child: Text(
-                              '${juniorplayer.phone.toString()}',
-                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Position'.tr,
-                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 4),
-                            child: Text(
-                              '${juniorplayer.position.toString()}',
-                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'PlayedSeasons'.tr,
-                              style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(4, 4, 2, 2),
-                              child: new Text(
-                                '${juniorplayer.seasons.toString()}',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                              ),
-                            ),
-                          ]),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),
