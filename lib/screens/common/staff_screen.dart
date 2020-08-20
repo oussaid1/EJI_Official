@@ -93,31 +93,13 @@ class StaffPage extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.asset(
-            'assets/images/ejisplash.jpg',
+            'assets/images/meeting.png',
             fit: BoxFit.fill,
           ),
           Center(
             child: ListView(
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'CurrentSituation'.tr,
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: fontColor),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text('2019-2022',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w200,
-                            color: fontColor)),
-                  ],
-                ),
+              
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(

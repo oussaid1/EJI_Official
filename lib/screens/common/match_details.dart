@@ -262,7 +262,7 @@ class _MatchDetailsState extends State<MatchDetails> {
         fit: StackFit.expand,
         children: [
           Image.asset(
-            'assets/images/ejisplash.jpg',
+            'assets/images/ejisplash.png',
             fit: BoxFit.fill,
           ),
           Center(

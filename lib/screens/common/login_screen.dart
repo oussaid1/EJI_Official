@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
         fit: StackFit.expand,
         children: <Widget>[
           Image.asset(
-            'assets/images/ejisplash.jpg',
+            'assets/images/ejisplash.png',
             fit: BoxFit.fill,
           ),
           Form(
