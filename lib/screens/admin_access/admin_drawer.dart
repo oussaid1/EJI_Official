@@ -14,6 +14,7 @@ import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
+import 'package:EJI/screens/public/ahdath_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -130,6 +131,12 @@ class _AdminDrawerState extends State<AdminDrawer> {
                       title: Text('Staff'.tr),
                       onTap: () => {
                             Get.to(StaffPage()),
+                          }),
+                  ListTile(
+                      leading: Icon(Icons.store),
+                      title: Text('ProgramsAndEvents'.tr),
+                      onTap: () => {
+                            Get.to(AhdathScreen()),
                           }),
                   ListTile(
                     leading: Icon(FontAwesomeIcons.chartLine),

@@ -291,6 +291,7 @@ class MyTranslations extends Translations {
           'insertReply': ' أظف جواب ',
           'AltimteSquad': 'التشكيلة حسب التنقيط',
           'AltimteSquadsub':  'التشكيلة حسب التنقيط والتشكيلةالرسمية للمباراة',
+          'ProgramsAndEvents': ' البرامج والأهداف',
           'Frifgssendly': ' Application',
         },
       };

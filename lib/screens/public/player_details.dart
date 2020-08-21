@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
@@ -5,15 +8,33 @@ import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 class PlayerDetails extends StatelessWidget {
   final Player player;
-  PlayerDetails({Key key, @required this.player,});
+  PlayerDetails({
+    Key key,
+    @required this.player,
+  });
 
   final CloudDatabase cD = Get.put(CloudDatabase());
+  var printKey = new GlobalKey();
+  _takeScreenShot() async {
+    RenderRepaintBoundary boundary = printKey.currentContext.findRenderObject();
+    var image = await boundary.toImage();
+    ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
+    Uint8List pngBytes = byteData.buffer.asUint8List();
+    // final directory = (await getApplicationDocumentsDirectory()).path;
+    // File imgFile = new File('$directory/screenshot.png');
+    //imgFile.writeAsBytes(pngBytes);
+    await Share.file(
+        '', 'playerCard.png', byteData.buffer.asUint8List(), 'player/png',
+        text: '');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +49,11 @@ class PlayerDetails extends StatelessWidget {
       drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
       appBar: AppBar(
         actions: [
+          IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () {
+                _takeScreenShot();
+              }),
           cD.isAdmin.value
               ? IconButton(
                   icon: Icon(Icons.edit_attributes),
@@ -42,23 +68,30 @@ class PlayerDetails extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-           new Image.asset('assets/images/trainingx.jpg',
-                            fit: BoxFit.fill),
+          new Image.asset('assets/images/trainingx.jpg', fit: BoxFit.fill),
           ListView(
             children: [
+              SizedBox(
+                height: 20,
+              ),
               Center(
-                child: Container(
-                  width: Get.width - 40,
-                  height: Get.height / 1.2,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
+                child: RepaintBoundary(
+                  key: printKey,
+                  child: Container(
+                    width: Get.width - 60,
+                    height: Get.height / 1.3,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: accentColor, width: 2)),
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        new Image.asset('assets/images/playercard.png',
-                            fit: BoxFit.fill),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: new Image.asset(
+                              'assets/images/playerscard.png',
+                              fit: BoxFit.fill),
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
@@ -317,7 +350,7 @@ class JuniorPlayerDetails extends StatelessWidget {
     return Scaffold(
       drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
       appBar: AppBar(),
-      body:Stack(
+      body: Stack(
         fit: StackFit.expand,
         children: [
           ListView(
@@ -422,11 +455,12 @@ class JuniorPlayerDetails extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: RatingBar(
-                                      initialRating: juniorplayer.seasons != null
-                                          ? juniorplayer.seasons < 5
-                                              ? juniorplayer.seasons - 0.5
-                                              : 5
-                                          : 0,
+                                      initialRating:
+                                          juniorplayer.seasons != null
+                                              ? juniorplayer.seasons < 5
+                                                  ? juniorplayer.seasons - 0.5
+                                                  : 5
+                                              : 0,
                                       minRating: 0,
                                       direction: Axis.horizontal,
                                       ignoreGestures: true,

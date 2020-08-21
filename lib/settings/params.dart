@@ -7,6 +7,7 @@ Color secondaryColor = Color(0xFF59823B);
 Color accentColor = Color(0xFF00E472);
 Color fontColor = Color(0xFFCEE9BA);
 Color whitefontColor = Color(0xFFFFFFFF);
+Color orange = Colors.orange;
 
 
 Map<String,dynamic> positions = {

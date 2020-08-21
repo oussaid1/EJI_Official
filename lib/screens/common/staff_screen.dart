@@ -17,13 +17,39 @@ class StaffPage extends StatelessWidget {
     return Container(
       width: Get.width - 60,
       decoration: BoxDecoration(
-          color: secondaryColor,
+          color: primaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
-      height: Get.height / 7.3,
-      child: new Image.asset(
-        'assets/images/president.png',
-        fit: BoxFit.contain,
+      height: Get.height / 6,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          new Text(
+            'الرئيس',
+            textDirection: TextDirection.rtl,
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.w600, color: orange),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              new Text(
+                'عبد اللطيف أوسعيد',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: fontColor),
+              ),
+              new Image.asset(
+                'assets/images/oussaid.png',
+                height: 60,
+                width: 60,
+                fit: BoxFit.fill,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -31,12 +57,183 @@ class StaffPage extends StatelessWidget {
   Widget _buildTechnicalStuff() {
     return Container(
       decoration: BoxDecoration(
-          color: secondaryColor,
+          color: primaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
-      child: new Image.asset(
-        'assets/images/technicalstaff.png',
-        fit: BoxFit.contain,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          new Text(
+            'الطاقم الإداري',
+            textDirection: TextDirection.rtl,
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.w600, color: orange),
+          ), 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                      'المدير التنفيذي',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                      'الحسين ايت داود',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/dawd.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                      'مسير الشؤون المالية',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                   '  إبراهيم أيت شعيب',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/brahimaitchaib.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                      'الكاتب و المنسق',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                     'عبد الله فقير',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/fakirabdellah.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                     'نائب الكاتب و المنسق ',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                     'إبراهيم اعباش',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/aabache.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -44,12 +241,183 @@ class StaffPage extends StatelessWidget {
   Widget _buildCouncellors() {
     return Container(
       decoration: BoxDecoration(
-          color: secondaryColor,
+          color: primaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
-      child: new Image.asset(
-        'assets/images/councellors.png',
-        fit: BoxFit.contain,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          new Text(
+            'الطاقم الإداري',
+            textDirection: TextDirection.rtl,
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.w600, color: orange),
+          ), 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                      'المدير التنفيذي',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                      'الحسين ايت داود',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/dawd.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                      'مسير الشؤون المالية',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                   '  إبراهيم أيت شعيب',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/brahimaitchaib.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                      'الكاتب و المنسق',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                     'عبد الله فقير',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/fakirabdellah.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                     'نائب الكاتب و المنسق ',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                     'إبراهيم اعباش',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/aabache.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -57,12 +425,183 @@ class StaffPage extends StatelessWidget {
   Widget _buildDirectory() {
     return Container(
       decoration: BoxDecoration(
-          color: secondaryColor,
+          color: primaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
-      child: new Image.asset(
-        'assets/images/adminstaff.png',
-        fit: BoxFit.contain,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          new Text(
+            'الطاقم الإداري',
+            textDirection: TextDirection.rtl,
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.w600, color: orange),
+          ), 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                      'المدير التنفيذي',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                      'الحسين ايت داود',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/dawd.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                      'مسير الشؤون المالية',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                   '  إبراهيم أيت شعيب',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/brahimaitchaib.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                      'الكاتب و المنسق',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                     'عبد الله فقير',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/fakirabdellah.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: new Text(
+                     'نائب الكاتب و المنسق ',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: new Text(
+                     'إبراهيم اعباش',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: accentColor),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/aabache.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -99,7 +638,6 @@ class StaffPage extends StatelessWidget {
           Center(
             child: ListView(
               children: <Widget>[
-              
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(

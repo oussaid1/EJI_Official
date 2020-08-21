@@ -1,3 +1,4 @@
+import 'package:EJI/model/ahdath_events.dart';
 import 'package:EJI/model/anounce.dart';
 import 'package:EJI/model/club_archive.dart';
 import 'package:EJI/model/club_expenses.dart';
@@ -53,6 +54,18 @@ Firestore _db = Firestore.instance;
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 
+  Stream<List<AhdathModel>> getAhdath() {
+    Stream<List<AhdathModel>> pList =
+        _db.collection('Ahdath').snapshots().map(
+              (snapshot) => snapshot.documents
+                  .map(
+                    (doc) => AhdathModel.fromMap(doc.data, doc.documentID),
+                  )
+                  .toList(),
+            );
+
+    return pList;
+  }
   Stream<List<Player>> getPlayerz(String collectionName) {
     Stream<List<Player>> pList =
         _db.collection('players').snapshots().map(
@@ -253,6 +266,9 @@ bool isAdult2(String birthDateString) {
 
   Future<void> addComment(Comments comments) {
     return _db.collection('remarks').add(comments.toMap());
+  }
+  Future<void> addAhdath(AhdathModel ahdathModel) {
+    return _db.collection('Ahdath').add(ahdathModel.toMap());
   }
 
   Future<void> deletePlayer(String id) {
