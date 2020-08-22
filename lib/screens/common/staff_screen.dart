@@ -20,7 +20,7 @@ class StaffPage extends StatelessWidget {
           color: primaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
-      height: Get.height / 6,
+     
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -31,21 +31,27 @@ class StaffPage extends StatelessWidget {
                 fontSize: 30, fontWeight: FontWeight.w600, color: orange),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              new Text(
-                'عبد اللطيف أوسعيد',
-                textDirection: TextDirection.rtl,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: fontColor),
+              Padding(
+                padding: const EdgeInsets.only(right:20),
+                child: new Text(
+                  'عبد اللطيف أوسعيد',
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: fontColor),
+                ),
               ),
-              new Image.asset(
-                'assets/images/oussaid.png',
-                height: 60,
-                width: 60,
-                fit: BoxFit.fill,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Image.asset(
+                  'assets/images/oussaid.png',
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                ),
               ),
             ],
           ),
@@ -64,7 +70,7 @@ class StaffPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           new Text(
-            'الطاقم الإداري',
+            'الطاقم التقني',
             textDirection: TextDirection.rtl,
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w600, color: orange),
@@ -78,7 +84,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                      'المدير التنفيذي',
+                      'المدرب',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -89,7 +95,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                      'الحسين ايت داود',
+                      'عبد الله أوسعيد',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -102,7 +108,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/dawd.png',
+                  'assets/images/coach.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -119,7 +125,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                      'مسير الشؤون المالية',
+                      'مساعد المدرب',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -130,7 +136,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                   '  إبراهيم أيت شعيب',
+                   'محمد أوسعيد',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -143,7 +149,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/brahimaitchaib.png',
+                  'assets/images/vicecoach.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -160,7 +166,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                      'الكاتب و المنسق',
+                      'المعد البدني',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -171,7 +177,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                     'عبد الله فقير',
+                     'عبد الرحيم ندحم',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -184,7 +190,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/fakirabdellah.png',
+                  'assets/images/logo.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -192,47 +198,7 @@ class StaffPage extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: new Text(
-                     'نائب الكاتب و المنسق ',
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: fontColor),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 100),
-                    child: new Text(
-                     'إبراهيم اعباش',
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: accentColor),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: new Image.asset(
-                  'assets/images/aabache.png',
-                  height: 60,
-                  width: 60,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ],
-          ),
+        
         ],
       ),
     );
@@ -248,7 +214,7 @@ class StaffPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           new Text(
-            'الطاقم الإداري',
+            'المستشارون',
             textDirection: TextDirection.rtl,
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w600, color: orange),
@@ -262,7 +228,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                      'المدير التنفيذي',
+                     'المستشار القانوني',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -273,7 +239,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                      'الحسين ايت داود',
+                     'الحسن إدسعيد أوبلا',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -286,7 +252,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/dawd.png',
+                  'assets/images/hassan.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -303,7 +269,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                      'مسير الشؤون المالية',
+                      'المستشار1',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -314,7 +280,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                   '  إبراهيم أيت شعيب',
+                  'رشيد بن شعيب',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -327,7 +293,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/brahimaitchaib.png',
+                  'assets/images/rasheed.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -344,7 +310,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                      'الكاتب و المنسق',
+                      'المستشار 2',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -355,7 +321,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                     'عبد الله فقير',
+                     'لحسن إدسعيد أوبلا',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -368,7 +334,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/fakirabdellah.png',
+                  'assets/images/larsen.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -385,7 +351,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                     'نائب الكاتب و المنسق ',
+                     'المستشار 3',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -396,7 +362,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                     'إبراهيم اعباش',
+                     'لحسن فقير',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -409,7 +375,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/aabache.png',
+                  'assets/images/lahssenfakir.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,

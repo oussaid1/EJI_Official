@@ -203,7 +203,7 @@ class HomePageState extends State<HomePage> {
       child: SizedBox(
         height: 90,
         width: 65,
-              child: Stack(
+        child: Stack(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -224,14 +224,22 @@ class HomePageState extends State<HomePage> {
                           )
                         : new SquadPlayer();
                 },
+                onWillAccept: (data) {
+                  return true;
+              
+                },
+                onAccept: (data) {
+
+                  setState(() {
+                    isAccepted=true;
+                  });
+                },
               ),
             ),
-             Container(
-
-              child: Draggable(
-                childWhenDragging: Container(
-                
-                ),
+            Container(
+              child: Draggable<Player>(
+                data: playerCandidate,
+                childWhenDragging: Container(),
                 feedback: playerCandidate != null
                     ? new SquadPlayer(
                         squadPlayer: playerCandidate,
