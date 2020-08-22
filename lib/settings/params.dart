@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 //Color primaryColor = Color(0xFF3B4A30);
-Color primaryColor = Color(0xFF0E1F04);
-Color secondaryColor = Color(0xFF59823B);
+Color primaryColor = Color(0xFF1C2929);
+Color secondaryColor = Color(0xFF85A2A2);
 Color accentColor = Color(0xFF00E472);
 Color fontColor = Color(0xFFCEE9BA);
 Color whitefontColor = Color(0xFFFFFFFF);

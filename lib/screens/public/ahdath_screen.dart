@@ -23,7 +23,6 @@ class _AhdathState extends State<AhdathScreen> {
   List<AhdathModel> listano;
   AhdathModel ahdathModel;
   List<TimelineEventDisplay> _events = [];
- 
 
   void addAhdaths() {
     AhdathModel a = new AhdathModel(
@@ -45,11 +44,11 @@ class _AhdathState extends State<AhdathScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: secondaryColor,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
             addAhdaths();
-           
           });
         },
         child: Icon(Icons.add),
@@ -68,33 +67,36 @@ class _AhdathState extends State<AhdathScreen> {
               ));
             } else {
               listano = ahdathSnapshot.data;
+              _events.clear();
               for (var i = 0; i < ahdathSnapshot.data.length; i++) {
                 _events.insert(
                     0,
                     TimelineEventDisplay(
                         child: TimelineEventCard(
-                          title: Text("${listano[i].title}"),
-                          content: Text("${listano[i].description}"),
+                          title: Text("${listano[i].title}",style:TextStyle(color: Colors.black,fontSize:20),),
+                          content: Column(
+                            children: [
+                               Text("${listano[i].description}",maxLines: 10,),
+                              Text("${listano[i].status}",style: TextStyle(color: Colors.red[300],fontSize:14),),
+                             
+                            ],
+                          ),
                         ),
                         indicator: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: accentColor),
-                            child: IconButton(
-                                icon: Icon(
-                                  Icons.calendar_today,
-                                  color: Colors.black,
-                                ),
-                                onPressed: null))));
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: primaryColor),
+                          
+                        )));
               }
               return ListView(
                 children: [
                   TimelineTheme(
-                      data: TimelineThemeData(lineColor: accentColor),
+                      data: TimelineThemeData(lineColor: Colors.grey[600]),
                       child: Timeline(
-                        indicatorSize: 54,
+                        indicatorSize: 20,
                         events: _events,
                       )),
                 ],

@@ -13,9 +13,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class AddPlayers extends StatefulWidget {
   final Player player;
-  final int playerIndex;
+  final JuniorPlayer juniorPlayer;
 
-  AddPlayers({this.player, this.playerIndex});
+  AddPlayers({this.player, this.juniorPlayer});
 
   @override
   State<StatefulWidget> createState() {
@@ -247,12 +247,12 @@ class _AddPlayersState extends State<AddPlayers> {
                               ? new Text(
                                   'Juniors'.tr,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+                                  style: TextStyle(fontSize:20,fontWeight: FontWeight.w400,color: fontColor),
                                 )
                               : new Text(
                                   'Seniors'.tr,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+                                  style: TextStyle(fontSize:20,fontWeight: FontWeight.w400,color: fontColor),
                                 ),
                         ),
                         Switch(
@@ -653,9 +653,23 @@ class _AddPlayersState extends State<AddPlayers> {
       _rateable = widget.player.rateable;
 
       isJunior = false;
-    }
-  }
+    }else if (widget.juniorPlayer != null) {
+      _id = widget.juniorPlayer.id;
+      _profileImage = widget.juniorPlayer.profileImage;
+      _regNum = widget.juniorPlayer.regNum;
+      _regDate = widget.juniorPlayer.regDate;
+      nameController.text = widget.juniorPlayer.playerName;
+      emailController.text = widget.juniorPlayer.email;
+      phoneController.text = widget.juniorPlayer.phone;
+      dateOfBirthController.text = widget.juniorPlayer.dateOfBirth;
+      regdateController.text = widget.juniorPlayer.regDate;
+      placeOfBirthController.text = widget.juniorPlayer.placeOfBirth;
+      _position = widget.juniorPlayer.position;
+      _rateable = widget.juniorPlayer.rateable;
 
+      isJunior = true;
+  }
+  }
   File _image;
   final picker = ImagePicker();
 
@@ -701,66 +715,38 @@ class _AddPlayersState extends State<AddPlayers> {
     _loadGenderList();
     return Scaffold(
       backgroundColor: primaryColor,
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: <Widget>[
-              Container(
-                  alignment: Alignment.topCenter, child: _buildUpload(context)),
-              SizedBox(
-                height: 10,
-              ),
-              _imagePlayer(),
-              _buildPlayerPosition(),
-              _buildName(),
-              _buildDateOfBirth(context),
-              _buildPlaceOfBirth(),
-              _buildEmail(),
-              _buildPhoneNum(),
-              _buildRegDate(context),
-              SizedBox(
-                height: 20,
-              ),
-              widget.player == null
-                  ? RaisedButton(
-                      color: accentColor,
-                      child: Text(
-                        'Submit'.tr,
-                        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                      ),
-                      onPressed: () {
-                        if (!_formKey.currentState.validate()) {
-                          return;
-                        }
-
-                        _formKey.currentState.save();
-                        if (cD.isComplete.value) {
-                          Get.defaultDialog(
-                            middleText: 'confirmSave'.tr,
-                            onConfirm: () {
-                              _saveToDb(context);
-                              _flushAll();
-                              Navigator.pop(context, false);
-                            },
-                            onCancel: () {},
-                          );
-                        } else {
-                          Get.snackbar('Alert'.tr, 'Imagenotuploaded!'.tr,
-                              backgroundColor: secondaryColor,
-                              colorText: primaryColor);
-                        }
-                      },
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        RaisedButton(
-                          color: accentColor,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+           new Image.asset('assets/images/login.png',fit:BoxFit.fill),
+          Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                      alignment: Alignment.topCenter, child: _buildUpload(context)),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  _imagePlayer(),
+                  _buildPlayerPosition(),
+                  _buildName(),
+                  _buildDateOfBirth(context),
+                  _buildPlaceOfBirth(),
+                  _buildEmail(),
+                  _buildPhoneNum(),
+                  _buildRegDate(context),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  widget.player == null
+                      ? RaisedButton(
+                          color: secondaryColor,
                           child: Text(
-                            "Update".tr,
-                            style: TextStyle(color: primaryColor, fontSize: 16),
+                            'Submit'.tr,
+                            style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: primaryColor),
                           ),
                           onPressed: () {
                             if (!_formKey.currentState.validate()) {
@@ -768,35 +754,69 @@ class _AddPlayersState extends State<AddPlayers> {
                             }
 
                             _formKey.currentState.save();
-
-                            Get.defaultDialog(
-                              middleText: 'confirmSave'.tr,
-                              onConfirm: () {
-                                _updateInDb(context);
-                                _flushAll();
-
-                                Navigator.pop(context, false);
-                               
-                              },
-                            );
+                            if (cD.isComplete.value) {
+                              Get.defaultDialog(
+                                middleText: 'confirmSave'.tr,
+                                onConfirm: () {
+                                  _saveToDb(context);
+                                  _flushAll();
+                                  Navigator.pop(context, false);
+                                },
+                                onCancel: () {},
+                              );
+                            } else {
+                              Get.snackbar('Alert'.tr, 'Imagenotuploaded!'.tr,
+                                  backgroundColor: secondaryColor,
+                                  colorText: primaryColor);
+                            }
                           },
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            RaisedButton(
+                              color: secondaryColor,
+                              child: Text(
+                                "Update".tr,
+                                style: TextStyle(color: primaryColor, fontSize: 16),
+                              ),
+                              onPressed: () {
+                                if (!_formKey.currentState.validate()) {
+                                  return;
+                                }
+
+                                _formKey.currentState.save();
+
+                                Get.defaultDialog(
+                                  middleText: 'confirmSave'.tr,
+                                  onConfirm: () {
+                                    _updateInDb(context);
+                                    _flushAll();
+
+                                    Navigator.pop(context, false);
+                                   
+                                  },
+                                );
+                              },
+                            ),
+                            RaisedButton(
+                              color: secondaryColor,
+                              child: Text(
+                                "Cancel".tr,
+                                style: TextStyle(color: primaryColor, fontSize: 16),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
                         ),
-                        RaisedButton(
-                          color: accentColor,
-                          child: Text(
-                            "Cancel".tr,
-                            style: TextStyle(color: primaryColor, fontSize: 16),
-                          ),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    ),
-              SizedBox(
-                height: 60,
+                  SizedBox(
+                    height: 60,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

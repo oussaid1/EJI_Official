@@ -700,142 +700,148 @@ switch (string) {
     _loadGenderList();
     return Scaffold(
       backgroundColor: primaryColor,
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: <Widget>[
-                Container(
-                  height: 140,
-                  child: Image.asset(
-                    'assets/images/decor.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Form(
-                    key: _formKeyX,
-                    child: Column(
-                      children: <Widget>[
-                        _buildDateOfMatch(context),
-                        _buildMatchDayType(),
-                        _buildHomeTeam(),
-                        Row(
-                          children: <Widget>[
-                            _buildHomeRedCard(),
-                            _buildHomeScore(),
-                            _buildHomeYellowCards(),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        _buildAwayTeam(),
-                        Row(
-                          children: <Widget>[
-                            _buildAwayRedCard(),
-                            _buildAwayScore(),
-                            _buildAwayYellowCards(),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        _buildReferee(),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                widget.matchDay == null
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: RaisedButton(
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0)),
-                          color: accentColor,
-                          child: Text(
-                            'Submit'.tr,
-                            style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                          ),
-                          onPressed: () {
-                            if (!_formKeyX.currentState.validate()) {
-                              return;
-                            }
-
-                            _formKeyX.currentState.save();
-                            if (_formKeyX.currentState.validate()) {
-                              Get.defaultDialog(
-                                middleText: 'confirmSave'.tr,
-                                onConfirm: () {
-                                  _saveToDb(context);
-                                  _flushAll();
-                                  Navigator.pop(context, false);
-                                  Get.to(TeamHomePage());
-                                },
-                                onCancel: () {},
-                              );
-                            } else {
-                              Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
-                                  backgroundColor: secondaryColor,
-                                  colorText: primaryColor);
-                            }
-                          },
-                        ),
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          RaisedButton(
-                            color: accentColor,
-                            child: Text(
-                              "Update".tr,
-                              style:
-                                  TextStyle(color: primaryColor, fontSize: 16),
-                            ),
-                            onPressed: () {
-                              if (!_formKeyX.currentState.validate()) {
-                                return;
-                              }
-
-                              _formKeyX.currentState.save();
-                              if (_formKeyX.currentState.validate()) {
-                                Get.defaultDialog(
-                                  middleText: 'confirmSave'.tr,
-                                  onConfirm: () {
-                                   _updateInDb(context);
-                                    _flushAll();
-                                    Navigator.pop(context, false);
-                                    Get.to(TeamHomePage());
-                                  },
-                                  onCancel: () {},
-                                );
-                              } else {
-                                Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
-                                    backgroundColor: secondaryColor,
-                                    colorText: primaryColor);
-                              }
-                            },
-                          ),
-                          RaisedButton(
-                            color: accentColor,
-                            child: Text(
-                              "Cancel".tr,
-                              style:
-                                  TextStyle(color: primaryColor, fontSize: 16),
-                            ),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ],
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+           new Image.asset('assets/images/login.png',fit:BoxFit.fill),
+          Column(
+            children: <Widget>[
+              Expanded(
+                child: ListView(
+                  children: <Widget>[
+                    Container(
+                      height: 140,
+                      child: Image.asset(
+                        'assets/images/decor.png',
+                        fit: BoxFit.cover,
                       ),
-                SizedBox(
-                  height: 60,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Form(
+                        key: _formKeyX,
+                        child: Column(
+                          children: <Widget>[
+                            _buildDateOfMatch(context),
+                            _buildMatchDayType(),
+                            _buildHomeTeam(),
+                            Row(
+                              children: <Widget>[
+                                _buildHomeRedCard(),
+                                _buildHomeScore(),
+                                _buildHomeYellowCards(),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            _buildAwayTeam(),
+                            Row(
+                              children: <Widget>[
+                                _buildAwayRedCard(),
+                                _buildAwayScore(),
+                                _buildAwayYellowCards(),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            _buildReferee(),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    widget.matchDay == null
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: RaisedButton(
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0)),
+                              color: secondaryColor,
+                              child: Text(
+                                'Submit'.tr,
+                                style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: primaryColor),
+                              ),
+                              onPressed: () {
+                                if (!_formKeyX.currentState.validate()) {
+                                  return;
+                                }
+
+                                _formKeyX.currentState.save();
+                                if (_formKeyX.currentState.validate()) {
+                                  Get.defaultDialog(
+                                    middleText: 'confirmSave'.tr,
+                                    onConfirm: () {
+                                      _saveToDb(context);
+                                      _flushAll();
+                                      Navigator.pop(context, false);
+                                      Get.to(TeamHomePage());
+                                    },
+                                    onCancel: () {},
+                                  );
+                                } else {
+                                  Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
+                                      backgroundColor: secondaryColor,
+                                      colorText: primaryColor);
+                                }
+                              },
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              RaisedButton(
+                                color: secondaryColor,
+                                child: Text(
+                                  "Update".tr,
+                                  style:
+                                      TextStyle(color: primaryColor, fontSize: 16),
+                                ),
+                                onPressed: () {
+                                  if (!_formKeyX.currentState.validate()) {
+                                    return;
+                                  }
+
+                                  _formKeyX.currentState.save();
+                                  if (_formKeyX.currentState.validate()) {
+                                    Get.defaultDialog(
+                                      middleText: 'confirmSave'.tr,
+                                      onConfirm: () {
+                                       _updateInDb(context);
+                                        _flushAll();
+                                        Navigator.pop(context, false);
+                                        Get.to(TeamHomePage());
+                                      },
+                                      onCancel: () {},
+                                    );
+                                  } else {
+                                    Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
+                                        backgroundColor: secondaryColor,
+                                        colorText: primaryColor);
+                                  }
+                                },
+                              ),
+                              RaisedButton(
+                                color: secondaryColor,
+                                child: Text(
+                                  "Cancel".tr,
+                                  style:
+                                      TextStyle(color: primaryColor, fontSize: 16),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          ),
+                    SizedBox(
+                      height: 60,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

@@ -251,135 +251,135 @@ class _AddSpendingsState extends State<AddIncome> {
     return Scaffold(
       body: Form(
         key: _commentformKey,
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 6,
+        child: ListView( 
+            children: [
+              SizedBox(
+                height: 6,
+              ),
+              _buildSpentOn(),
+              SizedBox(
+                height: 6,
+              ),
+              _buildBy(),
+              SizedBox(
+                height: 6,
+              ),
+              _buildspentAmount(),
+              SizedBox(
+                height: 6,
+              ),
+              _buildSpentOnDate(context),
+              SizedBox(
+                height: 20,
+              ),
+              widget.clubIncome == null
+        ? Container(
+            width: 300,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
-            _buildSpentOn(),
-            SizedBox(
-              height: 6,
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                 ),
+              color: secondaryColor,
+              child: Text('Save'.tr, style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: primaryColor)),
+              onPressed: () {
+                if (_commentformKey.currentState.validate()) {
+                  _saveToCloud();
+                  _flushAll();
+                  Get.snackbar('Succsess'.tr, 'Saved'.tr,
+                      snackPosition: SnackPosition.BOTTOM);
+                      
+                } else  Get.snackbar('Error'.tr, 'notsaved'.tr,
+                    snackPosition: SnackPosition.BOTTOM);
+               
+              },
             ),
-            _buildBy(),
-            SizedBox(
-              height: 6,
-            ),
-            _buildspentAmount(),
-            SizedBox(
-              height: 6,
-            ),
-            _buildSpentOnDate(context),
-            SizedBox(
-              height: 20,
-            ),
-            widget.clubIncome == null
-                ? Container(
-                    width: 300,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: BorderSide(color: primaryColor)),
-                      color: secondaryColor,
-                      child: Text('Save'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
-                      onPressed: () {
-                        if (_commentformKey.currentState.validate()) {
-                          _saveToCloud();
-                          _flushAll();
-                          Get.snackbar('Succsess'.tr, 'Saved'.tr,
-                              snackPosition: SnackPosition.BOTTOM);
-                              
-                        } else  Get.snackbar('Error'.tr, 'notsaved'.tr,
-                            snackPosition: SnackPosition.BOTTOM);
-                       
-                      },
-                    ),
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 140,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: BorderSide(color: primaryColor)),
-                            color: secondaryColor,
-                            child: Text('Update'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
-                            onPressed: () {
-                              if (_commentformKey.currentState.validate()) {
-                                Get.defaultDialog(
-                                  title: 'SuperAdmin'.tr,
-                                  content: TextField(
-                                    decoration: InputDecoration(
-                                        prefixIcon: Icon(Icons.lock)),
-                                    onChanged: (value) {
-                                      if (value.trim().toString() ==
-                                          cv.sperAdminPass.value
-                                              .toString()
-                                              .trim()) {
-                                        Navigator.pop(context);
-                                        _updateInCloud();
-                                        _flushAll();
-                                      }
-                                    },
-                                  ),
-                                );
-                               
-                             
-                                Get.snackbar('Succsess'.tr, 'Saved'.tr,
-                                    snackPosition: SnackPosition.BOTTOM);
-                              } else {
-                                Get.snackbar('Error'.tr, 'notsaved'.tr,
-                                    snackPosition: SnackPosition.BOTTOM);
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: 140,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: primaryColor)),
+                    color: secondaryColor,
+                    child: Text('Update'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
+                    onPressed: () {
+                      if (_commentformKey.currentState.validate()) {
+                        Get.defaultDialog(
+                          title: 'SuperAdmin'.tr,
+                          content: TextField(
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.lock)),
+                            onChanged: (value) {
+                              if (value.trim().toString() ==
+                                  cv.sperAdminPass.value
+                                      .toString()
+                                      .trim()) {
+                                Navigator.pop(context);
+                                _updateInCloud();
+                                _flushAll();
                               }
-                            }),
-                      ),
-                      Container(
-                        width: 140,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                            },
+                          ),
+                        );
+                       
+                     
+                        Get.snackbar('Succsess'.tr, 'Saved'.tr,
+                            snackPosition: SnackPosition.BOTTOM);
+                      } else {
+                        Get.snackbar('Error'.tr, 'notsaved'.tr,
+                            snackPosition: SnackPosition.BOTTOM);
+                      }
+                    }),
+              ),
+              Container(
+                width: 140,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: primaryColor)),
+                    color: secondaryColor,
+                    child: Text('Delete'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
+                    onPressed: () {
+                      Get.defaultDialog(
+                        title: 'SperAdmin'.tr,
+                        content: TextField(
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.lock)),
+                          onChanged: (value) {
+                            if (value.trim().toString() ==
+                                cv.sperAdminPass.value
+                                    .toString()
+                                    .trim()) {
+                              Navigator.pop(context);
+                              cv.deleteObject('ClubIncome',
+                                  widget.clubIncome.id);
+                              _flushAll();
+                            }
+                          },
                         ),
-                        child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: BorderSide(color: primaryColor)),
-                            color: secondaryColor,
-                            child: Text('Delete'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
-                            onPressed: () {
-                              Get.defaultDialog(
-                                title: 'SperAdmin'.tr,
-                                content: TextField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.lock)),
-                                  onChanged: (value) {
-                                    if (value.trim().toString() ==
-                                        cv.sperAdminPass.value
-                                            .toString()
-                                            .trim()) {
-                                      Navigator.pop(context);
-                                      cv.deleteObject('ClubIncome',
-                                          widget.clubIncome.id);
-                                      _flushAll();
-                                    }
-                                  },
-                                ),
-                              );
-                              
-                            }),
-                      ),
-                    ],
-                  ),
-          ],
-        ),
+                      );
+                      
+                    }),
+              ),
+            ],
+          ),
+            ],
+          ),
       ),
     );
   }

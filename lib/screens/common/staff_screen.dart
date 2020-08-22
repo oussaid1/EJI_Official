@@ -47,7 +47,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/oussaid.png',
+                  'assets/images/staff/oussaid.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -108,7 +108,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/coach.png',
+                  'assets/images/staff/coach.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -149,7 +149,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/vicecoach.png',
+                  'assets/images/staff/vicecoach.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -252,7 +252,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/hassan.png',
+                  'assets/images/staff/hassan.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -293,7 +293,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/rasheed.png',
+                  'assets/images/staff/rasheed.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -334,7 +334,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/larsen.png',
+                  'assets/images/staff/larsen.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -375,7 +375,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/lahssenfakir.png',
+                  'assets/images/staff/lahssenfakir.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -436,7 +436,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/dawd.png',
+                  'assets/images/staff/dawd.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -477,7 +477,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/brahimaitchaib.png',
+                  'assets/images/staff/brahimaitchaib.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -518,7 +518,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/fakirabdellah.png',
+                  'assets/images/staff/fakirabdellah.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -559,7 +559,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/aabache.png',
+                  'assets/images/staff/aabache.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
@@ -575,6 +575,7 @@ class StaffPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: secondaryColor,
       drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
       appBar: AppBar(
         title: Row(
@@ -597,10 +598,7 @@ class StaffPage extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            'assets/images/meeting.png',
-            fit: BoxFit.fill,
-          ),
+         
           Center(
             child: ListView(
               children: <Widget>[

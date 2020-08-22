@@ -22,6 +22,7 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: secondaryColor,
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: c.isAdmin.value
             ? Padding(
@@ -51,7 +52,7 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
         body: Stack(
           fit: StackFit.expand,
           children: [
-             new Image.asset('assets/images/match.png',fit:BoxFit.fill),
+            new Image.asset('assets/images/login.png',fit:BoxFit.fill),
             StreamBuilder(
                 stream: c.getPlayerz('players'),
                 builder:

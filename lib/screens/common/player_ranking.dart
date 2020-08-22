@@ -34,7 +34,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          new Image.asset('assets/images/trainingx.jpg', fit: BoxFit.fill),
+          new Image.asset('assets/images/login.png', fit: BoxFit.fill),
           ListView(
             children: [
               StreamBuilder(

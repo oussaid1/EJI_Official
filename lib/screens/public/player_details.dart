@@ -32,7 +32,7 @@ class PlayerDetails extends StatelessWidget {
     // File imgFile = new File('$directory/screenshot.png');
     //imgFile.writeAsBytes(pngBytes);
     await Share.file(
-        '', 'playerCard.png', byteData.buffer.asUint8List(), 'player/png',
+        '', 'myCard.png', byteData.buffer.asUint8List(), 'player/png',
         text: '');
   }
 
@@ -46,6 +46,7 @@ class PlayerDetails extends StatelessWidget {
       );
     }
     return Scaffold(
+      backgroundColor: secondaryColor,
       drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
       appBar: AppBar(
         actions: [
@@ -56,7 +57,7 @@ class PlayerDetails extends StatelessWidget {
               }),
           cD.isAdmin.value
               ? IconButton(
-                  icon: Icon(Icons.edit_attributes),
+                  icon: Icon(Icons.edit),
                   onPressed: () {
                     Get.to(AddPlayers(
                       player: player,
@@ -68,7 +69,7 @@ class PlayerDetails extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          new Image.asset('assets/images/trainingx.jpg', fit: BoxFit.fill),
+          // new Image.asset('assets/images/trainingx.jpg', fit: BoxFit.fill),
           ListView(
             children: [
               SizedBox(
@@ -89,8 +90,20 @@ class PlayerDetails extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: new Image.asset(
-                              'assets/images/playerscard.png',
+                              'assets/images/playercarddark.png',
                               fit: BoxFit.fill),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              height: 70,
+                              width: 70,
+                              child: new Image.asset('assets/images/logoW.png',
+                                  fit: BoxFit.fill),
+                            ),
+                          ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -177,7 +190,7 @@ class PlayerDetails extends StatelessWidget {
                             Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
+                                  padding: const EdgeInsets.only(left: 8.0,),
                                   child: RatingBar(
                                       initialRating: player.seasons != null
                                           ? player.seasons < 5
@@ -200,13 +213,11 @@ class PlayerDetails extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
+                           
                           ],
                         ),
                         Positioned(
-                          bottom: Get.height / 3.5,
+                          bottom: Get.height / 4,
                           right: 40,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -218,7 +229,7 @@ class PlayerDetails extends StatelessWidget {
                                     '${player.playerName.toString()}',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 26,
+                                        fontSize: 28,
                                         fontFamily: 'Couriernew',
                                         fontWeight: FontWeight.w800,
                                         color: accentColor),
@@ -253,8 +264,8 @@ class PlayerDetails extends StatelessWidget {
                                       '${player.seasons.toString()}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w200,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w300,
                                           color: fontColor),
                                     ),
                                     new Text(
@@ -270,7 +281,7 @@ class PlayerDetails extends StatelessWidget {
                                 Text(
                                   '${toArabic[player.position.toString()]}',
                                   style: TextStyle(
-                                      fontSize: 26,
+                                      fontSize: 28,
                                       fontWeight: FontWeight.w800,
                                       color: fontColor),
                                 ),
@@ -279,8 +290,8 @@ class PlayerDetails extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          bottom: 100,
-                          left: 20,
+                          bottom: 80,
+                          left: 10,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Padding(
@@ -337,7 +348,19 @@ class JuniorPlayerDetails extends StatelessWidget {
   JuniorPlayerDetails({Key key, @required this.juniorplayer});
 
   final CloudDatabase cD = Get.put(CloudDatabase());
-
+var juniorKey = new GlobalKey();
+  _takeScreenShot() async {
+    RenderRepaintBoundary boundary = juniorKey.currentContext.findRenderObject();
+    var image = await boundary.toImage();
+    ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
+    Uint8List pngBytes = byteData.buffer.asUint8List();
+    // final directory = (await getApplicationDocumentsDirectory()).path;
+    // File imgFile = new File('$directory/screenshot.png');
+    //imgFile.writeAsBytes(pngBytes);
+    await Share.file(
+        '', 'myCard.png', byteData.buffer.asUint8List(), 'player/png',
+        text: '');
+  }
   @override
   Widget build(BuildContext context) {
     if (juniorplayer == null) {
@@ -348,255 +371,287 @@ class JuniorPlayerDetails extends StatelessWidget {
       );
     }
     return Scaffold(
+      backgroundColor: secondaryColor,
       drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+           IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () {
+                _takeScreenShot();
+              }),
+               cD.isAdmin.value
+              ? IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Get.to(AddPlayers(
+                      juniorPlayer: juniorplayer,
+                    ));
+                  })
+              : Container(),
+        ],
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [
           ListView(
             children: [
               Center(
-                child: Container(
-                  width: Get.width - 40,
-                  height: Get.height / 1.2,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        new Image.asset('assets/images/playercard.png',
-                            fit: BoxFit.fill),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                child: RepaintBoundary(
+                  key: juniorKey,
                                   child: Container(
-                                    height: 120,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: accentColor),
-                                    ),
-                                    child: FutureBuilder<String>(
-                                      future: cD.getProfileImage(context,
-                                          juniorplayer.profileImage.toString()),
-                                      builder: (context, snapshot) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(2.0),
-                                          child: (snapshot == null ||
-                                                  !snapshot.hasData)
-                                              ? Image.asset(
-                                                  'assets/images/logo.png',
-                                                  height: 116,
-                                                  width: 116,
-                                                  fit: BoxFit.fill,
-                                                )
-                                              : ClipOval(
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: snapshot.data,
-                                                    fit: BoxFit.fill,
-                                                    height: 116,
-                                                    width: 116,
-                                                    placeholder:
-                                                        (context, url) =>
-                                                            Image.asset(
-                                                      'assets/images/logo.png',
-                                                      height: 116,
-                                                      width: 116,
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                            Image.asset(
-                                                      'assets/images/logo.png',
-                                                      fit: BoxFit.contain,
-                                                      height: 116,
-                                                      width: 116,
-                                                    ),
-                                                  ),
-                                                ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      'ID :',
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontFamily: 'Couriernew',
-                                          fontWeight: FontWeight.w600,
-                                          color: fontColor),
-                                    ),
-                                    Text(
-                                      '${juniorplayer.regNum.toString()}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'Couriernew',
-                                          fontWeight: FontWeight.w200,
-                                          color: fontColor),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: RatingBar(
-                                      initialRating:
-                                          juniorplayer.seasons != null
-                                              ? juniorplayer.seasons < 5
-                                                  ? juniorplayer.seasons - 0.5
-                                                  : 5
-                                              : 0,
-                                      minRating: 0,
-                                      direction: Axis.horizontal,
-                                      ignoreGestures: true,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemSize: 24,
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 0),
-                                      itemBuilder: (context, _) => Icon(
-                                            Icons.star,
-                                            color: Colors.yellow,
-                                          ),
-                                      onRatingUpdate: (rating) {}),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          bottom: Get.height / 3.5,
-                          right: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    '${juniorplayer.playerName.toString()}',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 26,
-                                        fontFamily: 'Couriernew',
-                                        fontWeight: FontWeight.w800,
-                                        color: accentColor),
-                                  ),
-                                ),
-                                Text(
-                                  '${juniorplayer.dateOfBirth.toString()} /${juniorplayer.placeOfBirth.toString()} ',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w300,
-                                      color: fontColor),
-                                ),
-                                Text(
-                                  '${juniorplayer.email.toString()}',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Couriernew',
-                                      fontWeight: FontWeight.w200,
-                                      color: fontColor),
-                                ),
-                                Text(
-                                  '${juniorplayer.phone.toString()}',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w200,
-                                      color: fontColor),
-                                ),
-                                new Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    new Text(
-                                      '${juniorplayer.seasons.toString()}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w200,
-                                          color: fontColor),
-                                    ),
-                                    new Text(
-                                      'PlayedSeasons'.tr,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'couriernew',
-                                          fontWeight: FontWeight.w300,
-                                          color: fontColor),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  '${toArabic[juniorplayer.position.toString()]}',
-                                  style: TextStyle(
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.w800,
-                                      color: fontColor),
-                                ),
-                              ],
+                    width: Get.width - 40,
+                    height: Get.height / 1.2,
+                    child: Card(
+                     
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          new Image.asset('assets/images/playercarddark.png',
+                              fit: BoxFit.fill),
+                               Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: 70,
+                                width: 70,
+                                child: new Image.asset('assets/images/logoW.png',
+                                    fit: BoxFit.fill),
+                              ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          bottom: 100,
-                          left: 20,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8, right: 12),
-                              child: Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Row(
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      '${juniorplayer.oVR.toString()}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 56,
-                                          fontFamily: 'Couriernew',
-                                          fontWeight: FontWeight.w600,
-                                          color: accentColor),
+                                    child: Container(
+                                      height: 120,
+                                      width: 120,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(color: accentColor),
+                                      ),
+                                      child: FutureBuilder<String>(
+                                        future: cD.getProfileImage(context,
+                                            juniorplayer.profileImage.toString()),
+                                        builder: (context, snapshot) {
+                                          return Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: (snapshot == null ||
+                                                    !snapshot.hasData)
+                                                ? Image.asset(
+                                                    'assets/images/logo.png',
+                                                    height: 116,
+                                                    width: 116,
+                                                    fit: BoxFit.fill,
+                                                  )
+                                                : ClipOval(
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: snapshot.data,
+                                                      fit: BoxFit.fill,
+                                                      height: 116,
+                                                      width: 116,
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              Image.asset(
+                                                        'assets/images/logo.png',
+                                                        height: 116,
+                                                        width: 116,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                      errorWidget:
+                                                          (context, url, error) =>
+                                                              Image.asset(
+                                                        'assets/images/logo.png',
+                                                        fit: BoxFit.contain,
+                                                        height: 116,
+                                                        width: 116,
+                                                      ),
+                                                    ),
+                                                  ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
                                       Text(
-                                        'Pts',
-                                        textAlign: TextAlign.center,
+                                        'ID :',
                                         style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: 22,
                                             fontFamily: 'Couriernew',
                                             fontWeight: FontWeight.w600,
-                                            color: accentColor),
+                                            color: fontColor),
+                                      ),
+                                      Text(
+                                        '${juniorplayer.regNum.toString()}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'Couriernew',
+                                            fontWeight: FontWeight.w200,
+                                            color: fontColor),
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: RatingBar(
+                                        initialRating:
+                                            juniorplayer.seasons != null
+                                                ? juniorplayer.seasons < 5
+                                                    ? juniorplayer.seasons - 0.5
+                                                    : 5
+                                                : 0,
+                                        minRating: 0,
+                                        direction: Axis.horizontal,
+                                        ignoreGestures: true,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 24,
+                                        itemPadding:
+                                            EdgeInsets.symmetric(horizontal: 0),
+                                        itemBuilder: (context, _) => Icon(
+                                              Icons.star,
+                                              color: Colors.yellow,
+                                            ),
+                                        onRatingUpdate: (rating) {}),
+                                  ),
+                                ],
+                              ),
+                             
+                            ],
+                          ),
+                          Positioned(
+                            bottom: Get.height / 3.5,
+                            right: 40,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '${juniorplayer.playerName.toString()}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 28,
+                                          fontFamily: 'Couriernew',
+                                          fontWeight: FontWeight.w800,
+                                          color: accentColor),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${juniorplayer.dateOfBirth.toString()} /${juniorplayer.placeOfBirth.toString()} ',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300,
+                                        color: fontColor),
+                                  ),
+                                  Text(
+                                    '${juniorplayer.email.toString()}',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: 'Couriernew',
+                                        fontWeight: FontWeight.w200,
+                                        color: fontColor),
+                                  ),
+                                  Text(
+                                    '${juniorplayer.phone.toString()}',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w200,
+                                        color: fontColor),
+                                  ),
+                                  new Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      new Text(
+                                        '${juniorplayer.seasons.toString()}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w200,
+                                            color: fontColor),
+                                      ),
+                                      new Text(
+                                        'PlayedSeasons'.tr,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: 'couriernew',
+                                            fontWeight: FontWeight.w300,
+                                            color: fontColor),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    '${toArabic[juniorplayer.position.toString()]}',
+                                    style: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w800,
+                                        color: fontColor),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Positioned(
+                            bottom: 100,
+                            left: 20,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, right: 12),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        '${juniorplayer.oVR.toString()}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 56,
+                                            fontFamily: 'Couriernew',
+                                            fontWeight: FontWeight.w600,
+                                            color: accentColor),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          'Pts',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontFamily: 'Couriernew',
+                                              fontWeight: FontWeight.w600,
+                                              color: accentColor),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

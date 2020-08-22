@@ -16,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final CloudDatabase c = Get.put(CloudDatabase());
 
- bool isArabic = false;
+  bool isArabic = false;
   final _loginformKey1 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  @override 
+  @override
   void initState() {
     super.initState();
 
@@ -70,8 +70,22 @@ class _LoginScreenState extends State<LoginScreen> {
         fit: StackFit.expand,
         children: <Widget>[
           Image.asset(
-            'assets/images/ejisplash.png',
+            'assets/images/login.png',
             fit: BoxFit.fill,
+          ),
+          Positioned(
+            top: 50,
+            left: Get.width / 2.44,
+            child: SizedBox(
+              height: 80,
+              width: 80,
+              child: Image.asset(
+                'assets/images/logoW.png',
+                height: 80,
+                width: 80,
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
           Form(
             key: _loginformKey1,
@@ -87,14 +101,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     Align(
                         alignment: Alignment.topCenter,
-                        child: Text('Sign In', style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor))),
+                        child: Text('Sign In',
+                            style: TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.w600,
+                                color: fontColor))),
                     SizedBox(
                       height: 20,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: fontColor),
                         textAlign: TextAlign.center,
                         validator: (text) {
                           if (text.isEmpty) {
@@ -111,9 +132,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: ('emailempty'.tr),
                             labelText: 'Email',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                            labelStyle: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: fontColor),
                             focusColor: accentColor,
-                            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+                            hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w200,
+                                color: fontColor),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
@@ -133,12 +160,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(
                       height: 20,
-                      
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+                        style: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.w600,
+                            color: fontColor),
                         obscureText: true,
                         textAlign: TextAlign.center,
                         validator: (text) {
@@ -156,9 +185,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: ('passempty'.tr),
                             labelText: 'Password',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                            labelStyle: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: fontColor),
                             focusColor: accentColor,
-                            hintStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w200,color: fontColor),
+                            hintStyle: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w200,
+                                color: fontColor),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
@@ -176,9 +211,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             contentPadding: EdgeInsets.only(left: 2)),
                       ),
                     ),
-                   SizedBox(
-                     height: 30,
-                   ),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Container(
                       height: 70,
                       child: Padding(
@@ -187,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           elevation: 5.0,
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(10.0)),
-                          color: accentColor,
+                          color: fontColor,
                           child: new Text('LOGIN',
                               style: new TextStyle(
                                   fontFamily: 'RobotoCondensed',
@@ -202,9 +237,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               {
                                 c.setAdmin(true),
                                 Get.to(AnouncesTab()),
-                               //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')), 
+                                //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')),
                               }
-                            
                             else if (_loginformKey1.currentState.validate())
                               {
                                 if (emailController.text.trim() ==
@@ -214,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   {
                                     c.setAdmin(false),
                                     Get.to(AnouncesTab()),
-                                    //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')), 
+                                    //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')),
                                   }
                                 else
                                   {
@@ -233,37 +267,61 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  'Dev-Bourheem \n Copyright\n 2020',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: fontColor,
+                    fontWeight: FontWeight.w200,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-bool isArabic= true;
+bool isArabic = true;
 
-var languageSwitch= SizedBox(
-                      height: 50,
-                      child:  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: isArabic? new Text(
-                          'عربية'.tr,textAlign: TextAlign.center,
-                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                        )
-                        : new Text(
-                          'English'.tr,textAlign: TextAlign.center,
-                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
-                        ),
-                      ),
-                      Switch(
-                          value: isArabic,
-                          onChanged: (value) {
-                            
-                              isArabic = value;
-                              
-                         
-                          }),
-                    ],
-                  ),
-                    );
+var languageSwitch = SizedBox(
+  height: 50,
+  child: Row(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: isArabic
+            ? new Text(
+                'عربية'.tr,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
+                    color: fontColor),
+              )
+            : new Text(
+                'English'.tr,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
+                    color: fontColor),
+              ),
+      ),
+      Switch(
+          value: isArabic,
+          onChanged: (value) {
+            isArabic = value;
+          }),
+    ],
+  ),
+);

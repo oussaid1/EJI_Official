@@ -25,11 +25,11 @@ class AnouncesTab extends StatelessWidget {
             tabs: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Matches'.tr, style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
+                child: Text('Matches'.tr, style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: secondaryColor)),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Anounces'.tr, style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
+                child: Text('Anounces'.tr, style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: secondaryColor)),
               ),
             ],
           ),

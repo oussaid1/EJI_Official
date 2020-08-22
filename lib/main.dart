@@ -24,10 +24,10 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Couriernew',
           appBarTheme: AppBarTheme(
               color: primaryColor,
-              iconTheme: IconThemeData(color: fontColor)),
+              iconTheme: IconThemeData(color: secondaryColor)),
           iconTheme: IconThemeData(color: accentColor),
           primaryColor: primaryColor,
-          cardColor: secondaryColor.withOpacity(0.8)),
+          cardColor:secondaryColor),
       translations: MyTranslations(),
       locale: Locale('ar'),
       home: SplashPage(),

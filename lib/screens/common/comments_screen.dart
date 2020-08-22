@@ -17,7 +17,7 @@ class CommentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Comments> lista;
     return Scaffold(
-    
+    backgroundColor: secondaryColor,
       drawer: MyDrawer(),
       appBar: AppBar(
         title: Center(
@@ -47,7 +47,7 @@ class CommentScreen extends StatelessWidget {
         fit: StackFit.expand,
          
         children: [
-             new Image.asset('assets/images/meeting.png',fit:BoxFit.fill),
+            new Image.asset('assets/images/login.png',fit:BoxFit.fill),
           Column(
             children: [
               StreamBuilder(
@@ -76,7 +76,7 @@ class CommentScreen extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
-                              color: primaryColor.withOpacity(0.5),
+                              color: primaryColor.withOpacity(0.7),
                             ),
                             child: Column(
                               children: [
@@ -165,7 +165,7 @@ class CommentScreen extends StatelessWidget {
                                           const EdgeInsets.fromLTRB(4, 8, 4, 8),
                                       child: Text(
                                         comment.commentsText.toString(),
-                                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w300,color: fontColor),
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 10,
                                         textAlign: TextAlign.center,

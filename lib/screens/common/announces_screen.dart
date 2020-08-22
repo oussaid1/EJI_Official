@@ -17,7 +17,7 @@ class AnouncesScreen extends StatelessWidget {
     List<Anounce> lista;
     return Scaffold(
     
-   
+   backgroundColor: secondaryColor,
  floatingActionButtonLocation: FloatingActionButtonLocation.startTop ,
      floatingActionButton:xc.isAdmin.value? SizedBox(
        height: 40,
@@ -37,7 +37,7 @@ class AnouncesScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-           new Image.asset('assets/images/meeting.png',fit:BoxFit.fill),
+           new Image.asset('assets/images/login.png',fit:BoxFit.fill),
           Column(
             children: [
              

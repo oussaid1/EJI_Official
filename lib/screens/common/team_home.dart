@@ -38,7 +38,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
         body: Stack(
         fit: StackFit.expand,  
           children: [
-              new Image.asset('assets/images/match.png',fit:BoxFit.fill),
+              new Image.asset('assets/images/login.png',fit:BoxFit.fill),
             StreamBuilder(
                 stream: c.getMatchDays('matchday'),
                 builder:
@@ -73,7 +73,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                 Text(
                                     'MatchDay'.tr +
                                         '${matchDay.matchdayDate.toString()}',
-                                    style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
+                                    style: TextStyle(fontSize:24,fontWeight: FontWeight.w400,color: whitefontColor)),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -105,12 +105,12 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                                   ' : ' +
                                                   '${matchDay.matchdayAwayScore.toString()}',
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: whitefontColor)):Text(
+                                              style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: orange)):Text(
                                               '--' +
                                                   ' : ' +
                                                   '--',
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))
+                                              style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: orange))
                                         ),
                                       ), 
                                     ),

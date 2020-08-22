@@ -40,7 +40,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
           onPressed: () {
              Get.defaultDialog(
                   title: 'AddIncome'.tr,
-                  content: Expanded(child: AddIncome()),
+                  content:  Expanded(child: AddIncome()),
                  
                 );
           },

@@ -247,7 +247,7 @@ class MyTranslations extends Translations {
           'inserAmountSpentiMad': ' ادخل المبلغ ',
           'onlyNumbersAlowed': ' ارقام فقط',
           'AddSpendings': ' أظف النفقات',
-          'AddIncome': 'اظف النفقات',
+          'AddIncome': 'اظف المداخيل',
           'spentOn': ' المنفق عليه ',
           'spentBy': 'من طرف ',
           'spentOnDate': ' بتاريخ ',

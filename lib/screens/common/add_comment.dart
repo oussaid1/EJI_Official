@@ -6,16 +6,26 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
-class AddComment extends StatelessWidget {
+class AddComment extends StatefulWidget {
   AddComment({Key key}) : super(key: key);
 
+  @override
+  _AddCommentState createState() => _AddCommentState();
+}
+
+class _AddCommentState extends State<AddComment> {
   final TextEditingController subjectControler = TextEditingController();
+
   final TextEditingController textCommentControler = TextEditingController();
+
   final TextEditingController byCommentControler = TextEditingController();
+
   DateTime nowDate = new DateTime.now();
+
   final DateFormat mformatter = DateFormat('yyyy-MM-dd');
 
   final GlobalKey<FormState> _commentformKey = GlobalKey<FormState>();
+
   final CloudDatabase cv = Get.put(CloudDatabase());
 
   _saveToCloud() {
@@ -67,7 +77,7 @@ class AddComment extends StatelessWidget {
         color: primaryColor,
       ),
       width: 300,
-      height: 150,
+      height: 120,
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: TextFormField(
@@ -166,7 +176,6 @@ class AddComment extends StatelessWidget {
               },
             ),
           ),
-         
         ],
       ),
     );
