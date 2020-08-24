@@ -69,7 +69,7 @@ class PlayerDetails extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // new Image.asset('assets/images/trainingx.jpg', fit: BoxFit.fill),
+         new Image.asset('assets/images/login.png', fit: BoxFit.fill),
           ListView(
             children: [
               SizedBox(
@@ -82,7 +82,7 @@ class PlayerDetails extends StatelessWidget {
                     width: Get.width - 60,
                     height: Get.height / 1.3,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: accentColor, width: 2)),
                     child: Stack(
                       fit: StackFit.expand,

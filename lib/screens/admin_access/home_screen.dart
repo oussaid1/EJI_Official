@@ -8,7 +8,7 @@ import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
-import 'package:EJI/widgets/pick_players.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -33,160 +33,212 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
 //mBox.write('adminkey',false).then((value) => isAdmin= mBox != null ? mBox.read('adminkey') :true);
-
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (widget.selectedSquad != null) {
-      Squad sqaud = new Squad.main433(list11Players: widget.selectedSquad);
-      return Scaffold(
-        backgroundColor: primaryColor,
-        drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
-        appBar: AppBar(),
-        body: Stack(
-          fit: StackFit.passthrough,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 2),
-              child: Image.asset('assets/images/field2.png', fit: BoxFit.fill),
-            ),
-            // GoalKeeper
-            buildPositionedPlayer(
-                bottm: height / 50,
-                left: width / 2.7,
-                playerCandidate: sqaud.pGK),
-            //deffence
-            buildPositionedPlayer(
-                bottm: height / 7,
-                left: width / 20,
-                playerCandidate: sqaud.pGK),
-            buildPositionedPlayer(
-                bottm: height / 7,
-                left: width / 3.5,
-                playerCandidate: sqaud.pGK),
-            buildPositionedPlayer(
-                bottm: height / 7,
-                right: width / 3.5,
-                playerCandidate: sqaud.pGK),
-            buildPositionedPlayer(
-                bottm: height / 7,
-                right: width / 20,
-                playerCandidate: sqaud.pGK),
-            //MiddleField
-            buildPositionedPlayer(
-                bottm: height / 3,
-                right: width / 20,
-                playerCandidate: sqaud.pGK),
-            buildPositionedPlayer(
-                bottm: height / 3,
-                right: width / 2.55,
-                playerCandidate: sqaud.pGK),
-            buildPositionedPlayer(
-                bottm: height / 3,
-                left: width / 20,
-                playerCandidate: sqaud.pGK),
+  void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
 
-            //Forward
-            buildPositionedPlayer(
-                top: height / 6, right: width / 20, playerCandidate: sqaud.pGK),
-            buildPositionedPlayer(
-                top: height / 10,
-                right: width / 2.55,
-                playerCandidate: sqaud.pGK),
-            buildPositionedPlayer(
-                top: height / 6, left: width / 20, playerCandidate: sqaud.pGK),
-          ],
-        ),
-      );
-    } else
-      return Scaffold(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
         backgroundColor: primaryColor,
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(),
         body: StreamBuilder(
-            stream: c.get11Playerz('players'),
+            stream: c.getPlayerz('players'),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {
-                return Container();
-              } else {
-                //lista = snapshot.data;
-                selectedSquad = new Squad.main433(list11Players: snapshot.data);
-
-                return StreamBuilder(
-                    stream: c.getGK(),
-                    builder: (context, snapshotGK) {
-                      if (snapshotGK.hasError || !snapshotGK.hasData) {
-                        return Container();
-                      } else {
-                        listaGK = snapshotGK.data;
-                        Player goalKeeper = listaGK[0];
-                        return Stack(
-                          fit: StackFit.passthrough,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2),
-                              child: Image.asset('assets/images/field2.png',
-                                  fit: BoxFit.contain),
+                return Scaffold(
+                  backgroundColor: primaryColor,
+                  drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
+                  appBar: AppBar(),
+                  body: Container(
+                    width: 360,
+                    height: 600,
+                    child: Stack(
+                      fit: StackFit.passthrough,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2),
+                          child: Image.asset('assets/images/field2.png',
+                              fit: BoxFit.fill),
+                        ),
+                        // GoalKeeper
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['GKb'],
+                            left: squadformation[0]['GKl'],
                             ),
-                            // GoalKeeper
-                            buildPositionedPlayer(
-                                bottm: height / 50,
-                                left: width / 2.44,
-                                playerCandidate: goalKeeper),
-                            //deffence
-                            buildPositionedPlayer(
-                                bottm: height / 5,
-                                left: width / 20,
-                                playerCandidate: selectedSquad.pCB4),
-                            buildPositionedPlayer(
-                                bottm: height / 5,
-                                left: width / 3.5,
-                                playerCandidate: selectedSquad.pCB5),
-                            buildPositionedPlayer(
-                                bottm: height / 5,
-                                right: width / 3.5,
-                                playerCandidate: selectedSquad.pLB),
-                            buildPositionedPlayer(
-                                bottm: height / 5,
-                                right: width / 20,
-                                playerCandidate: selectedSquad.pRB),
-                            //MiddleField
-                            buildPositionedPlayer(
-                                bottm: height / 2.5,
-                                right: width / 20,
-                                playerCandidate: selectedSquad.pRMF),
-                            buildPositionedPlayer(
-                                bottm: height / 2.5,
-                                right: width / 2.34,
-                                playerCandidate: selectedSquad.pLMF),
-                            buildPositionedPlayer(
-                                bottm: height / 2.5,
-                                left: width / 20,
-                                playerCandidate: selectedSquad.pCMF),
+                        //deffence
+                        //LB
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['CB4b'],
+                            left: squadformation[0]['CB4l'],
+                            ),
+                        //CB5
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['CB5b'],
+                            left:squadformation[0]['CB5l'],
+                           ),
+                        //CB4
+                        buildPositionedPlayer(
+                            bottm: 120,
+                            right: 115,
+                           ),
+                        //RB
+                        buildPositionedPlayer(
+                            bottm:squadformation[0]['RBb'],
+                            right:  squadformation[0]['RBl'],
+                           ),
+                        //MiddleField
+                        //RMF
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['RMFb'],
+                            right:  squadformation[0]['RMFl'],
+                           ),
+                        //CMF
+                        buildPositionedPlayer(
+                            bottm:squadformation[0]['CMFb'],
+                            right: squadformation[0]['CMFl'],
+                           ),
+                        //LMF
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['LMFb'],
+                            left: squadformation[0]['LMFl'],
+                           ),
 
-                            //Forward
-                            buildPositionedPlayer(
-                                top: height / 6,
-                                right: width / 20,
-                                playerCandidate: selectedSquad.pRWF),
-                            buildPositionedPlayer(
-                                top: height / 10,
-                                right: width / 2.34,
-                                playerCandidate: selectedSquad.pLWF),
-                            buildPositionedPlayer(
-                                top: height / 6,
-                                left: width / 20,
-                                playerCandidate: selectedSquad.pCF),
-                          ],
-                        );
-                      }
-                    });
+                        //Forward
+                        //RWF
+                        buildPositionedPlayer(
+                            top:squadformation[0]['RWFb'],
+                            right:squadformation[0]['RWFl'],
+                        ),
+                        //CF
+                        buildPositionedPlayer(
+                            top: squadformation[0]['CFb'],
+                            right:squadformation[0]['CFl'],
+                           ),
+
+                        //LWF
+                        buildPositionedPlayer(
+                            top: squadformation[0]['LWFb'],
+                            left:  squadformation[0]['LWFl'],
+                           ),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                /* lista = List<Player>();
+                for (var i = 0; i < 12; i++) {
+                  
+                  lista.add(new Player.dummy());
+                  
+                }*/
+                lista = snapshot.data;
+                // selectedSquad = new Squad.main433(list11Players: snapshot.data);
+                selectedSquad = new Squad.main433(list11Players: lista);
+
+                return Align(alignment: Alignment.topCenter,
+                  child: Container(
+                     width: 380,
+                      height: 600,
+                    child: Stack(
+                      fit: StackFit.passthrough,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2),
+                          child: Image.asset('assets/images/field2.png',
+                              fit: BoxFit.fill),
+                        ),
+                        // GoalKeeper
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['GKb'],
+                            left: squadformation[0]['GKl'],
+                            playerCandidate: selectedSquad.pGK),
+                        //deffence
+                        //LB
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['CB4b'],
+                            left: squadformation[0]['CB4l'],
+                            playerCandidate:
+                                selectedSquad.pLB ?? new Player.dummy()),
+                        //CB5
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['CB5b'],
+                            left:squadformation[0]['CB5l'],
+                            playerCandidate:
+                                selectedSquad.pCB5 ?? new Player.dummy()),
+                        //CB4
+                        buildPositionedPlayer(
+                            bottm: 120,
+                            right: 115,
+                            playerCandidate:
+                                selectedSquad.pCB4 ?? new Player.dummy()),
+                        //RB
+                        buildPositionedPlayer(
+                            bottm:squadformation[0]['RBb'],
+                            right:  squadformation[0]['RBl'],
+                            playerCandidate:
+                                selectedSquad.pRB ?? new Player.dummy()),
+                        //MiddleField
+                        //RMF
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['RMFb'],
+                            right:  squadformation[0]['RMFl'],
+                            playerCandidate:
+                                selectedSquad.pRMF ?? new Player.dummy()),
+                        //CMF
+                        buildPositionedPlayer(
+                            bottm:squadformation[0]['CMFb'],
+                            right: squadformation[0]['CMFl'],
+                            playerCandidate:
+                                selectedSquad.pCMF ?? new Player.dummy()),
+                        //LMF
+                        buildPositionedPlayer(
+                            bottm: squadformation[0]['LMFb'],
+                            left: squadformation[0]['LMFl'],
+                            playerCandidate:
+                                selectedSquad.pLMF ?? new Player.dummy()),
+
+                        //Forward
+                        //RWF
+                        buildPositionedPlayer(
+                            top:squadformation[0]['RWFb'],
+                            right:squadformation[0]['RWFl'],
+                            playerCandidate:
+                                selectedSquad.pRWF ?? new Player.dummy()),
+                        //CF
+                        buildPositionedPlayer(
+                            top: squadformation[0]['CFb'],
+                            right:squadformation[0]['CFl'],
+                            playerCandidate:
+                                selectedSquad.pCF ?? new Player.dummy()),
+
+                        //LWF
+                        buildPositionedPlayer(
+                            top: squadformation[0]['LWFb'],
+                            left:  squadformation[0]['LWFl'],
+                            playerCandidate:
+                                selectedSquad.pLWF ?? new Player.dummy()),
+                      ],
+                    ),
+                  ),
+                );
               }
-            }),
-      );
+            }));
   }
 
   Positioned buildPositionedPlayer(
@@ -201,7 +253,7 @@ class HomePageState extends State<HomePage> {
       right: right,
       top: top,
       child: SizedBox(
-        height: 90,
+        height: 80,
         width: 65,
         child: Stack(
           children: [
@@ -226,12 +278,10 @@ class HomePageState extends State<HomePage> {
                 },
                 onWillAccept: (data) {
                   return true;
-              
                 },
                 onAccept: (data) {
-
                   setState(() {
-                    isAccepted=true;
+                    isAccepted = true;
                   });
                 },
               ),

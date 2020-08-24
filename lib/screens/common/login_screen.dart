@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: fontColor),
                             focusColor: accentColor,
                             hintStyle: TextStyle(
-                                fontSize: 18,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w200,
                                 color: fontColor),
                             focusedBorder: OutlineInputBorder(

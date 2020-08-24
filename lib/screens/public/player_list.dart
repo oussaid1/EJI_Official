@@ -1,6 +1,7 @@
 import 'package:EJI/model/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
+import 'package:EJI/screens/admin_access/build_squad.dart';
 import 'package:EJI/screens/public/player_details.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,16 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondaryColor,
+        appBar: AppBar(actions: [
+          IconButton(
+              icon: Icon(Icons.build),
+              onPressed: () {
+                Get.off(BuildSquad(
+                  players: lista,
+                ));
+              }),
+        ]),
+        backgroundColor: secondaryColor,
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: c.isAdmin.value
             ? Padding(
@@ -52,11 +62,11 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
         body: Stack(
           fit: StackFit.expand,
           children: [
-            new Image.asset('assets/images/login.png',fit:BoxFit.fill),
+            new Image.asset('assets/images/login.png', fit: BoxFit.fill),
             StreamBuilder(
                 stream: c.getPlayerz('players'),
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Player>> snapshot) {
                   if (snapshot.hasError || !snapshot.hasData) {
                     return Center(
                         child: Icon(
@@ -106,11 +116,12 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
                                         width: 54,
                                         decoration: BoxDecoration(
                                           border: Border.all(),
-                                          borderRadius:BorderRadius.circular(8),
-                                          
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                         child: CachedNetworkImage(
-                                          imageUrl: snapshotImage.data, fit: BoxFit.fill,
+                                          imageUrl: snapshotImage.data,
+                                          fit: BoxFit.fill,
                                           placeholder: (context, url) =>
                                               new Image.asset(
                                             'assets/images/logo.png',
@@ -127,15 +138,24 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
                           ),
                           title: new Text(
                             '${player.playerName}',
-                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: fontColor),
                           ),
                           trailing: new Text(
                             '${player.position}',
-                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: fontColor),
                           ),
                           subtitle: new Text(
                             '${player.dateOfBirth}',
-                            style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w200,
+                                color: fontColor),
                           ),
                           onTap: () {
                             Player player = snapshot.data[index];

@@ -6,10 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-void main() async {
+import 'screens/admin_access/home_screen.dart';
+
+void main() async { 
   await GetStorage.init();
   runApp(MyApp());
-}
+} 
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           accentColor: accentColor,
-          fontFamily: 'Couriernew',
+          fontFamily: 'Almarai',
           appBarTheme: AppBarTheme(
               color: primaryColor,
               iconTheme: IconThemeData(color: secondaryColor)),
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
       home: SplashPage(),
       initialRoute: '/splash',
       getPages: [
-        GetPage(name: '/splash', page: () => new SplashPage()),
+        GetPage(name: '/splash', page: () => new HomePage()),
       ],
       // GetPage with custom transitions and bindings
     );

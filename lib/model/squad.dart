@@ -1,4 +1,5 @@
 import 'package:EJI/model/player.dart';
+import 'package:EJI/settings/params.dart';
 
 class Squad {
   String id;
@@ -17,19 +18,34 @@ class Squad {
   Player pSS;
   Player pCF;
 
-  Squad.main433({List<Player> list11Players}) {
+  int toRemove = 0;
+  Player getPlayerX(List<Player> l, String a) {
+    int p = 0;
 
-    this.pCF = list11Players[0];
-    this.pCB5 = list11Players[1];
-    this.pCB4 = list11Players[2];
-    this.pRB = list11Players[3];
-    this.pLB = list11Players[4];
-    this.pCMF = list11Players[5];
-    this.pRMF = list11Players[6];
-    this.pLMF = list11Players[7];
-    this.pLWF = list11Players[8];
-    this.pRWF = list11Players[9];
-    
+    if (l.indexWhere((us) => positions[us.position].startsWith(a.trim(), 0)) >
+        0) {
+      p = l.indexWhere((us) => positions[us.position].startsWith(a.trim(), 0));
+      toRemove = p;
+      return l[p];
+    } else {
+      return new Player.dummy();
+    }
+  }
+
+  Squad.main433({List<Player> list11Players}) {
+    this.pGK = getPlayerX(list11Players, 'a');
+    this.pCB5 = getPlayerX(list11Players, 'd');
+    list11Players.removeAt(toRemove);
+    this.pCB4 = getPlayerX(list11Players, 'd');
+    this.pRB = getPlayerX(list11Players, 'b');
+    this.pLB = getPlayerX(list11Players, 'c');
+    this.pCMF = getPlayerX(list11Players, 'h');
+    this.pRMF = getPlayerX(list11Players, 'i');
+    this.pLMF = getPlayerX(list11Players, 'g');
+    this.pLWF = getPlayerX(list11Players, 'j');
+    this.pRWF = getPlayerX(list11Players, 'l');
+    this.pCF = getPlayerX(list11Players, 'm');
+    print(this.pRB.toMap());
   }
 
   Squad.main4123({

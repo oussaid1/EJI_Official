@@ -16,9 +16,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Timer(Duration(seconds: 4), () {
-      Get.to(LoginScreen());
-    });
+   // Timer(Duration(seconds: 4), () {  Get.to(LoginScreen());  });
     super.initState();
   }
 

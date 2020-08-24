@@ -16,11 +16,33 @@ class Player {
   int availability;
   int oVR;
   bool rateable;
- bool isGK;
+  bool isGK;
   getoVR() {
     return trainingScore + desciplineScore + positionMaster + availability;
   }
 
+  Player.dummy() {
+ this.id='111111';
+    this.playerName='Player JK';
+    this.dateOfBirth='02-02-1990';
+    this.profileImage='assets/images/logo.png';
+    this.email='player.X@gmail.com';
+    this.phone='0611111111';
+    this.position='JK';
+    this.regNum=123456789;
+    this.regDate='02-02-2020';
+    this.seasons=2;
+    this.placeOfBirth='Idawlstane';
+    this.desciplineScore=4;
+    this.positionMaster=4;
+    this.availability=4;
+    this.oVR=12;
+    this.trainingScore=4;
+    this.rateable=true;
+    this.isGK=false;
+
+
+  }
   Player({
     this.id,
     this.playerName,

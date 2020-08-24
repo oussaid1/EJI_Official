@@ -8,6 +8,11 @@ class VariablesControler extends GetxController {
   RxInt matchdayAwayRedC = 0.obs;
   RxInt matchdayHomeYellC = 0.obs;
   RxInt matchdayAwayYellC = 0.obs;
+  //***************************************** */
+  RxDouble botGk=50.0.obs;
+  RxDouble lefGk=50.0.obs;
+  RxDouble botGkPos=50.0.obs;
+  RxDouble lefGkPos=50.0.obs;
   List<Player> selectedPlayers ;
 
 
@@ -47,4 +52,9 @@ removeFromList(Player player){
   deccrementRedCAway() {
     if (matchdayAwayRedC.value > 0) matchdayAwayRedC.value--;
   }
+
+
+
+
+
 }

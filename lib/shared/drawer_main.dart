@@ -1,4 +1,5 @@
 import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/screens/admin_access/build_squad.dart';
 import 'package:EJI/screens/admin_access/home_screen.dart';
 import 'package:EJI/screens/admin_access/picture_archive_list.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
@@ -111,6 +112,12 @@ class _MyDrawerState extends State<MyDrawer> {
                 leading: Icon(Icons.people),
                 title: Text('PlayersList'.tr),
                 onTap: () => Get.to(PlayersList()),
+              ),
+              ListTile(
+                subtitle: Text('buildSquad'),
+                leading: Icon(Icons.crop_square),
+                title: Text('buildSquad'),
+                onTap: () => Get.to(BuildSquad	()),
               ),
               ListTile(
                   leading: Icon(FontAwesomeIcons.levelUpAlt),

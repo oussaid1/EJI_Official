@@ -24,8 +24,8 @@ class _SquadPlayerState extends State<SquadPlayer> {
           color: secondaryColor,
           borderRadius: BorderRadius.circular(12),
         ),
-        height: 90,
-        width: 64,
+        height: 80,
+        width: 60,
         child: widget.squadPlayer != null
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,25 +37,25 @@ class _SquadPlayerState extends State<SquadPlayer> {
                       builder: (context, snapshot) {
                         if (!snapshot.hasData || snapshot.hasError) {
                           return Image.asset('assets/images/logo.png',
-                              height: 40, width: 40, fit: BoxFit.fill);
+                              height: 30, width: 30, fit: BoxFit.fill);
                         } else
                           return ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Container(
-                              height: 40,
-                              width: 40,
+                              height: 30,
+                              width: 30,
                               child: CachedNetworkImage(
                                 imageUrl: snapshot.data,
                                 fit: BoxFit.fill,
                                 placeholder: (context, url) => Image.asset(
                                     'assets/images/logo.png',
-                                    height: 40,
-                                    width: 40,
+                                    height: 30,
+                                    width: 30,
                                     fit: BoxFit.fill),
                                 errorWidget: (context, url, error) =>
                                     Image.asset('assets/images/logo.png',
-                                        height: 40,
-                                        width: 40,
+                                        height: 30,
+                                        width: 30,
                                         fit: BoxFit.fill),
                               ),
                             ),
@@ -91,30 +91,30 @@ class _SquadPlayerState extends State<SquadPlayer> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Container(
-                      height: 40,
-                      width: 40,
+                      height: 30,
+                      width: 30,
                       child: Image.asset('assets/images/logo.png',
-                          height: 40, width: 40, fit: BoxFit.fill),
+                          height: 30, width: 30, fit: BoxFit.fill),
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        '${widget.squadPlayer.position.toString()}',
+                        'GK',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
                             color: primaryColor),
                       ),
                       Text(
-                        '${widget.squadPlayer.oVR.toString()}',
+                        '45',
                         style: TextStyle(fontSize: 22, color: accentColor),
                       ),
                     ],
                   ),
                   Text(
-                    '${widget.squadPlayer.playerName.toString()}',
+                    'Player X',
                     style: TextStyle(fontSize: 12, color: fontColor),
                     maxLines: 1,
                   ),
