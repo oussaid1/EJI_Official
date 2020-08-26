@@ -1,5 +1,5 @@
 name: EJI
-description: A new Flutter project.
+description: EJI Official Project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.2.2+27
+version: 2.2.3+28
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -24,31 +24,33 @@ dependencies:
   flutter:
     sdk: flutter
 
-  percent_indicator: ^2.1.5
-  flutter_slidable: null
+  percent_indicator: 
+  flutter_slidable: 
   esys_flutter_share:
   flutter_timeline:
-  splashscreen: ^1.2.0
-  firebase_storage: any
-  image_picker: ^0.6.7+4
-  firebase_analytics: null
-  font_awesome_flutter: null
-  cloud_firestore: any
+  splashscreen: 
+  firebase_storage: 
+  image_picker: 
+  firebase_analytics: 
+  font_awesome_flutter:
+  cloud_firestore: 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
-  firebase: ^7.3.0
-  path: null
-  image_cropper: ^1.2.3
-  get: ^3.4.2
-  get_storage: ^1.2.1
-  characters: ^1.0.0
-  flutter_plugin_pdf_viewer: ^1.0.7
-  flutter_rating_bar: ^3.0.1+1
-  firebase_admob: ^0.9.3+4
-  firebase_auth: ^0.16.1
-  audioplayers: ^0.15.1
-  cached_network_image: null
+  cupertino_icons:
+  firebase: 
+  path: 
+  image_cropper: 
+  get: 
+  get_storage: 
+  characters:
+  flutter_plugin_pdf_viewer: 
+  flutter_rating_bar: 
+  firebase_admob: 
+  firebase_auth: 
+  audioplayers: 
+  cached_network_image:
+  flutter_swiper : 
+  charts_flutter:
  
 
 dev_dependencies:

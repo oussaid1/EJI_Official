@@ -1,4 +1,4 @@
-import 'package:EJI/model/matchday.dart';
+import 'package:EJI/models/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/common/team_home.dart';
@@ -69,7 +69,9 @@ class _AddMatchsState extends State<AddMatch> {
 
     for (int i = 0; i < itemsList.length; i++) {
       genderList.add(new DropdownMenuItem(
-        child: new Text(itemsList[i], style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
+        child: new Text(itemsList[i],
+            style: TextStyle(
+                fontSize: 26, fontWeight: FontWeight.w600, color: fontColor)),
         value: i,
       ));
     }
@@ -92,9 +94,10 @@ class _AddMatchsState extends State<AddMatch> {
         matchdayAwayYellC: xc.matchdayAwayYellC.value);
     await cD.addMatch(matchDay);
   }
+
   _updateInDb(BuildContext context) async {
     MatchDay matchDay = new MatchDay(
-      id: widget.matchDay.id,
+        id: widget.matchDay.id,
         matchdayDate: matchdateController.text.trim().toString(),
         matchdayType: _matchdayType,
         matchdayReferee: refereeController.text.trim().toString(),
@@ -114,7 +117,8 @@ class _AddMatchsState extends State<AddMatch> {
       readOnly: true,
       controller: matchdateController,
       cursorColor: Colors.white,
-      style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+      style: TextStyle(
+          fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
       decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: Icon(
@@ -138,7 +142,8 @@ class _AddMatchsState extends State<AddMatch> {
                 color: secondaryColor, style: BorderStyle.solid, width: 1),
           ),
           labelText: 'MacthDate'.tr,
-          labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+          labelStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
       validator: (value) {
         if (value.length == 0) {
           return 'selectMacthDate'.tr;
@@ -158,7 +163,10 @@ class _AddMatchsState extends State<AddMatch> {
               padding: const EdgeInsets.all(4.0),
               child: Text(
                 'MatchType'.tr,
-                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: fontColor),
               ),
             )),
             Expanded(
@@ -172,7 +180,10 @@ class _AddMatchsState extends State<AddMatch> {
                       value: _selectedGender,
                       items: genderList,
                       dropdownColor: primaryColor,
-                      style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+                      style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w600,
+                          color: fontColor),
                       onChanged: (dynamic value) {
                         setState(() {
                           _selectedGender = value;
@@ -194,7 +205,8 @@ class _AddMatchsState extends State<AddMatch> {
       child: new TextFormField(
         controller: hometeamController,
         cursorColor: Colors.white,
-        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+        style: TextStyle(
+            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.home, color: secondaryColor),
             suffixIcon: IconButton(
@@ -219,7 +231,8 @@ class _AddMatchsState extends State<AddMatch> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'HomeTeam'.tr,
-            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+            labelStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'insertHomeTeam'.tr;
@@ -264,7 +277,10 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayHomeScore.value.toString()}',
-                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -316,7 +332,10 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayHomeYellC.value.toString()}',
-                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -368,7 +387,10 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayHomeRedC.value.toString()}',
-                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -393,7 +415,8 @@ class _AddMatchsState extends State<AddMatch> {
         controller: awayteamController,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
-        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+        style: TextStyle(
+            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
         decoration: InputDecoration(
             prefixIcon:
                 Icon(FontAwesomeIcons.arrowRight, color: secondaryColor),
@@ -420,7 +443,8 @@ class _AddMatchsState extends State<AddMatch> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'AwayTeam'.tr,
-            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+            labelStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'insertAwayTeam'.tr;
@@ -465,7 +489,10 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayAwayScore.value.toString()}',
-                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -517,7 +544,10 @@ class _AddMatchsState extends State<AddMatch> {
                   },
                 ),
                 Obx(() => Text('${xc.matchdayAwayYellC.value.toString()}',
-                    style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: fontColor))),
                 IconButton(
                   icon: Icon(
                     Icons.arrow_drop_up,
@@ -570,7 +600,10 @@ class _AddMatchsState extends State<AddMatch> {
                     },
                   ),
                   Obx(() => Text('${xc.matchdayAwayRedC.value.toString()}',
-                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor))),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: fontColor))),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -595,7 +628,8 @@ class _AddMatchsState extends State<AddMatch> {
         controller: refereeController,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
-        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+        style: TextStyle(
+            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
         decoration: InputDecoration(
             prefixIcon:
                 Icon(FontAwesomeIcons.arrowRight, color: secondaryColor),
@@ -622,7 +656,8 @@ class _AddMatchsState extends State<AddMatch> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'RefereeName'.tr,
-            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+            labelStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'insertRefereeName'.tr;
@@ -632,65 +667,63 @@ class _AddMatchsState extends State<AddMatch> {
       ),
     );
   }
-int _switchMatchType(String string){
-  
 
-switch (string) {
+  int _switchMatchType(String string) {
+    switch (string) {
+      case 'Friendly':
+        return 0;
+        break;
+      case 'Competetion':
+        return 1;
+        break;
+      case 'Qualifications':
+        return 2;
+        break;
+      case 'Training':
+        return 3;
+        break;
+      case 'Schedueled':
+        return 4;
+        break;
 
-  case 'Friendly':
-    return 0;
-    break;
-  case 'Competetion':
-    return 1;
-    break;
-  case 'Qualifications':
-    return 2;
-    break;
-  case 'Training':
-    return 3;
-    break;
-  case 'Schedueled':
-    return 4;
-    break;
+      case 'مباراة ودية':
+        return 0;
+        break;
+      case 'مباراة منافسة':
+        return 1;
+        break;
+      case 'مباراة اقصائية':
+        return 2;
+        break;
+      case 'مباراة تدريبية':
+        return 3;
+        break;
+      case 'مباراة مبرمجة':
+        return 4;
+        break;
 
-  case 'مباراة ودية':
-    return 0;
-    break;
-  case 'مباراة منافسة':
-    return 1;
-    break;
-  case'مباراة اقصائية':
-    return 2;
-    break;
-  case'مباراة تدريبية':
-    return 3;
-    break;
-  case 'مباراة مبرمجة':
-    return 4;
-    break;
- 
-  default:return 0;
-}
+      default:
+        return 0;
+    }
+  }
 
-}
   @override
   void initState() {
     _loadGenderList();
     if (widget.matchDay != null) {
-
       id = widget.matchDayIndex;
-      _selectedGender=_switchMatchType(widget.matchDay.matchdayType.trim().toString());
+      _selectedGender =
+          _switchMatchType(widget.matchDay.matchdayType.trim().toString());
       matchdateController.text = widget.matchDay.matchdayDate.toString();
       hometeamController.text = widget.matchDay.matchdayHome.toString();
       awayteamController.text = widget.matchDay.matchdayAway.toString();
       refereeController.text = widget.matchDay.matchdayReferee.toString();
       xc.matchdayHomeScore.value = widget.matchDay.matchdayHomeScore;
-      xc.matchdayHomeYellC.value =  widget.matchDay.matchdayHomeYellC;
-      xc.matchdayHomeRedC.value =  widget.matchDay.matchdayHomeRedC;
+      xc.matchdayHomeYellC.value = widget.matchDay.matchdayHomeYellC;
+      xc.matchdayHomeRedC.value = widget.matchDay.matchdayHomeRedC;
       xc.matchdayAwayScore.value = widget.matchDay.matchdayAwayScore;
-      xc.matchdayAwayYellC.value =  widget.matchDay.matchdayAwayYellC;
-      xc.matchdayAwayRedC.value =  widget.matchDay.matchdayAwayRedC;
-
+      xc.matchdayAwayYellC.value = widget.matchDay.matchdayAwayYellC;
+      xc.matchdayAwayRedC.value = widget.matchDay.matchdayAwayRedC;
     }
     super.initState();
   }
@@ -703,7 +736,7 @@ switch (string) {
       body: Stack(
         fit: StackFit.expand,
         children: [
-           new Image.asset('assets/images/login.png',fit:BoxFit.fill),
+          new Image.asset('assets/images/login.png', fit: BoxFit.fill),
           Column(
             children: <Widget>[
               Expanded(
@@ -759,11 +792,15 @@ switch (string) {
                             padding: const EdgeInsets.all(8.0),
                             child: RaisedButton(
                               shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(10.0)),
+                                  borderRadius:
+                                      new BorderRadius.circular(10.0)),
                               color: secondaryColor,
                               child: Text(
                                 'Submit'.tr,
-                                style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: primaryColor),
+                                style: TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w600,
+                                    color: primaryColor),
                               ),
                               onPressed: () {
                                 if (!_formKeyX.currentState.validate()) {
@@ -783,7 +820,8 @@ switch (string) {
                                     onCancel: () {},
                                   );
                                 } else {
-                                  Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
+                                  Get.snackbar(
+                                      'Alert'.tr, 'SomethingMissing'.tr,
                                       backgroundColor: secondaryColor,
                                       colorText: primaryColor);
                                 }
@@ -797,8 +835,8 @@ switch (string) {
                                 color: secondaryColor,
                                 child: Text(
                                   "Update".tr,
-                                  style:
-                                      TextStyle(color: primaryColor, fontSize: 16),
+                                  style: TextStyle(
+                                      color: primaryColor, fontSize: 16),
                                 ),
                                 onPressed: () {
                                   if (!_formKeyX.currentState.validate()) {
@@ -810,7 +848,7 @@ switch (string) {
                                     Get.defaultDialog(
                                       middleText: 'confirmSave'.tr,
                                       onConfirm: () {
-                                       _updateInDb(context);
+                                        _updateInDb(context);
                                         _flushAll();
                                         Navigator.pop(context, false);
                                         Get.to(TeamHomePage());
@@ -818,7 +856,8 @@ switch (string) {
                                       onCancel: () {},
                                     );
                                   } else {
-                                    Get.snackbar('Alert'.tr, 'SomethingMissing'.tr,
+                                    Get.snackbar(
+                                        'Alert'.tr, 'SomethingMissing'.tr,
                                         backgroundColor: secondaryColor,
                                         colorText: primaryColor);
                                   }
@@ -828,8 +867,8 @@ switch (string) {
                                 color: secondaryColor,
                                 child: Text(
                                   "Cancel".tr,
-                                  style:
-                                      TextStyle(color: primaryColor, fontSize: 16),
+                                  style: TextStyle(
+                                      color: primaryColor, fontSize: 16),
                                 ),
                                 onPressed: () => Navigator.pop(context),
                               ),

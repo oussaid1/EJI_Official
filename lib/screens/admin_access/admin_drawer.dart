@@ -1,20 +1,20 @@
-import 'package:EJI/model/club_expenses.dart';
 // ignore: unused_import
-import 'package:EJI/model/player.dart';
+import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
-import 'package:EJI/screens/admin_access/picture_archive_list.dart';
+import 'package:EJI/screens/common/picture_archive_list.dart';
+import 'package:EJI/screens/formations/squad_managment.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
 import 'package:EJI/screens/common/player_ranking.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
-import 'package:EJI/screens/admin_access/home_screen.dart';
+import 'package:EJI/screens/squad/offensive_formation.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
-import 'package:EJI/screens/public/ahdath_screen.dart';
+import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,17 +61,25 @@ class _AdminDrawerState extends State<AdminDrawer> {
                         return Text("EJI Idawlstane");
                       } else
                         clubSpendings = snapshot.data;
-                      d = cD.setBudget(ClubSpendings.getSpendings(clubSpendings));
-                      return Text("EJI Idawlstane",style: TextStyle(color:fontColor),);
+                      d = cD
+                          .setBudget(ClubSpendings.getSpendings(clubSpendings));
+                      return Text(
+                        "EJI Idawlstane",
+                        style: TextStyle(color: fontColor),
+                      );
                     }),
                 accountEmail: StreamBuilder(
                     stream: cD.getClubIncomes('ClubIncome'),
-                    builder: (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
+                    builder:
+                        (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
                       if (!snapshot.hasData || snapshot.hasError) {
                         return Text(
                           'EJIBudget'.tr + 'DH ' + '-- ',
                           textDirection: TextDirection.rtl,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: accentColor),
                         );
                       } else
                         clubIncome = snapshot.data;
@@ -80,12 +88,14 @@ class _AdminDrawerState extends State<AdminDrawer> {
                       return Text(
                         'EJIBudget'.tr + 'DH ' '${(c - d).toString()} ',
                         textDirection: TextDirection.rtl,
-                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: accentColor),
                       );
                     }),
                 currentAccountPicture: CircleAvatar(
-                  backgroundColor:
-                     secondaryColor,
+                  backgroundColor: secondaryColor,
                   child: Image.asset(
                     'assets/images/logo.png',
                     fit: BoxFit.fill,
@@ -106,9 +116,13 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 leading: Icon(FontAwesomeIcons.list),
                 subtitle: Text('teamManagersub'.tr),
                 title: Text('teamManager'.tr),
-                onTap: () {
-                  Get.to(HomePage());
-                },
+                onTap: () {},
+              ),
+              ListTile(
+                subtitle: Text('buildSquad'),
+                leading: Icon(Icons.crop_square),
+                title: Text('buildSquad'),
+                onTap: () => Get.to(SquadManagmentTab()),
               ),
               ListTile(
                 leading: Icon(Icons.people),

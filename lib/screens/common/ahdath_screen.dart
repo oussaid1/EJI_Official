@@ -1,8 +1,7 @@
-import 'package:EJI/model/ahdath_events.dart';
+import 'package:EJI/models/ahdath_events.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_timeline/defaults.dart';
 import 'package:flutter_timeline/event_item.dart';
 import 'package:flutter_timeline/timeline.dart';
 import 'package:flutter_timeline/timeline_theme.dart';
@@ -73,12 +72,21 @@ class _AhdathState extends State<AhdathScreen> {
                     0,
                     TimelineEventDisplay(
                         child: TimelineEventCard(
-                          title: Text("${listano[i].title}",style:TextStyle(color: Colors.black,fontSize:20),),
+                          title: Text(
+                            "${listano[i].title}",
+                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          ),
                           content: Column(
                             children: [
-                               Text("${listano[i].description}",maxLines: 10,),
-                              Text("${listano[i].status}",style: TextStyle(color: Colors.red[300],fontSize:14),),
-                             
+                              Text(
+                                "${listano[i].description}",
+                                maxLines: 10,
+                              ),
+                              Text(
+                                "${listano[i].status}",
+                                style: TextStyle(
+                                    color: Colors.red[300], fontSize: 14),
+                              ),
                             ],
                           ),
                         ),
@@ -88,7 +96,6 @@ class _AhdathState extends State<AhdathScreen> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
                               color: primaryColor),
-                          
                         )));
               }
               return ListView(

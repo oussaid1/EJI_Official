@@ -1,4 +1,4 @@
-import 'package:EJI/model/staff.dart';
+import 'package:EJI/models/staff.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
@@ -20,7 +20,6 @@ class StaffPage extends StatelessWidget {
           color: primaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
-     
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -34,7 +33,7 @@ class StaffPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right:20),
+                padding: const EdgeInsets.only(right: 20),
                 child: new Text(
                   'عبد اللطيف أوسعيد',
                   textDirection: TextDirection.rtl,
@@ -74,7 +73,7 @@ class StaffPage extends StatelessWidget {
             textDirection: TextDirection.rtl,
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w600, color: orange),
-          ), 
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -136,7 +135,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                   'محمد أوسعيد',
+                      'محمد أوسعيد',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -177,7 +176,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                     'عبد الرحيم ندحم',
+                      'عبد الرحيم ندحم',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -198,7 +197,6 @@ class StaffPage extends StatelessWidget {
               ),
             ],
           ),
-        
         ],
       ),
     );
@@ -218,7 +216,7 @@ class StaffPage extends StatelessWidget {
             textDirection: TextDirection.rtl,
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w600, color: orange),
-          ), 
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -228,7 +226,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                     'المستشار القانوني',
+                      'المستشار القانوني',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -239,7 +237,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                     'الحسن إدسعيد أوبلا',
+                      'الحسن إدسعيد أوبلا',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -280,7 +278,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                  'رشيد بن شعيب',
+                      'رشيد بن شعيب',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -321,7 +319,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                     'لحسن إدسعيد أوبلا',
+                      'لحسن إدسعيد أوبلا',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -351,7 +349,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                     'المستشار 3',
+                      'المستشار 3',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -362,7 +360,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                     'لحسن فقير',
+                      'لحسن فقير',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -402,7 +400,7 @@ class StaffPage extends StatelessWidget {
             textDirection: TextDirection.rtl,
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w600, color: orange),
-          ), 
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -464,7 +462,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                   '  إبراهيم أيت شعيب',
+                      '  إبراهيم أيت شعيب',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -505,7 +503,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                     'عبد الله فقير',
+                      'عبد الله فقير',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -535,7 +533,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: new Text(
-                     'نائب الكاتب و المنسق ',
+                      'نائب الكاتب و المنسق ',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -546,7 +544,7 @@ class StaffPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 100),
                     child: new Text(
-                     'إبراهيم اعباش',
+                      'إبراهيم اعباش',
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 20,
@@ -598,7 +596,10 @@ class StaffPage extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-         
+          new Image.asset(
+            'assets/images/login.png',
+            fit: BoxFit.fill,
+          ),
           Center(
             child: ListView(
               children: <Widget>[

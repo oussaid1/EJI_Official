@@ -6,12 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'screens/admin_access/home_screen.dart';
+import 'screens/squad/squad_managment.dart';
 
-void main() async { 
+void main() async {
   await GetStorage.init();
   runApp(MyApp());
-} 
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       color: primaryColor,
-      
+
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           accentColor: accentColor,
@@ -29,13 +29,13 @@ class MyApp extends StatelessWidget {
               iconTheme: IconThemeData(color: secondaryColor)),
           iconTheme: IconThemeData(color: accentColor),
           primaryColor: primaryColor,
-          cardColor:secondaryColor),
+          cardColor: secondaryColor),
       translations: MyTranslations(),
       locale: Locale('ar'),
       home: SplashPage(),
       initialRoute: '/splash',
       getPages: [
-        GetPage(name: '/splash', page: () => new HomePage()),
+        GetPage(name: '/splash', page: () => new SquadManagmentTab()),
       ],
       // GetPage with custom transitions and bindings
     );

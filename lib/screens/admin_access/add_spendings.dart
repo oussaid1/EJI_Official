@@ -1,4 +1,4 @@
-import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +69,8 @@ class _AddSpendingsState extends State<AddSpendings> {
     return SizedBox(
       width: 300,
       child: TextFormField(
-        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+        style: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
@@ -88,9 +89,11 @@ class _AddSpendingsState extends State<AddSpendings> {
             fillColor: primaryColor,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+            labelStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
             focusColor: accentColor,
-            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+            hintStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
@@ -112,15 +115,18 @@ class _AddSpendingsState extends State<AddSpendings> {
       child: TextFormField(
         readOnly: true,
         controller: spentOnDateController,
-        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+        style: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           fillColor: primaryColor,
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+          labelStyle: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
           focusColor: accentColor,
-          hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+          hintStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
@@ -154,7 +160,8 @@ class _AddSpendingsState extends State<AddSpendings> {
     return SizedBox(
       width: 300,
       child: TextFormField(
-        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+        style: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
@@ -173,9 +180,11 @@ class _AddSpendingsState extends State<AddSpendings> {
             fillColor: primaryColor,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+            labelStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
             focusColor: accentColor,
-            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+            hintStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
@@ -197,7 +206,8 @@ class _AddSpendingsState extends State<AddSpendings> {
       child: TextFormField(
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+        style: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         validator: (text) {
           if (text.isEmpty) {
             return ('inserAmountSpentiMad'.tr);
@@ -216,9 +226,11 @@ class _AddSpendingsState extends State<AddSpendings> {
             ),
             hintText: ('inserAmountSpentiMad'.tr),
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+            labelStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
             focusColor: accentColor,
-            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+            hintStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
@@ -284,19 +296,21 @@ class _AddSpendingsState extends State<AddSpendings> {
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(color: primaryColor)),
                       color: secondaryColor,
-                      child: Text('Send'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
+                      child: Text('Send'.tr,
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: fontColor)),
                       onPressed: () {
                         if (_commentformKey.currentState.validate()) {
                           _saveToCloud();
                           _flushAll();
                           Get.snackbar('Succsess'.tr, 'Saved'.tr,
                               snackPosition: SnackPosition.BOTTOM);
-                        }else {
-
-                           Get.snackbar('Error'.tr, 'notsaved'.tr,
-                            snackPosition: SnackPosition.BOTTOM);
+                        } else {
+                          Get.snackbar('Error'.tr, 'notsaved'.tr,
+                              snackPosition: SnackPosition.BOTTOM);
                         }
-                       
                       },
                     ),
                   )
@@ -314,7 +328,11 @@ class _AddSpendingsState extends State<AddSpendings> {
                                 borderRadius: BorderRadius.circular(12),
                                 side: BorderSide(color: primaryColor)),
                             color: secondaryColor,
-                            child: Text('Update'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
+                            child: Text('Update'.tr,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: fontColor)),
                             onPressed: () {
                               if (_commentformKey.currentState.validate()) {
                                 Get.defaultDialog(
@@ -334,8 +352,7 @@ class _AddSpendingsState extends State<AddSpendings> {
                                     },
                                   ),
                                 );
-                               
-                             
+
                                 Get.snackbar('Succsess'.tr, 'Saved'.tr,
                                     snackPosition: SnackPosition.BOTTOM);
                               } else {
@@ -355,7 +372,11 @@ class _AddSpendingsState extends State<AddSpendings> {
                                 borderRadius: BorderRadius.circular(12),
                                 side: BorderSide(color: primaryColor)),
                             color: secondaryColor,
-                            child: Text('Delete'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
+                            child: Text('Delete'.tr,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: fontColor)),
                             onPressed: () {
                               Get.defaultDialog(
                                 title: 'SperAdmin'.tr,
@@ -375,7 +396,6 @@ class _AddSpendingsState extends State<AddSpendings> {
                                   },
                                 ),
                               );
-                          
                             }),
                       ),
                     ],

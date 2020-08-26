@@ -1,4 +1,4 @@
-import 'package:EJI/model/matchday.dart';
+import 'package:EJI/models/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
@@ -46,7 +46,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
             child: Text('${matchDay.matchdayHome.toString()}',
-                textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor)),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: accentColor)),
           ),
           SizedBox(
             height: 20,
@@ -73,7 +77,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayHomeScore.toString()}',
-                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: fontColor)),
                   ),
                 ),
               ],
@@ -101,7 +109,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayHomeYellC.toString()}',
-                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: fontColor)),
                   ),
                 ),
               ],
@@ -129,7 +141,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayHomeRedC.toString()}',
-                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: fontColor)),
                   ),
                 ),
               ],
@@ -159,7 +175,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
             child: Text('${matchDay.matchdayAway.toString()}',
-                textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor)),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: accentColor)),
           ),
           SizedBox(
             height: 20,
@@ -186,7 +206,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayAwayScore.toString()}',
-                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: fontColor)),
                   ),
                 ),
               ],
@@ -214,7 +238,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayAwayYellC.toString()}',
-                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: fontColor)),
                   ),
                 ),
               ],
@@ -242,7 +270,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text('${matchDay.matchdayAwayRedC.toString()}',
-                        textAlign: TextAlign.center, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: fontColor)),
                   ),
                 ),
               ],
@@ -283,26 +315,35 @@ class _MatchDetailsState extends State<MatchDetails> {
                               Text(
                                   'MatchDay'.tr +
                                       '${matchDay.matchdayDate.toString()}',
-                                  style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
+                                  style: TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w600,
+                                      color: fontColor)),
                             ],
                           ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
                                 '${matchDay.matchdayType.toString()}',
-                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: fontColor),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Text('MatchType'.tr,
-                                  textAlign: TextAlign.center, style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w200,
+                                      color: fontColor)),
                             ),
                           ],
                         ),
@@ -321,17 +362,22 @@ class _MatchDetailsState extends State<MatchDetails> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                               Text(
+                              Text(
                                 '  ${matchDay.matchdayReferee.toString()}',
-                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: fontColor),
                                 textAlign: TextAlign.center,
                               ),
                               Text(
                                 'MatchRef'.tr,
-                                style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w200,
+                                    color: fontColor),
                                 textAlign: TextAlign.center,
                               ),
-                             
                             ],
                           ),
                         ),

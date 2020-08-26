@@ -1,19 +1,19 @@
-import 'package:EJI/model/player.dart';
+import 'package:EJI/models/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/public/player_details.dart';
+import 'package:EJI/screens/common/player_details.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class JuniorPlayerList extends StatefulWidget {
-   JuniorPlayerList({Key key}) : super(key: key);
+  JuniorPlayerList({Key key}) : super(key: key);
 
   @override
   _JuniorListPageState createState() => _JuniorListPageState();
 }
 
-class _JuniorListPageState extends State< JuniorPlayerList> {
+class _JuniorListPageState extends State<JuniorPlayerList> {
   final String image = "players/profileImages/logo.png";
   List<JuniorPlayer> lista;
 
@@ -21,15 +21,15 @@ class _JuniorListPageState extends State< JuniorPlayerList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondaryColor, 
+        backgroundColor: secondaryColor,
         body: Stack(
           fit: StackFit.expand,
           children: [
-             new Image.asset('assets/images/login.png',fit:BoxFit.fill),
+            new Image.asset('assets/images/login.png', fit: BoxFit.fill),
             StreamBuilder(
                 stream: c.getJuniorPlayers('Juniors'),
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<JuniorPlayer>> snapshot) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<JuniorPlayer>> snapshot) {
                   if (snapshot.hasError || !snapshot.hasData) {
                     return Center(
                         child: Icon(
@@ -62,25 +62,24 @@ class _JuniorListPageState extends State< JuniorPlayerList> {
                                   shape: BoxShape.circle,
                                   border: Border.all(color: secondaryColor),
                                 ),
-                                child:  new FutureBuilder<String>(
-                                  future: c.getProfileImage(
-                                      context, juniorplayer.profileImage.toString()),
+                                child: new FutureBuilder<String>(
+                                  future: c.getProfileImage(context,
+                                      juniorplayer.profileImage.toString()),
                                   builder: (context, snapshot) {
-                               
                                     return CircleAvatar(
                                       radius: 80,
                                       backgroundColor: secondaryColor,
-                                      child:  new ClipOval(
-                                        child:
-                                            (snapshot == null || !snapshot.hasData)
-                                                ?  new Image.asset(
-                                                    'assets/images/logo.png',
-                                                    fit: BoxFit.fill,
-                                                  )
-                                                :  new Image.network(
-                                                    snapshot.data.toString(),
-                                                    fit: BoxFit.fill,
-                                                  ),
+                                      child: new ClipOval(
+                                        child: (snapshot == null ||
+                                                !snapshot.hasData)
+                                            ? new Image.asset(
+                                                'assets/images/logo.png',
+                                                fit: BoxFit.fill,
+                                              )
+                                            : new Image.network(
+                                                snapshot.data.toString(),
+                                                fit: BoxFit.fill,
+                                              ),
                                       ),
                                     );
                                   },
@@ -90,19 +89,29 @@ class _JuniorListPageState extends State< JuniorPlayerList> {
                           ),
                           title: new Text(
                             '${juniorplayer.playerName}',
-                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: fontColor),
                           ),
                           trailing: new Text(
                             '${juniorplayer.position}',
-                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: fontColor),
                           ),
                           subtitle: new Text(
                             '${juniorplayer.dateOfBirth}',
-                            style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w200,
+                                color: fontColor),
                           ),
                           onTap: () {
                             JuniorPlayer juniorplayer = snapshot.data[index];
-                            Get.to(new JuniorPlayerDetails(juniorplayer: juniorplayer));
+                            Get.to(new JuniorPlayerDetails(
+                                juniorplayer: juniorplayer));
                           },
                         ),
                       );

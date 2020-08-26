@@ -1,7 +1,8 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:EJI/model/player.dart';
+import 'package:EJI/models/player.dart';
+
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
@@ -69,7 +70,7 @@ class PlayerDetails extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-         new Image.asset('assets/images/login.png', fit: BoxFit.fill),
+          new Image.asset('assets/images/login.png', fit: BoxFit.fill),
           ListView(
             children: [
               SizedBox(
@@ -190,7 +191,9 @@ class PlayerDetails extends StatelessWidget {
                             Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0,),
+                                  padding: const EdgeInsets.only(
+                                    left: 8.0,
+                                  ),
                                   child: RatingBar(
                                       initialRating: player.seasons != null
                                           ? player.seasons < 5
@@ -213,7 +216,6 @@ class PlayerDetails extends StatelessWidget {
                                 ),
                               ],
                             ),
-                           
                           ],
                         ),
                         Positioned(
@@ -348,9 +350,10 @@ class JuniorPlayerDetails extends StatelessWidget {
   JuniorPlayerDetails({Key key, @required this.juniorplayer});
 
   final CloudDatabase cD = Get.put(CloudDatabase());
-var juniorKey = new GlobalKey();
+  var juniorKey = new GlobalKey();
   _takeScreenShot() async {
-    RenderRepaintBoundary boundary = juniorKey.currentContext.findRenderObject();
+    RenderRepaintBoundary boundary =
+        juniorKey.currentContext.findRenderObject();
     var image = await boundary.toImage();
     ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
     Uint8List pngBytes = byteData.buffer.asUint8List();
@@ -361,6 +364,7 @@ var juniorKey = new GlobalKey();
         '', 'myCard.png', byteData.buffer.asUint8List(), 'player/png',
         text: '');
   }
+
   @override
   Widget build(BuildContext context) {
     if (juniorplayer == null) {
@@ -375,12 +379,12 @@ var juniorKey = new GlobalKey();
       drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
       appBar: AppBar(
         actions: [
-           IconButton(
+          IconButton(
               icon: Icon(Icons.share),
               onPressed: () {
                 _takeScreenShot();
               }),
-               cD.isAdmin.value
+          cD.isAdmin.value
               ? IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: () {
@@ -399,11 +403,10 @@ var juniorKey = new GlobalKey();
               Center(
                 child: RepaintBoundary(
                   key: juniorKey,
-                                  child: Container(
+                  child: Container(
                     width: Get.width - 40,
                     height: Get.height / 1.2,
                     child: Card(
-                     
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -412,14 +415,15 @@ var juniorKey = new GlobalKey();
                         children: [
                           new Image.asset('assets/images/playercarddark.png',
                               fit: BoxFit.fill),
-                               Align(
+                          Align(
                             alignment: Alignment.bottomCenter,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
                                 height: 70,
                                 width: 70,
-                                child: new Image.asset('assets/images/logoW.png',
+                                child: new Image.asset(
+                                    'assets/images/logoW.png',
                                     fit: BoxFit.fill),
                               ),
                             ),
@@ -439,8 +443,10 @@ var juniorKey = new GlobalKey();
                                         border: Border.all(color: accentColor),
                                       ),
                                       child: FutureBuilder<String>(
-                                        future: cD.getProfileImage(context,
-                                            juniorplayer.profileImage.toString()),
+                                        future: cD.getProfileImage(
+                                            context,
+                                            juniorplayer.profileImage
+                                                .toString()),
                                         builder: (context, snapshot) {
                                           return Padding(
                                             padding: const EdgeInsets.all(2.0),
@@ -466,9 +472,9 @@ var juniorKey = new GlobalKey();
                                                         width: 116,
                                                         fit: BoxFit.fill,
                                                       ),
-                                                      errorWidget:
-                                                          (context, url, error) =>
-                                                              Image.asset(
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Image.asset(
                                                         'assets/images/logo.png',
                                                         fit: BoxFit.contain,
                                                         height: 116,
@@ -533,7 +539,6 @@ var juniorKey = new GlobalKey();
                                   ),
                                 ],
                               ),
-                             
                             ],
                           ),
                           Positioned(

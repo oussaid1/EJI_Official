@@ -1,8 +1,8 @@
-import 'package:EJI/model/player.dart';
+import 'package:EJI/models/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
-import 'package:EJI/screens/admin_access/build_squad.dart';
-import 'package:EJI/screens/public/player_details.dart';
+import 'package:EJI/screens/common/player_details.dart';
+import 'package:EJI/screens/squad/build_squad.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';

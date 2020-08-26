@@ -1,4 +1,4 @@
-import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_spendings.dart';
 import 'package:EJI/settings/params.dart';
@@ -52,28 +52,40 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                       DataColumn(
                         label: Text(
                           "spentOn".tr,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "spentBy".tr,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "spentOnDate".tr,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "spentAmount".tr,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                         numeric: false,
                       ),
@@ -110,15 +122,20 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                       
                         Text(
                           '${ClubSpendings.getSpendings(clubSpendings).toString()}'
                               .tr,
-                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
-                         Text(
+                        Text(
                           'Total'.tr,
-                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                       ],
                     ),
@@ -127,24 +144,26 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
               );
             }),
       ),
-      floatingActionButton: c.isAdmin.value ?Padding(
-        padding: const EdgeInsets.only(bottom: 100),
-        child: FloatingActionButton(
-          elevation: 8,
-          onPressed: () {
-            Get.defaultDialog(
-              title: 'AddSpendings'.tr,
-              content: Expanded(child: AddSpendings()),
-            );
-          },
-          child: Icon(
-            Icons.add_shopping_cart,
-            size: 36,
-          ),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16.0))),
-        ),
-      ):null,
+      floatingActionButton: c.isAdmin.value
+          ? Padding(
+              padding: const EdgeInsets.only(bottom: 100),
+              child: FloatingActionButton(
+                elevation: 8,
+                onPressed: () {
+                  Get.defaultDialog(
+                    title: 'AddSpendings'.tr,
+                    content: Expanded(child: AddSpendings()),
+                  );
+                },
+                child: Icon(
+                  Icons.add_shopping_cart,
+                  size: 36,
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
+              ),
+            )
+          : null,
     );
   }
 }

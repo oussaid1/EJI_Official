@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:EJI/screens/common/login_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key}) : super(key: key);
@@ -16,12 +13,12 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-   // Timer(Duration(seconds: 4), () {  Get.to(LoginScreen());  });
+    // Timer(Duration(seconds: 4), () {  Get.to(LoginScreen());  });
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
       body: InkWell(
@@ -36,7 +33,6 @@ class _SplashPageState extends State<SplashPage> {
               'assets/images/ejisplash.png',
               fit: BoxFit.fill,
             ),
-            
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(

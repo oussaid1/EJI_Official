@@ -1,4 +1,4 @@
-import 'package:EJI/model/player.dart';
+import 'package:EJI/models/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -26,22 +26,20 @@ class _PickPlayersState extends State<PickPlayers> {
       floatingActionButton: Positioned(
         left: _offset.dx,
         top: _offset.dy,
-              child: Draggable(
+        child: Draggable(
             feedback: Container(
               child: FloatingActionButton(
                   child: Icon(Icons.drag_handle), onPressed: () {}),
             ),
             child: Container(
               child: FloatingActionButton(
-                    child: Icon(Icons.drag_handle), onPressed: () {}),
+                  child: Icon(Icons.drag_handle), onPressed: () {}),
             ),
             childWhenDragging: Container(),
             onDragEnd: (details) {
               setState(() {
                 _offset = details.offset;
               });
-
-             
             }),
       ),
       body: Dialog(
@@ -75,18 +73,28 @@ class _PickPlayersState extends State<PickPlayers> {
                           setState(() {
                             //addToSquad(player)
                             candidatePlayersList.add(player);
-                         
                           });
                         },
-                        trailing: Text('${player.position}', style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
-                        title: Text('${player.playerName}', style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
+                        trailing: Text('${player.position}',
+                            style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w600,
+                                color: fontColor)),
+                        title: Text('${player.playerName}',
+                            style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w600,
+                                color: fontColor)),
                         leading: Icon(
                           Icons.person_add,
                           color: accentColor,
                         ),
                         subtitle: Text(
                           'Score ${player.oVR}',
-                          style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w200,
+                              color: fontColor),
                         ));
                   });
             }),

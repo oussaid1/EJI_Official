@@ -1,4 +1,4 @@
-import 'package:EJI/model/comments_model.dart';
+import 'package:EJI/models/comments_model.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,8 @@ class _AddCommentState extends State<AddComment> {
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8),
         child: TextFormField(
-          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertSubject'.tr);
@@ -63,7 +64,8 @@ class _AddCommentState extends State<AddComment> {
               border: InputBorder.none,
               hintText: ('insertSubject'.tr),
               focusColor: secondaryColor,
-              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+              hintStyle: TextStyle(
+                  fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -82,7 +84,8 @@ class _AddCommentState extends State<AddComment> {
         padding: const EdgeInsets.all(4.0),
         child: TextFormField(
           maxLines: 8,
-          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertComment'.tr);
@@ -95,7 +98,8 @@ class _AddCommentState extends State<AddComment> {
               border: InputBorder.none,
               hintText: ('insertComment'.tr),
               focusColor: secondaryColor,
-              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+              hintStyle: TextStyle(
+                  fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -113,7 +117,8 @@ class _AddCommentState extends State<AddComment> {
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: TextFormField(
-          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertYourname'.tr);
@@ -126,7 +131,8 @@ class _AddCommentState extends State<AddComment> {
               border: InputBorder.none,
               hintText: ('insertYourname'.tr),
               focusColor: secondaryColor,
-              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+              hintStyle: TextStyle(
+                  fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -162,7 +168,11 @@ class _AddCommentState extends State<AddComment> {
                   borderRadius: BorderRadius.circular(18.0),
                   side: BorderSide(color: primaryColor)),
               color: secondaryColor,
-              child: Text('Send', style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
+              child: Text('Send',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: fontColor)),
               onPressed: () {
                 if (_commentformKey.currentState.validate()) {
                   _saveToCloud();

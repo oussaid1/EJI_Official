@@ -1,10 +1,10 @@
-import 'package:EJI/model/anounce.dart';
+import 'package:EJI/models/anounce.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'add_anounce.dart';
+import '../admin_access/add_anounce.dart';
 
 class AnouncesScreen extends StatelessWidget {
   AnouncesScreen({
@@ -16,35 +16,39 @@ class AnouncesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Anounce> lista;
     return Scaffold(
-    
-   backgroundColor: secondaryColor,
- floatingActionButtonLocation: FloatingActionButtonLocation.startTop ,
-     floatingActionButton:xc.isAdmin.value? SizedBox(
-       height: 40,
-       width: 40,
-            child: FloatingActionButton(
-         elevation: 40,
-        
-         child: Icon(Icons.add,size:30,color: primaryColor,),
-         onPressed: (){  Get.defaultDialog(
-                    backgroundColor: Colors.blue[100],
-                    title: ('Anounces'.tr),
-                    middleText: '',
-                    
-                    content: AddAnounce(),
-                  );}),
-     ):Container(),
+      backgroundColor: secondaryColor,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: xc.isAdmin.value
+          ? SizedBox(
+              height: 40,
+              width: 40,
+              child: FloatingActionButton(
+                  elevation: 40,
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                    color: primaryColor,
+                  ),
+                  onPressed: () {
+                    Get.defaultDialog(
+                      backgroundColor: Colors.blue[100],
+                      title: ('Anounces'.tr),
+                      middleText: '',
+                      content: AddAnounce(),
+                    );
+                  }),
+            )
+          : Container(),
       body: Stack(
         fit: StackFit.expand,
         children: [
-           new Image.asset('assets/images/login.png',fit:BoxFit.fill),
+          new Image.asset('assets/images/login.png', fit: BoxFit.fill),
           Column(
             children: [
-             
               StreamBuilder(
                 stream: xc.getAnounces('anounces'),
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<Anounce>> snapshot) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Anounce>> snapshot) {
                   if (snapshot.hasError || !snapshot.hasData) {
                     return Center(
                         child: Icon(
@@ -65,9 +69,9 @@ class AnouncesScreen extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                               color: secondaryColor.withOpacity(0.5),
                             ),
                             child: Column(
@@ -75,20 +79,31 @@ class AnouncesScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                       Padding(
-                                         padding: const EdgeInsets.fromLTRB(16,4,16,4),
-                                         child: Text(anounce.subject.toString(),
-                                            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: whitefontColor)),
-                                       ),
-                                      Text('Subject'.tr, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),textDirection:TextDirection.rtl ,),
-                                     
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            16, 4, 16, 4),
+                                        child: Text(anounce.subject.toString(),
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400,
+                                                color: whitefontColor)),
+                                      ),
+                                      Text(
+                                        'Subject'.tr,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: accentColor),
+                                        textDirection: TextDirection.rtl,
+                                      ),
                                     ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 4, 8, 4),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius:
@@ -101,7 +116,11 @@ class AnouncesScreen extends StatelessWidget {
                                           const EdgeInsets.fromLTRB(4, 8, 4, 8),
                                       child: Text(
                                         anounce.anounceText.toString(),
-                                        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),textDirection:TextDirection.rtl,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: fontColor),
+                                        textDirection: TextDirection.rtl,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 10,
                                         textAlign: TextAlign.justify,
@@ -118,21 +137,32 @@ class AnouncesScreen extends StatelessWidget {
                                       Row(
                                         children: [
                                           Text(anounce.anounceDate.toString(),
-                                              style: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w200,
+                                                  color: fontColor)),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                         
                                           Padding(
                                             padding: const EdgeInsets.all(4.0),
-                                            child: Text(anounce.anounceBy.toString(),
-                                                style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: whitefontColor)),
+                                            child: Text(
+                                                anounce.anounceBy.toString(),
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: whitefontColor)),
                                           ),
-                                               Padding(
-                                                 padding: const EdgeInsets.only(right:8.0),
-                                                 child: Text('By'.tr, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor)),
-                                               ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8.0),
+                                            child: Text('By'.tr,
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: accentColor)),
+                                          ),
                                         ],
                                       ),
                                     ],
@@ -146,9 +176,8 @@ class AnouncesScreen extends StatelessWidget {
                     ),
                   );
                 },
-                
               ),
-                SizedBox(
+              SizedBox(
                 height: 60,
               ),
             ],

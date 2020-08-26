@@ -1,7 +1,5 @@
-import 'package:EJI/model/club_expenses.dart';
-import 'package:EJI/screens/admin_access/build_squad.dart';
-import 'package:EJI/screens/admin_access/home_screen.dart';
-import 'package:EJI/screens/admin_access/picture_archive_list.dart';
+import 'package:EJI/models/club_expenses.dart';
+import 'package:EJI/screens/common/picture_archive_list.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
 import 'package:EJI/screens/common/player_ranking.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
@@ -11,7 +9,6 @@ import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
-import 'package:EJI/screens/public/ahdath_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:EJI/repository/cloud_database.dart';
@@ -35,9 +32,9 @@ class _MyDrawerState extends State<MyDrawer> {
 
   List<ClubIncome> clubIncome;
 
-   double d=0;
+  double d = 0;
 
-   double c=0;
+  double c = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -53,71 +50,70 @@ class _MyDrawerState extends State<MyDrawer> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName:StreamBuilder(
-                stream: cD.getClubSpendings('ClubSpendings'),
-              builder: (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
-                 if (!snapshot.hasData || snapshot.hasError) {
-                  return  Text("EJI Idawlstane");
-                } else
-                  clubSpendings = snapshot.data;
-                  d= cD.setBudget(ClubSpendings.getSpendings(clubSpendings))
-                  ;
-                  return  Text("EJI Idawlstane");
-                  }
-                ),
+                accountName: StreamBuilder(
+                    stream: cD.getClubSpendings('ClubSpendings'),
+                    builder:
+                        (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
+                      if (!snapshot.hasData || snapshot.hasError) {
+                        return Text("EJI Idawlstane");
+                      } else
+                        clubSpendings = snapshot.data;
+                      d = cD
+                          .setBudget(ClubSpendings.getSpendings(clubSpendings));
+                      return Text("EJI Idawlstane");
+                    }),
                 accountEmail: StreamBuilder(
-                stream: cD.getClubIncomes('ClubIncome'),
-              builder: (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
-                 if (!snapshot.hasData || snapshot.hasError) {
-                  return Text(
-                      'EJIBudget'.tr + 'DH ' +'-- ',
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),
-                    );
-                } else
-                  clubIncome = snapshot.data;
-                  c= ClubIncome.getIncome(clubIncome);
-                  
-                  return Text(
-                      'EJIBudget'.tr + 'DH ' '${(c-d).toString()} ',
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: accentColor),
-                    );
-                  }
-                ),
+                    stream: cD.getClubIncomes('ClubIncome'),
+                    builder:
+                        (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
+                      if (!snapshot.hasData || snapshot.hasError) {
+                        return Text(
+                          'EJIBudget'.tr + 'DH ' + '-- ',
+                          textDirection: TextDirection.rtl,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: accentColor),
+                        );
+                      } else
+                        clubIncome = snapshot.data;
+                      c = ClubIncome.getIncome(clubIncome);
+
+                      return Text(
+                        'EJIBudget'.tr + 'DH ' '${(c - d).toString()} ',
+                        textDirection: TextDirection.rtl,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: accentColor),
+                      );
+                    }),
                 currentAccountPicture: CircleAvatar(
-                  backgroundColor:secondaryColor,
+                  backgroundColor: secondaryColor,
                   child: Image.asset(
                     'assets/images/logo.png',
                     fit: BoxFit.fill,
                   ),
                 ),
-              ), 
+              ),
               ListTile(
                 leading: Icon(Icons.people),
                 title: Text('Matches&Anounces'.tr),
-               
                 onTap: () => Get.to(AnouncesTab()),
               ),
               ListTile(
-                      leading: Icon(FontAwesomeIcons.list),
-                      //subtitle: Text('teamManagersub'.tr),
-                      subtitle: Text('AltimteSquadsub'.tr),
-                      title: Text('AltimteSquad'.tr),
-                      
-                      onTap: () {Get.to(HomePage());},
-                    ),
+                leading: Icon(FontAwesomeIcons.list),
+                //subtitle: Text('teamManagersub'.tr),
+                subtitle: Text('AltimteSquadsub'.tr),
+                title: Text('AltimteSquad'.tr),
+
+                onTap: () {},
+              ),
               ListTile(
                 subtitle: Text('PlayersListsub'.tr),
                 leading: Icon(Icons.people),
                 title: Text('PlayersList'.tr),
                 onTap: () => Get.to(PlayersList()),
-              ),
-              ListTile(
-                subtitle: Text('buildSquad'),
-                leading: Icon(Icons.crop_square),
-                title: Text('buildSquad'),
-                onTap: () => Get.to(BuildSquad	()),
               ),
               ListTile(
                   leading: Icon(FontAwesomeIcons.levelUpAlt),
@@ -136,23 +132,24 @@ class _MyDrawerState extends State<MyDrawer> {
                         size: 20,
                         color: Colors.yellow,
                       ),
-                     
                     ],
                   ),
-                  onTap: () {Get.to(PlayerRanking());}),
+                  onTap: () {
+                    Get.to(PlayerRanking());
+                  }),
               ListTile(
                 leading: Icon(Icons.comment),
                 title: Text('Comments'.tr),
                 onTap: () => Get.to(CommentScreen()),
               ),
-               ListTile(
+              ListTile(
                   leading: Icon(Icons.event),
                   title: Text('ProgramsAndEvents'.tr),
                   subtitle: Text('underDevelopment'.tr),
                   onTap: () => {
-                     //   Get.to(AhdathScreen()),
+                        //   Get.to(AhdathScreen()),
                       }),
-               ListTile(
+              ListTile(
                   leading: Icon(Icons.store),
                   title: Text('Staff'.tr),
                   onTap: () => {
@@ -161,7 +158,7 @@ class _MyDrawerState extends State<MyDrawer> {
               ListTile(
                 leading: Icon(Icons.comment),
                 title: Text('PictureArchive'.tr),
-               onTap:()=> Get.to(PicturesArchiveList()),
+                onTap: () => Get.to(PicturesArchiveList()),
               ),
               ListTile(
                 leading: Icon(FontAwesomeIcons.chartLine),

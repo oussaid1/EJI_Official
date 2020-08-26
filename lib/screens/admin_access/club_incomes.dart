@@ -1,4 +1,4 @@
-import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_income.dart';
 // ignore: unused_import
@@ -18,7 +18,7 @@ class ClubIncomeScreen extends StatefulWidget {
 class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
   List<ClubIncome> clubIncome;
   List<ClubIncome> selectedclubIncome;
-  bool sort; 
+  bool sort;
   int rowIndex;
   final CloudDatabase c = Get.put(CloudDatabase());
   @override
@@ -32,28 +32,28 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:c.isAdmin.value ?  Padding(
-        padding: const EdgeInsets.fromLTRB(8,8,8,50),
-        child: FloatingActionButton(
-          elevation: 8,
-          onPressed: () {
-             Get.defaultDialog(
-                  title: 'AddIncome'.tr,
-                  content:  Expanded(child: AddIncome()),
-                 
-                );
-          },
-          child: Icon(
-           Icons.add,
-            size: 40,
-            color: primaryColor,
-          ),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(100.0))),
-        ),
-      ): null,
-      
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: c.isAdmin.value
+          ? Padding(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 50),
+              child: FloatingActionButton(
+                elevation: 8,
+                onPressed: () {
+                  Get.defaultDialog(
+                    title: 'AddIncome'.tr,
+                    content: Expanded(child: AddIncome()),
+                  );
+                },
+                child: Icon(
+                  Icons.add,
+                  size: 40,
+                  color: primaryColor,
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(100.0))),
+              ),
+            )
+          : null,
       body: Center(
         child: StreamBuilder(
             stream: c.getClubIncomes('ClubIncome'),
@@ -77,28 +77,40 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                         tooltip: 'For',
                         label: Text(
                           "GivenFor".tr,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "GivenBy".tr,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "GivenOnDate".tr,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                         numeric: false,
                       ),
                       DataColumn(
                         label: Text(
                           "GivenAmount".tr,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                         numeric: false,
                       ),
@@ -108,14 +120,12 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                           (clubIncome) => DataRow(
                               selected: selectedclubIncome.contains(clubIncome),
                               cells: [
-                                DataCell(
-                                  Text(clubIncome.givenFor.toString()),
-                                  onTap: () => c.isAdmin.value ?
-                                    Get.to(AddIncome(
-                                      clubIncome: clubIncome,
-                                    )): null 
-                                  
-                                ),
+                                DataCell(Text(clubIncome.givenFor.toString()),
+                                    onTap: () => c.isAdmin.value
+                                        ? Get.to(AddIncome(
+                                            clubIncome: clubIncome,
+                                          ))
+                                        : null),
                                 DataCell(
                                   Text(clubIncome.givenBy.toString()),
                                 ),
@@ -123,7 +133,15 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                                   Text(clubIncome.givenOnDate.toString()),
                                 ),
                                 DataCell(
-                                  Text(clubIncome.givenAmount.toString(),style: TextStyle(fontSize:18,fontWeight: FontWeight.w900,color: primaryColor,),textAlign: TextAlign.center,),
+                                  Text(
+                                    clubIncome.givenAmount.toString(),
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w900,
+                                      color: primaryColor,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ]),
                         )
@@ -134,19 +152,26 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         Text(
+                        Text(
                           '${ClubIncome.getIncome(clubIncome).toString()}'.tr,
-                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
                         Text(
                           'Total'.tr,
-                          style: TextStyle(fontSize:26,fontWeight: FontWeight.w900,color: secondaryColor),
+                          style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w900,
+                              color: secondaryColor),
                         ),
-                       
                       ],
                     ),
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(
+                    height: 50,
+                  ),
                 ],
               );
             }),

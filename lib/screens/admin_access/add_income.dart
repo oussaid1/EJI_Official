@@ -1,4 +1,4 @@
-import 'package:EJI/model/club_expenses.dart';
+import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +55,8 @@ class _AddSpendingsState extends State<AddIncome> {
   }
 
   _updateInCloud() {
-   ClubIncome clubIncome = new ClubIncome(
-     id: _id,
+    ClubIncome clubIncome = new ClubIncome(
+        id: _id,
         givenFor: givenForControler.text.toString().trim(),
         givenBy: givenByControler.text.trim().toString(),
         givenOnDate: givenOnDateController.text,
@@ -69,7 +69,8 @@ class _AddSpendingsState extends State<AddIncome> {
     return SizedBox(
       width: 300,
       child: TextFormField(
-        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+        style: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
@@ -88,9 +89,11 @@ class _AddSpendingsState extends State<AddIncome> {
             fillColor: primaryColor,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+            labelStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
             focusColor: accentColor,
-            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+            hintStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
@@ -112,15 +115,18 @@ class _AddSpendingsState extends State<AddIncome> {
       child: TextFormField(
         readOnly: true,
         controller: givenOnDateController,
-        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+        style: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           fillColor: primaryColor,
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+          labelStyle: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
           focusColor: accentColor,
-          hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+          hintStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
@@ -154,7 +160,8 @@ class _AddSpendingsState extends State<AddIncome> {
     return SizedBox(
       width: 300,
       child: TextFormField(
-        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+        style: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
@@ -173,9 +180,11 @@ class _AddSpendingsState extends State<AddIncome> {
             fillColor: primaryColor,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+            labelStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
             focusColor: accentColor,
-            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+            hintStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
@@ -197,7 +206,8 @@ class _AddSpendingsState extends State<AddIncome> {
       child: TextFormField(
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+        style: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         validator: (text) {
           if (text.isEmpty) {
             return ('insertGivenAmount'.tr);
@@ -216,9 +226,11 @@ class _AddSpendingsState extends State<AddIncome> {
             ),
             hintText: ('insertGivenAmount'.tr),
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelStyle: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+            labelStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
             focusColor: accentColor,
-            hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+            hintStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
@@ -240,7 +252,7 @@ class _AddSpendingsState extends State<AddIncome> {
       _id = widget.clubIncome.id;
       givenForControler.text = widget.clubIncome.givenFor;
       givenOnDateController.text = widget.clubIncome.givenOnDate;
-     givenAmountControler.text = widget.clubIncome.givenAmount.toString();
+      givenAmountControler.text = widget.clubIncome.givenAmount.toString();
       givenByControler.text = widget.clubIncome.givenBy;
     }
     super.initState();
@@ -251,142 +263,151 @@ class _AddSpendingsState extends State<AddIncome> {
     return Scaffold(
       body: Form(
         key: _commentformKey,
-        child: ListView( 
-            children: [
-              SizedBox(
-                height: 6,
-              ),
-              _buildSpentOn(),
-              SizedBox(
-                height: 6,
-              ),
-              _buildBy(),
-              SizedBox(
-                height: 6,
-              ),
-              _buildspentAmount(),
-              SizedBox(
-                height: 6,
-              ),
-              _buildSpentOnDate(context),
-              SizedBox(
-                height: 20,
-              ),
-              widget.clubIncome == null
-        ? Container(
-            width: 300,
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
+        child: ListView(
+          children: [
+            SizedBox(
+              height: 6,
             ),
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                 ),
-              color: secondaryColor,
-              child: Text('Save'.tr, style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: primaryColor)),
-              onPressed: () {
-                if (_commentformKey.currentState.validate()) {
-                  _saveToCloud();
-                  _flushAll();
-                  Get.snackbar('Succsess'.tr, 'Saved'.tr,
-                      snackPosition: SnackPosition.BOTTOM);
-                      
-                } else  Get.snackbar('Error'.tr, 'notsaved'.tr,
-                    snackPosition: SnackPosition.BOTTOM);
-               
-              },
+            _buildSpentOn(),
+            SizedBox(
+              height: 6,
             ),
-          )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: 140,
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                child: RaisedButton(
-                    shape: RoundedRectangleBorder(
+            _buildBy(),
+            SizedBox(
+              height: 6,
+            ),
+            _buildspentAmount(),
+            SizedBox(
+              height: 6,
+            ),
+            _buildSpentOnDate(context),
+            SizedBox(
+              height: 20,
+            ),
+            widget.clubIncome == null
+                ? Container(
+                    width: 300,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(color: primaryColor)),
-                    color: secondaryColor,
-                    child: Text('Update'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
-                    onPressed: () {
-                      if (_commentformKey.currentState.validate()) {
-                        Get.defaultDialog(
-                          title: 'SuperAdmin'.tr,
-                          content: TextField(
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.lock)),
-                            onChanged: (value) {
-                              if (value.trim().toString() ==
-                                  cv.sperAdminPass.value
-                                      .toString()
-                                      .trim()) {
-                                Navigator.pop(context);
-                                _updateInCloud();
-                                _flushAll();
-                              }
-                            },
-                          ),
-                        );
-                       
-                     
-                        Get.snackbar('Succsess'.tr, 'Saved'.tr,
-                            snackPosition: SnackPosition.BOTTOM);
-                      } else {
-                        Get.snackbar('Error'.tr, 'notsaved'.tr,
-                            snackPosition: SnackPosition.BOTTOM);
-                      }
-                    }),
-              ),
-              Container(
-                width: 140,
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(color: primaryColor)),
-                    color: secondaryColor,
-                    child: Text('Delete'.tr, style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
-                    onPressed: () {
-                      Get.defaultDialog(
-                        title: 'SperAdmin'.tr,
-                        content: TextField(
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.lock)),
-                          onChanged: (value) {
-                            if (value.trim().toString() ==
-                                cv.sperAdminPass.value
-                                    .toString()
-                                    .trim()) {
-                              Navigator.pop(context);
-                              cv.deleteObject('ClubIncome',
-                                  widget.clubIncome.id);
-                              _flushAll();
-                            }
-                          },
+                      ),
+                      color: secondaryColor,
+                      child: Text('Save'.tr,
+                          style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w600,
+                              color: primaryColor)),
+                      onPressed: () {
+                        if (_commentformKey.currentState.validate()) {
+                          _saveToCloud();
+                          _flushAll();
+                          Get.snackbar('Succsess'.tr, 'Saved'.tr,
+                              snackPosition: SnackPosition.BOTTOM);
+                        } else
+                          Get.snackbar('Error'.tr, 'notsaved'.tr,
+                              snackPosition: SnackPosition.BOTTOM);
+                      },
+                    ),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 140,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
-                      );
-                      
-                    }),
-              ),
-            ],
-          ),
-            ],
-          ),
+                        child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(color: primaryColor)),
+                            color: secondaryColor,
+                            child: Text('Update'.tr,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: fontColor)),
+                            onPressed: () {
+                              if (_commentformKey.currentState.validate()) {
+                                Get.defaultDialog(
+                                  title: 'SuperAdmin'.tr,
+                                  content: TextField(
+                                    decoration: InputDecoration(
+                                        prefixIcon: Icon(Icons.lock)),
+                                    onChanged: (value) {
+                                      if (value.trim().toString() ==
+                                          cv.sperAdminPass.value
+                                              .toString()
+                                              .trim()) {
+                                        Navigator.pop(context);
+                                        _updateInCloud();
+                                        _flushAll();
+                                      }
+                                    },
+                                  ),
+                                );
+
+                                Get.snackbar('Succsess'.tr, 'Saved'.tr,
+                                    snackPosition: SnackPosition.BOTTOM);
+                              } else {
+                                Get.snackbar('Error'.tr, 'notsaved'.tr,
+                                    snackPosition: SnackPosition.BOTTOM);
+                              }
+                            }),
+                      ),
+                      Container(
+                        width: 140,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(color: primaryColor)),
+                            color: secondaryColor,
+                            child: Text('Delete'.tr,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: fontColor)),
+                            onPressed: () {
+                              Get.defaultDialog(
+                                title: 'SperAdmin'.tr,
+                                content: TextField(
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.lock)),
+                                  onChanged: (value) {
+                                    if (value.trim().toString() ==
+                                        cv.sperAdminPass.value
+                                            .toString()
+                                            .trim()) {
+                                      Navigator.pop(context);
+                                      cv.deleteObject(
+                                          'ClubIncome', widget.clubIncome.id);
+                                      _flushAll();
+                                    }
+                                  },
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }
 
   _flushAll() {
     givenForControler.clear();
-   givenOnDateController.clear();
+    givenOnDateController.clear();
     givenAmountControler.clear();
     givenByControler.clear();
   }

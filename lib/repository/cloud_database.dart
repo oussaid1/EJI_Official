@@ -1,11 +1,12 @@
-import 'package:EJI/model/ahdath_events.dart';
-import 'package:EJI/model/anounce.dart';
-import 'package:EJI/model/club_archive.dart';
-import 'package:EJI/model/club_expenses.dart';
-import 'package:EJI/model/comments_model.dart';
-import 'package:EJI/model/matchday.dart';
-import 'package:EJI/model/player.dart';
-import 'package:EJI/model/staff.dart';
+import 'package:EJI/models/ahdath_events.dart';
+import 'package:EJI/models/anounce.dart';
+import 'package:EJI/models/club_archive.dart';
+import 'package:EJI/models/club_expenses.dart';
+import 'package:EJI/models/comments_model.dart';
+import 'package:EJI/models/matchday.dart';
+import 'package:EJI/models/player.dart';
+
+import 'package:EJI/models/staff.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,11 @@ class CloudDatabase extends GetxController {
   }
 
   Stream<List<Player>> getPlayerz(String collectionName) {
-    Stream<List<Player>> pList = _db.collection('players').orderBy('oVR', descending: true).snapshots().map(
+    Stream<List<Player>> pList = _db
+        .collection('players')
+        .orderBy('oVR', descending: true)
+        .snapshots()
+        .map(
           (snapshot) => snapshot.documents
               .map(
                 (doc) => Player.fromMap(doc.data, doc.documentID),
@@ -77,8 +82,6 @@ class CloudDatabase extends GetxController {
 
     return pList;
   }
-
- 
 
   Stream<List<Player>> getGK() {
     Stream<List<Player>> pList = _db
@@ -98,7 +101,7 @@ class CloudDatabase extends GetxController {
     return pList;
   }
 
-  Stream<List<Player>> get11Playerz() {
+  Stream<List<Player>> get11Pla() {
     Stream<List<Player>> pList = _db
         .collection('players')
         .where('position', isEqualTo: 'GK')

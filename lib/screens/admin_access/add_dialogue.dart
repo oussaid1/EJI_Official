@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:EJI/model/player.dart';
+import 'package:EJI/models/player.dart';
+
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -114,7 +115,9 @@ class _AddPlayersState extends State<AddPlayers> {
 
     for (int i = 0; i < itemsList.length; i++) {
       genderList.add(new DropdownMenuItem(
-        child: new Text(itemsList[i], style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor)),
+        child: new Text(itemsList[i],
+            style: TextStyle(
+                fontSize: 26, fontWeight: FontWeight.w600, color: fontColor)),
         value: i,
       ));
     }
@@ -247,12 +250,18 @@ class _AddPlayersState extends State<AddPlayers> {
                               ? new Text(
                                   'Juniors'.tr,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize:20,fontWeight: FontWeight.w400,color: fontColor),
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400,
+                                      color: fontColor),
                                 )
                               : new Text(
                                   'Seniors'.tr,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize:20,fontWeight: FontWeight.w400,color: fontColor),
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400,
+                                      color: fontColor),
                                 ),
                         ),
                         Switch(
@@ -260,7 +269,6 @@ class _AddPlayersState extends State<AddPlayers> {
                             onChanged: (value) {
                               setState(() {
                                 isJunior = value;
-                             
                               });
                             }),
                       ],
@@ -280,7 +288,10 @@ class _AddPlayersState extends State<AddPlayers> {
                               value: _selectedGender,
                               items: genderList,
                               dropdownColor: primaryColor,
-                              style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+                              style: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.w600,
+                                  color: fontColor),
                               onChanged: (dynamic value) {
                                 setState(() {
                                   _selectedGender = value;
@@ -296,7 +307,10 @@ class _AddPlayersState extends State<AddPlayers> {
                         child: Text(
                           'PlayerPosition'.tr,
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: fontColor),
                         ),
                       ),
                     ],
@@ -310,7 +324,8 @@ class _AddPlayersState extends State<AddPlayers> {
       child: new TextFormField(
         controller: nameController,
         cursorColor: Colors.white,
-        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+        style: TextStyle(
+            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.person, color: secondaryColor),
             suffixIcon: IconButton(
@@ -335,7 +350,8 @@ class _AddPlayersState extends State<AddPlayers> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'FullName'.tr,
-            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+            labelStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'insertname'.tr;
@@ -363,7 +379,8 @@ class _AddPlayersState extends State<AddPlayers> {
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
-        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+        style: TextStyle(
+            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.email, color: secondaryColor),
             suffixIcon: IconButton(
@@ -389,7 +406,8 @@ class _AddPlayersState extends State<AddPlayers> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'Email',
-            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+            labelStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'insertemail'.tr;
@@ -412,7 +430,8 @@ class _AddPlayersState extends State<AddPlayers> {
         controller: phoneController,
         keyboardType: TextInputType.phone,
         cursorColor: Colors.white,
-        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+        style: TextStyle(
+            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.phone, color: secondaryColor),
             suffixIcon: IconButton(
@@ -438,7 +457,8 @@ class _AddPlayersState extends State<AddPlayers> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'PhoneNumber'.tr,
-            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+            labelStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'insertphonenumber'.tr;
@@ -460,7 +480,8 @@ class _AddPlayersState extends State<AddPlayers> {
         },
         controller: placeOfBirthController,
         cursorColor: Colors.white,
-        style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+        style: TextStyle(
+            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.place, color: secondaryColor),
             suffixIcon: IconButton(
@@ -486,7 +507,8 @@ class _AddPlayersState extends State<AddPlayers> {
                   color: secondaryColor, style: BorderStyle.solid, width: 1),
             ),
             labelText: 'PlaceOfBirth'.tr,
-            labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+            labelStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
         validator: (value) {
           if (value.length == 0) {
             return 'selectdate'.tr;
@@ -507,7 +529,8 @@ class _AddPlayersState extends State<AddPlayers> {
         });
       },
       cursorColor: Colors.white,
-      style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+      style: TextStyle(
+          fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
       decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: Icon(
@@ -531,7 +554,8 @@ class _AddPlayersState extends State<AddPlayers> {
                 color: secondaryColor, style: BorderStyle.solid, width: 1),
           ),
           labelText: 'DateOfBirth'.tr,
-          labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+          labelStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
       validator: (value) {
         if (value.length == 0) {
           return 'selectdate'.tr;
@@ -551,7 +575,8 @@ class _AddPlayersState extends State<AddPlayers> {
         });
       },
       cursorColor: Colors.white,
-      style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: fontColor),
+      style: TextStyle(
+          fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
       decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: Icon(
@@ -575,7 +600,8 @@ class _AddPlayersState extends State<AddPlayers> {
                 color: secondaryColor, style: BorderStyle.solid, width: 1),
           ),
           labelText: 'RegesterDate'.tr,
-          labelStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor)),
+          labelStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w200, color: fontColor)),
       validator: (value) {
         if (value.length == 0) {
           return 'selectdate'.tr;
@@ -653,7 +679,7 @@ class _AddPlayersState extends State<AddPlayers> {
       _rateable = widget.player.rateable;
 
       isJunior = false;
-    }else if (widget.juniorPlayer != null) {
+    } else if (widget.juniorPlayer != null) {
       _id = widget.juniorPlayer.id;
       _profileImage = widget.juniorPlayer.profileImage;
       _regNum = widget.juniorPlayer.regNum;
@@ -668,8 +694,9 @@ class _AddPlayersState extends State<AddPlayers> {
       _rateable = widget.juniorPlayer.rateable;
 
       isJunior = true;
+    }
   }
-  }
+
   File _image;
   final picker = ImagePicker();
 
@@ -718,7 +745,7 @@ class _AddPlayersState extends State<AddPlayers> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-           new Image.asset('assets/images/login.png',fit:BoxFit.fill),
+          new Image.asset('assets/images/login.png', fit: BoxFit.fill),
           Form(
             key: _formKey,
             child: Padding(
@@ -726,7 +753,8 @@ class _AddPlayersState extends State<AddPlayers> {
               child: ListView(
                 children: <Widget>[
                   Container(
-                      alignment: Alignment.topCenter, child: _buildUpload(context)),
+                      alignment: Alignment.topCenter,
+                      child: _buildUpload(context)),
                   SizedBox(
                     height: 10,
                   ),
@@ -746,7 +774,10 @@ class _AddPlayersState extends State<AddPlayers> {
                           color: secondaryColor,
                           child: Text(
                             'Submit'.tr,
-                            style: TextStyle(fontSize:26,fontWeight: FontWeight.w600,color: primaryColor),
+                            style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w600,
+                                color: primaryColor),
                           ),
                           onPressed: () {
                             if (!_formKey.currentState.validate()) {
@@ -778,7 +809,8 @@ class _AddPlayersState extends State<AddPlayers> {
                               color: secondaryColor,
                               child: Text(
                                 "Update".tr,
-                                style: TextStyle(color: primaryColor, fontSize: 16),
+                                style: TextStyle(
+                                    color: primaryColor, fontSize: 16),
                               ),
                               onPressed: () {
                                 if (!_formKey.currentState.validate()) {
@@ -794,7 +826,6 @@ class _AddPlayersState extends State<AddPlayers> {
                                     _flushAll();
 
                                     Navigator.pop(context, false);
-                                   
                                   },
                                 );
                               },
@@ -803,7 +834,8 @@ class _AddPlayersState extends State<AddPlayers> {
                               color: secondaryColor,
                               child: Text(
                                 "Cancel".tr,
-                                style: TextStyle(color: primaryColor, fontSize: 16),
+                                style: TextStyle(
+                                    color: primaryColor, fontSize: 16),
                               ),
                               onPressed: () => Navigator.pop(context),
                             ),
@@ -843,7 +875,11 @@ class _AddPlayersState extends State<AddPlayers> {
                       child: Row(
                         children: [
                           if (_uploadTask.isComplete)
-                            Text('UploadComplete'.tr, style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor)),
+                            Text('UploadComplete'.tr,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: fontColor)),
                           if (_uploadTask.isPaused)
                             FlatButton(
                               child: Icon(
@@ -866,7 +902,10 @@ class _AddPlayersState extends State<AddPlayers> {
                     LinearProgressIndicator(value: progressPercent),
                     Text(
                       '${(progressPercent * 100).toStringAsFixed(2)} % ',
-                      style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: fontColor),
                     ),
                   ],
                 ),
@@ -880,7 +919,8 @@ class _AddPlayersState extends State<AddPlayers> {
         children: <Widget>[
           Text(
             'PleaseuploadPhoto'.tr,
-            style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
           ),
           FlatButton(
               child: Icon(

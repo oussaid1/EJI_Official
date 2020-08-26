@@ -1,4 +1,5 @@
-import 'package:EJI/model/player.dart';
+import 'package:EJI/models/player.dart';
+
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

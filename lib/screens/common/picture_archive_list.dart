@@ -1,4 +1,4 @@
-import 'package:EJI/model/club_archive.dart';
+import 'package:EJI/models/club_archive.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_picture_archive.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
@@ -20,7 +20,7 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
   CloudDatabase c = Get.put(CloudDatabase());
   List<ClubArcive> myList;
   bool isOussaid = false;
-  
+
   Future<String> getProfileImage(BuildContext context, String image) async {
     String murl;
 
@@ -32,11 +32,8 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
       murl = downloadUrl.toString();
     });
 
-   
-
     return murl;
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -44,29 +41,32 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
         drawer: new AdminDrawer(),
         appBar: new AppBar(
           actions: [
-           c.isAdmin.value ? IconButton(icon: Icon(Icons.info,color: secondaryColor,), onPressed: () {
-               Get.defaultDialog(
-                                title: 'SperAdmin'.tr,
-                                content: TextField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.lock)),
-                                  onChanged: (value) {
-                                    if (value.trim().toString() ==
-                                        c.presidentialPass.value
-                                            .toString()
-                                            .trim()) {
-                                      Navigator.pop(context);
-                                      setState(() {
-                                         Get.to(AddPicture());
-                                        isOussaid=true;
-                                      });
-                                     
-                                    }
-                                  },
-                                ),
-                              );
-            }):new Container(),
-           
+            c.isAdmin.value
+                ? IconButton(
+                    icon: Icon(
+                      Icons.info,
+                      color: secondaryColor,
+                    ),
+                    onPressed: () {
+                      Get.defaultDialog(
+                        title: 'SperAdmin'.tr,
+                        content: TextField(
+                          decoration:
+                              InputDecoration(prefixIcon: Icon(Icons.lock)),
+                          onChanged: (value) {
+                            if (value.trim().toString() ==
+                                c.presidentialPass.value.toString().trim()) {
+                              Navigator.pop(context);
+                              setState(() {
+                                Get.to(AddPicture());
+                                isOussaid = true;
+                              });
+                            }
+                          },
+                        ),
+                      );
+                    })
+                : new Container(),
           ],
         ),
         body: StreamBuilder(

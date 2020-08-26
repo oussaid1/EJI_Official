@@ -1,14 +1,11 @@
-import 'package:EJI/model/player.dart';
+import 'package:EJI/models/player.dart';
+
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/admin_access/add_dialogue.dart';
-import 'package:EJI/screens/public/player_details.dart';
 import 'package:EJI/settings/params.dart';
-import 'package:EJI/shared/drawer_main.dart';
-import 'package:firebase/firebase.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class BuildSquad extends StatefulWidget {
   BuildSquad({Key key, this.players}) : super(key: key);
@@ -18,30 +15,39 @@ class BuildSquad extends StatefulWidget {
 }
 
 class _BuildSquadState extends State<BuildSquad> {
-  List<Player> lista;
-  _addPlayerToList() {
-    lista = List<Player>(11);
-  }
+  int indexSelected;
+  List<Player> lista = List<Player>();
 
   CloudDatabase c = Get.put(CloudDatabase());
   @override
   Widget build(BuildContext context) {
     if (widget.players == null) {
       return Scaffold(
-        drawer: MyDrawer(),
         appBar: AppBar(),
         body:
             Center(child: Icon(Icons.line_style, size: 50, color: accentColor)),
       );
     } else
       return Scaffold(
+          floatingActionButton: new FloatingActionButton(
+              child: Icon(
+                Icons.save,
+                size: 40,
+              ),
+              onPressed: () {
+                if (lista.length == 11) {
+                  // Get.off(SquadPage(selectedSquad: lista));
+                }
+                print(lista.length);
+              }),
           backgroundColor: secondaryColor,
           body: Stack(
             fit: StackFit.expand,
             children: [
               new Image.asset('assets/images/login.png', fit: BoxFit.fill),
               ListView.builder(
-                itemCount: widget.players.length != 0 ? widget.players.length : 0,
+                itemCount:
+                    widget.players.length != 0 ? widget.players.length : 0,
                 itemBuilder: (BuildContext context, int index) {
                   Player player = widget.players[index];
                   return Card(
@@ -53,7 +59,25 @@ class _BuildSquadState extends State<BuildSquad> {
                     child: ListTile(
                       contentPadding: EdgeInsets.only(left: 8, right: 8),
                       leading: IconButton(
-                          icon: Icon(Icons.person_add), onPressed: () {}),
+                          icon: Icon(
+                            Icons.person_add,
+                            color: accentColor,
+                          ),
+                          onPressed: () {
+                            if (lista.length < 11) {
+                              lista.add(widget.players[index]);
+                              setState(() {
+                                widget.players.removeAt(index);
+                              });
+                            } else if (lista.length == 11) {
+                              Get.defaultDialog(
+                                  title: 'Full !',
+                                  middleText:
+                                      '11 Players have been selected !');
+                            }
+                            print(lista.length);
+                            indexSelected = index;
+                          }),
                       title: new Text(
                         '${player.playerName}',
                         style: TextStyle(

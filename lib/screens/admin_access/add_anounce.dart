@@ -1,4 +1,4 @@
-import 'package:EJI/model/anounce.dart';
+import 'package:EJI/models/anounce.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +43,7 @@ class _AddAnounceState extends State<AddAnounce> {
 
     cv.addAnounce(anounce, 'anounces');
   }
+
   _updateInCloud() {
     Anounce anounce = new Anounce(
       id: widget.anounce.id,
@@ -68,7 +69,8 @@ class _AddAnounceState extends State<AddAnounce> {
         padding: const EdgeInsets.only(left: 8.0, right: 8),
         child: TextFormField(
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertSubject'.tr);
@@ -81,8 +83,8 @@ class _AddAnounceState extends State<AddAnounce> {
               border: InputBorder.none,
               hintText: ('insertSubject'.tr),
               focusColor: secondaryColor,
-              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
-              
+              hintStyle: TextStyle(
+                  fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -100,10 +102,10 @@ class _AddAnounceState extends State<AddAnounce> {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: TextFormField(
-                    textAlign: TextAlign.center,
-
+          textAlign: TextAlign.center,
           maxLines: 8,
-          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertAnounce'.tr);
@@ -116,7 +118,8 @@ class _AddAnounceState extends State<AddAnounce> {
               border: InputBorder.none,
               hintText: ('insertAnounce'.tr),
               focusColor: secondaryColor,
-              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+              hintStyle: TextStyle(
+                  fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
@@ -134,9 +137,9 @@ class _AddAnounceState extends State<AddAnounce> {
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: TextFormField(
-                    textAlign: TextAlign.center,
-
-          style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
           validator: (text) {
             if (text.isEmpty) {
               return ('insertYourname'.tr);
@@ -149,12 +152,13 @@ class _AddAnounceState extends State<AddAnounce> {
               border: InputBorder.none,
               hintText: ('insertYourname'.tr),
               focusColor: secondaryColor,
-              hintStyle: TextStyle(fontSize:14,fontWeight: FontWeight.w200,color: fontColor),
+              hintStyle: TextStyle(
+                  fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
               contentPadding: EdgeInsets.only(left: 2)),
         ),
       ),
     );
-  } 
+  }
 
   Widget _buildDuration() {
     return Container(
@@ -181,11 +185,9 @@ class _AddAnounceState extends State<AddAnounce> {
   @override
   void initState() {
     if (widget.anounce != null) {
-     
       subjectControler.text = widget.anounce.subject;
       textAnounceControler.text = widget.anounce.anounceText;
       byAnounceControler.text = widget.anounce.anounceDate;
-     
     }
     super.initState();
   }
@@ -208,72 +210,84 @@ class _AddAnounceState extends State<AddAnounce> {
           SizedBox(
             height: 6,
           ),
-
-          widget.anounce==null?
-          Container(
-            width: 300,
-            height: 40,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: primaryColor)),
-              color: secondaryColor,
-              child: Text('Send', style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
-              onPressed: () {
-                if (_anounceformKey.currentState.validate()) {
-                  _saveToCloud();
-                  _flushAll();
-                  Get.snackbar('Succsess'.tr, 'YourComsav'.tr,
-                      snackPosition: SnackPosition.BOTTOM);
-                } else {
-                  Get.snackbar('Error'.tr, 'notsaved'.tr,
-                      snackPosition: SnackPosition.BOTTOM);
-                }
-              },
-            ),
-          ):  Row(
-            children: [
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: primaryColor)),
-                color: secondaryColor,
-                child: Text('Update', style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
-                onPressed: () {
-                  if (_anounceformKey.currentState.validate()) {
-                    _updateInCloud();
-                    _flushAll();
-                    Get.snackbar('Succsess'.tr, 'YourComsav'.tr,
-                        snackPosition: SnackPosition.BOTTOM);
-                  } else {
-                    Get.snackbar('Error'.tr, 'notsaved'.tr,
-                        snackPosition: SnackPosition.BOTTOM);
-                  }
-                },
-              ),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: primaryColor)),
-                color: secondaryColor,
-                child: Text('Delete', style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor)),
-                onPressed: () {
-                  if (_anounceformKey.currentState.validate()) {
-                    cv.deleteObject('anounces',widget.anounce.id);
-                    _flushAll();
-                    Get.snackbar('Succsess'.tr, 'YourComsav'.tr,
-                        snackPosition: SnackPosition.BOTTOM);
-                  } else {
-                    Get.snackbar('Error'.tr, 'notsaved'.tr,
-                        snackPosition: SnackPosition.BOTTOM);
-                  }
-                },
-              ),
-            ],
-          )
+          widget.anounce == null
+              ? Container(
+                  width: 300,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: BorderSide(color: primaryColor)),
+                    color: secondaryColor,
+                    child: Text('Send',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: fontColor)),
+                    onPressed: () {
+                      if (_anounceformKey.currentState.validate()) {
+                        _saveToCloud();
+                        _flushAll();
+                        Get.snackbar('Succsess'.tr, 'YourComsav'.tr,
+                            snackPosition: SnackPosition.BOTTOM);
+                      } else {
+                        Get.snackbar('Error'.tr, 'notsaved'.tr,
+                            snackPosition: SnackPosition.BOTTOM);
+                      }
+                    },
+                  ),
+                )
+              : Row(
+                  children: [
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: primaryColor)),
+                      color: secondaryColor,
+                      child: Text('Update',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: fontColor)),
+                      onPressed: () {
+                        if (_anounceformKey.currentState.validate()) {
+                          _updateInCloud();
+                          _flushAll();
+                          Get.snackbar('Succsess'.tr, 'YourComsav'.tr,
+                              snackPosition: SnackPosition.BOTTOM);
+                        } else {
+                          Get.snackbar('Error'.tr, 'notsaved'.tr,
+                              snackPosition: SnackPosition.BOTTOM);
+                        }
+                      },
+                    ),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: primaryColor)),
+                      color: secondaryColor,
+                      child: Text('Delete',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: fontColor)),
+                      onPressed: () {
+                        if (_anounceformKey.currentState.validate()) {
+                          cv.deleteObject('anounces', widget.anounce.id);
+                          _flushAll();
+                          Get.snackbar('Succsess'.tr, 'YourComsav'.tr,
+                              snackPosition: SnackPosition.BOTTOM);
+                        } else {
+                          Get.snackbar('Error'.tr, 'notsaved'.tr,
+                              snackPosition: SnackPosition.BOTTOM);
+                        }
+                      },
+                    ),
+                  ],
+                )
         ],
       ),
     );
