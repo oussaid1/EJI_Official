@@ -276,6 +276,22 @@ Map<String, dynamic> positions = {
   'RWF': 'l',
   'CF': 'm',
 };
+Map<String, dynamic> positionsInvers = {
+  'a': 'GK',
+  'd': 'CB',
+  'CB5': 'e',
+  'c': 'LB',
+  'b': 'RB',
+  'h': 'CMF',
+  'f': 'DMF',
+  'n': 'AMF',
+  'i': 'RMF',
+  'g': 'LMF',
+  'k': 'SS',
+  'j': 'LWF',
+  'l': 'RWF',
+  'm': 'CF',
+};
 Map<String, dynamic> toArabic = {
   'GK': 'حارس مرمى',
   'CB': 'مدافع اوسط',

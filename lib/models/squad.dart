@@ -31,14 +31,12 @@ class Squad {
 
       l.removeAt(p);
     } else {
-      plr = new Player.dummy(a);
+      plr = new Player.dummy(positionsInvers[a]);
     }
     return plr;
   }
 
   Squad.main433({List<Player> list11Players}) {
-    for (var i = 0; i < list11Players.length; i++) {}
-
     this.pGK = getPlayerX(list11Players, 'a');
     this.pCB5 = getPlayerX(list11Players, 'd');
 

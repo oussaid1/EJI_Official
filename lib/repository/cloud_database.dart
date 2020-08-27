@@ -68,7 +68,7 @@ class CloudDatabase extends GetxController {
   }
 
   Stream<List<Player>> getPlayerz(String collectionName) {
-    Stream<List<Player>> pList = _db
+    return _db
         .collection('players')
         .orderBy('oVR', descending: true)
         .snapshots()
@@ -79,8 +79,6 @@ class CloudDatabase extends GetxController {
               )
               .toList(),
         );
-
-    return pList;
   }
 
   Stream<List<Player>> getGK() {

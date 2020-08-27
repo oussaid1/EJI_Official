@@ -14,6 +14,7 @@ import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/screens/common/ahdath_screen.dart';
+import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -115,13 +116,9 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 leading: Icon(FontAwesomeIcons.list),
                 subtitle: Text('teamManagersub'.tr),
                 title: Text('teamManager'.tr),
-                onTap: () {},
-              ),
-              ListTile(
-                subtitle: Text('buildSquad'),
-                leading: Icon(Icons.crop_square),
-                title: Text('buildSquad'),
-                onTap: () => Get.to(SquadManagmentTab()),
+                onTap: () {
+                  Get.off(MainFormation());
+                },
               ),
               ListTile(
                 leading: Icon(Icons.people),
