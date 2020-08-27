@@ -1,3 +1,4 @@
+import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/translations/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:EJI/screens/common/splash.dart';
@@ -5,8 +6,6 @@ import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import 'screens/squad/squad_managment.dart';
 
 void main() async {
   await GetStorage.init();
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
       home: SplashPage(),
       initialRoute: '/splash',
       getPages: [
-        GetPage(name: '/splash', page: () => new SquadManagmentTab()),
+        GetPage(name: '/splash', page: () => new MainFormation()),
       ],
       // GetPage with custom transitions and bindings
     );

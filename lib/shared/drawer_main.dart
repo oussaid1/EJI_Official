@@ -24,7 +24,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  final String image = "players/profileImages/logo.png";
+  final String image = "players/profileImages/ejilogo.png";
 
   final CloudDatabase cD = Get.put(CloudDatabase());
 
@@ -91,7 +91,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: secondaryColor,
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/ejilogo.png',
                     fit: BoxFit.fill,
                   ),
                 ),

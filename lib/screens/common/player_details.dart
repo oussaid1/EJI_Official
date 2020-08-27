@@ -129,7 +129,7 @@ class PlayerDetails extends StatelessWidget {
                                           child: (snapshot == null ||
                                                   !snapshot.hasData)
                                               ? Image.asset(
-                                                  'assets/images/logo.png',
+                                                  'assets/images/ejilogo.png',
                                                   height: 116,
                                                   width: 116,
                                                   fit: BoxFit.fill,
@@ -143,7 +143,7 @@ class PlayerDetails extends StatelessWidget {
                                                     placeholder:
                                                         (context, url) =>
                                                             Image.asset(
-                                                      'assets/images/logo.png',
+                                                      'assets/images/ejilogo.png',
                                                       height: 116,
                                                       width: 116,
                                                       fit: BoxFit.fill,
@@ -151,7 +151,7 @@ class PlayerDetails extends StatelessWidget {
                                                     errorWidget:
                                                         (context, url, error) =>
                                                             Image.asset(
-                                                      'assets/images/logo.png',
+                                                      'assets/images/ejilogo.png',
                                                       fit: BoxFit.contain,
                                                       height: 116,
                                                       width: 116,
@@ -453,7 +453,7 @@ class JuniorPlayerDetails extends StatelessWidget {
                                             child: (snapshot == null ||
                                                     !snapshot.hasData)
                                                 ? Image.asset(
-                                                    'assets/images/logo.png',
+                                                    'assets/images/ejilogo.png',
                                                     height: 116,
                                                     width: 116,
                                                     fit: BoxFit.fill,
@@ -467,7 +467,7 @@ class JuniorPlayerDetails extends StatelessWidget {
                                                       placeholder:
                                                           (context, url) =>
                                                               Image.asset(
-                                                        'assets/images/logo.png',
+                                                        'assets/images/ejilogo.png',
                                                         height: 116,
                                                         width: 116,
                                                         fit: BoxFit.fill,
@@ -475,7 +475,7 @@ class JuniorPlayerDetails extends StatelessWidget {
                                                       errorWidget: (context,
                                                               url, error) =>
                                                           Image.asset(
-                                                        'assets/images/logo.png',
+                                                        'assets/images/ejilogo.png',
                                                         fit: BoxFit.contain,
                                                         height: 116,
                                                         width: 116,

@@ -28,7 +28,7 @@ class _AddPlayersState extends State<AddPlayers> {
   final CloudDatabase cD = Get.put(CloudDatabase());
   bool isJunior = false;
   String _id;
-  String _profileImage = "players/profileImages/logo.png";
+  String _profileImage = "players/profileImages/ejilogo.png";
   int _regNum = 0;
   String _playerName;
   String _dateOfBirth = '02-02-2000';
@@ -640,7 +640,7 @@ class _AddPlayersState extends State<AddPlayers> {
                         fit: BoxFit.fill,
                       )
                     : Image.asset(
-                        "assets/images/logo.png",
+                        "assets/images/ejilogo.png",
                         fit: BoxFit.fill,
                       ),
               ),

@@ -14,7 +14,7 @@ class JuniorPlayerList extends StatefulWidget {
 }
 
 class _JuniorListPageState extends State<JuniorPlayerList> {
-  final String image = "players/profileImages/logo.png";
+  final String image = "players/profileImages/ejilogo.png";
   List<JuniorPlayer> lista;
 
   CloudDatabase c = Get.put(CloudDatabase());
@@ -73,7 +73,7 @@ class _JuniorListPageState extends State<JuniorPlayerList> {
                                         child: (snapshot == null ||
                                                 !snapshot.hasData)
                                             ? new Image.asset(
-                                                'assets/images/logo.png',
+                                                'assets/images/ejilogo.png',
                                                 fit: BoxFit.fill,
                                               )
                                             : new Image.network(

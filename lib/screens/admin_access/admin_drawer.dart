@@ -8,7 +8,6 @@ import 'package:EJI/screens/common/anounces_tab.dart';
 import 'package:EJI/screens/common/player_ranking.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
-import 'package:EJI/screens/squad/offensive_formation.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
@@ -29,7 +28,7 @@ class AdminDrawer extends StatefulWidget {
 }
 
 class _AdminDrawerState extends State<AdminDrawer> {
-  final String image = "players/profileImages/logo.png";
+  final String image = "players/profileImages/ejilogo.png";
 
   final CloudDatabase cD = Get.put(CloudDatabase());
 
@@ -97,7 +96,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: secondaryColor,
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/ejilogo.png',
                     fit: BoxFit.fill,
                   ),
                 ),

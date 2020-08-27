@@ -37,7 +37,7 @@ class _SquadPlayerState extends State<SquadPlayer> {
                           context, widget.squadPlayer.profileImage),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData || snapshot.hasError) {
-                          return Image.asset('assets/images/logo.png',
+                          return Image.asset('assets/images/ejilogo.png',
                               height: 30, width: 30, fit: BoxFit.fill);
                         } else
                           return ClipRRect(
@@ -49,12 +49,12 @@ class _SquadPlayerState extends State<SquadPlayer> {
                                 imageUrl: snapshot.data,
                                 fit: BoxFit.fill,
                                 placeholder: (context, url) => Image.asset(
-                                    'assets/images/logo.png',
+                                    'assets/images/ejilogo.png',
                                     height: 30,
                                     width: 30,
                                     fit: BoxFit.fill),
                                 errorWidget: (context, url, error) =>
-                                    Image.asset('assets/images/logo.png',
+                                    Image.asset('assets/images/ejilogo.png',
                                         height: 30,
                                         width: 30,
                                         fit: BoxFit.fill),
@@ -94,7 +94,7 @@ class _SquadPlayerState extends State<SquadPlayer> {
                     child: Container(
                       height: 30,
                       width: 30,
-                      child: Image.asset('assets/images/logo.png',
+                      child: Image.asset('assets/images/ejilogo.png',
                           height: 30, width: 30, fit: BoxFit.fill),
                     ),
                   ),

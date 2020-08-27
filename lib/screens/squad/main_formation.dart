@@ -23,10 +23,10 @@ class MainFormation extends StatefulWidget {
 class _MainFormationState extends State<MainFormation> {
   double height = Get.height, width = Get.width;
   bool format1 = false;
-  Squad selectedSquad;
+  Squad selectedSquadx;
   bool isAccepted = false;
   bool isSwitched = false;
-  int formationIndex = 0;
+  int formationIndex = 1;
   List<Player> lista;
   List<Player> listaGK;
   final CloudDatabase c = Get.put(CloudDatabase());
@@ -36,15 +36,9 @@ class _MainFormationState extends State<MainFormation> {
     secondaryColor,
     secondaryColor,
   ];
-  bool selectedFor1 = false;
+  bool selectedFor1 = true;
   bool selectedFor2 = false;
   bool selectedFor3 = false;
-
-  _changeFormation(int i) {
-    setState(() {
-      formationIndex = i;
-    });
-  }
 
   @override
   void initState() {
@@ -69,7 +63,7 @@ class _MainFormationState extends State<MainFormation> {
   @override
   Widget build(BuildContext context) {
     if (widget.selectedSquad != null) {
-      selectedSquad = new Squad.main433(list11Players: widget.selectedSquad);
+      selectedSquadx = new Squad.main433(list11Players: widget.selectedSquad);
 
       return Scaffold(
         body: Stack(
@@ -86,72 +80,6 @@ class _MainFormationState extends State<MainFormation> {
                         fit: BoxFit.fill),
                   ),
                   // GoalKeeper
-                  buildPositionedPlayer(
-                      top: Get.height / 50,
-                      left: Get.width / 2.4,
-                      playerCandidate: selectedSquad.pGK),
-                  //deffence
-                  //LB
-                  buildPositionedPlayer(
-                      top: Get.height / 7,
-                      left: Get.width / 20,
-                      playerCandidate: selectedSquad.pLB ?? new Player.dummy()),
-                  //CB5
-                  buildPositionedPlayer(
-                      top: Get.height / 7,
-                      left: Get.width / 3.5,
-                      playerCandidate:
-                          selectedSquad.pCB5 ?? new Player.dummy()),
-                  //CB4
-                  buildPositionedPlayer(
-                      bottm: squadformation[formationIndex]['CB4b'],
-                      right: squadformation[formationIndex]['CB4b'],
-                      playerCandidate:
-                          selectedSquad.pCB4 ?? new Player.dummy()),
-                  //RB
-                  buildPositionedPlayer(
-                      top: Get.height / 7,
-                      right: Get.width / 20,
-                      playerCandidate: selectedSquad.pRB ?? new Player.dummy()),
-                  //MiddleField
-                  //RMF
-                  buildPositionedPlayer(
-                      top: Get.height / 2.8,
-                      right: Get.width / 5,
-                      playerCandidate:
-                          selectedSquad.pRMF ?? new Player.dummy()),
-                  //CMF
-                  buildPositionedPlayer(
-                      top: Get.height / 2.2,
-                      right: Get.width / 2.4,
-                      playerCandidate: selectedSquad.pSS ?? new Player.dummy()),
-                  //LMF
-                  buildPositionedPlayer(
-                      top: Get.height / 2.8,
-                      left: Get.width / 5,
-                      playerCandidate: selectedSquad.pLMF ??
-                          selectedSquad.pLMF ??
-                          new Player.dummy()),
-
-                  //Forward
-                  //RWF
-                  buildPositionedPlayer(
-                      top: Get.height / 1.8,
-                      right: Get.width / 20,
-                      playerCandidate:
-                          selectedSquad.pRWF ?? new Player.dummy()),
-                  //CF
-                  buildPositionedPlayer(
-                      top: Get.height / 1.6,
-                      right: Get.width / 2.4,
-                      playerCandidate: selectedSquad.pCF ?? new Player.dummy()),
-
-                  //LWF
-                  buildPositionedPlayer(
-                      top: Get.height / 1.8,
-                      left: Get.width / 20,
-                      playerCandidate:
-                          selectedSquad.pLWF ?? new Player.dummy()),
                 ],
               ),
             ),
@@ -221,102 +149,381 @@ class _MainFormationState extends State<MainFormation> {
               Container(
                   alignment: Alignment.center,
                   height: 600,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 2),
-                        child: Image.asset('assets/images/field2.png',
-                            fit: BoxFit.fill),
-                      ),
-                      // GoalKeeper
-                      buildGK(),
-                      //deffence
-                      //LB
-                      buildPositionedPlayer(
-                        top: Get.height / 7,
-                        left: Get.width / 20,
-                      ),
-                      //CB5
-                      buildPositionedPlayer(
-                        top: Get.height / 7,
-                        left: Get.width / 3.5,
-                      ),
-                      //CB4
-                      buildPositionedPlayer(
-                        top: Get.height / 7,
-                        right: Get.width / 3.5,
-                      ),
-                      //RB
+                  child: StreamBuilder(
+                      stream: c.getPlayerz('Players'),
+                      builder: (context, AsyncSnapshot<List<Player>> snapshot) {
+                        lista = snapshot.data;
+                        Squad selectedSquadxy =
+                            new Squad.main433(list11Players: lista);
+                        return Stack(
+                          fit: StackFit.expand,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2),
+                              child: Image.asset('assets/images/field2.png',
+                                  fit: BoxFit.fill),
+                            ),
+                            // GoalKeeper
+                            _buildGK(selectedSquadxy),
+                            //deffence
+                            //LB
+                            _buildLB(formationIndex, selectedSquadxy),
+                            //CB5
+                            _buildCB5(formationIndex, selectedSquadxy),
+                            //CB4
+                            _buildCB4(formationIndex, selectedSquadxy),
+                            //RB
+                            _buildRB(formationIndex, selectedSquadxy),
+                            //MiddleField
+                            //RMF
+                            _buildRMF(formationIndex, selectedSquadxy),
+                            //CMF
+                            _buildCMF(formationIndex, selectedSquadxy),
+                            //LMF
+                            _buildLMF(formationIndex, selectedSquadxy),
 
-                      //MiddleField
-                      //RMF
-                      buildPositionedPlayer(
-                        top: Get.height / 2.8,
-                        right: Get.width / 20,
-                      ),
-                      //CMF
-                      buildPositionedPlayer(
-                        top: Get.height / 2.8,
-                        right: Get.width / 2.4,
-                      ),
-                      //LMF
-                      buildPositionedPlayer(
-                        top: Get.height / 2.8,
-                        left: Get.width / 20,
-                      ),
+                            //Forward
+                            //RWF
+                            _buildRWF(formationIndex, selectedSquadxy),
+                            //CF
+                            _buildCF(formationIndex, selectedSquadxy),
 
-                      //Forward
-                      //RWF
-                      buildPositionedPlayer(
-                        top: Get.height / 1.8,
-                        right: Get.width / 20,
-                      ),
-                      //CF
-                      buildPositionedPlayer(
-                        top: Get.height / 1.8,
-                        right: Get.width / 2.4,
-                      ),
-
-                      //LWF
-                      buildPositionedPlayer(
-                        top: Get.height / 1.8,
-                        left: Get.width / 20,
-                      ),
-                    ],
-                  )),
+                            //LWF
+                            _buildLWF(formationIndex, selectedSquadxy),
+                          ],
+                        );
+                      })),
             ],
           ));
   }
 
-  Widget buildGK() {
+  Widget _buildGK(Squad selectedSquad) {
+    // if (selectedSquad != null) selectedSquad = new Squad.dummy();
+
     return buildPositionedPlayer(
       top: Get.height / 50,
       left: Get.width / 2.4,
+      playerCandidate: selectedSquad.pGK ?? new Player.dummy('GK'),
     );
   }
 
-  Widget buildRB() {
+  Widget _buildRB(int formationIndex, Squad selectedSquad) {
     switch (formationIndex) {
       case 0:
         return buildPositionedPlayer(
           top: Get.height / 7,
           right: Get.width / 20,
+          playerCandidate: selectedSquad.pRB ?? new Player.dummy('RB'),
         );
         break;
       case 1:
         return buildPositionedPlayer(
           top: Get.height / 7,
           right: Get.width / 20,
+          playerCandidate: selectedSquad.pRB ?? new Player.dummy('RB'),
         );
         break;
       case 2:
         return buildPositionedPlayer(
           top: Get.height / 7,
           right: Get.width / 20,
+          playerCandidate: selectedSquad.pRB ?? new Player.dummy('RB'),
         );
         break;
       default:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          right: Get.width / 20,
+          playerCandidate: selectedSquad.pRB ?? new Player.dummy('RB'),
+        );
+    }
+  }
+
+  Widget _buildLB(int formationIndex, Squad selectedSquad) {
+    switch (formationIndex) {
+      case 0:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pLB ?? new Player.dummy('LB'),
+        );
+        break;
+      case 1:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pLB ?? new Player.dummy('LB'),
+        );
+        break;
+      case 2:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pLB ?? new Player.dummy('LB'),
+        );
+        break;
+      default:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pLB ?? new Player.dummy('LB'),
+        );
+    }
+  }
+
+  Widget _buildCB4(int formationIndex, Squad selectedSquad) {
+    switch (formationIndex) {
+      case 0:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          right: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCB4 ?? new Player.dummy('CB'),
+        );
+        break;
+      case 1:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          right: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCB4 ?? new Player.dummy('CB'),
+        );
+        break;
+      case 2:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          right: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCB4 ?? new Player.dummy('CB'),
+        );
+        break;
+      default:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          right: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCB4 ?? new Player.dummy('CB'),
+        );
+    }
+  }
+
+  Widget _buildCB5(int formationIndex, Squad selectedSquad) {
+    switch (formationIndex) {
+      case 0:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          left: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCB5 ?? new Player.dummy('CB'),
+        );
+        break;
+      case 1:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          left: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCB5 ?? new Player.dummy('CB'),
+        );
+        break;
+      case 2:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          left: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCB5 ?? new Player.dummy('CB'),
+        );
+        break;
+      default:
+        return buildPositionedPlayer(
+          top: Get.height / 7,
+          left: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCB5 ?? new Player.dummy('CB'),
+        );
+    }
+  }
+
+  Widget _buildRMF(int formationIndex, Squad selectedSquad) {
+    switch (formationIndex) {
+      case 0:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          right: Get.width / 20,
+          playerCandidate: selectedSquad.pCMF2 ?? new Player.dummy('RMF'),
+        );
+        break;
+      case 1:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          right: Get.width / 20,
+          playerCandidate: selectedSquad.pDMF ?? new Player.dummy('DMF'),
+        );
+        break;
+      case 2:
+        return buildPositionedPlayer(
+          top: Get.height / 3.5,
+          right: Get.width / 4,
+          playerCandidate: selectedSquad.pCMF2 ?? new Player.dummy('DMF'),
+        );
+        break;
+      default:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          right: Get.width / 20,
+          playerCandidate: selectedSquad.pRMF ?? new Player.dummy('RMF'),
+        );
+    }
+  }
+
+  Widget _buildCMF(int formationIndex, Squad selectedSquad) {
+    switch (formationIndex) {
+      case 0:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          right: Get.width / 2.4,
+          playerCandidate: selectedSquad.pDMF ?? new Player.dummy('CMF'),
+        );
+        break;
+      case 1:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          left: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCMF1 ?? new Player.dummy('CMF'),
+        );
+        break;
+      case 2:
+        return buildPositionedPlayer(
+          top: Get.height / 2.5,
+          right: Get.width / 2.4,
+          playerCandidate: selectedSquad.pCMF1 ?? new Player.dummy('CMF'),
+        );
+        break;
+      default:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          right: Get.width / 2.4,
+          playerCandidate: selectedSquad.pLWF ?? new Player.dummy('CMF'),
+        );
+    }
+  }
+
+  Widget _buildLMF(int formationIndex, Squad selectedSquad) {
+    switch (formationIndex) {
+      case 0:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pCMF1 ?? new Player.dummy('CMF'),
+        );
+        break;
+      case 1:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pAMF ?? new Player.dummy('CMF'),
+        );
+        break;
+      case 2:
+        return buildPositionedPlayer(
+          top: Get.height / 3.5,
+          left: Get.width / 4,
+          playerCandidate: selectedSquad.pDMF ?? new Player.dummy('CMF'),
+        );
+        break;
+      default:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pLWF ?? new Player.dummy('CMF'),
+        );
+    }
+  }
+
+  Widget _buildRWF(int formationIndex, Squad selectedSquad) {
+    switch (formationIndex) {
+      case 0:
+        return buildPositionedPlayer(
+          top: Get.height / 1.8,
+          right: Get.width / 20,
+          playerCandidate: selectedSquad.pRMF ?? new Player.dummy('CMF'),
+        );
+        break;
+      case 1:
+        return buildPositionedPlayer(
+          top: Get.height / 1.8,
+          left: Get.width / 4,
+          playerCandidate: selectedSquad.pLWF ?? new Player.dummy('CMF'),
+        );
+        break;
+      case 2:
+        return buildPositionedPlayer(
+          top: Get.height / 2.5,
+          right: Get.width / 20,
+          playerCandidate: selectedSquad.pLMF ?? new Player.dummy('LMF'),
+        );
+        break;
+      default:
+        return buildPositionedPlayer(
+          top: Get.height / 1.8,
+          right: Get.width / 20,
+          playerCandidate: selectedSquad.pRWF ?? new Player.dummy('CMF'),
+        );
+    }
+  }
+
+  Widget _buildCF(int formationIndex, Squad selectedSquad) {
+    switch (formationIndex) {
+      case 0:
+        return buildPositionedPlayer(
+          top: Get.height / 1.8,
+          right: Get.width / 2.4,
+          playerCandidate: selectedSquad.pCF ?? new Player.dummy('CF'),
+        );
+        break;
+      case 1:
+        return buildPositionedPlayer(
+          top: Get.height / 1.8,
+          right: Get.width / 4,
+          playerCandidate: selectedSquad.pCF ?? new Player.dummy('CF'),
+        );
+        break;
+      case 2:
+        return buildPositionedPlayer(
+          top: Get.height / 1.8,
+          right: Get.width / 2.4,
+          playerCandidate: selectedSquad.pCF ?? new Player.dummy('CF'),
+        );
+        break;
+      default:
+        return buildPositionedPlayer(
+          top: Get.height / 1.8,
+          right: Get.width / 2.4,
+          playerCandidate: selectedSquad.pCF ?? new Player.dummy('CF'),
+        );
+    }
+  }
+
+  Widget _buildLWF(int formationIndex, Squad selectedSquad) {
+    switch (formationIndex) {
+      case 0:
+        return buildPositionedPlayer(
+          top: Get.height / 1.8,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pLWF ?? new Player.dummy('LWF'),
+        );
+        break;
+      case 1:
+        return buildPositionedPlayer(
+          top: Get.height / 2.8,
+          right: Get.width / 3.5,
+          playerCandidate: selectedSquad.pCMF2 ?? new Player.dummy('LWF'),
+        );
+        break;
+      case 2:
+        return buildPositionedPlayer(
+          top: Get.height / 2.5,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pLWF ?? new Player.dummy('LWF'),
+        );
+        break;
+      default:
+        return buildPositionedPlayer(
+          top: Get.height / 1.8,
+          left: Get.width / 20,
+          playerCandidate: selectedSquad.pLWF ?? new Player.dummy('LWF'),
+        );
     }
   }
 
@@ -326,9 +533,6 @@ class _MainFormationState extends State<MainFormation> {
       double right,
       double top,
       Player playerCandidate}) {
-    if (playerCandidate == null) {
-      playerCandidate = new Player.dummy();
-    }
     return Positioned(
       bottom: bottm,
       left: left,

@@ -102,7 +102,7 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
                                     return ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: new Image.asset(
-                                        'assets/images/logo.png',
+                                        'assets/images/ejilogo.png',
                                         fit: BoxFit.fill,
                                         width: 54,
                                         height: 54,
@@ -124,7 +124,7 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
                                           fit: BoxFit.fill,
                                           placeholder: (context, url) =>
                                               new Image.asset(
-                                            'assets/images/logo.png',
+                                            'assets/images/ejilogo.png',
                                             fit: BoxFit.fill,
                                           ),
                                           errorWidget: (context, url, error) =>

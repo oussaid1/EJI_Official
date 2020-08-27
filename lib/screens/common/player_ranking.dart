@@ -16,7 +16,7 @@ class PlayerRanking extends StatefulWidget {
 }
 
 class _PlayerRankingState extends State<PlayerRanking> {
-  final String image = "players/profileImages/logo.png";
+  final String image = "players/profileImages/ejilogo.png";
   List<Player> lista;
   bool isVoted = false;
   CloudDatabase c = Get.put(CloudDatabase());
@@ -358,7 +358,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
                                           !imagesnapshot.hasData ||
                                           imagesnapshot.hasError) {
                                         return new Image.asset(
-                                          'assets/images/logo.png',
+                                          'assets/images/ejilogo.png',
                                           fit: BoxFit.fill,
                                           width: 120,
                                           height: 120,
@@ -371,14 +371,14 @@ class _PlayerRankingState extends State<PlayerRanking> {
                                           fit: BoxFit.fill,
                                           placeholder: (context, url) =>
                                               new Image.asset(
-                                            'assets/images/logo.png',
+                                            'assets/images/ejilogo.png',
                                             fit: BoxFit.fill,
                                             width: 120,
                                             height: 120,
                                           ),
                                           errorWidget: (context, url, error) =>
                                               new Image.asset(
-                                            'assets/images/logo.png',
+                                            'assets/images/ejilogo.png',
                                             width: 120,
                                             height: 120,
                                             fit: BoxFit.fill,

@@ -189,7 +189,7 @@ class StaffPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Image.asset(
-                  'assets/images/logo.png',
+                  'assets/images/ejilogo.png',
                   height: 60,
                   width: 60,
                   fit: BoxFit.fill,
