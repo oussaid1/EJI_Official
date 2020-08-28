@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 80,
               width: 80,
               child: Image.asset(
-                'assets/images/logoW.png',
+                'assets/images/ejilogo.png',
                 height: 80,
                 width: 80,
                 fit: BoxFit.fill,

@@ -1,4 +1,3 @@
-import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/translations/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:EJI/screens/common/splash.dart';

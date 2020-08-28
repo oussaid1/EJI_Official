@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:intl/intl.dart';
 
 class PlayerRanking extends StatefulWidget {
   const PlayerRanking({Key key}) : super(key: key);
@@ -394,7 +395,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
               },
             ),
           ),
-          Positioned(
+          /* Positioned(
             bottom: 30,
             height: 180,
             width: 360,
@@ -407,7 +408,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
                   ),
                   borderRadius: BorderRadius.circular(8)),
             ),
-          ),
+          ),*/
         ],
       ),
     );
@@ -423,6 +424,8 @@ class ScoreBoard extends StatefulWidget {
 }
 
 class _ScoreBoardState extends State<ScoreBoard> {
+  DateTime nowDate = new DateTime.now();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
   CloudDatabase c = Get.put(CloudDatabase());
   String _id;
   PlayerRatingsControler prc = Get.put(PlayerRatingsControler());
@@ -731,6 +734,23 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                     rateable: widget.playerToRate.rateable,
                                     isGK: widget.playerToRate.isGK,
                                   );
+                                  Player scoredPlayer2 = new Player.stats(
+                                    regNum: widget.playerToRate.regNum,
+                                    seasons: widget.playerToRate.seasons,
+                                    playerName: widget.playerToRate.playerName,
+                                    scoreDate:
+                                        formatter.format(nowDate).toString(),
+                                    positionPlayed:
+                                        widget.playerToRate.position,
+                                    availability: prc.availability.value,
+                                    desciplineScore: prc.descipline.value,
+                                    positionMaster: prc.positionMastery.value,
+                                    trainingScore: prc.training.value,
+                                    oVR: (prc.descipline.value) +
+                                        (prc.training.value) +
+                                        prc.positionMastery.value +
+                                        prc.availability.value,
+                                  );
                                   Get.defaultDialog(
                                     title: 'تحذير',
                                     middleText: ' !هل انت متاكد ',
@@ -748,6 +768,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                                     .trim()) {
                                               Navigator.pop(context);
                                               c.updatePlayer(scoredPlayer);
+                                              c.addPlayerScores(scoredPlayer2);
                                             }
                                           },
                                         ),

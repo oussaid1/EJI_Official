@@ -101,7 +101,8 @@ class PlayerDetails extends StatelessWidget {
                             child: SizedBox(
                               height: 70,
                               width: 70,
-                              child: new Image.asset('assets/images/logoW.png',
+                              child: new Image.asset(
+                                  'assets/images/ejilogo.png',
                                   fit: BoxFit.fill),
                             ),
                           ),
@@ -423,7 +424,7 @@ class JuniorPlayerDetails extends StatelessWidget {
                                 height: 70,
                                 width: 70,
                                 child: new Image.asset(
-                                    'assets/images/logoW.png',
+                                    'assets/images/ejilogo.png',
                                     fit: BoxFit.fill),
                               ),
                             ),

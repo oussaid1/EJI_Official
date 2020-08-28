@@ -8,7 +8,9 @@ class Player {
   String email;
   String phone;
   String regDate;
+  String scoreDate;
   String position;
+  String positionPlayed;
   int seasons;
   int trainingScore;
   int desciplineScore;
@@ -63,6 +65,49 @@ class Player {
   }) {
     this.oVR = trainingScore + desciplineScore + positionMaster + availability;
   }
+  Player.stats({
+    this.id,
+    this.playerName,
+    this.regNum,
+    this.scoreDate,
+    this.positionPlayed,
+    this.seasons,
+    this.desciplineScore,
+    this.positionMaster,
+    this.availability,
+    this.oVR,
+    this.trainingScore,
+  }) {
+    this.oVR = trainingScore + desciplineScore + positionMaster + availability;
+  }
+  Map<String, dynamic> toMapStats() {
+    return {
+      'regnum': regNum,
+      'playername': playerName,
+      'scoreDate': scoreDate,
+      'positionPlayed': positionPlayed,
+      'seasons': seasons,
+      'desciplineScore': desciplineScore,
+      'positionMaster': positionMaster,
+      'availability': availability,
+      'oVR': oVR,
+      'trainingScore': trainingScore,
+    };
+  }
+
+  Player.fromMapStats(Map<String, dynamic> map, String id)
+      : id = id,
+        playerName = map['playername'],
+        positionPlayed = map['positionPlayed'],
+        regNum = map['regnum'],
+        scoreDate = map['scoreDate'],
+        seasons = map['seasons'],
+        trainingScore = map['trainingScore'],
+        oVR = map['oVR'],
+        availability = map['availability'],
+        positionMaster = map['positionMaster'],
+        desciplineScore = map['desciplineScore'];
+
   Map<String, dynamic> toMap() {
     return {
       'profileimage': profileImage,

@@ -282,6 +282,10 @@ bool isAdult2(String birthDateString) {
     return _db.collection('players').add(player.toMap());
   }
 
+  Future<void> addPlayerScores(Player player) {
+    return _db.collection('PlayerStats').add(player.toMapStats());
+  }
+
   Future<void> addArchivePictures(ClubArcive clubArcive) {
     return _db.collection('ClubPitureArchive').add(clubArcive.toMap());
   }
