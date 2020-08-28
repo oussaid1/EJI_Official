@@ -1,12 +1,10 @@
 import 'package:EJI/models/ahdath_events.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/admin_access/add_ahdath.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_timeline/event_item.dart';
-import 'package:flutter_timeline/timeline.dart';
-import 'package:flutter_timeline/timeline_theme.dart';
-import 'package:flutter_timeline/timeline_theme_data.dart';
 import 'package:get/get.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 class AhdathScreen extends StatefulWidget {
   const AhdathScreen({
@@ -21,19 +19,6 @@ class _AhdathState extends State<AhdathScreen> {
   CloudDatabase c = Get.put(CloudDatabase());
   List<AhdathModel> listano;
   AhdathModel ahdathModel;
-  List<TimelineEventDisplay> _events = [];
-
-  void addAhdaths() {
-    AhdathModel a = new AhdathModel(
-      title: 'Hi Am hre ',
-      description: 'this is looking oo',
-      dueDate: '02-08-2020',
-      isDone: true,
-      responsible: 'Prsident',
-      status: 'in Progress',
-    );
-    c.addAhdath(a);
-  }
 
   @override
   void initState() {
@@ -43,73 +28,146 @@ class _AhdathState extends State<AhdathScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondaryColor,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            addAhdaths();
-          });
-        },
-        child: Icon(Icons.add),
-      ), // This
-      appBar: AppBar(),
-      body: StreamBuilder(
-          stream: c.getAhdath(),
-          builder: (context, AsyncSnapshot<List<AhdathModel>> ahdathSnapshot) {
-            if (ahdathSnapshot.hasError || !ahdathSnapshot.hasData) {
-              return Center(
-                  child: Container(
-                child: Icon(
-                  Icons.clear_all,
-                  size: 50,
-                ),
-              ));
-            } else {
-              listano = ahdathSnapshot.data;
-              _events.clear();
-              for (var i = 0; i < ahdathSnapshot.data.length; i++) {
-                _events.insert(
-                    0,
-                    TimelineEventDisplay(
-                        child: TimelineEventCard(
-                          title: Text(
-                            "${listano[i].title}",
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+        floatingActionButton: c.isAdmin.value
+            ? FloatingActionButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  20.0)), //this right here
+                          child: AddAhdath(),
+                        );
+                      });
+                },
+                child: Icon(Icons.add),
+              )
+            : new Container(), // This
+        appBar: AppBar(),
+        body: StreamBuilder(
+            stream: c.getAhdath(),
+            builder:
+                (context, AsyncSnapshot<List<AhdathModel>> ahdathSnapshot) {
+              if (ahdathSnapshot.hasError || !ahdathSnapshot.hasData) {
+                return Center(
+                    child: Container(
+                  child: Icon(
+                    Icons.clear_all,
+                    size: 50,
+                  ),
+                ));
+              } else {
+                listano = ahdathSnapshot.data;
+
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                      itemCount: listano != null ? listano.length : 0,
+                      itemBuilder: (BuildContext context, index) {
+                        AhdathModel ahdathModel = listano[index];
+                        return TimelineTile(
+                          isLast: false,
+                          indicatorStyle: IndicatorStyle(
+                              width: 50,
+                              color: primaryColor,
+                              iconStyle: IconStyle(
+                                  iconData: Icons.calendar_today,
+                                  fontSize: 20,
+                                  color: accentColor)),
+                          topLineStyle: const LineStyle(
+                            color: primaryColor,
                           ),
-                          content: Column(
-                            children: [
-                              Text(
-                                "${listano[i].description}",
-                                maxLines: 10,
-                              ),
-                              Text(
-                                "${listano[i].status}",
-                                style: TextStyle(
-                                    color: Colors.red[300], fontSize: 14),
-                              ),
-                            ],
+                          bottomLineStyle: const LineStyle(
+                            color: primaryColor,
                           ),
-                        ),
-                        indicator: Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: primaryColor),
-                        )));
+                          hasIndicator: true,
+                          lineX: 0.64,
+                          alignment: TimelineAlign.manual,
+                          leftChild: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 6, 4, 2),
+                            child: new Container(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  border: Border.all(color: orange)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text(
+                                      "${ahdathModel.title}",
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                          height:
+                                              1.2, // the height between text, default is null
+                                          letterSpacing: 1.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 22),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text(
+                                      "${ahdathModel.description}",
+                                      textDirection: TextDirection.rtl,
+                                      textAlign: TextAlign.justify,
+                                      maxLines: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          rightChild: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                new Text(
+                                  "${ahdathModel.dueDate}",
+                                  maxLines: 10,
+                                  style: TextStyle(
+                                      color: primaryColor, fontSize: 14),
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Text(
+                                        "${ahdathModel.status0}",
+                                        textDirection: TextDirection.rtl,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.red[300],
+                                            fontSize: 14),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Text(
+                                        "${ahdathModel.status}",
+                                        textDirection: TextDirection.rtl,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: accentColor, fontSize: 14),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                );
               }
-              return ListView(
-                children: [
-                  TimelineTheme(
-                      data: TimelineThemeData(lineColor: Colors.grey[600]),
-                      child: Timeline(
-                        indicatorSize: 20,
-                        events: _events,
-                      )),
-                ],
-              );
-            }
-          }),
-    );
+            }));
   }
 }

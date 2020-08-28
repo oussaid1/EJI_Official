@@ -160,7 +160,7 @@ class _AddAnounceState extends State<AddAnounce> {
     );
   }
 
-  Widget _buildDuration() {
+  /*Widget _buildDuration() {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -180,7 +180,7 @@ class _AddAnounceState extends State<AddAnounce> {
         ),
       ),
     );
-  }
+  }*/
 
   @override
   void initState() {

@@ -1,4 +1,4 @@
-import 'package:EJI/screens/squad/main_formation.dart';
+import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/translations/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:EJI/screens/common/splash.dart';
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       home: SplashPage(),
       initialRoute: '/splash',
       getPages: [
-        GetPage(name: '/splash', page: () => new MainFormation()),
+        GetPage(name: '/splash', page: () => new SplashPage()),
       ],
       // GetPage with custom transitions and bindings
     );

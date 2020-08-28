@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-//Color primaryColor = Color(0xFF3B4A30);
-Color primaryColor = Color(0xFF1C2929);
-Color secondaryColor = Color(0xFF85A2A2);
+const Color primaryColor = Color(0xFF1C2929);
+const Color secondaryColor = Color(0xFF85A2A2);
 LinearGradient gradientColor2 = LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
     colors: [Colors.blue, Colors.red]);
-Color accentColor = Color(0xFF00E472);
-Color fontColor = Color(0xFFCEE9BA);
-Color whitefontColor = Color(0xFFFFFFFF);
-Color orange = Colors.orange;
+const Color accentColor = Color(0xFF00E472);
+const Color fontColor = Color(0xFFCEE9BA);
+const Color whitefontColor = Color(0xFFFFFFFF);
+const Color orange = Colors.orange;
 
 List<Map<String, dynamic>> squadformation = [
   //4.3.3

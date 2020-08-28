@@ -56,7 +56,11 @@ class CloudDatabase extends GetxController {
   }
 
   Stream<List<AhdathModel>> getAhdath() {
-    Stream<List<AhdathModel>> pList = _db.collection('Ahdath').snapshots().map(
+    Stream<List<AhdathModel>> pList = _db
+        .collection('Ahdath')
+        .orderBy('creationDate', descending: true)
+        .snapshots()
+        .map(
           (snapshot) => snapshot.documents
               .map(
                 (doc) => AhdathModel.fromMap(doc.data, doc.documentID),

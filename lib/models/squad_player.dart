@@ -22,7 +22,7 @@ class _SquadPlayerState extends State<SquadPlayer> {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-          color: secondaryColor.withOpacity(0.8),
+          color: secondaryColor.withOpacity(0.9),
           borderRadius: BorderRadius.circular(12),
         ),
         height: 80,

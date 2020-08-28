@@ -27,7 +27,8 @@ dependencies:
   percent_indicator: 
   flutter_slidable: 
   esys_flutter_share:
-  flutter_timeline:
+ 
+  timeline_tile:
   splashscreen: 
   firebase_storage: 
   image_picker: 

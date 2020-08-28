@@ -560,7 +560,7 @@ class _MainFormationState extends State<MainFormation> {
         children: [
           Container(
             height: 90,
-            width: 65,
+            width: 75,
             child: Draggable<Player>(
               data: playerCandidate,
               childWhenDragging: Container(),

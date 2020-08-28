@@ -1,4 +1,5 @@
 import 'package:EJI/models/club_expenses.dart';
+import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/screens/common/picture_archive_list.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
 import 'package:EJI/screens/common/player_ranking.dart';
@@ -9,6 +10,7 @@ import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/screens/common/splash.dart';
+import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:EJI/repository/cloud_database.dart';
@@ -107,7 +109,9 @@ class _MyDrawerState extends State<MyDrawer> {
                 subtitle: Text('AltimteSquadsub'.tr),
                 title: Text('AltimteSquad'.tr),
 
-                onTap: () {},
+                onTap: () {
+                  Get.off(MainFormation());
+                },
               ),
               ListTile(
                 subtitle: Text('PlayersListsub'.tr),
@@ -145,9 +149,8 @@ class _MyDrawerState extends State<MyDrawer> {
               ListTile(
                   leading: Icon(Icons.event),
                   title: Text('ProgramsAndEvents'.tr),
-                  subtitle: Text('underDevelopment'.tr),
                   onTap: () => {
-                        //   Get.to(AhdathScreen()),
+                        Get.to(AhdathScreen()),
                       }),
               ListTile(
                   leading: Icon(Icons.store),
