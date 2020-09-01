@@ -8,6 +8,14 @@ import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:intl/intl.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
+class OrdinalSales {
+  final DateTime year;
+  final int sales;
+
+  OrdinalSales(this.year, this.sales);
+}
 
 class PlayerRanking extends StatefulWidget {
   const PlayerRanking({Key key}) : super(key: key);
@@ -18,10 +26,84 @@ class PlayerRanking extends StatefulWidget {
 
 class _PlayerRankingState extends State<PlayerRanking> {
   final String image = "players/profileImages/ejilogo.png";
-  List<Player> lista;
+  List<Player> lista = List<Player>();
   bool isVoted = false;
   CloudDatabase c = Get.put(CloudDatabase());
   PlayerRatingsControler prc = Get.put(PlayerRatingsControler());
+  Player player;
+  Player playerS;
+  List<Player> playerStatsList = List<Player>();
+  final List<OrdinalSales> data = [];
+  final List<OrdinalSales> data2 = [];
+  final List<OrdinalSales> data3 = [];
+  final List<OrdinalSales> data4 = [];
+  final List<OrdinalSales> data5 = [];
+
+  List<charts.Series<OrdinalSales, DateTime>> _createSampleData(
+      List<Player> list) {
+    list.retainWhere((element) => identical(element, player));
+    for (var i = 0; i < list.length; i++) {
+      playerS = list[i];
+      data.add(
+        new OrdinalSales(
+            DateTime.parse(playerS.scoreDate), playerS.desciplineScore),
+      );
+      data2.add(
+        new OrdinalSales(
+            DateTime.parse(playerS.scoreDate), playerS.trainingScore.toInt()),
+      );
+      data3.add(
+        new OrdinalSales(
+            DateTime.parse(playerS.scoreDate), playerS.positionMaster.toInt()),
+      );
+      data4.add(
+        new OrdinalSales(
+            DateTime.parse(playerS.scoreDate), playerS.availability.toInt()),
+      );
+      data5.add(
+        new OrdinalSales(
+            DateTime.parse(playerS.scoreDate), playerS.oVR.toInt()),
+      );
+    }
+
+    return [
+      new charts.Series<OrdinalSales, DateTime>(
+        id: 'descipline',
+        colorFn: (_, __) => moodColors[0]['descipline'],
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
+        data: data,
+      ),
+      new charts.Series<OrdinalSales, DateTime>(
+        id: 'training',
+        colorFn: (_, __) => moodColors[0]['training'],
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
+        data: data2,
+      ),
+      new charts.Series<OrdinalSales, DateTime>(
+        id: 'positionMastery',
+        colorFn: (_, __) => moodColors[0]['positionMastery'],
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
+        data: data3,
+      ),
+      new charts.Series<OrdinalSales, DateTime>(
+        id: 'availability',
+        colorFn: (_, __) => moodColors[0]['availability'],
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
+        data: data4,
+      ),
+      new charts.Series<OrdinalSales, DateTime>(
+        id: 'Score',
+        colorFn: (_, __) => moodColors[0]['Score'],
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
+        data: data5,
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +121,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
             width: Get.width - 8,
             height: 400,
             child: StreamBuilder(
-              stream: c.getPlayerz('players'),
+              stream: c.getPlayerz(),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
                 if (snapshot.hasError || !snapshot.hasData) {
@@ -66,7 +148,7 @@ class _PlayerRankingState extends State<PlayerRanking> {
                       itemWidth: 360,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
-                        Player player = lista[index];
+                        player = lista[index];
                         return Stack(
                           overflow: Overflow.visible,
                           children: [
@@ -395,20 +477,38 @@ class _PlayerRankingState extends State<PlayerRanking> {
               },
             ),
           ),
-          /* Positioned(
+          Positioned(
             bottom: 30,
-            height: 180,
-            width: 360,
-            child: Container(
-              //child: SimpleTimeSeriesChart(),
-              decoration: BoxDecoration(
-                  color: primaryColor,
-                  border: Border.all(
-                    color: accentColor,
-                  ),
-                  borderRadius: BorderRadius.circular(8)),
-            ),
-          ),*/
+            height: 200,
+            width: 380,
+            child: StreamBuilder(
+                stream: c.getPlayerStats(),
+                builder: (context, AsyncSnapshot<List<Player>> snapshot) {
+                  if (!snapshot.hasData || snapshot.hasError) {
+                    return new Container(
+                        child: new Text(
+                            'hiiiiiiii' + playerStatsList.length.toString()));
+                  } else
+                    playerStatsList = snapshot.data;
+
+                  return Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: new charts.TimeSeriesChart(
+                        _createSampleData(playerStatsList),
+                        animate: true,
+                        dateTimeFactory: const charts.LocalDateTimeFactory(),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: fontColor,
+                        border: Border.all(
+                          color: accentColor,
+                        ),
+                        borderRadius: BorderRadius.circular(8)),
+                  );
+                }),
+          ),
         ],
       ),
     );

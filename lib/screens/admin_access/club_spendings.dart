@@ -32,7 +32,7 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
     return Scaffold(
       body: Center(
         child: StreamBuilder(
-            stream: c.getClubSpendings('ClubSpendings'),
+            stream: c.getClubSpendings(),
             builder: (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
               if (!snapshot.hasData || snapshot.hasError) {
                 return Container(

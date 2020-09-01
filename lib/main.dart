@@ -1,3 +1,4 @@
+import 'package:EJI/screens/common/home_page.dart';
 import 'package:EJI/translations/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:EJI/screens/common/splash.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       home: SplashPage(),
       initialRoute: '/splash',
       getPages: [
-        GetPage(name: '/splash', page: () => new SplashPage()),
+        GetPage(name: '/splash', page: () => new HomeCards()),
       ],
       // GetPage with custom transitions and bindings
     );

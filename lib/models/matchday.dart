@@ -11,6 +11,8 @@ class MatchDay {
   int matchdayAwayRedC;
   int matchdayHomeYellC;
   int matchdayAwayYellC;
+  String winStatusHome;
+  String winStatusAway;
 
   MatchDay({
     this.id,
@@ -22,6 +24,8 @@ class MatchDay {
     this.matchdayHomeScore,
     this.matchdayAwayScore,
     this.matchdayHomeRedC,
+    this.winStatusHome,
+    this.winStatusAway,
     this.matchdayAwayRedC,
     this.matchdayHomeYellC,
     this.matchdayAwayYellC,
@@ -39,6 +43,8 @@ class MatchDay {
       'matchdayawayredc': matchdayAwayRedC,
       'matchdayhomeyellc': matchdayHomeYellC,
       'matchdayawayyellc': matchdayAwayYellC,
+      'winStatusHome': winStatusHome,
+      'winStatusAway': winStatusAway,
     };
   }
 
@@ -54,5 +60,7 @@ class MatchDay {
         matchdayHomeRedC = map['matchdayhomeredc'],
         matchdayAwayRedC = map['matchdayawayredc'],
         matchdayHomeYellC = map['matchdayhomeyellc'],
+        winStatusHome = map['winStatusHome'],
+        winStatusAway = map['winStatusAway'],
         matchdayAwayYellC = map['matchdayawayyellc'];
 }

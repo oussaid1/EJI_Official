@@ -3,7 +3,6 @@ import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/common/picture_archive_list.dart';
-import 'package:EJI/screens/formations/squad_managment.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
 import 'package:EJI/screens/common/player_ranking.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
@@ -54,7 +53,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
             children: [
               UserAccountsDrawerHeader(
                 accountName: StreamBuilder(
-                    stream: cD.getClubSpendings('ClubSpendings'),
+                    stream: cD.getClubSpendings(),
                     builder:
                         (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
                       if (!snapshot.hasData || snapshot.hasError) {
@@ -69,7 +68,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                       );
                     }),
                 accountEmail: StreamBuilder(
-                    stream: cD.getClubIncomes('ClubIncome'),
+                    stream: cD.getClubIncomes(),
                     builder:
                         (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
                       if (!snapshot.hasData || snapshot.hasError) {

@@ -23,15 +23,6 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(actions: [
-          IconButton(
-              icon: Icon(Icons.build),
-              onPressed: () {
-                Get.off(BuildSquad(
-                  players: lista,
-                ));
-              }),
-        ]),
         backgroundColor: secondaryColor,
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: c.isAdmin.value
@@ -64,7 +55,7 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
           children: [
             new Image.asset('assets/images/login.png', fit: BoxFit.fill),
             StreamBuilder(
-                stream: c.getPlayerz('players'),
+                stream: c.getPlayerz(),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Player>> snapshot) {
                   if (snapshot.hasError || !snapshot.hasData) {

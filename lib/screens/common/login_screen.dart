@@ -1,5 +1,6 @@
 import 'package:EJI/ad_manager.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/common/home_page.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
@@ -236,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     c.adminPassword.value.toString())
                               {
                                 c.setAdmin(true),
-                                Get.to(AnouncesTab()),
+                                Get.to(HomeCards()),
                                 //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')),
                               }
                             else if (_loginformKey1.currentState.validate())
@@ -247,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         c.password.value.toString())
                                   {
                                     c.setAdmin(false),
-                                    Get.to(AnouncesTab()),
+                                    Get.to(HomeCards()),
                                     //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')),
                                   }
                                 else

@@ -1,7 +1,7 @@
 class Player {
   String id;
   String profileImage;
-  int regNum;
+  String regNum;
   String playerName;
   String dateOfBirth;
   String placeOfBirth;
@@ -31,7 +31,7 @@ class Player {
     this.email = 'player.X@gmail.com';
     this.phone = '0611111111';
     this.position = pos;
-    this.regNum = 123456789;
+    this.regNum = '123456789';
     this.regDate = '02-02-2020';
     this.seasons = 2;
     this.placeOfBirth = 'Idawlstane';
@@ -154,7 +154,7 @@ class Player {
 class JuniorPlayer {
   String id;
   String profileImage;
-  int regNum;
+  String regNum;
   String playerName;
   String dateOfBirth;
   String placeOfBirth;

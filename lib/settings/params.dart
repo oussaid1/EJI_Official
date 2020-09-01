@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
-const Color primaryColor = Color(0xFF1C2929);
+const Color primaryColor = Color(0xff101a24);
 const Color secondaryColor = Color(0xFF85A2A2);
 LinearGradient gradientColor2 = LinearGradient(
     begin: Alignment.topRight,
@@ -12,6 +13,19 @@ const Color accentColor = Color(0xFF00E472);
 const Color fontColor = Color(0xFFCEE9BA);
 const Color whitefontColor = Color(0xFFFFFFFF);
 const Color orange = Colors.orange;
+
+Map<String, dynamic> moodColors = {
+  'descipline': charts.ColorUtil.fromDartColor(Colors.blue[400]),
+  'training': charts.ColorUtil.fromDartColor(Colors.amber[400]),
+  'positionMastery': charts.ColorUtil.fromDartColor(Colors.green[400]),
+  'availability': charts.ColorUtil.fromDartColor(Colors.deepOrange[400]),
+  'anxietyLevelColor': charts.ColorUtil.fromDartColor(Colors.pink[400]),
+  'obsessionLevelColor': charts.ColorUtil.fromDartColor(Colors.lime[400]),
+  'sleepLevelColor': charts.ColorUtil.fromDartColor(Colors.brown[400]),
+  'dayOVScoreColor': charts.ColorUtil.fromDartColor(Colors.blueAccent[400]),
+  'dateColor': charts.ColorUtil.fromDartColor(Colors.redAccent[400]),
+  'dayMoodColor': charts.ColorUtil.fromDartColor(Colors.tealAccent[400]),
+};
 
 List<Map<String, dynamic>> squadformation = [
   //4.3.3

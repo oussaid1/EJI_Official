@@ -53,7 +53,7 @@ class _MyDrawerState extends State<MyDrawer> {
             children: <Widget>[
               UserAccountsDrawerHeader(
                 accountName: StreamBuilder(
-                    stream: cD.getClubSpendings('ClubSpendings'),
+                    stream: cD.getClubSpendings(),
                     builder:
                         (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
                       if (!snapshot.hasData || snapshot.hasError) {
@@ -65,7 +65,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       return Text("EJI Idawlstane");
                     }),
                 accountEmail: StreamBuilder(
-                    stream: cD.getClubIncomes('ClubIncome'),
+                    stream: cD.getClubIncomes(),
                     builder:
                         (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
                       if (!snapshot.hasData || snapshot.hasError) {

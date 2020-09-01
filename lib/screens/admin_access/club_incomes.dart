@@ -56,7 +56,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
           : null,
       body: Center(
         child: StreamBuilder(
-            stream: c.getClubIncomes('ClubIncome'),
+            stream: c.getClubIncomes(),
             builder: (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
               if (!snapshot.hasData || snapshot.hasError) {
                 return Container(

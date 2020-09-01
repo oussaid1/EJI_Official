@@ -29,7 +29,7 @@ class _AddPlayersState extends State<AddPlayers> {
   bool isJunior = false;
   String _id;
   String _profileImage = "players/profileImages/ejilogo.png";
-  int _regNum = 0;
+  String _regNum = DateTime.now().millisecondsSinceEpoch.toString();
   String _playerName;
   String _dateOfBirth = '02-02-2000';
   String _placeOfBirth = 'Idawlstane';
@@ -146,7 +146,7 @@ class _AddPlayersState extends State<AddPlayers> {
         positionMaster: 1,
         trainingScore: 1,
         oVR: 4,
-        rateable: false,
+        rateable: true,
         isGK: _isGK,
       );
       await cD.addPlayers(pL1);
@@ -167,7 +167,7 @@ class _AddPlayersState extends State<AddPlayers> {
         positionMaster: 1,
         trainingScore: 1,
         oVR: 4,
-        rateable: false,
+        rateable: true,
         isGK: _isGK,
       );
       await cD.addJuniorPlayer(juniorPlayer);
@@ -677,7 +677,6 @@ class _AddPlayersState extends State<AddPlayers> {
       placeOfBirthController.text = widget.player.placeOfBirth;
       _position = widget.player.position;
       _rateable = widget.player.rateable;
-
       isJunior = false;
     } else if (widget.juniorPlayer != null) {
       _id = widget.juniorPlayer.id;
@@ -704,7 +703,6 @@ class _AddPlayersState extends State<AddPlayers> {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
 
     setState(() {
-      _regNum = DateTime.now().millisecondsSinceEpoch;
       _image = File(pickedFile.path);
       _profileImage = 'players/profileImages/$_regNum.png';
     });
@@ -714,7 +712,6 @@ class _AddPlayersState extends State<AddPlayers> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
-      _regNum = DateTime.now().millisecondsSinceEpoch;
       _image = File(pickedFile.path);
       _profileImage = 'players/profileImages/$_regNum.png';
     });

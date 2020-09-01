@@ -40,16 +40,6 @@ class CloudDatabase extends GetxController {
         .write('adminkey', adminkey)
         .then((value) => isAdmin.value = mBox.read('adminkey'));
   }
-/*void queryValues() {
- 
-   _db.collection('myCollection')
-        .snapshots()
-        .listen((snapshot) {
-      double tempTotal = snapshot.documents.fold(0, (tot, doc) => tot + doc.data['amount']);
-     total = tempTotal;
-     
-    });
-  }*/
 
   static Future<dynamic> loadFromStorage(String image) async {
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
@@ -71,7 +61,7 @@ class CloudDatabase extends GetxController {
     return pList;
   }
 
-  Stream<List<Player>> getPlayerz(String collectionName) {
+  Stream<List<Player>> getPlayerz() {
     return _db
         .collection('players')
         .orderBy('oVR', descending: true)
@@ -80,6 +70,16 @@ class CloudDatabase extends GetxController {
           (snapshot) => snapshot.documents
               .map(
                 (doc) => Player.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        );
+  }
+
+  Stream<List<Player>> getPlayerStats() {
+    return _db.collection('statisticPlayer').snapshots().map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => Player.fromMapStats(doc.data, doc.documentID),
               )
               .toList(),
         );
@@ -165,41 +165,6 @@ class CloudDatabase extends GetxController {
     return pList;
   }
 
-/*
-bool isAdult2(String birthDateString) {
-  String datePattern = "dd-MM-yyyy";
-
-  // Current time - at this moment
-  DateTime today = DateTime.now();
-
-  // Parsed date to check
-  DateTime birthDate = DateFormat(datePattern).parse(birthDateString);
-
-  // Date to check but moved 18 years ahead
-  DateTime adultDate = DateTime(
-    birthDate.year + 18,
-    birthDate.month,
-    birthDate.day,
-  );
-
-  return adultDate.isBefore(today);
-}
-
-
-
-  Stream<List<Player>> getPlayerdz(String collectionName) {
-    Stream<List<Player>> pList =
-        _db.collection(collectionName.toString()).snapshots().whereEqualTo().map(
-              (snapshot) => snapshot.documents
-                  .map(
-                    (doc) => Player.fromMap(doc.data, doc.documentID),
-                  )
-                  .toList(),
-            );
-
-    return pList;
-  }
-*/
   Stream<List<MatchDay>> getMatchDays(String collectionName) {
     Stream<List<MatchDay>> pLista = _db
         .collection(collectionName.toString())
@@ -244,9 +209,9 @@ bool isAdult2(String birthDateString) {
     return pLista;
   }
 
-  Stream<List<ClubIncome>> getClubIncomes(String a) {
+  Stream<List<ClubIncome>> getClubIncomes() {
     Stream<List<ClubIncome>> pLista = _db
-        .collection(a.toString())
+        .collection('ClubIncome')
         .orderBy('givenDate', descending: true)
         .snapshots()
         .map(
@@ -259,9 +224,9 @@ bool isAdult2(String birthDateString) {
     return pLista;
   }
 
-  Stream<List<ClubSpendings>> getClubSpendings(String a) {
+  Stream<List<ClubSpendings>> getClubSpendings() {
     Stream<List<ClubSpendings>> pLista = _db
-        .collection(a.toString().trim())
+        .collection('incomeSpendings')
         .orderBy('spentOnDate', descending: true)
         .snapshots()
         .map(
@@ -283,7 +248,7 @@ bool isAdult2(String birthDateString) {
   }
 
   Future<void> addPlayerScores(Player player) {
-    return _db.collection('PlayerStats').add(player.toMapStats());
+    return _db.collection('statisticPlayer').add(player.toMapStats());
   }
 
   Future<void> addArchivePictures(ClubArcive clubArcive) {

@@ -144,7 +144,7 @@ class _MainFormationState extends State<MainFormation> {
                   alignment: Alignment.center,
                   height: 600,
                   child: StreamBuilder(
-                      stream: c.getPlayerz('Players'),
+                      stream: c.getPlayerz(),
                       builder:
                           (context, AsyncSnapshot<List<Player>> snapshots) {
                         if (snapshots.hasData && !snapshots.hasError) {

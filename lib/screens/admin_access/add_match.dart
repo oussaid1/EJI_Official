@@ -28,6 +28,8 @@ class _AddMatchsState extends State<AddMatch> {
   String id;
 
   String _matchdayType = 'friendly'.tr;
+  String _winstatusHome = '';
+  String _winstatusAway = '';
 
   String _myDate;
 
@@ -58,11 +60,11 @@ class _AddMatchsState extends State<AddMatch> {
   int _selectedGender = 0;
   List<DropdownMenuItem<int>> genderList = [];
   List<dynamic> itemsList = [
-    'Friendly'.tr,
-    'Competetion'.tr,
-    'Qualifications'.tr,
-    'Training'.tr,
-    'Schedueled'.tr,
+    'مباراة ودية',
+    'مباراة منافسة'.tr,
+    'مباراة اقصائية'.tr,
+    'مباراة تدريبية'.tr,
+    'مباراة مبرمجة'.tr,
   ];
   void _loadGenderList() {
     genderList = [];
@@ -71,7 +73,7 @@ class _AddMatchsState extends State<AddMatch> {
       genderList.add(new DropdownMenuItem(
         child: new Text(itemsList[i],
             style: TextStyle(
-                fontSize: 26, fontWeight: FontWeight.w600, color: fontColor)),
+                fontSize: 20, fontWeight: FontWeight.w400, color: accentColor)),
         value: i,
       ));
     }
@@ -80,6 +82,17 @@ class _AddMatchsState extends State<AddMatch> {
   final GlobalKey<FormState> _formKeyX = GlobalKey<FormState>();
 
   _saveToDb(BuildContext context) async {
+    if (xc.matchdayHomeScore.value > xc.matchdayAwayScore.value) {
+      _winstatusHome = 'win';
+      _winstatusAway = 'loss';
+    } else if (xc.matchdayAwayScore.value > xc.matchdayHomeScore.value) {
+      _winstatusHome = 'loss';
+      _winstatusAway = 'win';
+    } else if (xc.matchdayHomeScore.value == xc.matchdayHomeScore.value) {
+      _winstatusHome = 'draw';
+      _winstatusAway = 'draw';
+    }
+
     MatchDay matchDay = new MatchDay(
         matchdayDate: matchdateController.text.trim().toString(),
         matchdayType: _matchdayType,
@@ -91,11 +104,24 @@ class _AddMatchsState extends State<AddMatch> {
         matchdayHomeRedC: xc.matchdayHomeRedC.value,
         matchdayAwayRedC: xc.matchdayAwayRedC.value,
         matchdayHomeYellC: xc.matchdayHomeYellC.value,
+        winStatusHome: _winstatusHome,
+        winStatusAway: _winstatusAway,
         matchdayAwayYellC: xc.matchdayAwayYellC.value);
+
     await cD.addMatch(matchDay);
   }
 
   _updateInDb(BuildContext context) async {
+    if (xc.matchdayHomeScore.value > xc.matchdayAwayScore.value) {
+      _winstatusHome = 'win';
+      _winstatusAway = 'loss';
+    } else if (xc.matchdayAwayScore.value > xc.matchdayHomeScore.value) {
+      _winstatusHome = 'loss';
+      _winstatusAway = 'win';
+    } else if (xc.matchdayHomeScore.value == xc.matchdayHomeScore.value) {
+      _winstatusHome = 'draw';
+      _winstatusAway = 'draw';
+    }
     MatchDay matchDay = new MatchDay(
         id: widget.matchDay.id,
         matchdayDate: matchdateController.text.trim().toString(),
@@ -108,6 +134,8 @@ class _AddMatchsState extends State<AddMatch> {
         matchdayHomeRedC: xc.matchdayHomeRedC.value,
         matchdayAwayRedC: xc.matchdayAwayRedC.value,
         matchdayHomeYellC: xc.matchdayHomeYellC.value,
+        winStatusHome: _winstatusHome,
+        winStatusAway: _winstatusAway,
         matchdayAwayYellC: xc.matchdayAwayYellC.value);
     await cD.updateMatch(matchDay);
   }
@@ -118,7 +146,7 @@ class _AddMatchsState extends State<AddMatch> {
       controller: matchdateController,
       cursorColor: Colors.white,
       style: TextStyle(
-          fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
+          fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
       decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: Icon(
@@ -155,48 +183,43 @@ class _AddMatchsState extends State<AddMatch> {
 
   Widget _buildMatchDayType() {
     return Container(
-        height: 60,
         child: Row(
-          children: <Widget>[
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Text(
-                'MatchType'.tr,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Container(
+          width: 180.0,
+          child: DropdownButtonHideUnderline(
+            child: ButtonTheme(
+              alignedDropdown: true,
+              child: DropdownButton(
+                isExpanded: true,
+                value: _selectedGender,
+                items: genderList,
+                dropdownColor: primaryColor,
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
                     color: fontColor),
-              ),
-            )),
-            Expanded(
-              child: Container(
-                width: 60.0,
-                child: DropdownButtonHideUnderline(
-                  child: ButtonTheme(
-                    alignedDropdown: true,
-                    child: DropdownButton(
-                      isExpanded: true,
-                      value: _selectedGender,
-                      items: genderList,
-                      dropdownColor: primaryColor,
-                      style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w600,
-                          color: fontColor),
-                      onChanged: (dynamic value) {
-                        setState(() {
-                          _selectedGender = value;
-                          _matchdayType = itemsList[value];
-                        });
-                      },
-                    ),
-                  ),
-                ),
+                onChanged: (dynamic value) {
+                  setState(() {
+                    _selectedGender = value;
+                    _matchdayType = itemsList[value];
+                  });
+                },
               ),
             ),
-          ],
-        ));
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text(
+            'MatchType'.tr,
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
+          ),
+        ),
+      ],
+    ));
   }
 
   Widget _buildHomeTeam() {
@@ -205,8 +228,9 @@ class _AddMatchsState extends State<AddMatch> {
       child: new TextFormField(
         controller: hometeamController,
         cursorColor: Colors.white,
+        textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
+            fontSize: 22, fontWeight: FontWeight.w600, color: fontColor),
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.home, color: secondaryColor),
             suffixIcon: IconButton(
@@ -415,8 +439,9 @@ class _AddMatchsState extends State<AddMatch> {
         controller: awayteamController,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
+        textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
+            fontSize: 22, fontWeight: FontWeight.w600, color: fontColor),
         decoration: InputDecoration(
             prefixIcon:
                 Icon(FontAwesomeIcons.arrowRight, color: secondaryColor),
@@ -629,7 +654,7 @@ class _AddMatchsState extends State<AddMatch> {
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.white,
         style: TextStyle(
-            fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
+            fontSize: 20, fontWeight: FontWeight.w400, color: fontColor),
         decoration: InputDecoration(
             prefixIcon:
                 Icon(FontAwesomeIcons.arrowRight, color: secondaryColor),
@@ -732,6 +757,7 @@ class _AddMatchsState extends State<AddMatch> {
   Widget build(BuildContext context) {
     _loadGenderList();
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: primaryColor,
       body: Stack(
         fit: StackFit.expand,
@@ -742,13 +768,6 @@ class _AddMatchsState extends State<AddMatch> {
               Expanded(
                 child: ListView(
                   children: <Widget>[
-                    Container(
-                      height: 140,
-                      child: Image.asset(
-                        'assets/images/decor.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Form(

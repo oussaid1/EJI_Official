@@ -49,7 +49,7 @@ class _PickPlayersState extends State<PickPlayers> {
         elevation: 0.0,
         backgroundColor: primaryColor,
         child: StreamBuilder(
-            stream: c.getPlayerz('players'),
+            stream: c.getPlayerz(),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {
