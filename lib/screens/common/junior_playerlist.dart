@@ -1,5 +1,6 @@
 import 'package:EJI/models/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/common/player_details.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,35 @@ class _JuniorListPageState extends State<JuniorPlayerList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: secondaryColor,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        floatingActionButton: c.isAdmin.value
+            ? Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 50),
+                child: SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: FloatingActionButton(
+                    elevation: 8,
+                    onPressed: () {
+                      Get.defaultDialog(
+                        title: 'AddIncome'.tr,
+                        content: Expanded(
+                            child: AddPlayers(
+                          category: 2,
+                        )),
+                      );
+                    },
+                    child: Icon(
+                      Icons.person_add,
+                      size: 40,
+                      color: primaryColor,
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(100.0))),
+                  ),
+                ),
+              )
+            : Container(),
         body: Stack(
           fit: StackFit.expand,
           children: [
@@ -110,8 +140,6 @@ class _JuniorListPageState extends State<JuniorPlayerList> {
                           ),
                           onTap: () {
                             JuniorPlayer juniorplayer = snapshot.data[index];
-                            Get.to(new JuniorPlayerDetails(
-                                juniorplayer: juniorplayer));
                           },
                         ),
                       );

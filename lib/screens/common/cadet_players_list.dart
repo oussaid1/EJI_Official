@@ -9,15 +9,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class SeniorPlayerList extends StatefulWidget {
-  SeniorPlayerList({Key key}) : super(key: key);
+class CadetPlayerList extends StatefulWidget {
+  CadetPlayerList({Key key}) : super(key: key);
 
   @override
-  _SeniorListPageState createState() => _SeniorListPageState();
+  _CadetPlayerListState createState() => _CadetPlayerListState();
 }
 
-class _SeniorListPageState extends State<SeniorPlayerList> {
-  List<Player> lista;
+class _CadetPlayerListState extends State<CadetPlayerList> {
+  List<CadetPlayer> lista;
 
   CloudDatabase c = Get.put(CloudDatabase());
   @override
@@ -38,7 +38,7 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
                         title: 'AddIncome'.tr,
                         content: Expanded(
                             child: AddPlayers(
-                          category: 1,
+                          category: 3,
                         )),
                       );
                     },
@@ -58,9 +58,9 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
           children: [
             new Image.asset('assets/images/login.png', fit: BoxFit.fill),
             StreamBuilder(
-                stream: c.getPlayerz(),
+                stream: c.getCadetPlayers(),
                 builder: (BuildContext context,
-                    AsyncSnapshot<List<Player>> snapshot) {
+                    AsyncSnapshot<List<CadetPlayer>> snapshot) {
                   if (snapshot.hasError || !snapshot.hasData) {
                     return Center(
                         child: Icon(
@@ -75,7 +75,7 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
                   return ListView.builder(
                     itemCount: lista.length != 0 ? lista.length : 0,
                     itemBuilder: (BuildContext context, int index) {
-                      Player player = lista[index];
+                      CadetPlayer player = lista[index];
                       return Card(
                         margin: EdgeInsets.fromLTRB(8, 2, 8, 2),
                         shape: RoundedRectangleBorder(
@@ -152,8 +152,8 @@ class _SeniorListPageState extends State<SeniorPlayerList> {
                                 color: fontColor),
                           ),
                           onTap: () {
-                            Player player = snapshot.data[index];
-                            Get.to(new PlayerDetails(player: player));
+                            CadetPlayer player = snapshot.data[index];
+                            // Get.to(new PlayerDetails(player: player));
                           },
                         ),
                       );

@@ -15,8 +15,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 class AddPlayers extends StatefulWidget {
   final Player player;
   final JuniorPlayer juniorPlayer;
+  final CadetPlayer cadetPlayer;
+  final int category;
 
-  AddPlayers({this.player, this.juniorPlayer});
+  AddPlayers(
+      {@required this.category,
+      this.player,
+      this.juniorPlayer,
+      this.cadetPlayer});
 
   @override
   State<StatefulWidget> createState() {
@@ -26,6 +32,8 @@ class AddPlayers extends StatefulWidget {
 
 class _AddPlayersState extends State<AddPlayers> {
   final CloudDatabase cD = Get.put(CloudDatabase());
+  bool isCadetr = false;
+  bool isSenior = false;
   bool isJunior = false;
   String _id;
   String _profileImage = "players/profileImages/ejilogo.png";
@@ -129,7 +137,7 @@ class _AddPlayersState extends State<AddPlayers> {
     if (_position == 'GK') {
       return _isGK = true;
     }
-    if (!isJunior) {
+    if (widget.category == 1) {
       Player pL1 = new Player(
         profileImage: _profileImage,
         playerName: _playerName,
@@ -150,7 +158,7 @@ class _AddPlayersState extends State<AddPlayers> {
         isGK: _isGK,
       );
       await cD.addPlayers(pL1);
-    } else if (isJunior) {
+    } else if (widget.category == 2) {
       JuniorPlayer juniorPlayer = new JuniorPlayer(
         profileImage: _profileImage,
         playerName: nameController.text,
@@ -171,6 +179,27 @@ class _AddPlayersState extends State<AddPlayers> {
         isGK: _isGK,
       );
       await cD.addJuniorPlayer(juniorPlayer);
+    } else if (widget.category == 3) {
+      CadetPlayer cadetPlayer = new CadetPlayer(
+        profileImage: _profileImage,
+        playerName: nameController.text,
+        phone: phoneController.text,
+        email: emailController.text,
+        regDate: regdateController.text,
+        position: _position,
+        dateOfBirth: dateOfBirthController.text,
+        placeOfBirth: placeOfBirthController.text,
+        seasons: _seasons,
+        regNum: _regNum,
+        availability: 1,
+        desciplineScore: 1,
+        positionMaster: 1,
+        trainingScore: 1,
+        oVR: 4,
+        rateable: true,
+        isGK: _isGK,
+      );
+      await cD.addCadetPlayer(cadetPlayer);
     }
   }
 
@@ -227,7 +256,6 @@ class _AddPlayersState extends State<AddPlayers> {
   Widget _buildPlayerPosition() {
     return Container(
         width: Get.width - 40,
-        height: 100,
         child: Card(
             elevation: 0,
             shape: RoundedRectangleBorder(
@@ -239,41 +267,6 @@ class _AddPlayersState extends State<AddPlayers> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  SizedBox(
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: isJunior
-                              ? new Text(
-                                  'Juniors'.tr,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                      color: fontColor),
-                                )
-                              : new Text(
-                                  'Seniors'.tr,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                      color: fontColor),
-                                ),
-                        ),
-                        Switch(
-                            value: isJunior,
-                            onChanged: (value) {
-                              setState(() {
-                                isJunior = value;
-                              });
-                            }),
-                      ],
-                    ),
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

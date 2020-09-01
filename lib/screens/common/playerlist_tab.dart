@@ -7,6 +7,8 @@ import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'cadet_players_list.dart';
+
 class PlayersList extends StatelessWidget {
   PlayersList({Key key}) : super(key: key);
 
@@ -16,7 +18,7 @@ class PlayersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         backgroundColor: secondaryColor,
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
@@ -28,16 +30,24 @@ class PlayersList extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text('Seniors'.tr,
                     style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w400,
                         color: fontColor)),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text('Juniors'.tr,
                     style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w400,
+                        color: fontColor)),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Cadets'.tr,
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w400,
                         color: fontColor)),
               ),
             ],
@@ -47,6 +57,7 @@ class PlayersList extends StatelessWidget {
           children: [
             SeniorPlayerList(),
             JuniorPlayerList(),
+            CadetPlayerList(),
           ],
         ),
       ),

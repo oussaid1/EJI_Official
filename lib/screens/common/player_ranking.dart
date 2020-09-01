@@ -594,7 +594,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_up,
                                       color: isOpenToRate
-                                          ? accentColor
+                                          ? Colors.yellow
                                           : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.incrementDescipline();
@@ -606,7 +606,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                     fontFamily: 'Roboto',
                                     fontSize: 20,
                                     color: secondaryColor,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -614,7 +614,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_down,
                                       color: isOpenToRate
-                                          ? accentColor
+                                          ? Colors.blue
                                           : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.deccrementDescipline();
@@ -647,7 +647,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_up,
                                       color: isOpenToRate
-                                          ? accentColor
+                                          ? Colors.yellow
                                           : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.incrementTraining();
@@ -659,7 +659,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                     fontFamily: 'Roboto',
                                     fontSize: 20,
                                     color: secondaryColor,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -667,7 +667,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_down,
                                       color: isOpenToRate
-                                          ? accentColor
+                                          ? Colors.blue
                                           : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.deccrementTraining();
@@ -700,7 +700,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_up,
                                       color: isOpenToRate
-                                          ? accentColor
+                                          ? Colors.yellow
                                           : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.incrementPositionMastery();
@@ -712,7 +712,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                     fontFamily: 'Roboto',
                                     fontSize: 20,
                                     color: secondaryColor,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -720,7 +720,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_down,
                                       color: isOpenToRate
-                                          ? accentColor
+                                          ? Colors.blue
                                           : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.decrementPositionMastery();
@@ -753,7 +753,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_up,
                                       color: isOpenToRate
-                                          ? accentColor
+                                          ? Colors.yellow
                                           : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.incrementAvailability();
@@ -765,7 +765,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                     fontFamily: 'Roboto',
                                     fontSize: 20,
                                     color: secondaryColor,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -773,7 +773,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                               IconButton(
                                   icon: Icon(Icons.thumb_down,
                                       color: isOpenToRate
-                                          ? accentColor
+                                          ? Colors.blue
                                           : secondaryColor.withOpacity(0.8)),
                                   onPressed: () {
                                     prc.decrementAvailability();
@@ -851,30 +851,23 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                         prc.positionMastery.value +
                                         prc.availability.value,
                                   );
+
                                   Get.defaultDialog(
-                                    title: 'تحذير',
-                                    middleText: ' !هل انت متاكد ',
-                                    backgroundColor: Colors.blue[100],
-                                    onConfirm: () {
-                                      Get.defaultDialog(
-                                        title: 'SuperAdmin'.tr,
-                                        content: TextField(
-                                          decoration: InputDecoration(
-                                              prefixIcon: Icon(Icons.lock)),
-                                          onChanged: (value) {
-                                            if (value.trim().toString() ==
-                                                c.coachAdminPass.value
-                                                    .toString()
-                                                    .trim()) {
-                                              Navigator.pop(context);
-                                              c.updatePlayer(scoredPlayer);
-                                              c.addPlayerScores(scoredPlayer2);
-                                            }
-                                          },
-                                        ),
-                                      );
-                                    },
-                                    onCancel: () => Navigator.pop(context),
+                                    title: 'SuperAdmin'.tr,
+                                    content: TextField(
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(Icons.lock)),
+                                      onChanged: (value) {
+                                        if (value.trim().toString() ==
+                                            c.coachAdminPass.value
+                                                .toString()
+                                                .trim()) {
+                                          Navigator.pop(context);
+                                          c.updatePlayer(scoredPlayer);
+                                          c.addPlayerScores(scoredPlayer2);
+                                        }
+                                      },
+                                    ),
                                   );
                                 }),
                             RaisedButton(

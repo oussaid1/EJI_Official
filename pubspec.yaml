@@ -24,35 +24,36 @@ dependencies:
   flutter:
     sdk: flutter
 
-  percent_indicator: 
-  flutter_slidable: 
-  esys_flutter_share:
- 
-  timeline_tile:
-  splashscreen: 
-  firebase_storage: 
-  image_picker: 
-  firebase_analytics: 
-  font_awesome_flutter:
-  cloud_firestore: 
+  percent_indicator:
+  flutter_slidable: null
+  esys_flutter_share: null
+
+  timeline_tile: null
+  splashscreen: null
+  firebase_storage: null
+  image_picker: null
+  firebase_analytics: null
+  font_awesome_flutter: null
+  cloud_firestore: null
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons:
-  firebase: 
-  path: 
-  image_cropper: 
-  get: 
-  get_storage: 
-  characters:
-  flutter_plugin_pdf_viewer: 
-  flutter_rating_bar: 
-  firebase_admob: 
-  firebase_auth: 
-  audioplayers: 
-  cached_network_image:
-  flutter_swiper : 
-  charts_flutter:
- 
+  cupertino_icons: null
+  firebase: null
+  path: null
+  image_cropper: null
+  get: null
+  get_storage: null
+  characters: null
+  flutter_plugin_pdf_viewer: null
+  flutter_rating_bar: null
+  firebase_admob: null
+  firebase_auth: null
+  audioplayers: null
+  cached_network_image: null
+  flutter_swiper: null
+  charts_flutter: null
+  firebase_database: 
+  firebase_core: 
 
 dev_dependencies:
   flutter_test:
@@ -84,8 +85,6 @@ fonts:
       - asset: fonts/Almarai-ExtraBold.ttf
       - asset: fonts/Almarai-Light.ttf
       - asset: fonts/Almarai-Regular.ttf
-      
- 
 
 # An image asset can refer to one or more resolution-specific "variants", see
 # https://flutter.dev/assets-and-images/#resolution-aware.

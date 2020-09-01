@@ -27,6 +27,7 @@ class CloudDatabase extends GetxController {
   var adminEmail = 'E20J19I'.obs;
   var adminPassword = 'E20J19I'.obs;
   Firestore _db = Firestore.instance;
+
   setBudget(double d) => clubBudget.value = d;
   @override
   void onInit() {
@@ -70,6 +71,20 @@ class CloudDatabase extends GetxController {
           (snapshot) => snapshot.documents
               .map(
                 (doc) => Player.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        );
+  }
+
+  Stream<List<CadetPlayer>> getCadetPlayers() {
+    return _db
+        .collection('Cadet')
+        .orderBy('oVR', descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => CadetPlayer.fromMap(doc.data, doc.documentID),
               )
               .toList(),
         );
@@ -259,6 +274,10 @@ class CloudDatabase extends GetxController {
     return _db.collection('Juniors').add(juniorPlayer.toMap());
   }
 
+  Future<void> addCadetPlayer(CadetPlayer cadetPlayer) {
+    return _db.collection('Juniors').add(cadetPlayer.toMap());
+  }
+
   Future<void> addIncome(ClubIncome clubIncome) {
     return _db.collection('ClubIncome').add(clubIncome.toMap());
   }
@@ -294,6 +313,13 @@ class CloudDatabase extends GetxController {
         .collection('players')
         .document(player.id.toString())
         .updateData(player.toMap());
+  }
+
+  Future<void> updateCadetPlayer(CadetPlayer cadetPlayer) {
+    return _db
+        .collection('players')
+        .document(cadetPlayer.id.toString())
+        .updateData(cadetPlayer.toMap());
   }
 
   Future<void> updateJuniorPlayer(JuniorPlayer player) {
