@@ -5,9 +5,7 @@ import 'package:EJI/models/squad.dart';
 import 'package:EJI/models/squad_player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/repository/variables_controler.dart';
-import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
-import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -144,7 +142,7 @@ class _MainFormationState extends State<MainFormation> {
                   alignment: Alignment.center,
                   height: 600,
                   child: StreamBuilder(
-                      stream: c.getPlayerz(),
+                      stream: c.getPlayers('Players'),
                       builder:
                           (context, AsyncSnapshot<List<Player>> snapshots) {
                         if (snapshots.hasData && !snapshots.hasError) {

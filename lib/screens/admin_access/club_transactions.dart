@@ -20,18 +20,34 @@ class ClubTransactions extends StatelessWidget {
       child: Scaffold(
         drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(
-          
           elevation: 0,
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.monetization_on,color: accentColor,),child: Text('Incomes'.tr,style:TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor))),
-              Tab(icon: Icon(Icons.money_off,color: accentColor,),child: Text('Spendings'.tr,style:TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: fontColor))),
+              Tab(
+                  icon: Icon(
+                    Icons.monetization_on,
+                    color: accentColor,
+                  ),
+                  child: Text('Incomes'.tr,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: secondaryColor))),
+              Tab(
+                  icon: Icon(
+                    Icons.money_off,
+                    color: accentColor,
+                  ),
+                  child: Text('Spendings'.tr,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: secondaryColor))),
             ],
           ),
-        ), 
+        ),
         body: TabBarView(
           children: [
-            
             ClubIncomeScreen(),
             ClubSpendingsScreen(),
           ],

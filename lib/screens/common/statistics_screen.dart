@@ -97,7 +97,7 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         StreamBuilder(
-          stream: c.getPlayerz(),
+          stream: c.getPlayers('Players'),
           builder: (BuildContext context, AsyncSnapshot<List<Player>> lista) {
             return Padding(
               padding: const EdgeInsets.all(4.0),

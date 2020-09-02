@@ -14,15 +14,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class AddPlayers extends StatefulWidget {
   final Player player;
-  final JuniorPlayer juniorPlayer;
-  final CadetPlayer cadetPlayer;
   final int category;
 
-  AddPlayers(
-      {@required this.category,
-      this.player,
-      this.juniorPlayer,
-      this.cadetPlayer});
+  AddPlayers({
+    @required this.category,
+    this.player,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -32,9 +29,7 @@ class AddPlayers extends StatefulWidget {
 
 class _AddPlayersState extends State<AddPlayers> {
   final CloudDatabase cD = Get.put(CloudDatabase());
-  bool isCadetr = false;
-  bool isSenior = false;
-  bool isJunior = false;
+
   String _id;
   String _profileImage = "players/profileImages/ejilogo.png";
   String _regNum = DateTime.now().millisecondsSinceEpoch.toString();
@@ -46,13 +41,12 @@ class _AddPlayersState extends State<AddPlayers> {
   String _regDate;
   String _position = 'GK';
   int _seasons = 2;
-  int _trainingScore;
-  int _desciplineScore;
-  int _positionMaster;
-  int _availability;
-  int _oVR;
-  bool _rateable = false;
-  bool _isGK = false;
+  int _trainingScore = 1;
+  int _desciplineScore = 1;
+  int _positionMaster = 1;
+  int _availability = 1;
+  int _oVR = 1;
+  bool _rateable = true;
   String _myDate;
   String _myDate2;
 
@@ -134,122 +128,59 @@ class _AddPlayersState extends State<AddPlayers> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   _saveToDb(BuildContext context) async {
-    if (_position == 'GK') {
-      return _isGK = true;
-    }
+    Player pL1 = new Player(
+      profileImage: _profileImage,
+      playerName: _playerName,
+      phone: _phone,
+      email: _email,
+      regDate: _regDate,
+      position: _position,
+      dateOfBirth: _dateOfBirth,
+      placeOfBirth: _placeOfBirth,
+      seasons: _seasons,
+      regNum: _regNum,
+      availability: _availability,
+      desciplineScore: _desciplineScore,
+      positionMaster: _positionMaster,
+      trainingScore: _trainingScore,
+      oVR: _oVR,
+      rateable: _rateable,
+    );
     if (widget.category == 1) {
-      Player pL1 = new Player(
-        profileImage: _profileImage,
-        playerName: _playerName,
-        phone: _phone,
-        email: _email,
-        regDate: _regDate,
-        position: _position,
-        dateOfBirth: _dateOfBirth,
-        placeOfBirth: _placeOfBirth,
-        seasons: _seasons,
-        regNum: _regNum,
-        availability: 1,
-        desciplineScore: 1,
-        positionMaster: 1,
-        trainingScore: 1,
-        oVR: 4,
-        rateable: true,
-        isGK: _isGK,
-      );
-      await cD.addPlayers(pL1);
+      await cD.addPlayer('Players', pL1);
     } else if (widget.category == 2) {
-      JuniorPlayer juniorPlayer = new JuniorPlayer(
-        profileImage: _profileImage,
-        playerName: nameController.text,
-        phone: phoneController.text,
-        email: emailController.text,
-        regDate: regdateController.text,
-        position: _position,
-        dateOfBirth: dateOfBirthController.text,
-        placeOfBirth: placeOfBirthController.text,
-        seasons: _seasons,
-        regNum: _regNum,
-        availability: 1,
-        desciplineScore: 1,
-        positionMaster: 1,
-        trainingScore: 1,
-        oVR: 4,
-        rateable: true,
-        isGK: _isGK,
-      );
-      await cD.addJuniorPlayer(juniorPlayer);
+      await cD.addPlayer('Juniors', pL1);
     } else if (widget.category == 3) {
-      CadetPlayer cadetPlayer = new CadetPlayer(
-        profileImage: _profileImage,
-        playerName: nameController.text,
-        phone: phoneController.text,
-        email: emailController.text,
-        regDate: regdateController.text,
-        position: _position,
-        dateOfBirth: dateOfBirthController.text,
-        placeOfBirth: placeOfBirthController.text,
-        seasons: _seasons,
-        regNum: _regNum,
-        availability: 1,
-        desciplineScore: 1,
-        positionMaster: 1,
-        trainingScore: 1,
-        oVR: 4,
-        rateable: true,
-        isGK: _isGK,
-      );
-      await cD.addCadetPlayer(cadetPlayer);
+      await cD.addPlayer('Cadet', pL1);
     }
   }
 
   _updateInDb(BuildContext context) async {
-    if (_position == 'GK') {
-      return _isGK = true;
-    }
-    if (!isJunior) {
-      Player pLEdited = new Player(
-        id: _id,
-        profileImage: _profileImage,
-        regNum: _regNum,
-        seasons: _seasons,
-        playerName: nameController.text,
-        phone: phoneController.text,
-        email: emailController.text,
-        regDate: regdateController.text,
-        position: _position,
-        dateOfBirth: dateOfBirthController.text,
-        placeOfBirth: placeOfBirthController.text,
-        availability: 1,
-        desciplineScore: 1,
-        positionMaster: 1,
-        trainingScore: 1,
-        oVR: 4,
-        rateable: false,
-        isGK: _isGK,
-      );
-      await cD.updatePlayer(pLEdited);
-    } else if (isJunior) {
-      JuniorPlayer juniorPlayerEd = new JuniorPlayer(
-        profileImage: _profileImage,
-        playerName: _playerName,
-        phone: _phone,
-        email: _email,
-        regDate: _regDate,
-        position: _position,
-        dateOfBirth: _dateOfBirth,
-        placeOfBirth: _placeOfBirth,
-        seasons: _seasons,
-        regNum: _regNum,
-        availability: 1,
-        desciplineScore: 1,
-        positionMaster: 1,
-        trainingScore: 1,
-        oVR: 4,
-        rateable: false,
-        isGK: _isGK,
-      );
-      await cD.updateJuniorPlayer(juniorPlayerEd);
+    Player pLEdited = new Player(
+      id: _id,
+      profileImage: _profileImage,
+      regNum: _regNum,
+      seasons: _seasons,
+      playerName: nameController.text,
+      phone: phoneController.text,
+      email: emailController.text,
+      regDate: regdateController.text,
+      position: _position,
+      dateOfBirth: dateOfBirthController.text,
+      placeOfBirth: placeOfBirthController.text,
+      availability: _availability,
+      desciplineScore: _desciplineScore,
+      positionMaster: _positionMaster,
+      trainingScore: _trainingScore,
+      oVR: _oVR,
+      rateable: _rateable,
+    );
+    if (widget.category == 1) {
+      await cD.updatePlayer('Players', pLEdited);
+    } else if (widget.category == 2) {
+      await cD.updatePlayer('Juniors', pLEdited);
+    } else if (widget.category == 3) {
+      await cD.updatePlayer('Seniors', pLEdited);
     }
   }
 
@@ -670,22 +601,11 @@ class _AddPlayersState extends State<AddPlayers> {
       placeOfBirthController.text = widget.player.placeOfBirth;
       _position = widget.player.position;
       _rateable = widget.player.rateable;
-      isJunior = false;
-    } else if (widget.juniorPlayer != null) {
-      _id = widget.juniorPlayer.id;
-      _profileImage = widget.juniorPlayer.profileImage;
-      _regNum = widget.juniorPlayer.regNum;
-      _regDate = widget.juniorPlayer.regDate;
-      nameController.text = widget.juniorPlayer.playerName;
-      emailController.text = widget.juniorPlayer.email;
-      phoneController.text = widget.juniorPlayer.phone;
-      dateOfBirthController.text = widget.juniorPlayer.dateOfBirth;
-      regdateController.text = widget.juniorPlayer.regDate;
-      placeOfBirthController.text = widget.juniorPlayer.placeOfBirth;
-      _position = widget.juniorPlayer.position;
-      _rateable = widget.juniorPlayer.rateable;
-
-      isJunior = true;
+      _trainingScore = widget.player.trainingScore;
+      _availability = widget.player.availability;
+      _desciplineScore = widget.player.desciplineScore;
+      _positionMaster = widget.player.positionMaster;
+      _rateable = widget.player.rateable;
     }
   }
 

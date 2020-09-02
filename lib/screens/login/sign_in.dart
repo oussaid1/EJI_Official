@@ -7,17 +7,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'anounces_tab.dart';
-
-class LoginScreen extends StatefulWidget {
+class SignInScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   final CloudDatabase c = Get.put(CloudDatabase());
-
-  bool isArabic = false;
   final _loginformKey1 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -291,38 +287,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-bool isArabic = true;
-
-var languageSwitch = SizedBox(
-  height: 50,
-  child: Row(
-    children: [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: isArabic
-            ? new Text(
-                'عربية'.tr,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w600,
-                    color: fontColor),
-              )
-            : new Text(
-                'English'.tr,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w600,
-                    color: fontColor),
-              ),
-      ),
-      Switch(
-          value: isArabic,
-          onChanged: (value) {
-            isArabic = value;
-          }),
-    ],
-  ),
-);

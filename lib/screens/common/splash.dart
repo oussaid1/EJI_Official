@@ -1,4 +1,4 @@
-import 'package:EJI/screens/common/login_screen.dart';
+import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
       body: InkWell(
         onTap: () => Navigator.push(
           context,
-          new MaterialPageRoute(builder: (context) => LoginScreen()),
+          new MaterialPageRoute(builder: (context) => SignInScreen()),
         ),
         child: Stack(
           fit: StackFit.expand,

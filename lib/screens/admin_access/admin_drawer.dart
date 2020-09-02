@@ -4,7 +4,6 @@ import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/common/picture_archive_list.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
-import 'package:EJI/screens/common/player_ranking.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
@@ -142,12 +141,6 @@ class _AdminDrawerState extends State<AdminDrawer> {
                   onTap: () => {
                         Get.to(AhdathScreen()),
                       }),
-              ListTile(
-                leading: Icon(FontAwesomeIcons.chartLine),
-                title: Text('PlayerStatistics'.tr),
-                subtitle: Text('PlayerStatisticssub'.tr),
-                onTap: () => Get.to(PlayerRanking()),
-              ),
               ListTile(
                 leading: Icon(Icons.add_location),
                 title: Text('AddMatch'.tr),

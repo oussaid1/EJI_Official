@@ -1,13 +1,10 @@
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
-import 'package:EJI/screens/common/junior_playerlist.dart';
 import 'package:EJI/screens/common/player_list.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'cadet_players_list.dart';
 
 class PlayersList extends StatelessWidget {
   PlayersList({Key key}) : super(key: key);
@@ -55,9 +52,18 @@ class PlayersList extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            SeniorPlayerList(),
-            JuniorPlayerList(),
-            CadetPlayerList(),
+            PlayerList(
+              collectionName: 'players',
+              category: 1,
+            ),
+            PlayerList(
+              collectionName: 'Juniors',
+              category: 2,
+            ),
+            PlayerList(
+              collectionName: 'Cadet',
+              category: 3,
+            ),
           ],
         ),
       ),

@@ -2,7 +2,6 @@ import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/screens/common/picture_archive_list.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
-import 'package:EJI/screens/common/player_ranking.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
@@ -119,28 +118,6 @@ class _MyDrawerState extends State<MyDrawer> {
                 title: Text('PlayersList'.tr),
                 onTap: () => Get.to(PlayersList()),
               ),
-              ListTile(
-                  leading: Icon(FontAwesomeIcons.levelUpAlt),
-                  subtitle: Text('PlayerStatistics'.tr),
-                  title: Text('PlayerStatisticssub'.tr),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                        size: 20,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 20,
-                        color: Colors.yellow,
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    Get.to(PlayerRanking());
-                  }),
               ListTile(
                 leading: Icon(Icons.comment),
                 title: Text('Comments'.tr),

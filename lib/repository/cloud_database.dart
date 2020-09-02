@@ -62,29 +62,15 @@ class CloudDatabase extends GetxController {
     return pList;
   }
 
-  Stream<List<Player>> getPlayerz() {
+  Stream<List<Player>> getPlayers(String collection) {
     return _db
-        .collection('players')
+        .collection(collection.trim().toString())
         .orderBy('oVR', descending: true)
         .snapshots()
         .map(
           (snapshot) => snapshot.documents
               .map(
                 (doc) => Player.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-  }
-
-  Stream<List<CadetPlayer>> getCadetPlayers() {
-    return _db
-        .collection('Cadet')
-        .orderBy('oVR', descending: true)
-        .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => CadetPlayer.fromMap(doc.data, doc.documentID),
               )
               .toList(),
         );
@@ -165,19 +151,6 @@ class CloudDatabase extends GetxController {
             );
 
     return pLdist;
-  }
-
-  Stream<List<JuniorPlayer>> getJuniorPlayers(String collectionName) {
-    Stream<List<JuniorPlayer>> pList =
-        _db.collection(collectionName.toString()).snapshots().map(
-              (snapshot) => snapshot.documents
-                  .map(
-                    (doc) => JuniorPlayer.fromMap(doc.data, doc.documentID),
-                  )
-                  .toList(),
-            );
-
-    return pList;
   }
 
   Stream<List<MatchDay>> getMatchDays(String collectionName) {
@@ -262,20 +235,18 @@ class CloudDatabase extends GetxController {
     return _db.collection('players').add(player.toMap());
   }
 
-  Future<void> addPlayerScores(Player player) {
-    return _db.collection('statisticPlayer').add(player.toMapStats());
+  Future<void> addPlayerScores(String collection, Player player) {
+    return _db
+        .collection(collection.trim().toString())
+        .add(player.toMapStats());
   }
 
   Future<void> addArchivePictures(ClubArcive clubArcive) {
     return _db.collection('ClubPitureArchive').add(clubArcive.toMap());
   }
 
-  Future<void> addJuniorPlayer(JuniorPlayer juniorPlayer) {
-    return _db.collection('Juniors').add(juniorPlayer.toMap());
-  }
-
-  Future<void> addCadetPlayer(CadetPlayer cadetPlayer) {
-    return _db.collection('Juniors').add(cadetPlayer.toMap());
+  Future<void> addPlayer(String collection, Player player) {
+    return _db.collection(collection.trim().toString()).add(player.toMap());
   }
 
   Future<void> addIncome(ClubIncome clubIncome) {
@@ -308,23 +279,9 @@ class CloudDatabase extends GetxController {
     return _db.collection(collection.toString().trim()).document(id).delete();
   }
 
-  Future<void> updatePlayer(Player player) {
+  Future<void> updatePlayer(String collection, Player player) {
     return _db
-        .collection('players')
-        .document(player.id.toString())
-        .updateData(player.toMap());
-  }
-
-  Future<void> updateCadetPlayer(CadetPlayer cadetPlayer) {
-    return _db
-        .collection('players')
-        .document(cadetPlayer.id.toString())
-        .updateData(cadetPlayer.toMap());
-  }
-
-  Future<void> updateJuniorPlayer(JuniorPlayer player) {
-    return _db
-        .collection('Juniors')
+        .collection(collection.trim().toString())
         .document(player.id.toString())
         .updateData(player.toMap());
   }

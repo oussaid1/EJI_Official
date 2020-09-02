@@ -17,7 +17,7 @@ class _PickPlayersState extends State<PickPlayers> {
   Offset _offset = Offset(213.7, 509.7);
   List<Player> lista;
   final CloudDatabase c = Get.put(CloudDatabase());
-  bool _isChecked = false;
+
   List<Player> candidatePlayersList = new List<Player>();
 
   @override
@@ -49,7 +49,7 @@ class _PickPlayersState extends State<PickPlayers> {
         elevation: 0.0,
         backgroundColor: primaryColor,
         child: StreamBuilder(
-            stream: c.getPlayerz(),
+            stream: c.getPlayers('Players'),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Player>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {

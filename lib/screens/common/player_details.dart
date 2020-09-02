@@ -6,6 +6,7 @@ import 'package:EJI/models/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
+import 'package:EJI/screens/admin_access/scoreboard.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -16,14 +17,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import 'player_ranking.dart';
-
 class PlayerDetails extends StatefulWidget {
   final Player player;
-  PlayerDetails({
-    Key key,
-    @required this.player,
-  });
+  final int category;
+  PlayerDetails({Key key, @required this.player, @required this.category});
 
   @override
   _PlayerDetailsState createState() => _PlayerDetailsState();
@@ -58,7 +55,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
     } else
       return Scaffold(
         backgroundColor: secondaryColor,
-        drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),ä
+        drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(
           actions: [
             IconButton(
@@ -88,6 +85,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                             backgroundColor: Colors.blue[100],
                             title: '${widget.player.playerName.toString()}',
                             content: ScoreBoard(
+                              category: widget.category,
                               playerToRate: widget.player,
                             ),
                           );
