@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  percent_indicator:
+  percent_indicator: null
   flutter_slidable: null
   esys_flutter_share: null
 
@@ -52,8 +52,12 @@ dependencies:
   cached_network_image: null
   flutter_swiper: null
   charts_flutter: null
-  firebase_database: 
-  firebase_core: 
+  firebase_database: null
+  firebase_core: null
+
+  flutter_facebook_auth: null
+  progress_dialog: null
+  google_sign_in: ^4.5.3
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/settings/params.dart';
@@ -19,7 +20,10 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final CloudDatabase c = Get.put(CloudDatabase());
+  final AuthController dx = Get.put(AuthController());
   final _loginformKey1 = GlobalKey<FormState>();
 
   bool _success = false;
@@ -54,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Center(
               child: Container(
                 decoration: BoxDecoration(
-                  color: primaryColor.withOpacity(0.4),
+                  color: primaryColor.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 width: Get.width - 40,
@@ -63,120 +67,76 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: <Widget>[
                     Align(
                         alignment: Alignment.topCenter,
-                        child: Text('Sign Up',
-                            style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.w600,
-                                color: fontColor))),
+                        child: Container(
+                          width: 230,
+                          child: Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: fontColor,
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(6),
+                                        topLeft: Radius.circular(6))),
+                                child: RaisedButton(
+                                  elevation: 0,
+                                  color: fontColor,
+                                  onPressed: () {
+                                    dx.isSignIn.value = true;
+                                    dx.isRegister.value = false;
+                                    Get.offAll(SignInScreen());
+                                  },
+                                  child: Obx(
+                                    () => Text('Sign In',
+                                        style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w600,
+                                            color: dx.isSignIn.value
+                                                ? accentColor
+                                                : primaryColor)),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: secondaryColor,
+                                    borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(6),
+                                        topRight: Radius.circular(6))),
+                                child: RaisedButton(
+                                  elevation: 0,
+                                  color: secondaryColor,
+                                  onPressed: () => Get.offAll(RegisterPage()),
+                                  child: Obx(
+                                    () => Text('Register',
+                                        style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w600,
+                                            color: dx.isRegister.value
+                                                ? accentColor
+                                                : primaryColor)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
                     SizedBox(
                       height: 20,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: fontColor),
-                        textAlign: TextAlign.center,
-                        validator: (text) {
-                          if (text.isEmpty) {
-                            return ('emailempty'.tr);
-                          } else if (GetUtils.isEmail(text)) {
-                            return ('email not valid'.tr);
-                          }
-                          return null;
-                        },
-                        controller: _emailController,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(4.0))),
-                            hintText: ('emailempty'.tr),
-                            labelText: 'Email',
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelStyle: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: fontColor),
-                            focusColor: accentColor,
-                            hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w200,
-                                color: fontColor),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                  color: accentColor,
-                                  style: BorderStyle.solid,
-                                  width: 1),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                  color: accentColor,
-                                  style: BorderStyle.solid,
-                                  width: 1),
-                            ),
-                            contentPadding: EdgeInsets.only(left: 2)),
-                      ),
+                      child: buildEmailFormField(),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w600,
-                            color: fontColor),
-                        obscureText: true,
-                        textAlign: TextAlign.center,
-                        validator: (text) {
-                          if (text.isEmpty) {
-                            return ('passempty'.tr);
-                          } else if (text.trim().length < 4 ||
-                              text.trim().length > 8) {
-                            return ('8 حروف'.tr);
-                          }
-                          return null;
-                        },
-                        controller: _passwordController,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(4.0))),
-                            hintText: ('passempty'.tr),
-                            labelText: 'Password',
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelStyle: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: fontColor),
-                            focusColor: accentColor,
-                            hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w200,
-                                color: fontColor),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                  color: accentColor,
-                                  style: BorderStyle.solid,
-                                  width: 1),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                  color: accentColor,
-                                  style: BorderStyle.solid,
-                                  width: 1),
-                            ),
-                            contentPadding: EdgeInsets.only(left: 2)),
-                      ),
+                      child: buildPasswordField(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: buildRePasswordField(),
                     ),
                     SizedBox(
                       height: 30,
@@ -197,26 +157,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                   fontSize: 30.0,
                                   color: primaryColor)),
                           onPressed: () => {
-                            if (_emailController.text.trim() ==
-                                    c.adminEmail.value.toString() &&
-                                _passwordController.text.trim() ==
-                                    c.adminPassword.value.toString())
+                            if (_loginformKey1.currentState.validate())
                               {
                                 _register(),
                                 Get.to(SignInScreen()),
-                              }
-                            else
-                              {
-                                _success
-                                    ? Get.snackbar(
-                                        'Success'.tr, 'Saved as : $_userEmail',
-                                        snackPosition: SnackPosition.BOTTOM,
-                                        backgroundColor: secondaryColor,
-                                        colorText: accentColor)
-                                    : Get.snackbar('Alert'.tr, 'loginnot'.tr,
-                                        snackPosition: SnackPosition.BOTTOM,
-                                        backgroundColor: secondaryColor,
-                                        colorText: accentColor),
                               }
                           },
                         ),
@@ -247,6 +191,131 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ],
       ),
+    );
+  }
+
+  TextFormField buildEmailFormField() {
+    return TextFormField(
+      style: TextStyle(
+          fontSize: 20, fontWeight: FontWeight.w600, color: fontColor),
+      textAlign: TextAlign.center,
+      validator: (text) {
+        if (text.isEmpty) {
+          return ('emailempty'.tr);
+        } else if (GetUtils.isEmail(text)) {
+          return ('email not valid'.tr);
+        }
+        return null;
+      },
+      controller: _emailController,
+      autofocus: true,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(4.0))),
+          hintText: ('emailempty'.tr),
+          labelText: 'Email',
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          labelStyle: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
+          focusColor: accentColor,
+          hintStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+                color: accentColor, style: BorderStyle.solid, width: 1),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+                color: accentColor, style: BorderStyle.solid, width: 1),
+          ),
+          contentPadding: EdgeInsets.only(left: 2)),
+    );
+  }
+
+  TextFormField buildPasswordField() {
+    return TextFormField(
+      style: TextStyle(
+          fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
+      obscureText: true,
+      textAlign: TextAlign.center,
+      validator: (text) {
+        if (text.isEmpty) {
+          return ('passempty'.tr);
+        } else if (text.trim().length < 4 || text.trim().length > 8) {
+          return ('8 حروف'.tr);
+        }
+        return null;
+      },
+      controller: _passwordController,
+      autofocus: true,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(4.0))),
+          hintText: ('passempty'.tr),
+          labelText: 'Password',
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          labelStyle: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
+          focusColor: accentColor,
+          hintStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+                color: accentColor, style: BorderStyle.solid, width: 1),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+                color: accentColor, style: BorderStyle.solid, width: 1),
+          ),
+          contentPadding: EdgeInsets.only(left: 2)),
+    );
+  }
+
+  TextFormField buildRePasswordField() {
+    return TextFormField(
+      style: TextStyle(
+          fontSize: 26, fontWeight: FontWeight.w600, color: fontColor),
+      obscureText: true,
+      textAlign: TextAlign.center,
+      validator: (text) {
+        if (text.isEmpty) {
+          return ('passempty'.tr);
+        } else if (text.trim().length < 4 || text.trim().length > 8) {
+          return ('8 حروف'.tr);
+        } else if (text.trim().toString() !=
+            _passwordController.text.trim().toString()) {
+          return 'غير متطابقان';
+        } else
+          return null;
+      },
+      controller: _confirmPasswordController,
+      autofocus: true,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(4.0))),
+          hintText: ('passempty'.tr),
+          labelText: 'Confirm Password',
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          labelStyle: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
+          focusColor: accentColor,
+          hintStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+                color: accentColor, style: BorderStyle.solid, width: 1),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+                color: accentColor, style: BorderStyle.solid, width: 1),
+          ),
+          contentPadding: EdgeInsets.only(left: 2)),
     );
   }
 

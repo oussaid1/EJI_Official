@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -21,6 +23,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final _loginformKey2 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
+  GoogleSignInAccount googleSignInAccount;
 
   BannerAd myBanner;
 
@@ -101,11 +104,51 @@ class _SignInScreenState extends State<SignInScreen> {
                   children: <Widget>[
                     Align(
                         alignment: Alignment.topCenter,
-                        child: Text('Sign In',
-                            style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.w600,
-                                color: fontColor))),
+                        child: Container(
+                          width: 230,
+                          child: Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: fontColor,
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(6),
+                                        topLeft: Radius.circular(6))),
+                                child: RaisedButton(
+                                  elevation: 0,
+                                  color: fontColor,
+                                  onPressed: () => Get.offAll(SignInScreen()),
+                                  child: Text('Sign In',
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w600,
+                                          color: accentColor)),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: secondaryColor,
+                                    borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(6),
+                                        topRight: Radius.circular(6))),
+                                child: RaisedButton(
+                                  elevation: 0,
+                                  color: secondaryColor,
+                                  onPressed: () {
+                                    dx.isRegister.value = true;
+                                    dx.isSignIn.value = false;
+                                    Get.offAll(RegisterPage());
+                                  },
+                                  child: Text('Register',
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w600,
+                                          color: fontColor)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
                     SizedBox(
                       height: 20,
                     ),
@@ -219,46 +262,31 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: new RaisedButton(
-                          elevation: 5.0,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0)),
-                          color: fontColor,
-                          child: new Text('Sign In',
-                              style: new TextStyle(
-                                  fontFamily: 'RobotoCondensed',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 30.0,
-                                  color: primaryColor)),
-                          onPressed: () => {
-                            if (emailController.text.trim() ==
-                                    c.adminEmail.value.toString() &&
-                                passController.text.trim() ==
-                                    c.adminPassword.value.toString())
-                              {
-                                c.setAdmin(true),
-                                Get.to(HomeCards()),
-                              }
-                            else if (_loginformKey2.currentState.validate())
-                              {
-                                dx.signInWithEmailAndPassword(
+                            elevation: 5.0,
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(10.0)),
+                            color: fontColor,
+                            child: new Text('SignIn',
+                                style: new TextStyle(
+                                    fontFamily: 'RobotoCondensed',
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 30.0,
+                                    color: primaryColor)),
+                            onPressed: () async {
+                              if (emailController.text.trim() ==
+                                      c.adminEmail.value.toString() &&
+                                  passController.text.trim() ==
+                                      c.adminPassword.value.toString()) {
+                                c.setAdmin(true);
+                                Get.to(HomeCards());
+                              } else if (_loginformKey2.currentState
+                                  .validate()) {
+                                await dx.signInWithEmailAndPassword(
                                   emailController.text.trim(),
                                   passController.text.trim(),
-                                ),
-                                c.setAdmin(false),
-                                if (dx.authenticated.value == true)
-                                  {
-                                    Get.to(HomeCards()),
-                                  }
+                                );
                               }
-                            else
-                              {
-                                Get.snackbar('Alert'.tr, 'loginnot'.tr,
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    backgroundColor: secondaryColor,
-                                    colorText: primaryColor)
-                              }
-                          },
-                        ),
+                            }),
                       ),
                     ),
                     Container(
@@ -297,12 +325,14 @@ class _SignInScreenState extends State<SignInScreen> {
                                         size: 50,
                                         color: fontColor,
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        _handleSignIn(emailController.text);
+                                      }),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(top: 18.0),
                               child: FlatButton(
                                 onPressed: () {
                                   Get.to(RegisterPage());
@@ -322,20 +352,18 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
+          Positioned(
+            bottom: 10,
+            left: Get.width / 2.5,
+            child: Container(
               alignment: Alignment.bottomCenter,
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  'Dev-Bourheem \n Copyright\n 2020',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: fontColor,
-                    fontWeight: FontWeight.w200,
-                    fontSize: 12,
-                  ),
+              child: Text(
+                'Dev-Bourheem \n Copyright\n 2020',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: fontColor,
+                  fontWeight: FontWeight.w200,
+                  fontSize: 12,
                 ),
               ),
             ),
@@ -343,5 +371,41 @@ class _SignInScreenState extends State<SignInScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _handleSignIn(String email) async {
+    var _googleSignIn = GoogleSignIn(
+      scopes: [
+        email.trim(),
+      ],
+    );
+    try {
+      await _googleSignIn.signIn().then((value) => googleSignInAccount = value);
+
+      Get.snackbar('title', 'Logged in as ${googleSignInAccount.email} ');
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  void _showDialogue() async {
+    ProgressDialog pr = ProgressDialog(context);
+    pr = ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
+    pr.style(
+        message: 'Downloading file...',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        progress: 0.0,
+        maxProgress: 100.0,
+        progressTextStyle: TextStyle(
+            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600));
+
+    pr.show();
   }
 }

@@ -1,28 +1,49 @@
+import 'package:EJI/screens/common/home_page.dart';
 import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
+  BuildContext context;
+  RxBool isSignIn = true.obs;
+  RxBool isRegister = false.obs;
   RxBool authenticated = false.obs;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool get authentic => authenticated.value;
-  signInWithEmailAndPassword(String email, String password) async {
+  Future<bool> signInWithEmailAndPassword(String email, String password) async {
     try {
       final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
         email: email.trim(),
         password: password.trim(),
       ))
           .user;
-
+      Get.to(HomeCards());
       Get.snackbar('', '${user.email} signed in',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: secondaryColor,
           colorText: primaryColor);
-      return authenticated.value = true;
+      return true;
     } catch (e) {
-      Get.snackbar('$e', "Failed to sign in with Email & Password");
-      return authenticated.value = false;
+      Get.snackbar('', "Failed to sign in with Email & Password");
+      return false;
+    }
+  }
+
+  Future<void> handleSignIn(String email) async {
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        email.trim(),
+      ],
+    );
+    try {
+      await _googleSignIn.signIn();
+      print('Looooooged in');
+    } catch (error) {
+      print(error);
     }
   }
 
@@ -30,4 +51,6 @@ class AuthController extends GetxController {
     await _auth.signOut();
     Get.offAll(SignInScreen());
   }
+
+  void showProgress() {}
 }
