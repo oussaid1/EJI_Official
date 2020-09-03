@@ -1,10 +1,13 @@
 import 'package:EJI/ad_manager.dart';
+import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/common/home_page.dart';
+import 'package:EJI/screens/login/sign_up.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -14,7 +17,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final CloudDatabase c = Get.put(CloudDatabase());
-  final _loginformKey1 = GlobalKey<FormState>();
+  final AuthController dx = Get.put(AuthController());
+  final _loginformKey2 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
@@ -51,7 +55,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
     FirebaseAdMob.instance.initialize(appId: AdManager.appId);
     myBanner = buildBannerAd()..load();
-    //myBanner = buildLargeBannerAd()..load();
   }
 
   @override
@@ -71,7 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
             fit: BoxFit.fill,
           ),
           Positioned(
-            top: 50,
+            top: 20,
             left: Get.width / 2.44,
             child: SizedBox(
               height: 80,
@@ -85,7 +88,7 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
           Form(
-            key: _loginformKey1,
+            key: _loginformKey2,
             child: Center(
               child: Container(
                 decoration: BoxDecoration(
@@ -93,7 +96,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 width: Get.width - 40,
-                height: Get.height / 1.8,
+                height: Get.height / 1.4,
                 child: ListView(
                   children: <Widget>[
                     Align(
@@ -209,7 +212,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     Container(
                       height: 70,
@@ -220,7 +223,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(10.0)),
                           color: fontColor,
-                          child: new Text('LOGIN',
+                          child: new Text('Sign In',
                               style: new TextStyle(
                                   fontFamily: 'RobotoCondensed',
                                   fontWeight: FontWeight.w800,
@@ -234,31 +237,86 @@ class _SignInScreenState extends State<SignInScreen> {
                               {
                                 c.setAdmin(true),
                                 Get.to(HomeCards()),
-                                //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')),
                               }
-                            else if (_loginformKey1.currentState.validate())
+                            else if (_loginformKey2.currentState.validate())
                               {
-                                if (emailController.text.trim() ==
-                                        c.email.value.toString() &&
-                                    passController.text.trim() ==
-                                        c.password.value.toString())
+                                dx.signInWithEmailAndPassword(
+                                  emailController.text.trim(),
+                                  passController.text.trim(),
+                                ),
+                                c.setAdmin(false),
+                                if (dx.authenticated.value == true)
                                   {
-                                    c.setAdmin(false),
                                     Get.to(HomeCards()),
-                                    //  isArabic? Get.updateLocale(Locale('ar')):Get.updateLocale(Locale('en')),
                                   }
-                                else
-                                  {
-                                    Get.snackbar('Alert'.tr, 'loginnot'.tr,
-                                        snackPosition: SnackPosition.BOTTOM,
-                                        backgroundColor: secondaryColor,
-                                        colorText: primaryColor)
-                                  }
-                              },
+                              }
+                            else
+                              {
+                                Get.snackbar('Alert'.tr, 'loginnot'.tr,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: secondaryColor,
+                                    colorText: primaryColor)
+                              }
                           },
                         ),
                       ),
                     ),
+                    Container(
+                        width: Get.width - 40,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            new Text('او',
+                                style: new TextStyle(
+                                    fontFamily: 'RobotoCondensed',
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 20.0,
+                                    color: fontColor)),
+                            new Text('سجل الدخول بـ',
+                                style: new TextStyle(
+                                    fontFamily: 'RobotoCondensed',
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 20.0,
+                                    color: fontColor)),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  new IconButton(
+                                      icon: Icon(
+                                        FontAwesomeIcons.facebook,
+                                        size: 50,
+                                        color: Colors.blue,
+                                      ),
+                                      onPressed: () {}),
+                                  new IconButton(
+                                      icon: Icon(
+                                        FontAwesomeIcons.google,
+                                        size: 50,
+                                        color: fontColor,
+                                      ),
+                                      onPressed: () {}),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FlatButton(
+                                onPressed: () {
+                                  Get.to(RegisterPage());
+                                },
+                                child: new Text('ليس لديك حساب سجل الان ',
+                                    style: new TextStyle(
+                                        fontFamily: 'RobotoCondensed',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 20.0,
+                                        color: fontColor)),
+                              ),
+                            ),
+                          ],
+                        )),
                   ],
                 ),
               ),

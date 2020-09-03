@@ -63,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: <Widget>[
                     Align(
                         alignment: Alignment.topCenter,
-                        child: Text('Sign In',
+                        child: Text('Sign Up',
                             style: TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.w600,

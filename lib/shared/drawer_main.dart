@@ -1,4 +1,5 @@
 import 'package:EJI/models/club_expenses.dart';
+import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/screens/common/picture_archive_list.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
@@ -8,7 +9,6 @@ import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
-import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +28,7 @@ class _MyDrawerState extends State<MyDrawer> {
   final String image = "players/profileImages/ejilogo.png";
 
   final CloudDatabase cD = Get.put(CloudDatabase());
+  final AuthController dx = Get.put(AuthController());
 
   List<ClubSpendings> clubSpendings;
 
@@ -159,7 +160,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 subtitle: Text('SignOutsub'.tr),
                 leading: Icon(Icons.exit_to_app),
                 title: Text('SignOut'.tr),
-                onTap: () => Get.offAll(SplashPage()),
+                onTap: () => dx.signOut(),
               ),
             ],
           ),

@@ -32,10 +32,14 @@ class CloudDatabase extends GetxController {
   @override
   void onInit() {
     GetStorage mBox = GetStorage();
-    mBox.write('adminkey', false);
+
+    if (mBox.hasData('adminkey')) {
+      isAdmin.value = mBox.read('adminkey');
+    }
   }
 
   setAdmin(bool adminkey) {
+    isAdmin.value = adminkey;
     GetStorage mBox = GetStorage();
     mBox
         .write('adminkey', adminkey)

@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:EJI/models/club_expenses.dart';
+import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/common/picture_archive_list.dart';
@@ -9,7 +10,6 @@ import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
-import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
@@ -30,6 +30,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
   final String image = "players/profileImages/ejilogo.png";
 
   final CloudDatabase cD = Get.put(CloudDatabase());
+  final AuthController dx = Get.put(AuthController());
 
   List<ClubSpendings> clubSpendings;
 
@@ -177,7 +178,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 subtitle: Text('SignOutsub'.tr),
                 leading: Icon(Icons.exit_to_app),
                 title: Text('SignOut'.tr),
-                onTap: () => Get.offAll(SplashPage()),
+                onTap: () => dx.signOut(),
               ),
             ],
           ),
