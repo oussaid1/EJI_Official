@@ -26,9 +26,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final AuthController dx = Get.put(AuthController());
   final _loginformKey1 = GlobalKey<FormState>();
 
-  bool _success = false;
-  String _userEmail;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,15 +94,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                               Container(
+                                height: 40,
                                 decoration: BoxDecoration(
                                     color: secondaryColor,
                                     borderRadius: BorderRadius.only(
                                         bottomRight: Radius.circular(6),
                                         topRight: Radius.circular(6))),
                                 child: RaisedButton(
+                                  onPressed: null,
                                   elevation: 0,
-                                  color: secondaryColor,
-                                  onPressed: () => Get.offAll(RegisterPage()),
+                                  color: fontColor,
                                   child: Obx(
                                     () => Text('Register',
                                         style: TextStyle(
@@ -160,7 +158,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (_loginformKey1.currentState.validate())
                               {
                                 _register(),
-                                Get.to(SignInScreen()),
                               }
                           },
                         ),
@@ -202,7 +199,7 @@ class _RegisterPageState extends State<RegisterPage> {
       validator: (text) {
         if (text.isEmpty) {
           return ('emailempty'.tr);
-        } else if (GetUtils.isEmail(text)) {
+        } else if (!GetUtils.isEmail(text)) {
           return ('email not valid'.tr);
         }
         return null;
@@ -335,12 +332,10 @@ class _RegisterPageState extends State<RegisterPage> {
     ))
         .user;
     if (user != null) {
-      setState(() {
-        _success = true;
-        _userEmail = user.email;
-      });
+      Get.snackbar('Success', 'registered as ${user.email}');
+      Get.to(SignInScreen());
     } else {
-      _success = false;
+      Get.snackbar('Error', 'not registered !');
     }
   }
 }

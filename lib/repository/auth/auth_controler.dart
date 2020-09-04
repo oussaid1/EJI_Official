@@ -1,6 +1,5 @@
 import 'package:EJI/screens/common/home_page.dart';
 import 'package:EJI/screens/login/sign_in.dart';
-import 'package:EJI/settings/params.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   BuildContext context;
+  RxString signedInEmail = ''.obs;
+  RxBool isSignedIn = false.obs;
   RxBool isSignIn = true.obs;
   RxBool isRegister = false.obs;
   RxBool authenticated = false.obs;
@@ -22,10 +23,8 @@ class AuthController extends GetxController {
       ))
           .user;
       Get.to(HomeCards());
-      Get.snackbar('', '${user.email} signed in',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: secondaryColor,
-          colorText: primaryColor);
+      signedInEmail.value = user.email;
+      isSignedIn.value = true;
       return true;
     } catch (e) {
       Get.snackbar('', "Failed to sign in with Email & Password");

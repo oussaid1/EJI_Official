@@ -7,7 +7,6 @@ import 'package:EJI/settings/params.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -23,6 +22,9 @@ class _SignInScreenState extends State<SignInScreen> {
   final _loginformKey2 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
+  var _googleSignIn = GoogleSignIn(
+    scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
+  );
   GoogleSignInAccount googleSignInAccount;
 
   BannerAd myBanner;
@@ -278,6 +280,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   passController.text.trim() ==
                                       c.adminPassword.value.toString()) {
                                 c.setAdmin(true);
+
                                 Get.to(HomeCards());
                               } else if (_loginformKey2.currentState
                                   .validate()) {
@@ -294,43 +297,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            new Text('او',
-                                style: new TextStyle(
-                                    fontFamily: 'RobotoCondensed',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 20.0,
-                                    color: fontColor)),
-                            new Text('سجل الدخول بـ',
-                                style: new TextStyle(
-                                    fontFamily: 'RobotoCondensed',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 20.0,
-                                    color: fontColor)),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  new IconButton(
-                                      icon: Icon(
-                                        FontAwesomeIcons.facebook,
-                                        size: 50,
-                                        color: Colors.blue,
-                                      ),
-                                      onPressed: () {}),
-                                  new IconButton(
-                                      icon: Icon(
-                                        FontAwesomeIcons.google,
-                                        size: 50,
-                                        color: fontColor,
-                                      ),
-                                      onPressed: () {
-                                        _handleSignIn(emailController.text);
-                                      }),
-                                ],
-                              ),
-                            ),
                             Padding(
                               padding: const EdgeInsets.only(top: 18.0),
                               child: FlatButton(
@@ -373,16 +339,10 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Future<void> _handleSignIn(String email) async {
-    var _googleSignIn = GoogleSignIn(
-      scopes: [
-        email.trim(),
-      ],
-    );
+  Future<void> _handleSignIn() async {
     try {
-      await _googleSignIn.signIn().then((value) => googleSignInAccount = value);
-
-      Get.snackbar('title', 'Logged in as ${googleSignInAccount.email} ');
+      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      print('++++++${googleUser.email}');
     } catch (error) {
       print(error);
     }
@@ -406,6 +366,7 @@ class _SignInScreenState extends State<SignInScreen> {
         messageTextStyle: TextStyle(
             color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600));
 
-    pr.show();
+    pr.show().then((value) =>
+        dx.isSignedIn.value ? pr.hide() : pr.update(message: 'taking long'));
   }
 }

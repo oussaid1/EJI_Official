@@ -54,9 +54,8 @@ dependencies:
   charts_flutter: null
   firebase_database: null
   firebase_core: null
-
   progress_dialog: null
-  google_sign_in: null
+  google_sign_in: ^4.5.3
 
 dev_dependencies:
   flutter_test:
