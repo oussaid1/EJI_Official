@@ -1,6 +1,7 @@
 import 'package:EJI/models/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
+import 'package:EJI/shared/drawer_main.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class PlayersPage extends StatefulWidget {
 }
 
 class _PlayersPageState extends State<PlayersPage> {
+  var _scaffoldKey2 = GlobalKey<ScaffoldState>();
   final CloudDatabase cD = Get.put(CloudDatabase());
 
   List<Player> clubSpendings;
@@ -19,6 +21,8 @@ class _PlayersPageState extends State<PlayersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey2,
+      drawer: MyDrawer(),
       backgroundColor: primaryColor,
       body: Stack(children: [
         Positioned(
@@ -33,6 +37,21 @@ class _PlayersPageState extends State<PlayersPage> {
                     bottomRight: Radius.circular(10)),
                 child:
                     Image.asset('assets/images/back2.png', fit: BoxFit.fill)),
+          ),
+        ),
+        Positioned(
+          top: 40,
+          left: 10,
+          child: Container(
+            width: 50,
+            child: IconButton(
+              onPressed: () => _scaffoldKey2.currentState.openDrawer(),
+              icon: Icon(
+                Icons.menu,
+                color: primaryColor,
+                size: 30,
+              ),
+            ),
           ),
         ),
         Positioned(

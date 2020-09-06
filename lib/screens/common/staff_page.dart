@@ -3,6 +3,7 @@ import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/settings/params.dart';
+import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,9 +13,12 @@ class StaffPage extends StatefulWidget {
 }
 
 class _StaffPageState extends State<StaffPage> {
+  var _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(),
+      key: _scaffoldKey,
       backgroundColor: primaryColor,
       body: Stack(
         children: [
@@ -30,6 +34,21 @@ class _StaffPageState extends State<StaffPage> {
                       bottomRight: Radius.circular(10)),
                   child: Image.asset('assets/images/adminstaff.png',
                       fit: BoxFit.fill)),
+            ),
+          ),
+          Positioned(
+            top: 40,
+            left: 10,
+            child: Container(
+              width: 50,
+              child: IconButton(
+                onPressed: () => _scaffoldKey.currentState.openDrawer(),
+                icon: Icon(
+                  Icons.menu,
+                  color: primaryColor,
+                  size: 30,
+                ),
+              ),
             ),
           ),
           Positioned(

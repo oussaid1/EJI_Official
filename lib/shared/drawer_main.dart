@@ -1,6 +1,8 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/screens/common/info_screen.dart';
+import 'package:EJI/screens/common/players_page.dart';
+import 'package:EJI/screens/common/staff_page.dart';
 import 'package:EJI/screens/common/team_page.dart';
 import 'package:EJI/screens/common/transactions_page.dart';
 import 'package:EJI/settings/params.dart';
@@ -101,8 +103,18 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               ListTile(
                 leading: Icon(FontAwesomeIcons.dollarSign),
+                title: Text('اللاعبين'),
+                onTap: () => Get.to(PlayersPage()),
+              ),
+              ListTile(
+                leading: Icon(FontAwesomeIcons.dollarSign),
                 title: Text('خزينة الفريق'),
                 onTap: () => Get.to(FinancePage()),
+              ),
+              ListTile(
+                leading: Icon(FontAwesomeIcons.dollarSign),
+                title: Text('ادارة الفريق'),
+                onTap: () => Get.to(StaffPage()),
               ),
               ListTile(
                 leading: Icon(Icons.info),
