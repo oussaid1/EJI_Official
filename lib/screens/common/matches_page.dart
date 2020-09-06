@@ -8,14 +8,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class TeamHomePage extends StatefulWidget {
-  TeamHomePage({Key key}) : super(key: key);
+class MatchesPage extends StatefulWidget {
+  MatchesPage({Key key}) : super(key: key);
 
   @override
-  _TeamHomePageState createState() => _TeamHomePageState();
+  _MatchesPageState createState() => _MatchesPageState();
 }
 
-class _TeamHomePageState extends State<TeamHomePage> {
+class _MatchesPageState extends State<MatchesPage> {
   List<MatchDay> lista;
 
   bool isSwitched = false;
@@ -38,7 +38,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
       children: [
         new Image.asset('assets/images/login.png', fit: BoxFit.fill),
         StreamBuilder(
-            stream: c.getMatchDays('matchday'),
+            stream: c.getMatchDays(),
             builder:
                 (BuildContext context, AsyncSnapshot<List<MatchDay>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {

@@ -1,7 +1,7 @@
 import 'package:EJI/ad_manager.dart';
 import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/common/home_page.dart';
+import 'package:EJI/screens/common/team_page.dart';
 import 'package:EJI/screens/login/sign_up.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:firebase_admob/firebase_admob.dart';
@@ -281,7 +281,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                       c.adminPassword.value.toString()) {
                                 c.setAdmin(true);
 
-                                Get.to(HomeCards());
+                                Get.to(TeamPage());
                               } else if (_loginformKey2.currentState
                                   .validate()) {
                                 await dx.signInWithEmailAndPassword(

@@ -1,8 +1,9 @@
 import 'package:EJI/models/club_archive.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_picture_archive.dart';
-import 'package:EJI/screens/admin_access/admin_drawer.dart';
+
 import 'package:EJI/settings/params.dart';
+import 'package:EJI/shared/drawer_main.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,7 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        drawer: new AdminDrawer(),
+        drawer: new MyDrawer(),
         appBar: new AppBar(
           actions: [
             c.isAdmin.value

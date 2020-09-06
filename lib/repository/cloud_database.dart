@@ -8,6 +8,7 @@ import 'package:EJI/models/player.dart';
 
 import 'package:EJI/models/staff.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class CloudDatabase extends GetxController {
   var adminEmail = 'E20J19I'.obs;
   var adminPassword = 'E20J19I'.obs;
   Firestore _db = Firestore.instance;
+  FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
 
   setBudget(double d) => clubBudget.value = d;
   @override
@@ -44,6 +46,23 @@ class CloudDatabase extends GetxController {
     mBox
         .write('adminkey', adminkey)
         .then((value) => isAdmin.value = mBox.read('adminkey'));
+  }
+
+  List<Player> getDBPlayers() {
+    List<Player> lists = List<Player>();
+    Map<dynamic, dynamic> values;
+    firebaseDatabase
+        .reference()
+        .child('Players')
+        .child('Cadet')
+        .once()
+        .then((snapshot) {
+      values = snapshot.value;
+      values.forEach((key, values) {
+        lists.add(values);
+      });
+    });
+    return lists;
   }
 
   static Future<dynamic> loadFromStorage(String image) async {
@@ -157,9 +176,9 @@ class CloudDatabase extends GetxController {
     return pLdist;
   }
 
-  Stream<List<MatchDay>> getMatchDays(String collectionName) {
+  Stream<List<MatchDay>> getMatchDays() {
     Stream<List<MatchDay>> pLista = _db
-        .collection(collectionName.toString())
+        .collection('matchday')
         .orderBy('matchdaydate', descending: true)
         .snapshots()
         .map(

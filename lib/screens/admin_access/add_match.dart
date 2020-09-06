@@ -1,7 +1,7 @@
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/repository/variables_controler.dart';
-import 'package:EJI/screens/common/team_home.dart';
+import 'package:EJI/screens/common/team_page.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -834,7 +834,7 @@ class _AddMatchsState extends State<AddMatch> {
                                       _saveToDb(context);
                                       _flushAll();
                                       Navigator.pop(context, false);
-                                      Get.to(TeamHomePage());
+                                      Get.to(TeamPage());
                                     },
                                     onCancel: () {},
                                   );
@@ -870,7 +870,7 @@ class _AddMatchsState extends State<AddMatch> {
                                         _updateInDb(context);
                                         _flushAll();
                                         Navigator.pop(context, false);
-                                        Get.to(TeamHomePage());
+                                        Get.to(TeamPage());
                                       },
                                       onCancel: () {},
                                     );

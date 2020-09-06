@@ -1,6 +1,5 @@
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
@@ -288,7 +287,7 @@ class _MatchDetailsState extends State<MatchDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
+      drawer: MyDrawer(),
       appBar: AppBar(),
       body: Stack(
         fit: StackFit.expand,

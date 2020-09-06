@@ -1,6 +1,6 @@
 import 'package:EJI/models/staff.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/admin_access/admin_drawer.dart';
+
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
-class StaffPage extends StatelessWidget {
+class Staff extends StatelessWidget {
   final CloudDatabase c = Get.put(CloudDatabase());
 
   Staff staff;
@@ -574,7 +574,7 @@ class StaffPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: secondaryColor,
-      drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
+      drawer: MyDrawer(),
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,

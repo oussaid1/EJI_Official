@@ -1,15 +1,8 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/auth/auth_controler.dart';
-import 'package:EJI/screens/common/ahdath_screen.dart';
-import 'package:EJI/screens/common/picture_archive_list.dart';
-import 'package:EJI/screens/common/anounces_tab.dart';
-import 'package:EJI/screens/common/playerlist_tab.dart';
-import 'package:EJI/screens/admin_access/club_transactions.dart';
-import 'package:EJI/screens/common/comments_screen.dart';
-import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
-import 'package:EJI/screens/common/staff_screen.dart';
-import 'package:EJI/screens/squad/main_formation.dart';
+import 'package:EJI/screens/common/team_page.dart';
+import 'package:EJI/screens/common/transactions_page.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:EJI/repository/cloud_database.dart';
@@ -41,6 +34,7 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 200,
       child: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -100,56 +94,15 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               ListTile(
                 leading: Icon(Icons.people),
-                title: Text('Matches&Anounces'.tr),
-                onTap: () => Get.to(AnouncesTab()),
+                title: Text('الفريق'),
+                onTap: () => Get.to(
+                  TeamPage(),
+                ),
               ),
               ListTile(
-                leading: Icon(FontAwesomeIcons.list),
-                //subtitle: Text('teamManagersub'.tr),
-                subtitle: Text('AltimteSquadsub'.tr),
-                title: Text('AltimteSquad'.tr),
-
-                onTap: () {
-                  Get.off(MainFormation());
-                },
-              ),
-              ListTile(
-                subtitle: Text('PlayersListsub'.tr),
-                leading: Icon(Icons.people),
-                title: Text('PlayersList'.tr),
-                onTap: () => Get.to(PlayersList()),
-              ),
-              ListTile(
-                leading: Icon(Icons.comment),
-                title: Text('Comments'.tr),
-                onTap: () => Get.to(CommentScreen()),
-              ),
-              ListTile(
-                  leading: Icon(Icons.event),
-                  title: Text('ProgramsAndEvents'.tr),
-                  onTap: () => {
-                        Get.to(AhdathScreen()),
-                      }),
-              ListTile(
-                  leading: Icon(Icons.store),
-                  title: Text('Staff'.tr),
-                  onTap: () => {
-                        Get.to(StaffPage()),
-                      }),
-              ListTile(
-                leading: Icon(Icons.comment),
-                title: Text('PictureArchive'.tr),
-                onTap: () => Get.to(PicturesArchiveList()),
-              ),
-              ListTile(
-                leading: Icon(FontAwesomeIcons.chartLine),
-                title: Text('ClubTransactions'.tr),
-                onTap: () => Get.to(ClubTransactions()),
-              ),
-              ListTile(
-                leading: Icon(Icons.info),
-                title: Text('EJIRegulations'.tr),
-                onTap: () => Get.to(EJILawScreen()),
+                leading: Icon(FontAwesomeIcons.dollarSign),
+                title: Text('خزينة الفريق'),
+                onTap: () => Get.to(FinancePage()),
               ),
               ListTile(
                 leading: Icon(Icons.info),

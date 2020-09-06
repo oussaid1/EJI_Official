@@ -56,6 +56,7 @@ dependencies:
   firebase_core: null
   progress_dialog: null
   google_sign_in: ^4.5.3
+  carousel_slider:
 
 dev_dependencies:
   flutter_test:

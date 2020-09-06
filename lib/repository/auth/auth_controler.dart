@@ -1,4 +1,4 @@
-import 'package:EJI/screens/common/home_page.dart';
+import 'package:EJI/screens/common/team_page.dart';
 import 'package:EJI/screens/login/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +22,7 @@ class AuthController extends GetxController {
         password: password.trim(),
       ))
           .user;
-      Get.to(HomeCards());
+      Get.to(TeamPage());
       signedInEmail.value = user.email;
       isSignedIn.value = true;
       return true;
