@@ -1,3 +1,4 @@
+import 'package:EJI/screens/common/players_page.dart';
 import 'package:EJI/translations/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:EJI/screens/common/splash.dart';
@@ -5,7 +6,6 @@ import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'screens/common/staff_page.dart';
 
 Future<void> main() async {
   await GetStorage.init();
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       home: SplashPage(),
       initialRoute: '/splash',
       getPages: [
-        GetPage(name: '/splash', page: () => new StaffPage()),
+        GetPage(name: '/splash', page: () => new PlayersPage()),
       ],
     );
   }

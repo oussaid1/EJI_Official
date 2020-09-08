@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   BuildContext context;
@@ -29,20 +28,6 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar('', "Failed to sign in with Email & Password");
       return false;
-    }
-  }
-
-  Future<void> handleSignIn(String email) async {
-    GoogleSignIn _googleSignIn = GoogleSignIn(
-      scopes: [
-        email.trim(),
-      ],
-    );
-    try {
-      await _googleSignIn.signIn();
-      print('Looooooged in');
-    } catch (error) {
-      print(error);
     }
   }
 

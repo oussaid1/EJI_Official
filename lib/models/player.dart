@@ -1,5 +1,3 @@
-import 'package:firebase/firebase.dart';
-
 class Player {
   String id;
   String profileImage;
@@ -173,23 +171,4 @@ class Player {
         desciplineScore = map['desciplineScore'],
         rateable = map['rateable'],
         isGK = map['isGK'];
-  Player.fromSnapshot(DataSnapshot dataSnapshot)
-      : id = dataSnapshot.key,
-        playerName = dataSnapshot.val()['playername'],
-        dateOfBirth = dataSnapshot.val()['dateofbirth'],
-        phone = dataSnapshot.val()['phone'],
-        position = dataSnapshot.val()['position'],
-        regNum = dataSnapshot.val()['regnum'],
-        regDate = dataSnapshot.val()['regdate'],
-        email = dataSnapshot.val()['email'],
-        placeOfBirth = dataSnapshot.val()['placeofbirth'],
-        seasons = dataSnapshot.val()['seasons'],
-        profileImage = dataSnapshot.val()['profileimage'],
-        trainingScore = dataSnapshot.val()['trainingScore'],
-        oVR = dataSnapshot.val()['oVR'],
-        availability = dataSnapshot.val()['availability'],
-        positionMaster = dataSnapshot.val()['positionMaster'],
-        desciplineScore = dataSnapshot.val()['desciplineScore'],
-        rateable = dataSnapshot.val()['rateable'],
-        isGK = dataSnapshot.val()['isGK'];
 }

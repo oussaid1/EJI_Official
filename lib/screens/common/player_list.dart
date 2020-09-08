@@ -21,6 +21,7 @@ class _ListPageState extends State<PlayerList> {
   List<Player> lista;
 
   CloudDatabase c = Get.put(CloudDatabase());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

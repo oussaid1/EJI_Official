@@ -25,22 +25,15 @@ dependencies:
     sdk: flutter
 
   percent_indicator: null
-  flutter_slidable: null
   esys_flutter_share: null
-
   timeline_tile: null
-  splashscreen: null
   firebase_storage: null
   image_picker: null
   firebase_analytics: null
   font_awesome_flutter: null
   cloud_firestore: null
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: null
-  firebase: null
   path: null
-  image_cropper: null
   get: null
   get_storage: null
   characters: null
@@ -48,14 +41,10 @@ dependencies:
   flutter_rating_bar: null
   firebase_admob: null
   firebase_auth: null
-  audioplayers: null
   cached_network_image: null
   flutter_swiper: null
   charts_flutter: null
-  firebase_database: null
   firebase_core: null
-  progress_dialog: null
-  google_sign_in: ^4.5.3
   carousel_slider:
 
 dev_dependencies:

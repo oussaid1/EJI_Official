@@ -7,7 +7,6 @@ import 'package:EJI/models/matchday.dart';
 import 'package:EJI/models/player.dart';
 import 'package:EJI/models/staff.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +14,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class CloudDatabase extends GetxController {
+  RxInt countSeniors = 0.obs;
+  RxInt countJuniors = 0.obs;
+  RxInt countCadets = 0.obs;
   RxDouble clubBudget = 0.0.obs;
   RxBool isAdmin = false.obs;
   RxBool isSuperAdmin = true.obs;
@@ -27,7 +29,6 @@ class CloudDatabase extends GetxController {
   var adminEmail = 'E20J19I'.obs;
   var adminPassword = 'E20J19I'.obs;
   Firestore _db = Firestore.instance;
-  final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
 
   setBudget(double d) => clubBudget.value = d;
   @override
@@ -45,25 +46,6 @@ class CloudDatabase extends GetxController {
     mBox
         .write('adminkey', adminkey)
         .then((value) => isAdmin.value = mBox.read('adminkey'));
-  }
-
-  List<Player> getDBPlayers() {
-    List<Player> lists = List<Player>();
-    Map<dynamic, dynamic> values;
-    _firebaseDatabase
-        .reference()
-        .child('Players')
-        .child('Cadet')
-        .once()
-        .then((snapshot) {
-      values = snapshot.value;
-      values.forEach((key, values) {
-        lists.add(Player.fromSnapshot(values));
-
-        print('xxxx ${lists.length}');
-      });
-    });
-    return lists;
   }
 
   static Future<dynamic> loadFromStorage(String image) async {
@@ -87,7 +69,7 @@ class CloudDatabase extends GetxController {
   }
 
   Stream<List<Player>> getPlayers(String collection) {
-    return _db
+    Stream<List<Player>> pList = _db
         .collection(collection.trim().toString())
         .orderBy('oVR', descending: true)
         .snapshots()
@@ -98,6 +80,8 @@ class CloudDatabase extends GetxController {
               )
               .toList(),
         );
+
+    return pList;
   }
 
   Stream<List<Player>> getPlayerStats() {
@@ -251,19 +235,18 @@ class CloudDatabase extends GetxController {
     return pLista;
   }
 
+  Future<void> adAllToDb(List<Player> j) async {
+    for (var i = 0; i < j.length; i++) {
+      _db.collection('Senior').add(j[i].toMap());
+    }
+  }
+
   Future<void> addSpendings(ClubSpendings clubSpendings) {
     return _db.collection('ClubSpendings').add(clubSpendings.toMap());
   }
 
-  Future<void> addPlayer(Player player, String child) async {
-    if (player != null) {
-      await _firebaseDatabase
-          .reference()
-          .child("Players")
-          .child(child.trim().toString())
-          .push()
-          .set(player.toJson());
-    }
+  Future<void> addPlayer(Player player, String collection) {
+    return _db.collection(collection).add(player.toMap());
   }
 
   Future<void> addPlayerScores(String collection, Player player) {

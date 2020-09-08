@@ -8,8 +8,6 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -22,10 +20,6 @@ class _SignInScreenState extends State<SignInScreen> {
   final _loginformKey2 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
-  var _googleSignIn = GoogleSignIn(
-    scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
-  );
-  GoogleSignInAccount googleSignInAccount;
 
   BannerAd myBanner;
 
@@ -337,36 +331,5 @@ class _SignInScreenState extends State<SignInScreen> {
         ],
       ),
     );
-  }
-
-  Future<void> _handleSignIn() async {
-    try {
-      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-      print('++++++${googleUser.email}');
-    } catch (error) {
-      print(error);
-    }
-  }
-
-  void _showDialogue() async {
-    ProgressDialog pr = ProgressDialog(context);
-    pr = ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
-    pr.style(
-        message: 'Downloading file...',
-        borderRadius: 10.0,
-        backgroundColor: Colors.white,
-        progressWidget: CircularProgressIndicator(),
-        elevation: 10.0,
-        insetAnimCurve: Curves.easeInOut,
-        progress: 0.0,
-        maxProgress: 100.0,
-        progressTextStyle: TextStyle(
-            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
-        messageTextStyle: TextStyle(
-            color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600));
-
-    pr.show().then((value) =>
-        dx.isSignedIn.value ? pr.hide() : pr.update(message: 'taking long'));
   }
 }
