@@ -1,3 +1,5 @@
+import 'package:firebase/firebase.dart';
+
 class Player {
   String id;
   String profileImage;
@@ -19,7 +21,7 @@ class Player {
   int oVR;
   bool rateable;
   bool isGK;
-  getoVR() {
+  get getoVR {
     return trainingScore + desciplineScore + positionMaster + availability;
   }
 
@@ -108,7 +110,29 @@ class Player {
         positionMaster = map['positionMaster'],
         desciplineScore = map['desciplineScore'];
 
-  Map<String, dynamic> toMap() {
+  toJson() {
+    return {
+      'profileimage': profileImage,
+      'regnum': regNum,
+      'playername': playerName,
+      'dateofbirth': dateOfBirth,
+      'placeofbirth': placeOfBirth,
+      'email': email,
+      'phone': phone,
+      'regdate': regDate,
+      'position': position,
+      'seasons': seasons,
+      'desciplineScore': desciplineScore,
+      'positionMaster': positionMaster,
+      'availability': availability,
+      'oVR': oVR,
+      'trainingScore': trainingScore,
+      'rateable': rateable,
+      'isGK': isGK,
+    };
+  }
+
+  toMap() {
     return {
       'profileimage': profileImage,
       'regnum': regNum,
@@ -149,4 +173,23 @@ class Player {
         desciplineScore = map['desciplineScore'],
         rateable = map['rateable'],
         isGK = map['isGK'];
+  Player.fromSnapshot(DataSnapshot dataSnapshot)
+      : id = dataSnapshot.key,
+        playerName = dataSnapshot.val()['playername'],
+        dateOfBirth = dataSnapshot.val()['dateofbirth'],
+        phone = dataSnapshot.val()['phone'],
+        position = dataSnapshot.val()['position'],
+        regNum = dataSnapshot.val()['regnum'],
+        regDate = dataSnapshot.val()['regdate'],
+        email = dataSnapshot.val()['email'],
+        placeOfBirth = dataSnapshot.val()['placeofbirth'],
+        seasons = dataSnapshot.val()['seasons'],
+        profileImage = dataSnapshot.val()['profileimage'],
+        trainingScore = dataSnapshot.val()['trainingScore'],
+        oVR = dataSnapshot.val()['oVR'],
+        availability = dataSnapshot.val()['availability'],
+        positionMaster = dataSnapshot.val()['positionMaster'],
+        desciplineScore = dataSnapshot.val()['desciplineScore'],
+        rateable = dataSnapshot.val()['rateable'],
+        isGK = dataSnapshot.val()['isGK'];
 }

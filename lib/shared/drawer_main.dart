@@ -95,14 +95,14 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.people),
+                leading: Icon(FontAwesomeIcons.trophy),
                 title: Text('الفريق'),
                 onTap: () => Get.to(
                   TeamPage(),
                 ),
               ),
               ListTile(
-                leading: Icon(FontAwesomeIcons.dollarSign),
+                leading: Icon(FontAwesomeIcons.peopleCarry),
                 title: Text('اللاعبين'),
                 onTap: () => Get.to(PlayersPage()),
               ),
@@ -112,7 +112,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 onTap: () => Get.to(FinancePage()),
               ),
               ListTile(
-                leading: Icon(FontAwesomeIcons.dollarSign),
+                leading: Icon(FontAwesomeIcons.home),
                 title: Text('ادارة الفريق'),
                 onTap: () => Get.to(StaffPage()),
               ),

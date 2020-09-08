@@ -5,7 +5,6 @@ import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/models/comments_model.dart';
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/models/player.dart';
-
 import 'package:EJI/models/staff.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -28,7 +27,7 @@ class CloudDatabase extends GetxController {
   var adminEmail = 'E20J19I'.obs;
   var adminPassword = 'E20J19I'.obs;
   Firestore _db = Firestore.instance;
-  FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
+  final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
 
   setBudget(double d) => clubBudget.value = d;
   @override
@@ -51,7 +50,7 @@ class CloudDatabase extends GetxController {
   List<Player> getDBPlayers() {
     List<Player> lists = List<Player>();
     Map<dynamic, dynamic> values;
-    firebaseDatabase
+    _firebaseDatabase
         .reference()
         .child('Players')
         .child('Cadet')
@@ -59,7 +58,9 @@ class CloudDatabase extends GetxController {
         .then((snapshot) {
       values = snapshot.value;
       values.forEach((key, values) {
-        lists.add(values);
+        lists.add(Player.fromSnapshot(values));
+
+        print('xxxx ${lists.length}');
       });
     });
     return lists;
@@ -254,8 +255,15 @@ class CloudDatabase extends GetxController {
     return _db.collection('ClubSpendings').add(clubSpendings.toMap());
   }
 
-  Future<void> addPlayers(Player player) {
-    return _db.collection('players').add(player.toMap());
+  Future<void> addPlayer(Player player, String child) async {
+    if (player != null) {
+      await _firebaseDatabase
+          .reference()
+          .child("Players")
+          .child(child.trim().toString())
+          .push()
+          .set(player.toJson());
+    }
   }
 
   Future<void> addPlayerScores(String collection, Player player) {
@@ -266,10 +274,6 @@ class CloudDatabase extends GetxController {
 
   Future<void> addArchivePictures(ClubArcive clubArcive) {
     return _db.collection('ClubPitureArchive').add(clubArcive.toMap());
-  }
-
-  Future<void> addPlayer(String collection, Player player) {
-    return _db.collection(collection.trim().toString()).add(player.toMap());
   }
 
   Future<void> addIncome(ClubIncome clubIncome) {

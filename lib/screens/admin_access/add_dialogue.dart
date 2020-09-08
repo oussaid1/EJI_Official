@@ -147,11 +147,14 @@ class _AddPlayersState extends State<AddPlayers> {
       rateable: _rateable,
     );
     if (widget.category == 1) {
-      await cD.addPlayer('Players', pL1);
+      cD.addPlayer(pL1, 'Senior');
     } else if (widget.category == 2) {
-      await cD.addPlayer('Juniors', pL1);
+      await cD.addPlayer(pL1, 'Juniors');
     } else if (widget.category == 3) {
-      await cD.addPlayer('Cadet', pL1);
+      await cD.addPlayer(
+        pL1,
+        'Cadet',
+      );
     }
   }
 
