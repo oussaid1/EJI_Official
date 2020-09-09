@@ -30,7 +30,7 @@ class _MatchDetailsState extends State<MatchDetails> {
     return Container(
       width: 170,
       decoration: BoxDecoration(
-          color: primaryColor,
+          color: secondaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
       height: 220,
@@ -41,7 +41,7 @@ class _MatchDetailsState extends State<MatchDetails> {
             width: 170,
             height: 50,
             decoration: BoxDecoration(
-                color: secondaryColor.withOpacity(0.8),
+                color: primaryColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
             child: Text('${matchDay.matchdayHome.toString()}',
@@ -159,7 +159,7 @@ class _MatchDetailsState extends State<MatchDetails> {
     return Container(
       width: 170,
       decoration: BoxDecoration(
-          color: primaryColor,
+          color: secondaryColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: secondaryColor, width: 0.5)),
       height: 220,
@@ -170,7 +170,7 @@ class _MatchDetailsState extends State<MatchDetails> {
             width: 170,
             height: 50,
             decoration: BoxDecoration(
-                color: secondaryColor.withOpacity(0.8),
+                color: primaryColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: secondaryColor, width: 0.5)),
             child: Text('${matchDay.matchdayAway.toString()}',
@@ -298,90 +298,90 @@ class _MatchDetailsState extends State<MatchDetails> {
           ),
           Center(
             child: Container(
+              decoration: BoxDecoration(
+                  color: primaryColor.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(6)),
               width: Get.width - 20,
               height: Get.height / 1.8,
               child: ListView(
                 children: <Widget>[
-                  Card(
-                    color: secondaryColor.withOpacity(0.8),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                  'MatchDay'.tr +
-                                      '${matchDay.matchdayDate.toString()}',
-                                  style: TextStyle(
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.w600,
-                                      color: fontColor)),
-                            ],
-                          ),
-                        ),
-                        Row(
+                  Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(
-                                '${matchDay.matchdayType.toString()}',
+                            Text(
+                                'MatchDay'.tr +
+                                    '${matchDay.matchdayDate.toString()}',
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 22,
                                     fontWeight: FontWeight.w400,
-                                    color: fontColor),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text('MatchType'.tr,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w200,
-                                      color: fontColor)),
-                            ),
+                                    color: fontColor)),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              _buildHome(),
-                              _buildAway(),
-                            ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              '${matchDay.matchdayType.toString()}',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: fontColor),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '  ${matchDay.matchdayReferee.toString()}',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: fontColor),
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text('MatchType'.tr,
                                 textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                'MatchRef'.tr,
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w200,
-                                    color: fontColor),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                                    color: fontColor)),
                           ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _buildHome(),
+                            _buildAway(),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '  ${matchDay.matchdayReferee.toString()}',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: fontColor),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              'MatchRef'.tr,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w200,
+                                  color: fontColor),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

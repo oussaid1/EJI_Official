@@ -129,6 +129,7 @@ class _AddPlayersState extends State<AddPlayers> {
 
   _saveToDb(BuildContext context) async {
     Player pL1 = new Player(
+      count: 1,
       profileImage: _profileImage,
       playerName: _playerName,
       phone: _phone,
@@ -149,7 +150,7 @@ class _AddPlayersState extends State<AddPlayers> {
     if (widget.category == 1) {
       cD.addPlayer(pL1, 'Senior');
     } else if (widget.category == 2) {
-      await cD.addPlayer(pL1, 'Juniors');
+      await cD.addPlayer(pL1, 'Junior');
     } else if (widget.category == 3) {
       await cD.addPlayer(
         pL1,
@@ -161,6 +162,7 @@ class _AddPlayersState extends State<AddPlayers> {
   _updateInDb(BuildContext context) async {
     Player pLEdited = new Player(
       id: _id,
+      count: 1,
       profileImage: _profileImage,
       regNum: _regNum,
       seasons: _seasons,
@@ -179,11 +181,11 @@ class _AddPlayersState extends State<AddPlayers> {
       rateable: _rateable,
     );
     if (widget.category == 1) {
-      await cD.updatePlayer('Players', pLEdited);
+      await cD.updatePlayer('Senior', pLEdited);
     } else if (widget.category == 2) {
-      await cD.updatePlayer('Juniors', pLEdited);
+      await cD.updatePlayer('Junior', pLEdited);
     } else if (widget.category == 3) {
-      await cD.updatePlayer('Seniors', pLEdited);
+      await cD.updatePlayer('Cadet', pLEdited);
     }
   }
 
@@ -349,6 +351,7 @@ class _AddPlayersState extends State<AddPlayers> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
       child: new TextFormField(
+        maxLength: 10,
         onSaved: (value) {
           setState(() {
             _phone = value;

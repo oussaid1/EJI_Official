@@ -1,11 +1,15 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/common/matches_page.dart';
+import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
+import 'package:flutter_sparkline/flutter_sparkline.dart';
+import 'picture_archive_list.dart';
 
 class TeamPage extends StatefulWidget {
   @override
@@ -15,7 +19,12 @@ class TeamPage extends StatefulWidget {
 class _TeamPageState extends State<TeamPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final CloudDatabase cD = Get.put(CloudDatabase());
-
+  List<double> data = [
+    1.0,
+    1.1,
+    1.0,
+    1.2,
+  ];
   List<ClubSpendings> clubSpendings;
   List _list = List<MatchDay>();
   List<ClubIncome> clubIncome;
@@ -38,14 +47,11 @@ class _TeamPageState extends State<TeamPage> {
           Positioned(
             top: 10,
             left: 1,
+            width: Get.width - 2,
             height: 180,
             child: Container(
-              width: Get.width - 2,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10)),
-                  child: Image.asset('assets/images/c.jpg', fit: BoxFit.fill)),
+              color: secondaryColor,
+              child: new PicturesArchiveList(),
             ),
           ),
           Positioned(
@@ -76,8 +82,9 @@ class _TeamPageState extends State<TeamPage> {
                           padding: const EdgeInsets.only(top: 2.0),
                           child: Container(
                             decoration: BoxDecoration(
+                                color: primaryColorShadow,
                                 borderRadius: BorderRadius.circular(6),
-                                border: Border.all(color: Colors.grey)),
+                                border: Border.all()),
                             height: 60,
                             child: Column(
                               children: <Widget>[
@@ -109,13 +116,11 @@ class _TeamPageState extends State<TeamPage> {
                                       child: Container(
                                         width: 74,
                                         decoration: BoxDecoration(
-                                            color:
-                                                secondaryColor.withOpacity(0.8),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            border: Border.all(
-                                                color: secondaryColor,
-                                                width: 0.5)),
+                                          color:
+                                              secondaryColor.withOpacity(0.8),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
                                         child: Padding(
                                             padding: const EdgeInsets.all(2.0),
                                             child: matchDay.matchdayType.trim() !=
@@ -201,12 +206,11 @@ class _TeamPageState extends State<TeamPage> {
           new Positioned(
             bottom: 70,
             left: 10,
-            width: Get.width - 10,
+            width: Get.width - 20,
             child: new Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 1),
                 borderRadius: BorderRadius.circular(6),
-                color: primaryColor,
+                color: primaryColorShadow,
               ),
               height: 360,
               child: Column(
@@ -214,16 +218,6 @@ class _TeamPageState extends State<TeamPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        'أنشطة الفريق ، من مباريات وتداريب ',
-                        style: TextStyle(
-                          fontFamily: 'Courier New',
-                          fontSize: 14,
-                          color: secondaryColor,
-                          fontStyle: FontStyle.italic,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
                       Text(
                         'الفريق',
                         style: TextStyle(
@@ -235,32 +229,74 @@ class _TeamPageState extends State<TeamPage> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 4,
-                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Row(
+                          Column(
                             children: [
-                              Icon(
-                                Icons.arrow_back,
-                                color: accentColor,
-                              ),
                               Text(
-                                'تفاصيل ',
+                                'تشكيلة الفريق حسب التنقيط ',
                                 style: TextStyle(
                                   fontFamily: 'Courier New',
-                                  fontSize: 14,
-                                  color: fontColor,
+                                  fontSize: 12,
+                                  color: secondaryColor,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                'أرشيف التشكيلات التي لعب بها الفريق',
+                                style: TextStyle(
+                                  fontFamily: 'Courier New',
+                                  fontSize: 12,
+                                  color: secondaryColor,
+                                  fontStyle: FontStyle.italic,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ],
+                          ),
+                          FlatButton(
+                            onPressed: () => Get.to(MainFormation()),
+                            child: Text(
+                              'تشكيلة الفريق ',
+                              style: TextStyle(
+                                fontFamily: 'Courier New',
+                                fontSize: 20,
+                                color: whitefontColor,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          FlatButton(
+                            onPressed: () => Get.to(MatchesPage()),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_back,
+                                  color: accentColor,
+                                ),
+                                Text(
+                                  'تفاصيل ',
+                                  style: TextStyle(
+                                    fontFamily: 'Courier New',
+                                    fontSize: 14,
+                                    color: fontColor,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                           Text(
                             'المباريات ',
@@ -305,13 +341,17 @@ class _TeamPageState extends State<TeamPage> {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: new Container(
-                                  color: secondaryColor,
-                                  width: 120,
-                                  height: 120,
-                                ),
-                              ),
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: new Container(
+                                    width: 120,
+                                    height: 120,
+                                    child: Sparkline(
+                                      data: data,
+                                      lineColor: Colors.green,
+                                      fillMode: FillMode.below,
+                                      fillColor: primaryColorShadow,
+                                    ),
+                                  )),
                             ],
                           ),
                           Column(
@@ -343,13 +383,17 @@ class _TeamPageState extends State<TeamPage> {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: new Container(
-                                  color: secondaryColor,
-                                  width: 120,
-                                  height: 120,
-                                ),
-                              ),
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: new Container(
+                                    width: 120,
+                                    height: 120,
+                                    child: Sparkline(
+                                      data: data,
+                                      lineColor: Colors.yellow[200],
+                                      fillMode: FillMode.below,
+                                      fillColor: primaryColorShadow,
+                                    ),
+                                  )),
                             ],
                           ),
                           Column(
@@ -381,13 +425,17 @@ class _TeamPageState extends State<TeamPage> {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: new Container(
-                                  color: secondaryColor,
-                                  width: 120,
-                                  height: 120,
-                                ),
-                              ),
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: new Container(
+                                    width: 120,
+                                    height: 120,
+                                    child: Sparkline(
+                                      data: data,
+                                      lineColor: Colors.red[200],
+                                      fillMode: FillMode.below,
+                                      fillColor: primaryColorShadow,
+                                    ),
+                                  )),
                             ],
                           ),
                         ],
@@ -472,7 +520,7 @@ class _TeamPageState extends State<TeamPage> {
             ),
           ),
           Positioned(
-            top: 40,
+            top: 30,
             left: 10,
             child: Container(
               width: 50,

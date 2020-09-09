@@ -3,6 +3,7 @@ import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -275,8 +276,44 @@ class _PlayersPageState extends State<PlayersPage> {
                                 child: Stack(
                                   children: [
                                     ClipRRect(
-                                        child: new Image.asset(
-                                            'assets/images/watson.png')),
+                                      borderRadius: BorderRadius.circular(6),
+                                      child: Container(
+                                        child: FutureBuilder<String>(
+                                          future: cD.getProfileImage(context,
+                                              player.profileImage.toString()),
+                                          builder: (context, snapshot) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(2.0),
+                                              child: (snapshot == null ||
+                                                      !snapshot.hasData)
+                                                  ? Image.asset(
+                                                      'assets/images/ejilogo.png',
+                                                      fit: BoxFit.fill,
+                                                    )
+                                                  : CachedNetworkImage(
+                                                      imageUrl: snapshot.data,
+                                                      fit: BoxFit.fill,
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              Image.asset(
+                                                        'assets/images/ejilogo.png',
+                                                        height: 116,
+                                                        width: 116,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Image.asset(
+                                                        'assets/images/ejilogo.png',
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
                                     Positioned(
                                       bottom: 20,
                                       right: 10,

@@ -25,7 +25,7 @@ class PlayersList extends StatelessWidget {
             tabs: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Seniors'.tr,
+                child: Text('Senior'.tr,
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w400,
@@ -33,7 +33,7 @@ class PlayersList extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Juniors'.tr,
+                child: Text('Junior'.tr,
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w400,
@@ -41,7 +41,7 @@ class PlayersList extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Cadets'.tr,
+                child: Text('Cadet'.tr,
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w400,
@@ -53,11 +53,11 @@ class PlayersList extends StatelessWidget {
         body: TabBarView(
           children: [
             PlayerList(
-              collectionName: 'players',
+              collectionName: 'Senior',
               category: 1,
             ),
             PlayerList(
-              collectionName: 'Juniors',
+              collectionName: 'Junior',
               category: 2,
             ),
             PlayerList(

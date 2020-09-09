@@ -1,5 +1,6 @@
 class MatchDay {
   String id;
+  int count;
   String matchdayDate;
   String matchdayType;
   String matchdayReferee;
@@ -16,6 +17,7 @@ class MatchDay {
 
   MatchDay({
     this.id,
+    this.count,
     this.matchdayDate,
     this.matchdayType,
     this.matchdayReferee,
@@ -33,6 +35,7 @@ class MatchDay {
   Map<String, dynamic> toMap() {
     return {
       'matchdaydate': matchdayDate,
+      'count': count,
       'matchdaytype': matchdayType,
       'matchdayreferee': matchdayReferee,
       'matchdayhome': matchdayHome,
@@ -50,6 +53,7 @@ class MatchDay {
 
   MatchDay.fromMap(Map<String, dynamic> map, String id)
       : id = id,
+        count = map['count'],
         matchdayDate = map['matchdaydate'],
         matchdayType = map['matchdaytype'],
         matchdayReferee = map['matchdayreferee'],

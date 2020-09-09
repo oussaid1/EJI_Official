@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-const Color primaryColor = Color(0xff101a24);
+const Color primaryColor = Color(0xff101A24);
+const Color primaryColorShadow = Color(0xff192B3E);
 const Color secondaryColor = Color(0xFF85A2A2);
 LinearGradient gradientColor2 = LinearGradient(
     begin: Alignment.topRight,

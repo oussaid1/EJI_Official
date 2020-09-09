@@ -3,6 +3,7 @@ import 'package:EJI/settings/params.dart';
 
 class Squad {
   String id;
+  int count;
   Player pGK;
   Player pCB5;
   Player pCB4;

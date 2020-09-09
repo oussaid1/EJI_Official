@@ -326,7 +326,6 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                         prc.positionMastery.value +
                                         prc.availability.value,
                                     rateable: widget.playerToRate.rateable,
-                                    isGK: widget.playerToRate.isGK,
                                   );
                                   Player scoredPlayer2 = new Player.stats(
                                     regNum: widget.playerToRate.regNum,

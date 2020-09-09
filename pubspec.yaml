@@ -45,7 +45,8 @@ dependencies:
   flutter_swiper: null
   charts_flutter: null
   firebase_core: null
-  carousel_slider:
+  carousel_slider: null
+  flutter_sparkline: ^0.1.0
 
 dev_dependencies:
   flutter_test:

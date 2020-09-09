@@ -1,5 +1,6 @@
 class ClubArcive {
   String id;
+  int count;
   String imageLocation;
   int thumbsUp;
   int thumbsDown;

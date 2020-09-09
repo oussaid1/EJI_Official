@@ -68,6 +68,17 @@ class CloudDatabase extends GetxController {
     return pList;
   }
 
+  Future<int> getCount() async {
+    int pList = await _db
+        .collection('Ahdath')
+        .orderBy('creationDate', descending: true)
+        .snapshots()
+        .length;
+
+    print('<<<>>>> $pList');
+    return pList;
+  }
+
   Stream<List<Player>> getPlayers(String collection) {
     Stream<List<Player>> pList = _db
         .collection(collection.trim().toString())
@@ -246,7 +257,7 @@ class CloudDatabase extends GetxController {
   }
 
   Future<void> addPlayer(Player player, String collection) {
-    return _db.collection(collection).add(player.toMap());
+    return _db.collection(collection.trim()).add(player.toMap());
   }
 
   Future<void> addPlayerScores(String collection, Player player) {
@@ -291,8 +302,8 @@ class CloudDatabase extends GetxController {
 
   Future<void> updatePlayer(String collection, Player player) {
     return _db
-        .collection(collection.trim().toString())
-        .document(player.id.toString())
+        .collection(collection.trim())
+        .document(player.id)
         .updateData(player.toMap());
   }
 

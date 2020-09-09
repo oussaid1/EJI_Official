@@ -1,5 +1,6 @@
 class AhdathModel {
   String id;
+  int count;
   String creationDate;
   String title;
   String description;
@@ -12,6 +13,7 @@ class AhdathModel {
   AhdathModel(
       {this.id,
       this.title,
+      this.count,
       this.description,
       this.dueDate,
       this.status,
@@ -23,6 +25,7 @@ class AhdathModel {
   Map<String, dynamic> toMap() {
     return {
       'title': title,
+      'count': count,
       'creationDate': creationDate,
       'description': description,
       'dueDate': dueDate,
@@ -36,6 +39,7 @@ class AhdathModel {
   AhdathModel.fromMap(Map<String, dynamic> map, String idno)
       : id = idno,
         title = map['title'],
+        count = map['count'],
         creationDate = map['creationDate'],
         description = map['description'],
         dueDate = map['dueDate'],

@@ -1,5 +1,6 @@
 class Player {
   String id;
+  int count;
   String profileImage;
   String regNum;
   String playerName;
@@ -18,7 +19,7 @@ class Player {
   int availability;
   int oVR;
   bool rateable;
-  bool isGK;
+
   get getoVR {
     return trainingScore + desciplineScore + positionMaster + availability;
   }
@@ -41,10 +42,10 @@ class Player {
     this.oVR = 12;
     this.trainingScore = 4;
     this.rateable = true;
-    this.isGK = false;
   }
   Player({
     this.id,
+    this.count,
     this.playerName,
     this.dateOfBirth,
     this.profileImage,
@@ -61,12 +62,12 @@ class Player {
     this.oVR,
     this.trainingScore,
     this.rateable,
-    this.isGK,
   }) {
     this.oVR = trainingScore + desciplineScore + positionMaster + availability;
   }
   Player.stats({
     this.id,
+    this.count,
     this.playerName,
     this.regNum,
     this.scoreDate,
@@ -83,6 +84,7 @@ class Player {
   Map<String, dynamic> toMapStats() {
     return {
       'regnum': regNum,
+      'count': count,
       'playername': playerName,
       'scoreDate': scoreDate,
       'positionPlayed': positionPlayed,
@@ -98,6 +100,7 @@ class Player {
   Player.fromMapStats(Map<String, dynamic> map, String id)
       : id = id,
         playerName = map['playername'],
+        count = map['count'],
         positionPlayed = map['positionPlayed'],
         regNum = map['regnum'],
         scoreDate = map['scoreDate'],
@@ -126,13 +129,13 @@ class Player {
       'oVR': oVR,
       'trainingScore': trainingScore,
       'rateable': rateable,
-      'isGK': isGK,
     };
   }
 
   toMap() {
     return {
       'profileimage': profileImage,
+      'count': count,
       'regnum': regNum,
       'playername': playerName,
       'dateofbirth': dateOfBirth,
@@ -148,12 +151,12 @@ class Player {
       'oVR': oVR,
       'trainingScore': trainingScore,
       'rateable': rateable,
-      'isGK': isGK,
     };
   }
 
   Player.fromMap(Map<String, dynamic> map, String id)
       : id = id,
+        count = map['count'],
         playerName = map['playername'],
         dateOfBirth = map['dateofbirth'],
         phone = map['phone'],
@@ -169,6 +172,5 @@ class Player {
         availability = map['availability'],
         positionMaster = map['positionMaster'],
         desciplineScore = map['desciplineScore'],
-        rateable = map['rateable'],
-        isGK = map['isGK'];
+        rateable = map['rateable'];
 }

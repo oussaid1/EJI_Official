@@ -1,5 +1,6 @@
 class ClubIncome {
   String id;
+  int count;
   String givenBy;
   String givenFor;
   String givenOnDate;
@@ -7,6 +8,7 @@ class ClubIncome {
 
   ClubIncome(
       {this.id,
+      this.count,
       this.givenAmount,
       this.givenBy,
       this.givenFor,
@@ -15,6 +17,7 @@ class ClubIncome {
   Map<String, dynamic> toMap() {
     return {
       'givenBy': givenBy,
+      'count': count,
       'givenFor': givenFor,
       'givenDate': givenOnDate,
       'givenAmount': givenAmount,
@@ -24,6 +27,7 @@ class ClubIncome {
   ClubIncome.fromMap(Map<String, dynamic> map, String id)
       : id = id,
         givenBy = map['givenBy'],
+        count = map['count'],
         givenFor = map['givenFor'],
         givenOnDate = map['givenDate'],
         givenAmount = map['givenAmount'];
@@ -40,6 +44,7 @@ class ClubIncome {
 
 class ClubSpendings {
   String id;
+  int count;
   String spentOn;
   String spentBy;
   String spentOnDate;
@@ -47,6 +52,7 @@ class ClubSpendings {
 
   ClubSpendings(
       {this.id,
+      this.count,
       this.spentAmount,
       this.spentBy,
       this.spentOn,
@@ -54,6 +60,7 @@ class ClubSpendings {
   Map<String, dynamic> toMap() {
     return {
       'spentOn': spentOn,
+      'count': count,
       'spentBy': spentBy,
       'spentOnDate': spentOnDate,
       'spentAmount': spentAmount,
@@ -71,12 +78,12 @@ class ClubSpendings {
 
   ClubSpendings.fromMap(Map<String, dynamic> map, String id)
       : id = id,
+        count = map['count'],
         spentOn = map['spentOn'],
         spentBy = map['spentBy'],
         spentOnDate = map['spentOnDate'],
         spentAmount = map['spentAmount'];
 }
-
 
 /*
 class IncomeSpendings {

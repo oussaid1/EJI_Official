@@ -20,8 +20,6 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  final String image = "players/profileImages/ejilogo.png";
-
   final CloudDatabase cD = Get.put(CloudDatabase());
   final AuthController dx = Get.put(AuthController());
 

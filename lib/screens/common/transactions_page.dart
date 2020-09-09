@@ -35,6 +35,28 @@ class _FinancePageState extends State<FinancePage> {
             stream: null,
             builder: (context, snapshot) {
               return Stack(children: [
+                StreamBuilder(
+                    stream: cD.getClubIncomes(),
+                    builder:
+                        (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
+                      if (!snapshot.hasData || snapshot.hasError) {
+                        return new Container();
+                      } else
+                        clubIncome = snapshot.data;
+                      c = ClubIncome.getIncome(clubIncome);
+                      return new Container();
+                    }),
+                StreamBuilder(
+                    stream: cD.getClubSpendings(),
+                    builder:
+                        (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
+                      if (!snapshot.hasData || snapshot.hasError) {
+                        return new Container();
+                      } else
+                        clubSpendings = snapshot.data;
+                      d = ClubSpendings.getSpendings(clubSpendings);
+                      return new Container();
+                    }),
                 Positioned(
                   top: 10,
                   left: 1,
@@ -102,7 +124,7 @@ class _FinancePageState extends State<FinancePage> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '043  ',
+                                        text: '${c - d} ',
                                       ),
                                       TextSpan(
                                         text: 'DH',
@@ -141,7 +163,7 @@ class _FinancePageState extends State<FinancePage> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '344 ',
+                                        text: '$d ',
                                       ),
                                       TextSpan(
                                         text: 'DH',

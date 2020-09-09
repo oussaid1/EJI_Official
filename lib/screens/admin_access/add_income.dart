@@ -46,6 +46,7 @@ class _AddSpendingsState extends State<AddIncome> {
 
   _saveToCloud() {
     ClubIncome clubIncome = new ClubIncome(
+        count: 1,
         givenFor: givenForControler.text.toString().trim(),
         givenBy: givenByControler.text.trim().toString(),
         givenOnDate: givenOnDateController.text,
@@ -56,6 +57,7 @@ class _AddSpendingsState extends State<AddIncome> {
 
   _updateInCloud() {
     ClubIncome clubIncome = new ClubIncome(
+        count: 1,
         id: _id,
         givenFor: givenForControler.text.toString().trim(),
         givenBy: givenByControler.text.trim().toString(),
