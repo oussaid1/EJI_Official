@@ -34,7 +34,6 @@ class _MainFormationState extends State<MainFormation> {
   Squad selectedSquadxy;
   @override
   void initState() {
-//mBox.write('adminkey',false).then((value) => isAdmin= mBox != null ? mBox.read('adminkey') :true);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);

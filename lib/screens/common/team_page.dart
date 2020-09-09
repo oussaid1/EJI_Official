@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/common/matches_page.dart';
+import 'package:EJI/screens/common/team_tab.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
@@ -10,6 +13,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'picture_archive_list.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class TeamPage extends StatefulWidget {
   @override
@@ -212,59 +216,73 @@ class _TeamPageState extends State<TeamPage> {
                 borderRadius: BorderRadius.circular(6),
                 color: primaryColorShadow,
               ),
-              height: 360,
+              height: 370,
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'الفريق',
-                        style: TextStyle(
-                          fontFamily: 'Courier New',
-                          fontSize: 24,
-                          color: const Color(0xff17bcb5),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Column(
+                          Row(
                             children: [
-                              Text(
-                                'تشكيلة الفريق حسب التنقيط ',
-                                style: TextStyle(
-                                  fontFamily: 'Courier New',
-                                  fontSize: 12,
-                                  color: secondaryColor,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    '21%',
+                                    style: TextStyle(
+                                      fontFamily: 'Courier New',
+                                      fontSize: 16,
+                                      color: secondaryColor,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    'نسبة الحضور ',
+                                    style: TextStyle(
+                                      fontFamily: 'Courier New',
+                                      fontSize: 16,
+                                      color: secondaryColor,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
-                              Text(
-                                'أرشيف التشكيلات التي لعب بها الفريق',
-                                style: TextStyle(
-                                  fontFamily: 'Courier New',
-                                  fontSize: 12,
-                                  color: secondaryColor,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    '21',
+                                    style: TextStyle(
+                                      fontFamily: 'Courier New',
+                                      fontSize: 16,
+                                      color: secondaryColor,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    'مجموع الحصص ',
+                                    style: TextStyle(
+                                      fontFamily: 'Courier New',
+                                      fontSize: 16,
+                                      color: secondaryColor,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
                           FlatButton(
-                            onPressed: () => Get.to(MainFormation()),
+                            onPressed: () => Get.to(TeamTab()),
                             child: Text(
-                              'تشكيلة الفريق ',
+                              'التداريب ',
                               style: TextStyle(
                                 fontFamily: 'Courier New',
                                 fontSize: 20,
@@ -275,243 +293,155 @@ class _TeamPageState extends State<TeamPage> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          FlatButton(
-                            onPressed: () => Get.to(MatchesPage()),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.arrow_back,
-                                  color: accentColor,
-                                ),
-                                Text(
-                                  'تفاصيل ',
-                                  style: TextStyle(
-                                    fontFamily: 'Courier New',
-                                    fontSize: 14,
-                                    color: fontColor,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                      Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: new Container(
+                            width: 140,
+                            height: 80,
+                            child: Sparkline(
+                              data: data,
+                              lineColor: Colors.green,
+                              fillMode: FillMode.below,
+                              fillColor: primaryColorShadow,
                             ),
-                          ),
+                          )),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
                           Text(
-                            'المباريات ',
+                            '21',
                             style: TextStyle(
                               fontFamily: 'Courier New',
-                              fontSize: 20,
-                              color: whitefontColor,
+                              fontSize: 16,
+                              color: secondaryColor,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            'الانتصارات ',
+                            style: TextStyle(
+                              fontFamily: 'Courier New',
+                              fontSize: 14,
+                              color: secondaryColor,
+                              fontStyle: FontStyle.italic,
                             ),
                             textAlign: TextAlign.center,
                           ),
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    '21',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 16,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    'الانتصارات ',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 14,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: new Container(
-                                    width: 120,
-                                    height: 120,
-                                    child: Sparkline(
-                                      data: data,
-                                      lineColor: Colors.green,
-                                      fillMode: FillMode.below,
-                                      fillColor: primaryColorShadow,
-                                    ),
-                                  )),
-                            ],
+                          Text(
+                            '21',
+                            style: TextStyle(
+                              fontFamily: 'Courier New',
+                              fontSize: 16,
+                              color: secondaryColor,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    '21',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 16,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    'التعادلات ',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 14,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: new Container(
-                                    width: 120,
-                                    height: 120,
-                                    child: Sparkline(
-                                      data: data,
-                                      lineColor: Colors.yellow[200],
-                                      fillMode: FillMode.below,
-                                      fillColor: primaryColorShadow,
-                                    ),
-                                  )),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    '21',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 16,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    'الهزائم ',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 14,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: new Container(
-                                    width: 120,
-                                    height: 120,
-                                    child: Sparkline(
-                                      data: data,
-                                      lineColor: Colors.red[200],
-                                      fillMode: FillMode.below,
-                                      fillColor: primaryColorShadow,
-                                    ),
-                                  )),
-                            ],
+                          Text(
+                            'التعادلات ',
+                            style: TextStyle(
+                              fontFamily: 'Courier New',
+                              fontSize: 14,
+                              color: secondaryColor,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '21',
+                            style: TextStyle(
+                              fontFamily: 'Courier New',
+                              fontSize: 16,
+                              color: secondaryColor,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            'الهزائم ',
+                            style: TextStyle(
+                              fontFamily: 'Courier New',
+                              fontSize: 14,
+                              color: secondaryColor,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                      FlatButton(
+                        onPressed: () => Get.to(MatchesPage()),
+                        child: Text(
+                          'المباريات ',
+                          style: TextStyle(
+                            fontFamily: 'Courier New',
+                            fontSize: 20,
+                            color: whitefontColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
+                  Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: new Container(
+                        width: 120,
+                        height: 120,
+                        child: DonutPieChart.withSampleData(),
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        'التداريب ',
-                        style: TextStyle(
-                          fontFamily: 'Courier New',
-                          fontSize: 20,
-                          color: whitefontColor,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                '21%',
-                                style: TextStyle(
-                                  fontFamily: 'Courier New',
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: accentColor,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                'نسبة الحضور ',
-                                style: TextStyle(
-                                  fontFamily: 'Courier New',
-                                  fontSize: 16,
-                                  color: whitefontColor,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                          Text(
+                            'تشكيلة الفريق حسب التنقيط ',
+                            style: TextStyle(
+                              fontFamily: 'Courier New',
+                              fontSize: 12,
+                              color: secondaryColor,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                '21',
-                                style: TextStyle(
-                                  fontFamily: 'Courier New',
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: accentColor,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                'مجموع الحصص ',
-                                style: TextStyle(
-                                  fontFamily: 'Courier New',
-                                  fontSize: 16,
-                                  color: whitefontColor,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                          Text(
+                            'أرشيف التشكيلات التي لعب بها الفريق',
+                            style: TextStyle(
+                              fontFamily: 'Courier New',
+                              fontSize: 12,
+                              color: secondaryColor,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ],
+                      ),
+                      FlatButton(
+                        onPressed: () => Get.to(MainFormation()),
+                        child: Text(
+                          'تشكيلة الفريق ',
+                          style: TextStyle(
+                            fontFamily: 'Courier New',
+                            fontSize: 20,
+                            color: whitefontColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ],
                   ),
@@ -538,4 +468,54 @@ class _TeamPageState extends State<TeamPage> {
       ),
     );
   }
+}
+
+class DonutPieChart extends StatelessWidget {
+  final List<charts.Series> seriesList;
+  final bool animate;
+
+  DonutPieChart(this.seriesList, {this.animate});
+
+  /// Creates a [PieChart] with sample data and no transition.
+  factory DonutPieChart.withSampleData() {
+    return new DonutPieChart(
+      _createSampleData(),
+      // Disable animations for image tests.
+      animate: false,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new charts.PieChart(seriesList,
+        animate: false,
+        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 120));
+  }
+
+  /// Create one series with sample hard coded data.
+  static List<charts.Series<LinearSales, int>> _createSampleData() {
+    final data = [
+      new LinearSales(0, 100),
+      new LinearSales(1, 75),
+      new LinearSales(2, 25),
+      new LinearSales(2, 25),
+    ];
+
+    return [
+      new charts.Series<LinearSales, int>(
+        id: 'Sales',
+        domainFn: (LinearSales sales, _) => sales.year,
+        measureFn: (LinearSales sales, _) => sales.sales,
+        data: data,
+      )
+    ];
+  }
+}
+
+/// Sample linear data type.
+class LinearSales {
+  final int year;
+  final int sales;
+
+  LinearSales(this.year, this.sales);
 }

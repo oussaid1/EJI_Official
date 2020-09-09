@@ -6,6 +6,7 @@ import 'package:EJI/shared/drawer_main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class PlayersPage extends StatefulWidget {
@@ -26,6 +27,9 @@ class _PlayersPageState extends State<PlayersPage> {
 
   @override
   void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     super.initState();
   }
 
@@ -77,7 +81,7 @@ class _PlayersPageState extends State<PlayersPage> {
               } else
                 _listCadet = snapshot.data;
               _allPlayers.addAll(_listCadet);
-              cD.countCadets.value = _listCadet.length;
+              cD.countCadets.value = Player.getCountPlayers(_listCadet);
               return Container();
             }),
         StreamBuilder<List<Player>>(
@@ -88,7 +92,7 @@ class _PlayersPageState extends State<PlayersPage> {
               } else
                 _listJunior = snapshot.data;
               _allPlayers.addAll(_listJunior);
-              cD.countCadets.value = _listCadet.length;
+              cD.countJuniors.value = Player.getCountPlayers(_listJunior);
               return Container();
             }),
         Positioned(
@@ -145,16 +149,18 @@ class _PlayersPageState extends State<PlayersPage> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          Text(
-                            'لاعب ${cD.countSeniors.value}',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: fontColor,
+                          Obx(
+                            () => Text(
+                              '${cD.countSeniors.value}',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: fontColor,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
-                          ),
+                          )
                         ],
                       ),
                       Column(
@@ -170,7 +176,7 @@ class _PlayersPageState extends State<PlayersPage> {
                           ),
                           Obx(
                             () => Text(
-                              'لاعب ${cD.countJuniors.value}',
+                              '${cD.countJuniors.value}',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 18,
@@ -193,15 +199,17 @@ class _PlayersPageState extends State<PlayersPage> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          Text(
-                            'لاعب ${cD.countCadets.value}',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: fontColor,
+                          Obx(
+                            () => Text(
+                              '${cD.countCadets.value}',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: fontColor,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
@@ -250,13 +258,14 @@ class _PlayersPageState extends State<PlayersPage> {
             height: 240,
             child: new Container(
                 child: StreamBuilder(
-                    stream: cD.getPlayers('players'),
+                    stream: cD.getPlayers('Senior'),
                     builder: (context, AsyncSnapshot<List<Player>> snapshot) {
                       if (snapshot.hasError || !snapshot.hasData) {
                         return new Container();
                       } else
                         _listSenior = (snapshot.data);
-                      cD.countSeniors.value = _listSenior.length;
+                      cD.countSeniors.value =
+                          Player.getCountPlayers(_listSenior);
                       _allPlayers.addAll(_listSenior);
                       return CarouselSlider.builder(
                           itemCount:

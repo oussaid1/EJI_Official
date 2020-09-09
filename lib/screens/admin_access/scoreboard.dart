@@ -303,6 +303,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                 ),
                                 onPressed: () {
                                   Player scoredPlayer = new Player(
+                                    count: widget.playerToRate.count,
                                     id: _id,
                                     profileImage:
                                         widget.playerToRate.profileImage,
@@ -328,6 +329,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                     rateable: widget.playerToRate.rateable,
                                   );
                                   Player scoredPlayer2 = new Player.stats(
+                                    count: widget.playerToRate.count,
                                     regNum: widget.playerToRate.regNum,
                                     seasons: widget.playerToRate.seasons,
                                     playerName: widget.playerToRate.playerName,
@@ -358,19 +360,19 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                           Navigator.pop(context);
                                           if (widget.category == 1) {
                                             c.updatePlayer(
-                                                'Players', scoredPlayer);
-                                            c.addPlayerScores('statisticPlayer',
-                                                scoredPlayer2);
+                                                'Senior', scoredPlayer);
+                                            c.addPlayerScores(
+                                                'SeniorStats', scoredPlayer2);
                                           } else if (widget.category == 2) {
                                             c.updatePlayer(
-                                                'Players', scoredPlayer);
-                                            c.addPlayerScores('statisticPlayer',
-                                                scoredPlayer2);
+                                                'Junior', scoredPlayer);
+                                            c.addPlayerScores(
+                                                'JuniorStats', scoredPlayer2);
                                           } else if (widget.category == 3) {
                                             c.updatePlayer(
-                                                'Players', scoredPlayer);
-                                            c.addPlayerScores('statisticPlayer',
-                                                scoredPlayer2);
+                                                'Cadet', scoredPlayer);
+                                            c.addPlayerScores(
+                                                'CadetStats', scoredPlayer2);
                                           }
                                         }
                                       },

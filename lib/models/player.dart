@@ -115,6 +115,7 @@ class Player {
     return {
       'profileimage': profileImage,
       'regnum': regNum,
+      'count': count,
       'playername': playerName,
       'dateofbirth': dateOfBirth,
       'placeofbirth': placeOfBirth,
@@ -173,4 +174,13 @@ class Player {
         positionMaster = map['positionMaster'],
         desciplineScore = map['desciplineScore'],
         rateable = map['rateable'];
+
+  static int getCountPlayers(List<Player> player) {
+    int sum = 0;
+    for (var i = 0; i < player.length; i++) {
+      sum += player[i].count ?? 0;
+    }
+
+    return sum;
+  }
 }

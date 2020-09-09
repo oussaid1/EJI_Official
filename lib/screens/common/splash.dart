@@ -2,6 +2,7 @@ import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key}) : super(key: key);
@@ -14,6 +15,10 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     // Timer(Duration(seconds: 4), () {  Get.to(LoginScreen());  });
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
     super.initState();
   }
 

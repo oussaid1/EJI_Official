@@ -6,6 +6,7 @@ import 'package:EJI/models/comments_model.dart';
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/models/player.dart';
 import 'package:EJI/models/staff.dart';
+import 'package:EJI/models/training_day.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -65,17 +66,6 @@ class CloudDatabase extends GetxController {
               .toList(),
         );
 
-    return pList;
-  }
-
-  Future<int> getCount() async {
-    int pList = await _db
-        .collection('Ahdath')
-        .orderBy('creationDate', descending: true)
-        .snapshots()
-        .length;
-
-    print('<<<>>>> $pList');
     return pList;
   }
 
@@ -231,6 +221,21 @@ class CloudDatabase extends GetxController {
     return pLista;
   }
 
+  Stream<List<TrainingDay>> getTrainingDays() {
+    Stream<List<TrainingDay>> pLista = _db
+        .collection('TrainingDay')
+        .orderBy('trainingDate', descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => TrainingDay.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        );
+    return pLista;
+  }
+
   Stream<List<ClubSpendings>> getClubSpendings() {
     Stream<List<ClubSpendings>> pLista = _db
         .collection('incomeSpendings')
@@ -268,6 +273,10 @@ class CloudDatabase extends GetxController {
 
   Future<void> addArchivePictures(ClubArcive clubArcive) {
     return _db.collection('ClubPitureArchive').add(clubArcive.toMap());
+  }
+
+  Future<void> addTraining(TrainingDay trainingDay) {
+    return _db.collection('TrainingDay').add(trainingDay.toMap());
   }
 
   Future<void> addIncome(ClubIncome clubIncome) {
