@@ -35,28 +35,6 @@ class _FinancePageState extends State<FinancePage> {
             stream: null,
             builder: (context, snapshot) {
               return Stack(children: [
-                StreamBuilder(
-                    stream: cD.getClubIncomes(),
-                    builder:
-                        (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
-                      if (!snapshot.hasData || snapshot.hasError) {
-                        return new Container();
-                      } else
-                        clubIncome = snapshot.data;
-                      c = ClubIncome.getIncome(clubIncome);
-                      return new Container();
-                    }),
-                StreamBuilder(
-                    stream: cD.getClubSpendings(),
-                    builder:
-                        (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
-                      if (!snapshot.hasData || snapshot.hasError) {
-                        return new Container();
-                      } else
-                        clubSpendings = snapshot.data;
-                      d = ClubSpendings.getSpendings(clubSpendings);
-                      return new Container();
-                    }),
                 Positioned(
                   top: 10,
                   left: 1,
@@ -124,7 +102,7 @@ class _FinancePageState extends State<FinancePage> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '${c - d} ',
+                                        text: '${cD.clubBudget.value} ',
                                       ),
                                       TextSpan(
                                         text: 'DH',
@@ -163,7 +141,7 @@ class _FinancePageState extends State<FinancePage> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '$d ',
+                                        text: '${cD.clubSpendings.value} ',
                                       ),
                                       TextSpan(
                                         text: 'DH',
@@ -205,7 +183,7 @@ class _FinancePageState extends State<FinancePage> {
                                         ),
                                         children: [
                                           TextSpan(
-                                            text: '$c ',
+                                            text: '${cD.clubIncome.value}',
                                           ),
                                           TextSpan(
                                             text: 'DH',
@@ -281,93 +259,6 @@ class _FinancePageState extends State<FinancePage> {
                         ],
                       ),
                     )),
-                new Positioned(
-                  bottom: 80,
-                  width: Get.width - 20,
-                  left: 10,
-                  height: 240,
-                  child: Container(
-                    height: 160,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: secondaryColor),
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: const Color(0xff101a24),
-                      boxShadow: [],
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              'إعلانات واقتراحات و ملاحظات',
-                              style: TextStyle(
-                                fontFamily: 'Courier New',
-                                fontSize: 14,
-                                color: secondaryColor,
-                                fontStyle: FontStyle.italic,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              'سبورة الفريق',
-                              style: TextStyle(
-                                fontFamily: 'Amiri',
-                                fontSize: 28,
-                                color: const Color(0xff17bcb5),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                        FlatButton(
-                          onPressed: () => Get.to(AnouncesScreen()),
-                          child: Text(
-                            'إعلانات ',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 20,
-                              color: whitefontColor,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Text(
-                          'اعلانات المكتب المسير للفريف ، للاعبين ، والعامة ... ',
-                          style: TextStyle(
-                            fontFamily: 'Courier New',
-                            fontSize: 16,
-                            color: secondaryColor,
-                            fontStyle: FontStyle.italic,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        FlatButton(
-                          onPressed: () => Get.to(CommentScreen()),
-                          child: Text(
-                            'اقتراحات و ملاحظات',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 20,
-                              color: whitefontColor,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Text(
-                          'يحق لكل منخرط اولاعب او غيرهما الادلاء باقتراحاته ونلاحظاته للفريق والمسيرين .ويتم الإجابة عليها من قبل المكتب .  ',
-                          style: TextStyle(
-                            fontFamily: 'Courier New',
-                            fontSize: 14,
-                            color: secondaryColor,
-                            fontStyle: FontStyle.italic,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
               ]);
             }));
   }

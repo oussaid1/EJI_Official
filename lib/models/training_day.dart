@@ -23,6 +23,14 @@ class TrainingDay {
     };
   }
 
+  static int getCountTraining(List<TrainingDay> k) {
+    int g = 0;
+    for (var i = 0; i < k.length; i++) {
+      g = g + k[i].count;
+    }
+    return g;
+  }
+
   TrainingDay.fromMap(Map<String, dynamic> map, String id)
       : id = id,
         attendees = map['attendees'],

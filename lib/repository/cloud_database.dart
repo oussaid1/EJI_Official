@@ -15,10 +15,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class CloudDatabase extends GetxController {
+  RxInt attendees = 0.obs;
+  RxInt duration = 0.obs;
   RxInt countSeniors = 0.obs;
   RxInt countJuniors = 0.obs;
   RxInt countCadets = 0.obs;
   RxDouble clubBudget = 0.0.obs;
+  RxDouble clubIncome = 0.0.obs;
+  RxDouble clubSpendings = 0.0.obs;
   RxBool isAdmin = false.obs;
   RxBool isSuperAdmin = true.obs;
   RxBool isComplete = true.obs;
@@ -95,40 +99,32 @@ class CloudDatabase extends GetxController {
         );
   }
 
-  Stream<List<Player>> getGK() {
-    Stream<List<Player>> pList = _db
-        .collection('players')
-        .where('position', isEqualTo: 'GK')
-        .orderBy('oVR', descending: true)
-        .limit(1)
+  Stream<List<MatchDay>> getMatchStatusHome(String winlosdraw) {
+    return _db
+        .collection('matchday')
+        .where('winStatusHome', isEqualTo: winlosdraw.trim())
         .snapshots()
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => Player.fromMap(doc.data, doc.documentID),
+                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
               )
               .toList(),
         );
-
-    return pList;
   }
 
-  Stream<List<Player>> get11Pla() {
-    Stream<List<Player>> pList = _db
-        .collection('players')
-        .where('position', isEqualTo: 'GK')
-        .orderBy('oVR', descending: true)
-        .limit(1)
+  Stream<List<MatchDay>> getMatchStatusAway(String winlosdraw) {
+    return _db
+        .collection('matchday')
+        .where('winStatusAway', isEqualTo: winlosdraw.trim())
         .snapshots()
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => Player.fromMap(doc.data, doc.documentID),
+                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
               )
               .toList(),
         );
-
-    return pList;
   }
 
   Stream<List<Anounce>> getAnounces(String collectionName) {

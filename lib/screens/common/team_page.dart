@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/models/matchday.dart';
+import 'package:EJI/models/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/admin_access/admin_validator.dart';
 import 'package:EJI/screens/common/matches_page.dart';
 import 'package:EJI/screens/common/team_tab.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
@@ -30,22 +32,24 @@ class _TeamPageState extends State<TeamPage> {
     1.2,
   ];
   List<ClubSpendings> clubSpendings;
-  List _list = List<MatchDay>();
+  List _listCount = List<MatchDay>();
+  List _list2 = List<MatchDay>();
+  List _listTraining = List<TrainingDay>();
   List<ClubIncome> clubIncome;
-
   double d = 0;
   double c = 0;
-  @override
-  void initState() {
-    super.initState();
-  }
+  int winCount = 0;
+  int drawCount = 0;
+  int lossCount = 0;
+
+  int trainingAttendees = 0;
+  int trainingCount = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MyDrawer(),
       key: scaffoldKey,
-      backgroundColor: primaryColor,
       body: Stack(
         children: [
           Positioned(
@@ -70,10 +74,10 @@ class _TeamPageState extends State<TeamPage> {
                     if (snapshot.hasError || !snapshot.hasData) {
                       return new Container();
                     } else
-                      _list = snapshot.data;
+                      _list2 = snapshot.data;
 
                     return CarouselSlider.builder(
-                      itemCount: _list != null ? _list.length : 0,
+                      itemCount: _list2 != null ? _list2.length : 0,
                       options: CarouselOptions(
                         height: 240,
                         autoPlay: true,
@@ -81,7 +85,7 @@ class _TeamPageState extends State<TeamPage> {
                         scrollDirection: Axis.horizontal,
                       ),
                       itemBuilder: (context, index) {
-                        MatchDay matchDay = _list[index];
+                        MatchDay matchDay = _list2[index];
                         return Padding(
                           padding: const EdgeInsets.only(top: 2.0),
                           child: Container(
@@ -207,6 +211,17 @@ class _TeamPageState extends State<TeamPage> {
                   }),
             ),
           ),
+          StreamBuilder(
+              stream: cD.getTrainingDays(),
+              builder: (context, AsyncSnapshot<List<TrainingDay>> snapshot) {
+                if (!snapshot.hasData || snapshot.hasError) {
+                  return Container();
+                } else
+                  _listTraining = snapshot.data;
+                trainingCount = TrainingDay.getCountTraining(_listTraining);
+
+                return Container();
+              }),
           new Positioned(
             bottom: 70,
             left: 10,
@@ -222,60 +237,55 @@ class _TeamPageState extends State<TeamPage> {
                   Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Row(
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    '21%',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 16,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    'نسبة الحضور ',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 16,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              Text(
+                                '21%',
+                                style: TextStyle(
+                                  fontFamily: 'Courier New',
+                                  fontSize: 16,
+                                  color: secondaryColor,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    '21',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 16,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    'مجموع الحصص ',
-                                    style: TextStyle(
-                                      fontFamily: 'Courier New',
-                                      fontSize: 16,
-                                      color: secondaryColor,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              Text(
+                                'نسبة الحضور ',
+                                style: TextStyle(
+                                  fontFamily: 'Courier New',
+                                  fontSize: 16,
+                                  color: secondaryColor,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                '$trainingCount ',
+                                style: TextStyle(
+                                  fontFamily: 'Courier New',
+                                  fontSize: 18,
+                                  color: accentColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                'مجموع الحصص ',
+                                style: TextStyle(
+                                  fontFamily: 'Courier New',
+                                  fontSize: 16,
+                                  color: secondaryColor,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
                             ],
                           ),
@@ -307,18 +317,31 @@ class _TeamPageState extends State<TeamPage> {
                           )),
                     ],
                   ),
+                  StreamBuilder(
+                      stream: cD.getMatchStatusHome('شباب اداولسطان'),
+                      builder:
+                          (context, AsyncSnapshot<List<MatchDay>> snapshot) {
+                        if (!snapshot.hasData || snapshot.hasError) {
+                          return Container();
+                        } else
+                          _listCount = snapshot.data;
+                        winCount = MatchDay.getWinStatusHome(_listCount, 'win');
+
+                        return Container();
+                      }),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            '21',
+                            '$winCount ',
                             style: TextStyle(
                               fontFamily: 'Courier New',
                               fontSize: 16,
-                              color: secondaryColor,
+                              fontWeight: FontWeight.bold,
+                              color: accentColor,
                               fontStyle: FontStyle.italic,
                             ),
                             textAlign: TextAlign.center,
@@ -327,7 +350,7 @@ class _TeamPageState extends State<TeamPage> {
                             'الانتصارات ',
                             style: TextStyle(
                               fontFamily: 'Courier New',
-                              fontSize: 14,
+                              fontSize: 16,
                               color: secondaryColor,
                               fontStyle: FontStyle.italic,
                             ),
@@ -338,11 +361,12 @@ class _TeamPageState extends State<TeamPage> {
                       Row(
                         children: [
                           Text(
-                            '21',
+                            '$drawCount ',
                             style: TextStyle(
                               fontFamily: 'Courier New',
                               fontSize: 16,
-                              color: secondaryColor,
+                              color: Colors.yellow,
+                              fontWeight: FontWeight.bold,
                               fontStyle: FontStyle.italic,
                             ),
                             textAlign: TextAlign.center,
@@ -362,11 +386,12 @@ class _TeamPageState extends State<TeamPage> {
                       Row(
                         children: [
                           Text(
-                            '21',
+                            '$lossCount ',
                             style: TextStyle(
                               fontFamily: 'Courier New',
                               fontSize: 16,
-                              color: secondaryColor,
+                              color: orange,
+                              fontWeight: FontWeight.bold,
                               fontStyle: FontStyle.italic,
                             ),
                             textAlign: TextAlign.center,
@@ -453,7 +478,7 @@ class _TeamPageState extends State<TeamPage> {
             top: 30,
             left: 10,
             child: Container(
-              width: 50,
+              width: 60,
               child: IconButton(
                 onPressed: () => scaffoldKey.currentState.openDrawer(),
                 icon: Icon(

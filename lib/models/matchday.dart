@@ -67,4 +67,26 @@ class MatchDay {
         winStatusHome = map['winStatusHome'],
         winStatusAway = map['winStatusAway'],
         matchdayAwayYellC = map['matchdayawayyellc'];
+
+  static int getWinStatusHome(List<MatchDay> list, String winlosdraw) {
+    int s = 0;
+
+    list.retainWhere((element) => element.winStatusHome == winlosdraw.trim());
+
+    for (var i = 0; i < list.length; i++) {
+      s = s + list[i].count;
+    }
+    return s;
+  }
+
+  static int getWinStatusAway(List<MatchDay> list, String winlosdraw) {
+    int s = 0;
+
+    list.retainWhere((element) => element.winStatusAway == winlosdraw.trim());
+
+    for (var i = 0; i < list.length; i++) {
+      s = s + list[i].count;
+    }
+    return s;
+  }
 }

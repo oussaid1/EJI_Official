@@ -1,5 +1,6 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/auth/auth_controler.dart';
+import 'package:EJI/screens/common/communications.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/players_page.dart';
 import 'package:EJI/screens/common/staff_page.dart';
@@ -74,7 +75,9 @@ class _MyDrawerState extends State<MyDrawer> {
                       } else
                         clubIncome = snapshot.data;
                       c = ClubIncome.getIncome(clubIncome);
-
+                      cD.clubBudget.value = c - d;
+                      cD.clubIncome.value = c;
+                      cD.clubSpendings.value = d;
                       return Text(
                         'EJIBudget'.tr + 'DH ' '${(c - d).toString()} ',
                         textDirection: TextDirection.rtl,
@@ -108,6 +111,11 @@ class _MyDrawerState extends State<MyDrawer> {
                 leading: Icon(FontAwesomeIcons.dollarSign),
                 title: Text('خزينة الفريق'),
                 onTap: () => Get.to(FinancePage()),
+              ),
+              ListTile(
+                leading: Icon(FontAwesomeIcons.connectdevelop),
+                title: Text(' التواصل'),
+                onTap: () => Get.to(CommunicationsPage()),
               ),
               ListTile(
                 leading: Icon(FontAwesomeIcons.home),
