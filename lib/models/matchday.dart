@@ -32,6 +32,7 @@ class MatchDay {
     this.matchdayHomeYellC,
     this.matchdayAwayYellC,
   });
+
   Map<String, dynamic> toMap() {
     return {
       'matchdaydate': matchdayDate,
@@ -68,25 +69,27 @@ class MatchDay {
         winStatusAway = map['winStatusAway'],
         matchdayAwayYellC = map['matchdayawayyellc'];
 
-  static int getWinStatusHome(List<MatchDay> list, String winlosdraw) {
+  static int getWinStatusHome(List<MatchDay> kl, String winlosdraw) {
+    List<MatchDay> _list = List();
+    _list.addAll(kl);
+    _list.retainWhere((element) => element.winStatusHome == 'win');
     int s = 0;
-
-    list.retainWhere((element) => element.winStatusHome == winlosdraw.trim());
-
-    for (var i = 0; i < list.length; i++) {
-      s = s + list[i].count;
+    for (var i = 0; i < _list.length; i++) {
+      s += _list[i].count;
     }
     return s;
   }
 
-  static int getWinStatusAway(List<MatchDay> list, String winlosdraw) {
-    int s = 0;
+  static int getWinStatusAway(List<MatchDay> hg, String winlosdraw) {
+    List<MatchDay> _list = List();
+    _list.addAll(hg);
+    int q = 0;
 
-    list.retainWhere((element) => element.winStatusAway == winlosdraw.trim());
-
-    for (var i = 0; i < list.length; i++) {
-      s = s + list[i].count;
+    for (var i = 0; i < _list.length; i++) {
+      if (_list[i].winStatusHome == 'loss') {
+        q += _list[i].count;
+      }
     }
-    return s;
+    return q;
   }
 }

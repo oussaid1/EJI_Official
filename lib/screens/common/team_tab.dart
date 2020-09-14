@@ -1,7 +1,6 @@
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/common/matches_page.dart';
 
-import 'package:EJI/screens/common/player_list.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';

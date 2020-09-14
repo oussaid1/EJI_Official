@@ -261,6 +261,15 @@ class _AddSpendingsState extends State<AddIncome> {
   }
 
   @override
+  void dispose() {
+    givenForControler.dispose();
+    givenOnDateController.dispose();
+    givenAmountControler.dispose();
+    givenByControler.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
@@ -343,19 +352,19 @@ class _AddSpendingsState extends State<AddIncome> {
                                         prefixIcon: Icon(Icons.lock)),
                                     onChanged: (value) {
                                       if (value.trim().toString() ==
-                                          cv.sperAdminPass.value
+                                          cv.superAdminPass.value
                                               .toString()
                                               .trim()) {
                                         Navigator.pop(context);
                                         _updateInCloud();
                                         _flushAll();
+                                        Get.snackbar('Succsess'.tr, 'Saved'.tr,
+                                            snackPosition:
+                                                SnackPosition.BOTTOM);
                                       }
                                     },
                                   ),
                                 );
-
-                                Get.snackbar('Succsess'.tr, 'Saved'.tr,
-                                    snackPosition: SnackPosition.BOTTOM);
                               } else {
                                 Get.snackbar('Error'.tr, 'notsaved'.tr,
                                     snackPosition: SnackPosition.BOTTOM);
@@ -386,7 +395,7 @@ class _AddSpendingsState extends State<AddIncome> {
                                       prefixIcon: Icon(Icons.lock)),
                                   onChanged: (value) {
                                     if (value.trim().toString() ==
-                                        cv.sperAdminPass.value
+                                        cv.superAdminPass.value
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);

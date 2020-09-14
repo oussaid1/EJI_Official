@@ -5,6 +5,8 @@ class TrainingDay {
   String responsible;
   int attendees;
   int duration;
+  int countTraining;
+
   TrainingDay(
       {this.id,
       this.attendees,

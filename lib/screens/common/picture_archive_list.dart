@@ -54,6 +54,7 @@ class _PicturesArchiveListState extends State<PicturesArchiveList> {
 
           return CarouselSlider.builder(
               options: CarouselOptions(
+                autoPlayAnimationDuration: const Duration(microseconds: 3000),
                 autoPlay: true,
                 viewportFraction: 1,
                 enlargeCenterPage: true,

@@ -1,8 +1,6 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
-import 'package:EJI/screens/common/announces_screen.dart';
-import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
@@ -65,10 +63,10 @@ class _FinancePageState extends State<FinancePage> {
                   ),
                 ),
                 Positioned(
-                    top: Get.height / 4.2,
+                    top: Get.height / 2.5,
                     width: Get.width - 20,
                     left: 10,
-                    height: 220,
+                    height: 320,
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -210,22 +208,21 @@ class _FinancePageState extends State<FinancePage> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 120,
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.arrow_back,
-                                            color: accentColor,
-                                          ),
-                                          FlatButton(
-                                            onPressed: () =>
-                                                Get.to(ClubTransactions()),
-                                            child: Text(
+                                FlatButton(
+                                  onPressed: () => Get.to(ClubTransactions()),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width: 120,
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.arrow_back,
+                                              color: accentColor,
+                                            ),
+                                            Text(
                                               'تفاصيل ',
                                               style: TextStyle(
                                                 fontFamily: 'Courier New',
@@ -234,27 +231,49 @@ class _FinancePageState extends State<FinancePage> {
                                               ),
                                               textAlign: TextAlign.center,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        ' ... مقتنيات ومصاريف و مداخيل الفريق ',
-                                        style: TextStyle(
-                                          fontFamily: 'Courier New',
-                                          fontSize: 14,
-                                          color: secondaryColor,
-                                          fontStyle: FontStyle.italic,
+                                          ],
                                         ),
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
                                       ),
-                                    ),
-                                  ],
+                                      Expanded(
+                                        child: Text(
+                                          ' ... مقتنيات ومصاريف و مداخيل الفريق ',
+                                          style: TextStyle(
+                                            fontFamily: 'Courier New',
+                                            fontSize: 14,
+                                            color: secondaryColor,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 2,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'المستودع ',
+                            style: TextStyle(
+                              fontFamily: 'Courier New',
+                              fontSize: 20,
+                              color: whitefontColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            'ممتلكات الفريق ، المادية والمعنوية. أرشيف الفريق. واحصاءات ، ',
+                            style: TextStyle(
+                              fontFamily: 'Courier New',
+                              fontSize: 14,
+                              color: secondaryColor,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.right,
                           ),
                         ],
                       ),

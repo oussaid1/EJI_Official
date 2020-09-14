@@ -354,7 +354,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                           prefixIcon: Icon(Icons.lock)),
                                       onChanged: (value) {
                                         if (value.trim().toString() ==
-                                            c.coachAdminPass.value
+                                            c.coachPass.value
                                                 .toString()
                                                 .trim()) {
                                           Navigator.pop(context);

@@ -1,11 +1,7 @@
-import 'dart:math';
-
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/models/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/admin_access/admin_validator.dart';
-import 'package:EJI/screens/common/matches_page.dart';
 import 'package:EJI/screens/common/team_tab.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
@@ -18,6 +14,9 @@ import 'picture_archive_list.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class TeamPage extends StatefulWidget {
+  TeamPage({
+    Key key,
+  });
   @override
   _TeamPageState createState() => _TeamPageState();
 }
@@ -25,25 +24,28 @@ class TeamPage extends StatefulWidget {
 class _TeamPageState extends State<TeamPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final CloudDatabase cD = Get.put(CloudDatabase());
-  List<double> data = [
-    1.0,
-    1.1,
-    1.0,
-    1.2,
-  ];
+
   List<ClubSpendings> clubSpendings;
-  List _listCount = List<MatchDay>();
+  List _listCountHome = List<MatchDay>();
+  List _listCountAway = List<MatchDay>();
   List _list2 = List<MatchDay>();
   List _listTraining = List<TrainingDay>();
   List<ClubIncome> clubIncome;
   double d = 0;
   double c = 0;
-  int winCount = 0;
-  int drawCount = 0;
-  int lossCount = 0;
 
-  int trainingAttendees = 0;
   int trainingCount = 0;
+
+  List<double> barData(List<TrainingDay> list) {
+    List<double> data = <double>[0];
+    if (list != null) {
+      for (var i = 0; i < list.length; i++) {
+        data.add(list[i].attendees.toDouble());
+      }
+    }
+
+    return data;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +53,21 @@ class _TeamPageState extends State<TeamPage> {
       drawer: MyDrawer(),
       key: scaffoldKey,
       body: Stack(
+        fit: StackFit.expand,
         children: [
+          new Image.asset('assets/images/login.png', fit: BoxFit.fill),
           Positioned(
             top: 10,
             left: 1,
             width: Get.width - 2,
-            height: 180,
+            height: 260,
             child: Container(
               color: secondaryColor,
               child: new PicturesArchiveList(),
             ),
           ),
           Positioned(
-            top: Get.height / 3.7,
+            top: Get.height / 3.3,
             width: Get.width - 10,
             right: 5,
             height: 90,
@@ -90,9 +94,9 @@ class _TeamPageState extends State<TeamPage> {
                           padding: const EdgeInsets.only(top: 2.0),
                           child: Container(
                             decoration: BoxDecoration(
-                                color: primaryColorShadow,
-                                borderRadius: BorderRadius.circular(6),
-                                border: Border.all()),
+                              color: primaryColor.withOpacity(0.8),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
                             height: 60,
                             child: Column(
                               children: <Widget>[
@@ -211,224 +215,282 @@ class _TeamPageState extends State<TeamPage> {
                   }),
             ),
           ),
-          StreamBuilder(
-              stream: cD.getTrainingDays(),
-              builder: (context, AsyncSnapshot<List<TrainingDay>> snapshot) {
-                if (!snapshot.hasData || snapshot.hasError) {
-                  return Container();
-                } else
-                  _listTraining = snapshot.data;
-                trainingCount = TrainingDay.getCountTraining(_listTraining);
-
-                return Container();
-              }),
           new Positioned(
-            bottom: 70,
+            bottom: 50,
             left: 10,
             width: Get.width - 20,
             child: new Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
-                color: primaryColorShadow,
+                color: primaryColor.withOpacity(0.8),
               ),
-              height: 370,
+              height: 340,
               child: Column(
                 children: [
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                '21%',
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            FlatButton(
+                              onPressed: () => Get.to(TeamTab()),
+                              child: Text(
+                                'التداريب ',
                                 style: TextStyle(
                                   fontFamily: 'Courier New',
-                                  fontSize: 16,
-                                  color: secondaryColor,
-                                  fontStyle: FontStyle.italic,
+                                  fontSize: 20,
+                                  color: whitefontColor,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              Text(
-                                'نسبة الحضور ',
-                                style: TextStyle(
-                                  fontFamily: 'Courier New',
-                                  fontSize: 16,
-                                  color: secondaryColor,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                '$trainingCount ',
-                                style: TextStyle(
-                                  fontFamily: 'Courier New',
-                                  fontSize: 18,
-                                  color: accentColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                'مجموع الحصص ',
-                                style: TextStyle(
-                                  fontFamily: 'Courier New',
-                                  fontSize: 16,
-                                  color: secondaryColor,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                          FlatButton(
-                            onPressed: () => Get.to(TeamTab()),
-                            child: Text(
-                              'التداريب ',
-                              style: TextStyle(
-                                fontFamily: 'Courier New',
-                                fontSize: 20,
-                                color: whitefontColor,
-                              ),
-                              textAlign: TextAlign.center,
                             ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: new Container(
-                            width: 140,
-                            height: 80,
-                            child: Sparkline(
-                              data: data,
-                              lineColor: Colors.green,
-                              fillMode: FillMode.below,
-                              fillColor: primaryColorShadow,
-                            ),
-                          )),
-                    ],
-                  ),
-                  StreamBuilder(
-                      stream: cD.getMatchStatusHome('شباب اداولسطان'),
-                      builder:
-                          (context, AsyncSnapshot<List<MatchDay>> snapshot) {
-                        if (!snapshot.hasData || snapshot.hasError) {
-                          return Container();
-                        } else
-                          _listCount = snapshot.data;
-                        winCount = MatchDay.getWinStatusHome(_listCount, 'win');
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                StreamBuilder(
+                                    stream: cD.getTrainingDays(),
+                                    builder: (context,
+                                        AsyncSnapshot<List<TrainingDay>>
+                                            snapshot) {
+                                      if (!snapshot.hasData ||
+                                          snapshot.hasError) {
+                                        return Text(
+                                          '$trainingCount ',
+                                          style: TextStyle(
+                                            fontFamily: 'Courier New',
+                                            fontSize: 18,
+                                            color: accentColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        );
+                                      } else
+                                        _listTraining = snapshot.data;
+                                      trainingCount =
+                                          TrainingDay.getCountTraining(
+                                              _listTraining);
 
-                        return Container();
-                      }),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            '$winCount ',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: accentColor,
-                              fontStyle: FontStyle.italic,
+                                      return Text(
+                                        'مجموع الحصص ' + '$trainingCount ',
+                                        style: TextStyle(
+                                          fontFamily: 'Courier New',
+                                          fontSize: 18,
+                                          color: fontColor,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      );
+                                    }),
+                              ],
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            'الانتصارات ',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 16,
-                              color: secondaryColor,
-                              fontStyle: FontStyle.italic,
+                            Row(
+                              children: [
+                                Text(
+                                  'نسبة الحضور ',
+                                  style: TextStyle(
+                                    fontFamily: 'Courier New',
+                                    fontSize: 16,
+                                    color: secondaryColor,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  '21%',
+                                  style: TextStyle(
+                                    fontFamily: 'Courier New',
+                                    fontSize: 18,
+                                    color: accentColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            '$drawCount ',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 16,
-                              color: Colors.yellow,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            'التعادلات ',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 14,
-                              color: secondaryColor,
-                              fontStyle: FontStyle.italic,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            '$lossCount ',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 16,
-                              color: orange,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            'الهزائم ',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 14,
-                              color: secondaryColor,
-                              fontStyle: FontStyle.italic,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                      FlatButton(
-                        onPressed: () => Get.to(MatchesPage()),
-                        child: Text(
-                          'المباريات ',
-                          style: TextStyle(
-                            fontFamily: 'Courier New',
-                            fontSize: 20,
-                            color: whitefontColor,
-                          ),
-                          textAlign: TextAlign.center,
+                          ],
                         ),
-                      ),
-                    ],
+                        Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: new Container(
+                              width: 140,
+                              height: 80,
+                              child: Sparkline(
+                                data: barData(_listTraining),
+                                lineColor: Colors.green,
+                                fillMode: FillMode.below,
+                                fillColor: primaryColorShadow,
+                              ),
+                            )),
+                      ],
+                    ),
                   ),
-                  Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: new Container(
-                        width: 120,
-                        height: 120,
-                        child: DonutPieChart.withSampleData(),
-                      )),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        StreamBuilder(
+                            stream: cD.getMatchStatusHome(),
+                            builder: (context,
+                                AsyncSnapshot<List<MatchDay>> snapshot) {
+                              if (!snapshot.hasData || snapshot.hasError) {
+                                return new Container();
+                              } else
+                                _listCountHome = snapshot.data;
+
+                              cD.drawCountHome.value =
+                                  MatchDay.getWinStatusHome(
+                                      _listCountHome, 'draw');
+                              cD.lossCountHome.value =
+                                  MatchDay.getWinStatusHome(
+                                      _listCountHome, 'loss');
+                              cD.winCountHome.value = MatchDay.getWinStatusHome(
+                                  _listCountHome, 'win');
+
+                              return StreamBuilder(
+                                  stream: cD.getMatchStatusAway(),
+                                  builder: (context,
+                                      AsyncSnapshot<List<MatchDay>> snapshot) {
+                                    if (!snapshot.hasData ||
+                                        snapshot.hasError) {
+                                      return new Container();
+                                    } else
+                                      _listCountAway = snapshot.data;
+
+                                    cD.drawCountAway.value =
+                                        MatchDay.getWinStatusAway(
+                                            _listCountAway, 'draw');
+                                    cD.lossCountAway.value =
+                                        MatchDay.getWinStatusAway(
+                                            _listCountAway, 'loss');
+                                    cD.winCountAway.value =
+                                        MatchDay.getWinStatusAway(
+                                            _listCountAway, 'win');
+
+                                    return Column(
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            FlatButton(
+                                              onPressed: () =>
+                                                  Get.to(TeamTab()),
+                                              child: Text(
+                                                'المباريات ',
+                                                style: TextStyle(
+                                                  fontFamily: 'Courier New',
+                                                  fontSize: 20,
+                                                  color: whitefontColor,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Obx(
+                                                  () => Text(
+                                                    '${cD.totalWin} ',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Courier New',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: accentColor,
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'الانتصارات ',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Courier New',
+                                                    fontSize: 16,
+                                                    color: secondaryColor,
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${cD.totalDraw} ',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Courier New',
+                                                    fontSize: 16,
+                                                    color: Colors.yellow,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                Text(
+                                                  'التعادلات ',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Courier New',
+                                                    fontSize: 14,
+                                                    color: secondaryColor,
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${cD.totalLoss} ',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Courier New',
+                                                    fontSize: 16,
+                                                    color: orange,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                Text(
+                                                  'الهزائم ',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Courier New',
+                                                    fontSize: 14,
+                                                    color: secondaryColor,
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            }),
+                        Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: new Container(
+                                width: 200,
+                                height: 160,
+                                child: new charts.PieChart(pieData(),
+                                    animate: true,
+                                    defaultRenderer:
+                                        new charts.ArcRendererConfig(
+                                            arcWidth: 200)))),
+                      ],
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -478,14 +540,18 @@ class _TeamPageState extends State<TeamPage> {
             top: 30,
             left: 10,
             child: Container(
-              width: 60,
-              child: IconButton(
-                onPressed: () => scaffoldKey.currentState.openDrawer(),
-                icon: Icon(
-                  Icons.menu,
-                  color: primaryColor,
-                  size: 30,
-                ),
+              width: 120,
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () => scaffoldKey.currentState.openDrawer(),
+                    icon: Icon(
+                      Icons.menu,
+                      color: primaryColor,
+                      size: 30,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -493,54 +559,33 @@ class _TeamPageState extends State<TeamPage> {
       ),
     );
   }
-}
 
-class DonutPieChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
-
-  DonutPieChart(this.seriesList, {this.animate});
-
-  /// Creates a [PieChart] with sample data and no transition.
-  factory DonutPieChart.withSampleData() {
-    return new DonutPieChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new charts.PieChart(seriesList,
-        animate: false,
-        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 120));
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
+  List<charts.Series<LinearSales, int>> pieData() {
     final data = [
-      new LinearSales(0, 100),
-      new LinearSales(1, 75),
-      new LinearSales(2, 25),
-      new LinearSales(2, 25),
+      new LinearSales('Win', cD.totalWin,
+          charts.ColorUtil.fromDartColor(Colors.green[400])),
+      new LinearSales('Draw', cD.totalDraw,
+          charts.ColorUtil.fromDartColor(Colors.yellow[400])),
+      new LinearSales('Loss', cD.totalLoss,
+          charts.ColorUtil.fromDartColor(Colors.red[400])),
     ];
 
     return [
       new charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
+        domainFn: (LinearSales a, index) => a.sales,
+        id: 'WinStatus',
         measureFn: (LinearSales sales, _) => sales.sales,
+        colorFn: (LinearSales s, index) => s.color,
         data: data,
       )
     ];
   }
 }
 
-/// Sample linear data type.
 class LinearSales {
-  final int year;
+  final String item;
   final int sales;
+  final charts.Color color;
 
-  LinearSales(this.year, this.sales);
+  LinearSales(this.item, this.sales, this.color);
 }

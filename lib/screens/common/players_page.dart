@@ -39,7 +39,8 @@ class _PlayersPageState extends State<PlayersPage> {
       key: _scaffoldKey2,
       drawer: MyDrawer(),
       backgroundColor: primaryColor,
-      body: Stack(children: [
+      body: Stack(fit: StackFit.expand, children: [
+        new Image.asset('assets/images/login.png', fit: BoxFit.fill),
         Positioned(
           top: 10,
           left: 1,
@@ -96,7 +97,7 @@ class _PlayersPageState extends State<PlayersPage> {
               return Container();
             }),
         Positioned(
-          top: Get.width / 2.5,
+          top: Get.width / 2,
           left: 10,
           width: Get.width - 20,
           height: 300,

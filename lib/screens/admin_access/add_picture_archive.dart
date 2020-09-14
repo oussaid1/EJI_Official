@@ -6,14 +6,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
-class AddPicture extends StatefulWidget {
-  AddPicture({Key key, this.clubArcive}) : super(key: key);
+class AddArPicture extends StatefulWidget {
+  AddArPicture({Key key, this.clubArcive}) : super(key: key);
   final ClubArcive clubArcive;
   @override
   _AddPictureState createState() => _AddPictureState();
 }
 
-class _AddPictureState extends State<AddPicture> {
+class _AddPictureState extends State<AddArPicture> {
   final TextEditingController imageLocationControler = TextEditingController();
   final TextEditingController imageByControler = TextEditingController();
 
@@ -68,7 +68,7 @@ class _AddPictureState extends State<AddPicture> {
     cv.updateArchivePiture(clubArcive);
   }
 
-  Widget _buildSpentOn() {
+  Widget _buildImagePath() {
     return SizedBox(
       width: 300,
       child: TextFormField(
@@ -112,7 +112,7 @@ class _AddPictureState extends State<AddPicture> {
     );
   }
 
-  Widget _buildSpentOnDate(BuildContext context) {
+  Widget _buildTakenOnDate(BuildContext context) {
     return SizedBox(
       width: 300,
       child: TextFormField(
@@ -226,7 +226,7 @@ class _AddPictureState extends State<AddPicture> {
             SizedBox(
               height: 6,
             ),
-            _buildSpentOn(),
+            _buildImagePath(),
             SizedBox(
               height: 6,
             ),
@@ -234,7 +234,7 @@ class _AddPictureState extends State<AddPicture> {
             SizedBox(
               height: 6,
             ),
-            _buildSpentOnDate(context),
+            _buildTakenOnDate(context),
             SizedBox(
               height: 20,
             ),
@@ -296,7 +296,7 @@ class _AddPictureState extends State<AddPicture> {
                                         prefixIcon: Icon(Icons.lock)),
                                     onChanged: (value) {
                                       if (value.trim().toString() ==
-                                          cv.sperAdminPass.value
+                                          cv.superAdminPass.value
                                               .toString()
                                               .trim()) {
                                         Navigator.pop(context);
@@ -339,7 +339,7 @@ class _AddPictureState extends State<AddPicture> {
                                       prefixIcon: Icon(Icons.lock)),
                                   onChanged: (value) {
                                     if (value.trim().toString() ==
-                                        cv.sperAdminPass.value
+                                        cv.superAdminPass.value
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);

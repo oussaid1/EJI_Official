@@ -342,7 +342,7 @@ class _AddSpendingsState extends State<AddSpendings> {
                                         prefixIcon: Icon(Icons.lock)),
                                     onChanged: (value) {
                                       if (value.trim().toString() ==
-                                          cv.sperAdminPass.value
+                                          cv.superAdminPass.value
                                               .toString()
                                               .trim()) {
                                         Navigator.pop(context);
@@ -385,7 +385,7 @@ class _AddSpendingsState extends State<AddSpendings> {
                                       prefixIcon: Icon(Icons.lock)),
                                   onChanged: (value) {
                                     if (value.trim().toString() ==
-                                        cv.sperAdminPass.value
+                                        cv.superAdminPass.value
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);

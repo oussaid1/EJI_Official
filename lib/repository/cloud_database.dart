@@ -15,6 +15,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class CloudDatabase extends GetxController {
+  RxInt winCountHome = 0.obs;
+  RxInt lossCountHome = 0.obs;
+  RxInt drawCountHome = 0.obs;
+  RxInt winCountAway = 0.obs;
+  RxInt lossCountAway = 0.obs;
+  RxInt drawCountAway = 0.obs;
+
   RxInt attendees = 0.obs;
   RxInt duration = 0.obs;
   RxInt countSeniors = 0.obs;
@@ -24,16 +31,20 @@ class CloudDatabase extends GetxController {
   RxDouble clubIncome = 0.0.obs;
   RxDouble clubSpendings = 0.0.obs;
   RxBool isAdmin = false.obs;
-  RxBool isSuperAdmin = true.obs;
-  RxBool isComplete = true.obs;
-  RxString sperAdminPass = '1243'.obs;
-  RxString coachAdminPass = '532'.obs;
+  RxBool isSuperAdmin = false.obs;
+  RxBool isComplete = false.obs;
+  RxBool isValid = false.obs;
+  RxString superAdminPass = '1243'.obs;
+  RxString coachPass = '532'.obs;
   RxString presidentialPass = '12343'.obs;
   var email = 'Idawlstane'.obs;
   var password = 'Idawlstane'.obs;
   var adminEmail = 'E20J19I'.obs;
   var adminPassword = 'E20J19I'.obs;
   Firestore _db = Firestore.instance;
+  get totalWin => winCountHome.value + winCountAway.value;
+  get totalDraw => drawCountHome.value + drawCountAway.value;
+  get totalLoss => lossCountHome.value + lossCountAway.value;
 
   setBudget(double d) => clubBudget.value = d;
   @override
@@ -99,10 +110,10 @@ class CloudDatabase extends GetxController {
         );
   }
 
-  Stream<List<MatchDay>> getMatchStatusHome(String winlosdraw) {
+  Stream<List<MatchDay>> getMatchStatusHome() {
     return _db
         .collection('matchday')
-        .where('winStatusHome', isEqualTo: winlosdraw.trim())
+        .where('matchdayhome', isEqualTo: 'شباب ‏اداولسطان')
         .snapshots()
         .map(
           (snapshot) => snapshot.documents
@@ -113,10 +124,24 @@ class CloudDatabase extends GetxController {
         );
   }
 
-  Stream<List<MatchDay>> getMatchStatusAway(String winlosdraw) {
+  Stream<List<MatchDay>> getMatchStatusAway() {
     return _db
         .collection('matchday')
-        .where('winStatusAway', isEqualTo: winlosdraw.trim())
+        .where('matchdayaway', isEqualTo: 'شباب ‏اداولسطان')
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.documents
+              .map(
+                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
+              )
+              .toList(),
+        );
+  }
+
+  Stream<List<MatchDay>> gettha() {
+    return _db
+        .collection('matchday')
+        .where('matchdayaway', isEqualTo: 'شباب ‏اداولسطان')
         .snapshots()
         .map(
           (snapshot) => snapshot.documents
@@ -218,7 +243,7 @@ class CloudDatabase extends GetxController {
   }
 
   Stream<List<TrainingDay>> getTrainingDays() {
-    Stream<List<TrainingDay>> pLista = _db
+    return _db
         .collection('TrainingDay')
         .orderBy('trainingDate', descending: true)
         .snapshots()
@@ -229,11 +254,10 @@ class CloudDatabase extends GetxController {
               )
               .toList(),
         );
-    return pLista;
   }
 
   Stream<List<ClubSpendings>> getClubSpendings() {
-    Stream<List<ClubSpendings>> pLista = _db
+    return _db
         .collection('incomeSpendings')
         .orderBy('spentOnDate', descending: true)
         .snapshots()
@@ -244,7 +268,6 @@ class CloudDatabase extends GetxController {
               )
               .toList(),
         );
-    return pLista;
   }
 
   Future<void> adAllToDb(List<Player> j) async {

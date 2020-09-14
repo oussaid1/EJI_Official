@@ -125,7 +125,7 @@ class _AddMatchsState extends State<AddMatch> {
     }
     MatchDay matchDay = new MatchDay(
         id: widget.matchDay.id,
-        count: widget.matchDay.count,
+        count: 1,
         matchdayDate: matchdateController.text.trim().toString(),
         matchdayType: _matchdayType,
         matchdayReferee: refereeController.text.trim().toString(),

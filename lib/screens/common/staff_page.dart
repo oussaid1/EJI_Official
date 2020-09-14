@@ -1,3 +1,5 @@
+import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/admin_access/add_picture_archive.dart';
 import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
@@ -14,9 +16,15 @@ class StaffPage extends StatefulWidget {
 
 class _StaffPageState extends State<StaffPage> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
+  final c = Get.put(CloudDatabase());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: c.isAdmin.value
+          ? FloatingActionButton(
+              child: Icon(Icons.add_a_photo),
+              onPressed: () => Get.off(AddArPicture()))
+          : new Container(),
       drawer: MyDrawer(),
       key: _scaffoldKey,
       backgroundColor: primaryColor,
@@ -132,25 +140,6 @@ class _StaffPageState extends State<StaffPage> {
                   ),
                   Text(
                     'البرامج والاهداف التي يسطرها الكتب و التي يشتغل عليها ',
-                    style: TextStyle(
-                      fontFamily: 'Courier New',
-                      fontSize: 14,
-                      color: secondaryColor,
-                      fontStyle: FontStyle.italic,
-                    ),
-                    textAlign: TextAlign.right,
-                  ),
-                  Text(
-                    'المستودع ',
-                    style: TextStyle(
-                      fontFamily: 'Courier New',
-                      fontSize: 20,
-                      color: whitefontColor,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    'ممتلكات الفريق ، المادية والمعنوية. أرشيف الفريق. واحصاءات ، ',
                     style: TextStyle(
                       fontFamily: 'Courier New',
                       fontSize: 14,
