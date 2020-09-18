@@ -39,8 +39,8 @@ class CloudDatabase extends GetxController {
   RxString presidentialPass = '12343'.obs;
   var email = 'Idawlstane'.obs;
   var password = 'Idawlstane'.obs;
-  var adminEmail = 'E20J19I'.obs;
-  var adminPassword = 'E20J19I'.obs;
+  var adminEmail = 'EJ2019I'.obs;
+  var adminPassword = 'EJ2019I'.obs;
   Firestore _db = Firestore.instance;
   get totalWin => winCountHome.value + winCountAway.value;
   get totalDraw => drawCountHome.value + drawCountAway.value;

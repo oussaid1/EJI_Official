@@ -63,7 +63,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                 onPressed: () {
                   _takeScreenShot();
                 }),
-            cD.isAdmin.value
+            cD.isAdmin.value == true
                 ? Row(
                     children: [
                       IconButton(
