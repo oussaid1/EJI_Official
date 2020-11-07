@@ -1,5 +1,6 @@
 import 'package:EJI/models/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
@@ -16,7 +17,8 @@ class PlayersPage extends StatefulWidget {
 
 class _PlayersPageState extends State<PlayersPage> {
   var _scaffoldKey2 = GlobalKey<ScaffoldState>();
-  final CloudDatabase cD = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
 
   List<Player> clubSpendings;
   List _listSenior = List<Player>();
@@ -75,25 +77,27 @@ class _PlayersPageState extends State<PlayersPage> {
           ),
         ),
         StreamBuilder<List<Player>>(
-            stream: cD.getPlayers('Cadet'),
+            stream: db.getPlayers('Cadet'),
             builder: (context, AsyncSnapshot<List<Player>> snapshot) {
               if (!snapshot.hasData || snapshot.hasError) {
                 return Container();
               } else
                 _listCadet = snapshot.data;
               _allPlayers.addAll(_listCadet);
-              cD.countCadets.value = Player.getCountPlayers(_listCadet);
+              varController.countCadets.value =
+                  Player.getCountPlayers(_listCadet);
               return Container();
             }),
         StreamBuilder<List<Player>>(
-            stream: cD.getPlayers('Junior'),
+            stream: db.getPlayers('Junior'),
             builder: (context, AsyncSnapshot<List<Player>> snapshot) {
               if (!snapshot.hasData || snapshot.hasError) {
                 return Container();
               } else
                 _listJunior = snapshot.data;
               _allPlayers.addAll(_listJunior);
-              cD.countJuniors.value = Player.getCountPlayers(_listJunior);
+              varController.countJuniors.value =
+                  Player.getCountPlayers(_listJunior);
               return Container();
             }),
         Positioned(
@@ -152,7 +156,7 @@ class _PlayersPageState extends State<PlayersPage> {
                           ),
                           Obx(
                             () => Text(
-                              '${cD.countSeniors.value}',
+                              '${varController.countSeniors.value}',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 18,
@@ -177,7 +181,7 @@ class _PlayersPageState extends State<PlayersPage> {
                           ),
                           Obx(
                             () => Text(
-                              '${cD.countJuniors.value}',
+                              '${varController.countJuniors.value}',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 18,
@@ -202,7 +206,7 @@ class _PlayersPageState extends State<PlayersPage> {
                           ),
                           Obx(
                             () => Text(
-                              '${cD.countCadets.value}',
+                              '${varController.countCadets.value}',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 18,
@@ -259,13 +263,13 @@ class _PlayersPageState extends State<PlayersPage> {
             height: 240,
             child: new Container(
                 child: StreamBuilder(
-                    stream: cD.getPlayers('Senior'),
+                    stream: db.getPlayers('Senior'),
                     builder: (context, AsyncSnapshot<List<Player>> snapshot) {
                       if (snapshot.hasError || !snapshot.hasData) {
                         return new Container();
                       } else
                         _listSenior = (snapshot.data);
-                      cD.countSeniors.value =
+                      varController.countSeniors.value =
                           Player.getCountPlayers(_listSenior);
                       _allPlayers.addAll(_listSenior);
                       return CarouselSlider.builder(
@@ -289,7 +293,7 @@ class _PlayersPageState extends State<PlayersPage> {
                                       borderRadius: BorderRadius.circular(6),
                                       child: Container(
                                         child: FutureBuilder<String>(
-                                          future: cD.getProfileImage(context,
+                                          future: db.getProfileImage(context,
                                               player.profileImage.toString()),
                                           builder: (context, snapshot) {
                                             return Padding(

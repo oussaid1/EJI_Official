@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:EJI/models/player.dart';
 
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,8 @@ class AddPlayers extends StatefulWidget {
 }
 
 class _AddPlayersState extends State<AddPlayers> {
-  final CloudDatabase cD = Get.put(CloudDatabase());
+  final CloudDatabase db = Get.put(CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
 
   String _id;
   String _profileImage = "players/profileImages/ejilogo.png";
@@ -148,11 +150,11 @@ class _AddPlayersState extends State<AddPlayers> {
       rateable: _rateable,
     );
     if (widget.category == 1) {
-      cD.addPlayer(pL1, 'Senior');
+      db.addPlayer(pL1, 'Senior');
     } else if (widget.category == 2) {
-      await cD.addPlayer(pL1, 'Junior');
+      await db.addPlayer(pL1, 'Junior');
     } else if (widget.category == 3) {
-      await cD.addPlayer(
+      await db.addPlayer(
         pL1,
         'Cadet',
       );
@@ -181,11 +183,11 @@ class _AddPlayersState extends State<AddPlayers> {
       rateable: _rateable,
     );
     if (widget.category == 1) {
-      await cD.updatePlayer('Senior', pLEdited);
+      await db.updatePlayer('Senior', pLEdited);
     } else if (widget.category == 2) {
-      await cD.updatePlayer('Junior', pLEdited);
+      await db.updatePlayer('Junior', pLEdited);
     } else if (widget.category == 3) {
-      await cD.updatePlayer('Cadet', pLEdited);
+      await db.updatePlayer('Cadet', pLEdited);
     }
   }
 
@@ -701,7 +703,7 @@ class _AddPlayersState extends State<AddPlayers> {
                             }
 
                             _formKey.currentState.save();
-                            if (cD.isComplete.value) {
+                            if (varController.isComplete.value) {
                               Get.defaultDialog(
                                 middleText: 'confirmSave'.tr,
                                 onConfirm: () {
@@ -780,7 +782,7 @@ class _AddPlayersState extends State<AddPlayers> {
             double progressPercent = event != null
                 ? event.bytesTransferred / event.totalByteCount
                 : 0;
-            if (_uploadTask.isComplete) cD.isComplete.value = true;
+            if (_uploadTask.isComplete) varController.isComplete.value = true;
             return Container(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

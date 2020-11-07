@@ -1,5 +1,6 @@
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/common/match_details.dart';
 import 'package:EJI/settings/params.dart';
@@ -19,7 +20,8 @@ class _MatchesPageState extends State<MatchesPage> {
   List<MatchDay> lista;
 
   bool isSwitched = false;
-  final CloudDatabase c = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
   bool isEconomicMode;
   double limit = 400;
   GetStorage mBox = GetStorage();
@@ -33,7 +35,7 @@ class _MatchesPageState extends State<MatchesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: c.isAdmin.value
+        floatingActionButton: varController.isAdmin.value
             ? new FloatingActionButton(
                 child: new Icon(
                   Icons.add,
@@ -46,7 +48,7 @@ class _MatchesPageState extends State<MatchesPage> {
           children: [
             new Image.asset('assets/images/login.png', fit: BoxFit.fill),
             StreamBuilder(
-                stream: c.getMatchDays(),
+                stream: db.getMatchDays(),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<MatchDay>> snapshot) {
                   if (snapshot.hasError || !snapshot.hasData) {
@@ -164,7 +166,7 @@ class _MatchesPageState extends State<MatchesPage> {
                                     children: <Widget>[
                                       Row(
                                         children: <Widget>[
-                                          c.isAdmin.value
+                                          varController.isAdmin.value
                                               ? IconButton(
                                                   icon: Icon(
                                                     Icons.edit,

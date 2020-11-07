@@ -1,5 +1,6 @@
 import 'package:EJI/models/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 import 'package:EJI/screens/common/player_details.dart';
 import 'package:EJI/settings/params.dart';
@@ -20,14 +21,15 @@ class PlayerList extends StatefulWidget {
 class _ListPageState extends State<PlayerList> {
   List<Player> lista;
 
-  CloudDatabase c = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: secondaryColor,
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        floatingActionButton: c.isAdmin.value
+        floatingActionButton: varController.isAdmin.value
             ? Padding(
                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 50),
                 child: SizedBox(
@@ -59,7 +61,7 @@ class _ListPageState extends State<PlayerList> {
           children: [
             new Image.asset('assets/images/login.png', fit: BoxFit.fill),
             StreamBuilder(
-                stream: c.getPlayers(widget.collectionName),
+                stream: db.getPlayers(widget.collectionName),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Player>> snapshot) {
                   if (snapshot.hasError || !snapshot.hasData) {

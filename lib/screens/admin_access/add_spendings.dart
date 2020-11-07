@@ -1,5 +1,6 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,7 @@ class _AddSpendingsState extends State<AddSpendings> {
   String _spentOnDate;
 
   final CloudDatabase cv = Get.put(CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
   DateTime selectedDate = new DateTime.now();
   DateTime nowDate = new DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
@@ -342,7 +344,7 @@ class _AddSpendingsState extends State<AddSpendings> {
                                         prefixIcon: Icon(Icons.lock)),
                                     onChanged: (value) {
                                       if (value.trim().toString() ==
-                                          cv.superAdminPass.value
+                                          varController.superAdminPass.value
                                               .toString()
                                               .trim()) {
                                         Navigator.pop(context);
@@ -385,7 +387,7 @@ class _AddSpendingsState extends State<AddSpendings> {
                                       prefixIcon: Icon(Icons.lock)),
                                   onChanged: (value) {
                                     if (value.trim().toString() ==
-                                        cv.superAdminPass.value
+                                        varController.superAdminPass.value
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);

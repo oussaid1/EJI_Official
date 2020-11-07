@@ -1,5 +1,6 @@
 import 'package:EJI/models/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/add_training.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -11,13 +12,14 @@ class TrainingList extends StatefulWidget {
 }
 
 class _TrainingListState extends State<TrainingList> {
-  CloudDatabase c = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
   List<TrainingDay> trList = List();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: c.isAdmin.value
+      floatingActionButton: varController.isAdmin.value
           ? new FloatingActionButton(
               child: new Icon(
                 Icons.add,
@@ -35,7 +37,7 @@ class _TrainingListState extends State<TrainingList> {
         children: [
           new Image.asset('assets/images/login.png', fit: BoxFit.fill),
           StreamBuilder(
-              stream: c.getTrainingDays(),
+              stream: db.getTrainingDays(),
               builder: (context, AsyncSnapshot<List<TrainingDay>> snapshot) {
                 if (!snapshot.hasData || snapshot.hasError) {
                   return new Container();

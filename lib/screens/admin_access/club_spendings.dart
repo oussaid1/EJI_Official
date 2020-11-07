@@ -1,5 +1,6 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/add_spendings.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +19,8 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
   List<ClubSpendings> selectedclubSpendings;
   bool sort;
   int rowIndex;
-  final CloudDatabase c = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
   @override
   void initState() {
     sort = false;
@@ -32,7 +34,7 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
     return Scaffold(
       body: Center(
         child: StreamBuilder(
-            stream: c.getClubSpendings(),
+            stream: db.getClubSpendings(),
             builder: (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
               if (!snapshot.hasData || snapshot.hasError) {
                 return Container(
@@ -144,7 +146,7 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
               );
             }),
       ),
-      floatingActionButton: c.isAdmin.value
+      floatingActionButton: varController.isAdmin.value
           ? Padding(
               padding: const EdgeInsets.only(bottom: 100),
               child: FloatingActionButton(

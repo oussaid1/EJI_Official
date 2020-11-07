@@ -1,4 +1,5 @@
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/add_picture_archive.dart';
 import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
@@ -16,11 +17,12 @@ class StaffPage extends StatefulWidget {
 
 class _StaffPageState extends State<StaffPage> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
-  final c = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: c.isAdmin.value
+      floatingActionButton: varController.isAdmin.value
           ? FloatingActionButton(
               child: Icon(Icons.add_a_photo),
               onPressed: () => Get.off(AddArPicture()))

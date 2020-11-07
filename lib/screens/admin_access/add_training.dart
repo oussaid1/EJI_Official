@@ -1,5 +1,6 @@
 import 'package:EJI/models/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,7 +13,8 @@ class AddTraining extends StatefulWidget {
 }
 
 class _AddTrainingState extends State<AddTraining> {
-  CloudDatabase c = Get.put(CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
+  final CloudDatabase db = Get.put(CloudDatabase());
   final intl.DateFormat mformatter = intl.DateFormat('yyyy-MM-dd');
   final GlobalKey<FormState> trainingformKey = GlobalKey();
   final TextEditingController responsibleControler = TextEditingController();
@@ -36,13 +38,13 @@ class _AddTrainingState extends State<AddTraining> {
 
   _addTraining() {
     TrainingDay trainingDay = new TrainingDay(
-      attendees: c.attendees.value,
+      attendees: varController.attendees.value,
       count: 1,
-      duration: c.duration.value,
+      duration: varController.duration.value,
       responsible: responsibleControler.text.trim(),
       trainingDate: dateControler.text,
     );
-    c.addTraining(trainingDay);
+    db.addTraining(trainingDay);
   }
 
   Widget _buildTrainingDate() {
@@ -142,11 +144,12 @@ class _AddTrainingState extends State<AddTraining> {
                   color: secondaryColor,
                 ),
                 onPressed: () {
-                  if (c.duration.value > 0)
-                    c.duration.value = c.duration.value - 5;
+                  if (varController.duration.value > 0)
+                    varController.duration.value =
+                        varController.duration.value - 5;
                 }),
             Obx(
-              () => Text('${c.duration.value}',
+              () => Text('${varController.duration.value}',
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
@@ -158,7 +161,8 @@ class _AddTrainingState extends State<AddTraining> {
                   size: 20,
                   color: secondaryColor,
                 ),
-                onPressed: () => c.duration.value = c.duration.value + 5),
+                onPressed: () => varController.duration.value =
+                    varController.duration.value + 5),
             Container(
               width: 140,
               child: Text('مدة الحصة بالدقائق',
@@ -189,10 +193,11 @@ class _AddTrainingState extends State<AddTraining> {
                   color: secondaryColor,
                 ),
                 onPressed: () {
-                  if (c.attendees.value > 0) c.attendees.value--;
+                  if (varController.attendees.value > 0)
+                    varController.attendees.value--;
                 }),
             Obx(
-              () => Text('${c.attendees.value}',
+              () => Text('${varController.attendees.value}',
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
@@ -204,7 +209,7 @@ class _AddTrainingState extends State<AddTraining> {
                   size: 20,
                   color: secondaryColor,
                 ),
-                onPressed: () => c.attendees.value++),
+                onPressed: () => varController.attendees.value++),
             Container(
               width: 140,
               child: Text('           عدد الحضور',
@@ -220,8 +225,8 @@ class _AddTrainingState extends State<AddTraining> {
   _flashAll() {
     dateControler.clear();
     responsibleControler.clear();
-    c.duration.value = 0;
-    c.attendees.value = 0;
+    varController.duration.value = 0;
+    varController.attendees.value = 0;
   }
 
   @override

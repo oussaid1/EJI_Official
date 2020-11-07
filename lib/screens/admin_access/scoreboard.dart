@@ -1,6 +1,7 @@
 import 'package:EJI/models/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/repository/player_ratings_Controler.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,7 +21,8 @@ class ScoreBoard extends StatefulWidget {
 class _ScoreBoardState extends State<ScoreBoard> {
   DateTime nowDate = new DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
-  CloudDatabase c = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
   String _id;
   PlayerRatingsControler prc = Get.put(PlayerRatingsControler());
 
@@ -354,24 +356,24 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                           prefixIcon: Icon(Icons.lock)),
                                       onChanged: (value) {
                                         if (value.trim().toString() ==
-                                            c.coachPass.value
+                                            varController.coachPass.value
                                                 .toString()
                                                 .trim()) {
                                           Navigator.pop(context);
                                           if (widget.category == 1) {
-                                            c.updatePlayer(
+                                            db.updatePlayer(
                                                 'Senior', scoredPlayer);
-                                            c.addPlayerScores(
+                                            db.addPlayerScores(
                                                 'SeniorStats', scoredPlayer2);
                                           } else if (widget.category == 2) {
-                                            c.updatePlayer(
+                                            db.updatePlayer(
                                                 'Junior', scoredPlayer);
-                                            c.addPlayerScores(
+                                            db.addPlayerScores(
                                                 'JuniorStats', scoredPlayer2);
                                           } else if (widget.category == 3) {
-                                            c.updatePlayer(
+                                            db.updatePlayer(
                                                 'Cadet', scoredPlayer);
-                                            c.addPlayerScores(
+                                            db.addPlayerScores(
                                                 'CadetStats', scoredPlayer2);
                                           }
                                         }

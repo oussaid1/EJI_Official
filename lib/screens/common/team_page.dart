@@ -2,6 +2,7 @@ import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/models/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/common/team_tab.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
@@ -23,7 +24,8 @@ class TeamPage extends StatefulWidget {
 
 class _TeamPageState extends State<TeamPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  final CloudDatabase cD = Get.put(CloudDatabase());
+  final  db = Get.put(CloudDatabase());
+  final  varController = Get.put(VariablesControler());
 
   List<ClubSpendings> clubSpendings;
   List _listCountHome = List<MatchDay>();
@@ -73,7 +75,7 @@ class _TeamPageState extends State<TeamPage> {
             height: 90,
             child: new Container(
               child: StreamBuilder(
-                  stream: cD.getMatchDays(),
+                  stream: db.getMatchDays(),
                   builder: (context, AsyncSnapshot<List<MatchDay>> snapshot) {
                     if (snapshot.hasError || !snapshot.hasData) {
                       return new Container();
@@ -251,7 +253,7 @@ class _TeamPageState extends State<TeamPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 StreamBuilder(
-                                    stream: cD.getTrainingDays(),
+                                    stream: db.getTrainingDays(),
                                     builder: (context,
                                         AsyncSnapshot<List<TrainingDay>>
                                             snapshot) {
@@ -336,7 +338,7 @@ class _TeamPageState extends State<TeamPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         StreamBuilder(
-                            stream: cD.getMatchStatusHome(),
+                            stream: db.getMatchStatusHome(),
                             builder: (context,
                                 AsyncSnapshot<List<MatchDay>> snapshot) {
                               if (!snapshot.hasData || snapshot.hasError) {
@@ -344,17 +346,17 @@ class _TeamPageState extends State<TeamPage> {
                               } else
                                 _listCountHome = snapshot.data;
 
-                              cD.drawCountHome.value =
+                              varController.drawCountHome.value =
                                   MatchDay.getWinStatusHome(
                                       _listCountHome, 'draw');
-                              cD.lossCountHome.value =
+                              varController.lossCountHome.value =
                                   MatchDay.getWinStatusHome(
                                       _listCountHome, 'loss');
-                              cD.winCountHome.value = MatchDay.getWinStatusHome(
+                              varController.winCountHome.value = MatchDay.getWinStatusHome(
                                   _listCountHome, 'win');
 
                               return StreamBuilder(
-                                  stream: cD.getMatchStatusAway(),
+                                  stream: db.getMatchStatusAway(),
                                   builder: (context,
                                       AsyncSnapshot<List<MatchDay>> snapshot) {
                                     if (!snapshot.hasData ||
@@ -363,13 +365,13 @@ class _TeamPageState extends State<TeamPage> {
                                     } else
                                       _listCountAway = snapshot.data;
 
-                                    cD.drawCountAway.value =
+                                    varController.drawCountAway.value =
                                         MatchDay.getWinStatusAway(
                                             _listCountAway, 'draw');
-                                    cD.lossCountAway.value =
+                                    varController.lossCountAway.value =
                                         MatchDay.getWinStatusAway(
                                             _listCountAway, 'loss');
-                                    cD.winCountAway.value =
+                                    varController.winCountAway.value =
                                         MatchDay.getWinStatusAway(
                                             _listCountAway, 'win');
 
@@ -397,7 +399,7 @@ class _TeamPageState extends State<TeamPage> {
                                               children: [
                                                 Obx(
                                                   () => Text(
-                                                    '${cD.totalWin} ',
+                                                    '${varController.totalWin} ',
                                                     style: TextStyle(
                                                       fontFamily: 'Courier New',
                                                       fontSize: 16,
@@ -425,7 +427,7 @@ class _TeamPageState extends State<TeamPage> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  '${cD.totalDraw} ',
+                                                  '${varController.totalDraw} ',
                                                   style: TextStyle(
                                                     fontFamily: 'Courier New',
                                                     fontSize: 16,
@@ -450,7 +452,7 @@ class _TeamPageState extends State<TeamPage> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  '${cD.totalLoss} ',
+                                                  '${varController.totalLoss} ',
                                                   style: TextStyle(
                                                     fontFamily: 'Courier New',
                                                     fontSize: 16,
@@ -562,11 +564,11 @@ class _TeamPageState extends State<TeamPage> {
 
   List<charts.Series<LinearSales, int>> pieData() {
     final data = [
-      new LinearSales('Win', cD.totalWin,
+      new LinearSales('Win', varController.totalWin,
           charts.ColorUtil.fromDartColor(Colors.green[400])),
-      new LinearSales('Draw', cD.totalDraw,
+      new LinearSales('Draw', varController.totalDraw,
           charts.ColorUtil.fromDartColor(Colors.yellow[400])),
-      new LinearSales('Loss', cD.totalLoss,
+      new LinearSales('Loss', varController.totalLoss,
           charts.ColorUtil.fromDartColor(Colors.red[400])),
     ];
 

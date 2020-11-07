@@ -1,5 +1,6 @@
 import 'package:EJI/models/anounce.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,8 @@ class AnouncesScreen extends StatelessWidget {
   AnouncesScreen({
     Key key,
   }) : super(key: key);
-  final CloudDatabase xc = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class AnouncesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: secondaryColor,
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: xc.isAdmin.value
+      floatingActionButton: varController.isAdmin.value
           ? SizedBox(
               height: 40,
               width: 40,
@@ -46,7 +48,7 @@ class AnouncesScreen extends StatelessWidget {
           Column(
             children: [
               StreamBuilder(
-                stream: xc.getAnounces('anounces'),
+                stream: db.getAnounces('anounces'),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Anounce>> snapshot) {
                   if (snapshot.hasError || !snapshot.hasData) {

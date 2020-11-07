@@ -1,5 +1,6 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
@@ -13,7 +14,8 @@ class FinancePage extends StatefulWidget {
 
 class _FinancePageState extends State<FinancePage> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
-  final CloudDatabase cD = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
+  final db = Get.put(CloudDatabase());
 
   List<ClubSpendings> clubSpendings;
 
@@ -100,7 +102,8 @@ class _FinancePageState extends State<FinancePage> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '${cD.clubBudget.value} ',
+                                        text:
+                                            '${varController.clubBudget.value} ',
                                       ),
                                       TextSpan(
                                         text: 'DH',
@@ -139,7 +142,8 @@ class _FinancePageState extends State<FinancePage> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '${cD.clubSpendings.value} ',
+                                        text:
+                                            '${varController.clubSpendings.value} ',
                                       ),
                                       TextSpan(
                                         text: 'DH',
@@ -181,7 +185,8 @@ class _FinancePageState extends State<FinancePage> {
                                         ),
                                         children: [
                                           TextSpan(
-                                            text: '${cD.clubIncome.value}',
+                                            text:
+                                                '${varController.clubIncome.value}',
                                           ),
                                           TextSpan(
                                             text: 'DH',

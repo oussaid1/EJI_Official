@@ -12,57 +12,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:get_storage/get_storage.dart';
-
 class CloudDatabase extends GetxController {
-  RxInt winCountHome = 0.obs;
-  RxInt lossCountHome = 0.obs;
-  RxInt drawCountHome = 0.obs;
-  RxInt winCountAway = 0.obs;
-  RxInt lossCountAway = 0.obs;
-  RxInt drawCountAway = 0.obs;
-
-  RxInt attendees = 0.obs;
-  RxInt duration = 0.obs;
-  RxInt countSeniors = 0.obs;
-  RxInt countJuniors = 0.obs;
-  RxInt countCadets = 0.obs;
-  RxDouble clubBudget = 0.0.obs;
-  RxDouble clubIncome = 0.0.obs;
-  RxDouble clubSpendings = 0.0.obs;
-  RxBool isAdmin = false.obs;
-  RxBool isSuperAdmin = false.obs;
-  RxBool isComplete = false.obs;
-  RxBool isValid = false.obs;
-  RxString superAdminPass = '1243'.obs;
-  RxString coachPass = '532'.obs;
-  RxString presidentialPass = '12343'.obs;
-  var email = 'Idawlstane'.obs;
-  var password = 'Idawlstane'.obs;
-  var adminEmail = 'EJ2019I'.obs;
-  var adminPassword = 'EJ2019I'.obs;
   Firestore _db = Firestore.instance;
-  get totalWin => winCountHome.value + winCountAway.value;
-  get totalDraw => drawCountHome.value + drawCountAway.value;
-  get totalLoss => lossCountHome.value + lossCountAway.value;
-
-  setBudget(double d) => clubBudget.value = d;
-  @override
-  void onInit() {
-    GetStorage mBox = GetStorage();
-
-    if (mBox.hasData('adminkey')) {
-      isAdmin.value = mBox.read('adminkey');
-    }
-  }
-
-  setAdmin(bool adminkey) {
-    isAdmin.value = adminkey;
-    GetStorage mBox = GetStorage();
-    mBox
-        .write('adminkey', adminkey)
-        .then((value) => isAdmin.value = mBox.read('adminkey'));
-  }
 
   static Future<dynamic> loadFromStorage(String image) async {
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();

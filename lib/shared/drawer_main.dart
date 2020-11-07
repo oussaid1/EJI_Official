@@ -1,5 +1,6 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/auth/auth_controler.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/common/communications.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/players_page.dart';
@@ -21,7 +22,8 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  final CloudDatabase cD = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
   final AuthController dx = Get.put(AuthController());
 
   List<ClubSpendings> clubSpendings;
@@ -48,19 +50,19 @@ class _MyDrawerState extends State<MyDrawer> {
             children: <Widget>[
               UserAccountsDrawerHeader(
                 accountName: StreamBuilder(
-                    stream: cD.getClubSpendings(),
+                    stream: db.getClubSpendings(),
                     builder:
                         (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
                       if (!snapshot.hasData || snapshot.hasError) {
                         return Text("EJI Idawlstane");
                       } else
                         clubSpendings = snapshot.data;
-                      d = cD
+                      d = varController
                           .setBudget(ClubSpendings.getSpendings(clubSpendings));
                       return Text("EJI Idawlstane");
                     }),
                 accountEmail: StreamBuilder(
-                    stream: cD.getClubIncomes(),
+                    stream: db.getClubIncomes(),
                     builder:
                         (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
                       if (!snapshot.hasData || snapshot.hasError) {
@@ -75,9 +77,9 @@ class _MyDrawerState extends State<MyDrawer> {
                       } else
                         clubIncome = snapshot.data;
                       c = ClubIncome.getIncome(clubIncome);
-                      cD.clubBudget.value = c - d;
-                      cD.clubIncome.value = c;
-                      cD.clubSpendings.value = d;
+                      varController.clubBudget.value = c - d;
+                      varController.clubIncome.value = c;
+                      varController.clubSpendings.value = d;
                       return Text(
                         'EJIBudget'.tr + 'DH ' '${(c - d).toString()} ',
                         textDirection: TextDirection.rtl,

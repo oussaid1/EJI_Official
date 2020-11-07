@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:EJI/models/player.dart';
 
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
 
 import 'package:EJI/screens/admin_access/scoreboard.dart';
@@ -27,7 +28,8 @@ class PlayerDetails extends StatefulWidget {
 }
 
 class _PlayerDetailsState extends State<PlayerDetails> {
-  final CloudDatabase cD = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
 
   var printKey = new GlobalKey();
 
@@ -63,7 +65,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                 onPressed: () {
                   _takeScreenShot();
                 }),
-            cD.isAdmin.value == true
+            varController.isAdmin.value == true
                 ? Row(
                     children: [
                       IconButton(
@@ -300,7 +302,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                       height: 220,
                       child: Container(
                         child: FutureBuilder<String>(
-                          future: cD.getProfileImage(
+                          future: db.getProfileImage(
                               context, widget.player.profileImage.toString()),
                           builder: (context, snapshot) {
                             return Padding(

@@ -1,5 +1,6 @@
 import 'package:EJI/models/ahdath_events.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/add_ahdath.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,8 @@ class AhdathScreen extends StatefulWidget {
 }
 
 class _AhdathState extends State<AhdathScreen> {
-  CloudDatabase c = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
+  final db = Get.put(CloudDatabase());
   List<AhdathModel> listano;
   AhdathModel ahdathModel;
 
@@ -28,7 +30,7 @@ class _AhdathState extends State<AhdathScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: c.isAdmin.value
+        floatingActionButton: varController.isAdmin.value
             ? FloatingActionButton(
                 onPressed: () {
                   showDialog(
@@ -47,7 +49,7 @@ class _AhdathState extends State<AhdathScreen> {
             : new Container(), // This
         appBar: AppBar(),
         body: StreamBuilder(
-            stream: c.getAhdath(),
+            stream: db.getAhdath(),
             builder:
                 (context, AsyncSnapshot<List<AhdathModel>> ahdathSnapshot) {
               if (ahdathSnapshot.hasError || !ahdathSnapshot.hasData) {

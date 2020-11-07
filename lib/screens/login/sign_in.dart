@@ -1,6 +1,7 @@
 import 'package:EJI/ad_manager.dart';
 import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/common/team_page.dart';
 import 'package:EJI/screens/login/sign_up.dart';
 import 'package:EJI/settings/params.dart';
@@ -15,7 +16,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final CloudDatabase c = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
   final AuthController dx = Get.put(AuthController());
   final _loginformKey2 = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -133,7 +135,13 @@ class _SignInScreenState extends State<SignInScreen> {
                                   onPressed: () {
                                     dx.isRegister.value = true;
                                     dx.isSignIn.value = false;
-                                    Get.offAll(RegisterPage());
+                                    // Get.offAll(RegisterPage());
+                                    Get.dialog(new Text(
+                                        'Please contact administration for login and password !',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: fontColor)));
                                   },
                                   child: Text('Register',
                                       style: TextStyle(
@@ -270,10 +278,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                     color: primaryColor)),
                             onPressed: () async {
                               if (emailController.text.trim() ==
-                                      c.adminEmail.value.toString() &&
+                                      varController.adminEmail.value
+                                          .toString() &&
                                   passController.text.trim() ==
-                                      c.adminPassword.value.toString()) {
-                                c.setAdmin(true);
+                                      varController.adminPassword.value
+                                          .toString()) {
+                                varController.setAdmin(true);
 
                                 Get.to(TeamPage());
                               } else if (_loginformKey2.currentState

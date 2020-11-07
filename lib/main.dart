@@ -1,3 +1,4 @@
+import 'package:EJI/bindings/store_bindings.dart';
 import 'package:EJI/translations/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:EJI/screens/common/splash.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       locale: Locale('ar'),
       home: SplashPage(),
       initialRoute: '/splash',
+      initialBinding: StoreBindings(),
       getPages: [
         GetPage(name: '/splash', page: () => new SplashPage()),
       ],

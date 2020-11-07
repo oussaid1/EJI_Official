@@ -1,4 +1,5 @@
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,8 @@ class AdminValidator extends StatefulWidget {
 }
 
 class _AdminValidatorState extends State<AdminValidator> {
-  final c = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
   final GlobalKey<FormState> validatorformKey = GlobalKey();
   final TextEditingController passControler = TextEditingController();
 
@@ -23,10 +25,10 @@ class _AdminValidatorState extends State<AdminValidator> {
   @override
   void initState() {
     passControler.addListener(() {
-      if (passControler.text.trim() == c.superAdminPass.value) {
+      if (passControler.text.trim() == varController.superAdminPass.value) {
         widget.callback();
 
-        c.isValid.value = true;
+        varController.isValid.value = true;
       }
     });
     super.initState();
@@ -34,7 +36,7 @@ class _AdminValidatorState extends State<AdminValidator> {
 
   @override
   void dispose() {
-    c.isValid.value = false;
+    varController.isValid.value = false;
 
     super.dispose();
   }
@@ -253,7 +255,9 @@ class _AdminValidatorState extends State<AdminValidator> {
                           () => Icon(
                             Icons.check,
                             size: 40,
-                            color: c.isValid.value ? accentColor : Colors.grey,
+                            color: varController.isValid.value
+                                ? accentColor
+                                : Colors.grey,
                           ),
                         )),
                   ),

@@ -1,5 +1,6 @@
 import 'package:EJI/models/club_archive.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,8 @@ class _AddPictureState extends State<AddArPicture> {
   int _thumbsDown = 0;
   String _spentOnDate;
 
-  final CloudDatabase cv = Get.put(CloudDatabase());
+  final CloudDatabase db = Get.put(CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
   DateTime selectedDate = new DateTime.now();
   DateTime nowDate = new DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
@@ -53,7 +55,7 @@ class _AddPictureState extends State<AddArPicture> {
       thumbsUp: _thumbsUp,
       thumbsDown: _thumbsDown,
     );
-    cv.addArchivePictures(clubArcive);
+    db.addArchivePictures(clubArcive);
   }
 
   _updateInCloud() {
@@ -65,7 +67,7 @@ class _AddPictureState extends State<AddArPicture> {
       thumbsUp: _thumbsUp,
       thumbsDown: _thumbsDown,
     );
-    cv.updateArchivePiture(clubArcive);
+    db.updateArchivePiture(clubArcive);
   }
 
   Widget _buildImagePath() {
@@ -296,7 +298,7 @@ class _AddPictureState extends State<AddArPicture> {
                                         prefixIcon: Icon(Icons.lock)),
                                     onChanged: (value) {
                                       if (value.trim().toString() ==
-                                          cv.superAdminPass.value
+                                          varController.superAdminPass.value
                                               .toString()
                                               .trim()) {
                                         Navigator.pop(context);
@@ -339,11 +341,11 @@ class _AddPictureState extends State<AddArPicture> {
                                       prefixIcon: Icon(Icons.lock)),
                                   onChanged: (value) {
                                     if (value.trim().toString() ==
-                                        cv.superAdminPass.value
+                                        varController.superAdminPass.value
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);
-                                      cv.deleteObject('ClubPitureArchive',
+                                      db.deleteObject('ClubPitureArchive',
                                           widget.clubArcive.id);
                                       _flushAll();
                                     }
