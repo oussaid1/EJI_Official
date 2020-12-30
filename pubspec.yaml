@@ -15,39 +15,35 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 3.0.0+30
+version: 4.0.0+40
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.10.4<3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-
-  percent_indicator: null
-  esys_flutter_share: null
-  timeline_tile: null
-  firebase_storage: null
-  image_picker: null
-  firebase_analytics: null
-  font_awesome_flutter: null
-  cloud_firestore: null
-  cupertino_icons: null
-  path: null
-  get: null
-  get_storage: null
-  characters: null
-  flutter_plugin_pdf_viewer: null
-  flutter_rating_bar: null
-  firebase_admob: null
-  firebase_auth: null
-  cached_network_image: null
-  flutter_swiper: null
+  percent_indicator: ^2.1.5
+  esys_flutter_share: ^1.0.2
+  timeline_tile: ^1.0.0
+  firebase_storage: ^5.2.0
+  image_picker: ^0.6.7+17
+  font_awesome_flutter: ^8.11.0
+  cloud_firestore: ^0.14.4
+  cupertino_icons: ^1.0.2
+  path: ^1.7.0
+  get: ^3.24.0
+  get_storage: ^1.4.0
+  flutter_plugin_pdf_viewer: ^1.0.7
+  flutter_rating_bar: ^4.0.0-nullsafety.0
+  firebase_admob: ^0.10.3
+  cached_network_image: ^2.5.0
+  flutter_swiper: ^1.1.6
   charts_flutter: ^0.9.0
-  firebase_core: null
-  carousel_slider: null
+  firebase_auth: ^0.18.0+1
+  firebase_core: ^0.5.0
+  carousel_slider: ^2.3.1
   flutter_sparkline: ^0.1.0
-  mockito:
 
 dev_dependencies:
   flutter_test:

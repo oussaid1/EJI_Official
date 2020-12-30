@@ -27,7 +27,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => AhdathModel.fromMap(doc.data, doc.documentID),
+                (doc) => AhdathModel.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -43,7 +43,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => Player.fromMap(doc.data, doc.documentID),
+                (doc) => Player.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -55,7 +55,7 @@ class CloudDatabase extends GetxController {
     return _db.collection('statisticPlayer').snapshots().map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => Player.fromMapStats(doc.data, doc.documentID),
+                (doc) => Player.fromMapStats(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -69,7 +69,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
+                (doc) => MatchDay.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -83,7 +83,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
+                (doc) => MatchDay.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -97,7 +97,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
+                (doc) => MatchDay.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -113,7 +113,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => Anounce.fromMap(doc.data, doc.documentID),
+                (doc) => Anounce.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -126,7 +126,7 @@ class CloudDatabase extends GetxController {
         _db.collection(clubArcive.toString().trim()).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
-                    (doc) => ClubArcive.fromMap(doc.data, doc.documentID),
+                    (doc) => ClubArcive.fromMap(doc.data(), doc.id),
                   )
                   .toList(),
             );
@@ -142,7 +142,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
+                (doc) => MatchDay.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -158,7 +158,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => Comments.fromMap(doc.data, doc.documentID),
+                (doc) => Comments.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -170,7 +170,7 @@ class CloudDatabase extends GetxController {
         _db.collection(staff.toString()).snapshots().map(
               (snapshot) => snapshot.documents
                   .map(
-                    (doc) => Staff.fromMap(doc.data, doc.documentID),
+                    (doc) => Staff.fromMap(doc.data(), doc.id),
                   )
                   .toList(),
             );
@@ -186,7 +186,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => ClubIncome.fromMap(doc.data, doc.documentID),
+                (doc) => ClubIncome.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -201,7 +201,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => TrainingDay.fromMap(doc.data, doc.documentID),
+                (doc) => TrainingDay.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );
@@ -215,7 +215,7 @@ class CloudDatabase extends GetxController {
         .map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => ClubSpendings.fromMap(doc.data, doc.documentID),
+                (doc) => ClubSpendings.fromMap(doc.data(), doc.id),
               )
               .toList(),
         );

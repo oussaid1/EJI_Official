@@ -1,4 +1,4 @@
-import 'package:EJI/repository/auth/auth_controler.dart';
+import 'package:EJI/controllers/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/settings/params.dart';
@@ -78,19 +78,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                   elevation: 0,
                                   color: fontColor,
                                   onPressed: () {
-                                    dx.isSignIn.value = true;
-                                    dx.isRegister.value = false;
-                                    Get.offAll(SignInScreen());
+
                                   },
-                                  child: Obx(
-                                    () => Text('Sign In',
-                                        style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600,
-                                            color: dx.isSignIn.value
-                                                ? accentColor
-                                                : primaryColor)),
-                                  ),
+
                                 ),
                               ),
                               Container(
@@ -104,15 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   onPressed: null,
                                   elevation: 0,
                                   color: fontColor,
-                                  child: Obx(
-                                    () => Text('Register',
-                                        style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600,
-                                            color: dx.isRegister.value
-                                                ? accentColor
-                                                : primaryColor)),
-                                  ),
+
                                 ),
                               ),
                             ],

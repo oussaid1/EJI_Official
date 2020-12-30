@@ -1,5 +1,5 @@
+import 'package:EJI/controllers/auth/auth_controler.dart';
 import 'package:EJI/models/club_expenses.dart';
-import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/common/communications.dart';
 import 'package:EJI/screens/common/info_screen.dart';

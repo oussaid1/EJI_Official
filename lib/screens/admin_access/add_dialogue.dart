@@ -638,10 +638,10 @@ class _AddPlayersState extends State<AddPlayers> {
     });
   }
 
-  final FirebaseStorage _storage =
-      FirebaseStorage(storageBucket: 'gs://eji-official.appspot.com/');
+  final _storage =
+      FirebaseStorage.instanceFor(bucket: 'gs://eji-official.appspot.com/');
 
-  StorageUploadTask _uploadTask;
+  // StorageUploadTask _uploadTask;
   double progressPercent = 0.5;
   bool isComplete = false;
 
@@ -651,7 +651,7 @@ class _AddPlayersState extends State<AddPlayers> {
     String filePath = 'players/profileImages/$_regNum.png';
     _profileImage = filePath;
     setState(() {
-      _uploadTask = _storage.ref().child(filePath).putFile(_image);
+      // _uploadTask = _storage.ref().child(filePath).putFile(_image);
     });
   }
 
@@ -671,8 +671,9 @@ class _AddPlayersState extends State<AddPlayers> {
               child: ListView(
                 children: <Widget>[
                   Container(
-                      alignment: Alignment.topCenter,
-                      child: _buildUpload(context)),
+                    alignment: Alignment.topCenter,
+                  ),
+                  //child: _buildUpload(context)),
                   SizedBox(
                     height: 10,
                   ),
@@ -771,7 +772,7 @@ class _AddPlayersState extends State<AddPlayers> {
     );
   }
 
-  Widget _buildUpload(BuildContext context) {
+  /* Widget _buildUpload(BuildContext context) {
     if (_uploadTask != null) {
       /// Manage the task state and event subscription with a StreamBuilder
       return StreamBuilder<StorageTaskEvent>(
@@ -856,7 +857,7 @@ class _AddPlayersState extends State<AddPlayers> {
       ),
     );
   }
-
+*/
   void _flushAll() {
     setState(() {
       progressPercent = 0.0;

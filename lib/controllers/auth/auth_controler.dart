@@ -1,71 +1,83 @@
-import 'package:EJI/screens/common/team_page.dart';
-import 'package:EJI/screens/login/sign_in.dart';
+import 'package:EJI/controllers/user/user_controller.dart';
+import 'package:EJI/models/user/user_model.dart';
+import 'package:EJI/repository/cloud_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter/services.dart';
 class AuthController extends GetxController {
-  BuildContext context;
-  RxString signedInEmail = ''.obs;
-  RxBool isSignedIn = false.obs;
-  RxBool isSignIn = true.obs;
-  RxBool isRegister = false.obs;
-  RxBool authenticated = false.obs;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  bool get authentic => authenticated.value;
-  Future<bool> signInWithEmailAndPassword(String email, String password) async {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  Rx<User> _firebaseUser = Rx<User>();
+  User get user => _firebaseUser.value;
+
+  @override
+  onInit() {
+    _firebaseUser.bindStream(_auth.authStateChanges());
+  }
+
+  void createUser(String name, String email, String password) async {
+   // try {
+      var _authResult = await _auth.createUserWithEmailAndPassword(
+          email: email.trim(), password: password);
+      //create user in database.dart
+      UserModel _user = UserModel(
+        id: _authResult.user.uid,
+        name: name,
+        email: _authResult.user.email,
+      );
+   //   if (await CloudDatabase().createNewUser(_user)) {Get.find<UserController>().user = _user;Get.back();}} catch (e) {Get.snackbar("Error creating Account", e.message, snackPosition: SnackPosition.BOTTOM,);}
+  }
+
+  void login(String email, String password) async {
     try {
-      final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
-        email: email.trim(),
-        password: password.trim(),
-      ))
-          .user;
-      Get.to(TeamPage());
-      signedInEmail.value = user.email;
-      isSignedIn.value = true;
-      return true;
+      var _authResult = await _auth.signInWithEmailAndPassword(
+          email: email.trim(), password: password);
+      //Get.find<UserController>().user = await CloudDatabase().getUser(_authResult.user.uid);
     } catch (e) {
-      Get.snackbar('', "Failed to sign in with Email & Password");
-      return false;
+      Get.snackbar(
+        "Error signing in",
+        e.message,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 
+  static Future<void> pop() async {
+    await SystemChannels.platform
+        .invokeMethod<void>('SystemNavigator.pop', true);
+  }
+
+  Future resetPass(String email) async {
+    try {
+      await _auth
+          .sendPasswordResetEmail(email: email)
+          .then((value) => Get.snackbar(
+        "Success",
+        'check your email !',
+        snackPosition: SnackPosition.BOTTOM,
+      ));
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        'invalid email',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  void updateEmailPass() {}
+
   void signOut() async {
-    await _auth.signOut();
-    Get.offAll(SignInScreen());
-  }
-
-  void showProgress() {}
-
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-  Future<String> signIn(String email, String password) async {
-    AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
-    FirebaseUser user = result.user;
-    return user.uid;
-  }
-
-  Future<String> signUp(String email, String password) async {
-    AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    FirebaseUser user = result.user;
-    return user.uid;
-  }
-
-  Future<FirebaseUser> getCurrentUser() async {
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    return user;
-  }
-
-  Future<void> sendEmailVerification() async {
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    user.sendEmailVerification();
-  }
-
-  Future<bool> isEmailVerified() async {
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    return user.isEmailVerified;
+    try {
+      await _auth.signOut().then((value) {
+        Get.find<UserController>().clear();
+       // Get.offAll(SplashPage());
+      });
+    } catch (e) {
+      Get.snackbar(
+        "Error signing out",
+        e.message,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 }

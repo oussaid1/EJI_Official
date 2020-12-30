@@ -1,5 +1,5 @@
 import 'package:EJI/ad_manager.dart';
-import 'package:EJI/repository/auth/auth_controler.dart';
+import 'package:EJI/controllers/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/common/team_page.dart';
@@ -133,8 +133,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   elevation: 0,
                                   color: secondaryColor,
                                   onPressed: () {
-                                    dx.isRegister.value = true;
-                                    dx.isSignIn.value = false;
+
                                     // Get.offAll(RegisterPage());
                                     Get.dialog(new Text(
                                         'Please contact administration for login and password !',
@@ -288,10 +287,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 Get.to(TeamPage());
                               } else if (_loginformKey2.currentState
                                   .validate()) {
-                                await dx.signInWithEmailAndPassword(
-                                  emailController.text.trim(),
-                                  passController.text.trim(),
-                                );
+
                               }
                             }),
                       ),
