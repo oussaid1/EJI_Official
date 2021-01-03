@@ -1,66 +1,24 @@
-import 'package:EJI/ad_manager.dart';
 import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/login/root.dart';
 import 'package:EJI/screens/login/sign_up.dart';
 import 'package:EJI/settings/params.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
-class SignInScreen extends StatefulWidget {
-  @override
-  _SignInScreenState createState() => _SignInScreenState();
-}
+class SignInScreen extends GetWidget<AuthController> {
 
-class _SignInScreenState extends State<SignInScreen> {
-  final CloudDatabase c = Get.put(CloudDatabase());
-  final AuthController authController = Get.put(AuthController());
+
+  final  db = CloudDatabase();
   final _loginFormKey2 = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
 
-  BannerAd myBanner;
 
-  BannerAd buildBannerAd() {
-    return BannerAd(
-        adUnitId: AdManager.bannerAdUnitId,
-        size: AdSize.banner,
-        listener: (MobileAdEvent event) {
-          if (event == MobileAdEvent.loaded) {
-            myBanner..show();
-          }
-        });
-  }
 
-  BannerAd buildLargeBannerAd() {
-    return BannerAd(
-        adUnitId: BannerAd.testAdUnitId,
-        size: AdSize.largeBanner,
-        listener: (MobileAdEvent event) {
-          if (event == MobileAdEvent.loaded) {
-            myBanner
-              ..show(
-                  anchorType: AnchorType.top,
-                  anchorOffset: MediaQuery.of(context).size.height * 0.15);
-          }
-        });
-  }
 
-  @override
-  void initState() {
-    super.initState();
-
-    FirebaseAdMob.instance.initialize(appId: AdManager.appId);
-    myBanner = buildBannerAd()..load();
-  }
-
-  @override
-  void dispose() {
-    myBanner.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,53 +56,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 height: Get.height / 1.4,
                 child: ListView(
                   children: <Widget>[
-                    Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          width: 230,
-                          child: Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: fontColor,
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(6),
-                                        topLeft: Radius.circular(6))),
-                                child: RaisedButton(
-                                  elevation: 0,
-                                  color: fontColor,
-                                  onPressed: () => Get.offAll(SignInScreen()),
-                                  child: Text('Sign In',
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.w600,
-                                          color: accentColor)),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: secondaryColor,
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(6),
-                                        topRight: Radius.circular(6))),
-                                child: RaisedButton(
-                                  elevation: 0,
-                                  color: secondaryColor,
-                                  onPressed: () {
-                                    authController.isRegister.value = true;
-                                    authController.isSignIn.value = false;
-                                    Get.offAll(RegisterPage());
-                                  },
-                                  child: Text('Register',
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.w600,
-                                          color: fontColor)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
+
                     SizedBox(
                       height: 20,
                     ),
@@ -162,7 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           }
                           return null;
                         },
-                        controller: emailController,
+                        controller: _emailController,
                         autofocus: true,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -215,7 +127,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           }
                           return null;
                         },
-                        controller: passController,
+                        controller: _passController,
                         autofocus: true,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -268,14 +180,15 @@ class _SignInScreenState extends State<SignInScreen> {
                                     fontWeight: FontWeight.w800,
                                     fontSize: 30.0,
                                     color: primaryColor)),
-                            onPressed: ()  {
+                            onPressed: (){
                              if (_loginFormKey2.currentState
                                   .validate()) {
-                                 authController.login(
-                                  emailController.text.trim(),
-                                  passController.text.trim(),
+                                 controller.login(
+                                  _emailController.text.trim(),
+                                  _passController.text.trim(),
                                 );
                               }
+                             print(controller.user.email);
                             }),
                       ),
                     ),
@@ -288,7 +201,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               padding: const EdgeInsets.only(top: 18.0),
                               child: FlatButton(
                                 onPressed: () {
-                                  Get.to(RegisterPage());
+                                  Get.to(SignupPage());
                                 },
                                 child: new Text('ليس لديك حساب سجل الان ',
                                     style: new TextStyle(
@@ -327,7 +240,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
 
-  void showDialogue() async {
+  void showDialogue(BuildContext context) async {
     ProgressDialog pr = ProgressDialog(context);
     pr = ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
@@ -346,6 +259,6 @@ class _SignInScreenState extends State<SignInScreen> {
             color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600));
 
     pr.show().then((value) =>
-        authController.isSignedIn.value ? pr.hide() : pr.update(message: 'taking long'));
+        controller.isSignedIn.value ? pr.hide() : pr.update(message: 'taking long'));
   }
 }

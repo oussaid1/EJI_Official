@@ -1,6 +1,6 @@
 import 'package:EJI/controllers/bindings/auth_binding.dart';
+import 'package:EJI/screens/login/login_tab.dart';
 import 'package:EJI/screens/login/root.dart';
-import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/translations/translations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           cardColor: secondaryColor),
       translations: MyTranslations(),
       locale: Locale('ar'),
-      home: SignInScreen(),
+      home: LoginTab(),
       initialBinding: AuthBinding(),
       initialRoute: '/splash',
       getPages: [

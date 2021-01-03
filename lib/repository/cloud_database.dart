@@ -33,6 +33,7 @@ class CloudDatabase extends GetxController {
       await _firestore.collection("users").doc(user.id).set({
         "name": user.name,
         "email": user.email,
+        "isAdmin":user.isAdmin,
       });
       return true;
     } catch (e) {

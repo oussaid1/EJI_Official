@@ -1,5 +1,6 @@
 import 'package:EJI/models/comments_model.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/common/add_comment.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
@@ -10,7 +11,8 @@ class CommentScreen extends StatelessWidget {
   CommentScreen({
     Key key,
   }) : super(key: key);
-  final CloudDatabase xc = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
   final TextEditingController replyControler = TextEditingController();
 
   @override
@@ -51,7 +53,7 @@ class CommentScreen extends StatelessWidget {
           Column(
             children: [
               StreamBuilder(
-                stream: xc.getComments('remarks'),
+                stream: db.getComments('remarks'),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Comments>> snapshot) {
                   if (snapshot.hasError || !snapshot.hasData) {
@@ -88,7 +90,7 @@ class CommentScreen extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      xc.isAdmin.value
+                                      varController.isAdmin.value
                                           ? IconButton(
                                               icon: Icon(
                                                 Icons.reply,
@@ -138,7 +140,7 @@ class CommentScreen extends StatelessWidget {
                                                             subject:
                                                                 comment.subject,
                                                           );
-                                                          xc.addReply(comments);
+                                                          db.addReply(comments);
                                                         }),
                                                   ),
                                                   cancel: Padding(

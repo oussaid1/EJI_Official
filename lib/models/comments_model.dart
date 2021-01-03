@@ -7,9 +7,11 @@ class Comments {
   String commentsText;
   String commentsBy;
   String commentsReply;
+  int count=1;
 
   Comments(
       {this.id,
+        this.count=1,
       this.commentsBy,
       this.commentsDate,
       this.commentsReply,

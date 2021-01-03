@@ -134,7 +134,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                   leading: Icon(Icons.store),
                   title: Text('Staff'.tr),
                   onTap: () => {
-                        Get.to(StaffPage()),
+
                       }),
               ListTile(
                   leading: Icon(Icons.event),

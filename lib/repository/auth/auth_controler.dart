@@ -1,5 +1,6 @@
 import 'package:EJI/controllers/user_controller.dart';
-import 'package:EJI/models/user.dart';import 'package:EJI/screens/common/splash.dart';
+import 'package:EJI/models/user.dart';
+import 'package:EJI/screens/common/splash.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +19,7 @@ class AuthController extends GetxController {
   RxBool isRegister = false.obs;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Rx<User> _firebaseUser = Rx<User>();
+
   User get user => _firebaseUser.value ?? _auth.currentUser;
 
   @override
@@ -29,16 +31,19 @@ class AuthController extends GetxController {
   void createUser(String name, String email, String password) async {
     try {
       var _authResult = await _auth.createUserWithEmailAndPassword(
-          email: email.trim(), password: password);
+        email: email.trim(),
+        password: password,
+      );
       //create user in database.dart
       UserModel _user = UserModel(
         id: _authResult.user.uid,
         name: name,
         email: _authResult.user.email,
+        isAdmin: false,
       );
       if (await CloudDatabase().createNewUser(_user)) {
         Get.find<UserController>().user = _user;
-        Get.back();
+
       }
     } catch (e) {
       Get.snackbar(
@@ -54,11 +59,11 @@ class AuthController extends GetxController {
       var _authResult = await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password);
       Get.find<UserController>().user =
-      await CloudDatabase().getUser(_authResult.user.uid);
+          await CloudDatabase().getUser(_authResult.user.uid);
     } catch (e) {
       Get.snackbar(
         "Error signing in",
-        e.message,
+       '',
         snackPosition: SnackPosition.BOTTOM,
       );
     }
@@ -118,7 +123,6 @@ class AuthController extends GetxController {
       print(error);
     }
   }
-
 
   void showProgress() {}
 }

@@ -1,23 +1,18 @@
 import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/screens/login/login_tab.dart';
 import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-
-/// Entrypoint example for registering via Email/Password.
-class RegisterPage extends StatefulWidget {
-  /// The page title.
-  final String title = 'التسجيل';
-
+class SignupPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _RegisterPageState();
+  State<StatefulWidget> createState() => _SignupPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _SignupPageState extends State<SignupPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -25,6 +20,12 @@ class _RegisterPageState extends State<RegisterPage> {
   final c = Get.put(CloudDatabase());
   final authController = Get.put(AuthController());
   final _loginformKey1 = GlobalKey<FormState>();
+
+  void flushAll() {
+    _nameController.clear();
+    _emailController.clear();
+    _passwordController..clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,72 +60,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 width: Get.width - 40,
-                height: Get.height / 1.8,
+                height: 500,
                 child: ListView(
                   children: <Widget>[
-                    Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          width: 230,
-                          child: Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: fontColor,
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(6),
-                                        topLeft: Radius.circular(6))),
-                                child: RaisedButton(
-                                  elevation: 0,
-                                  color: fontColor,
-                                  onPressed: () {
-                                    authController.isSignIn.value = true;
-                                    authController.isRegister.value = false;
-                                    Get.offAll(SignInScreen());
-                                  },
-                                  child: Obx(
-                                    () => Text('Sign In',
-                                        style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600,
-                                            color: authController.isSignIn.value
-                                                ? accentColor
-                                                : primaryColor)),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    color: secondaryColor,
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(6),
-                                        topRight: Radius.circular(6))),
-                                child: RaisedButton(
-                                  onPressed: null,
-                                  elevation: 0,
-                                  color: fontColor,
-                                  child: Obx(
-                                    () => Text('Register',
-                                        style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600,
-                                            color:
-                                                authController.isRegister.value
-                                                    ? accentColor
-                                                    : primaryColor)),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
                     SizedBox(
                       height: 10,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: buildEmailFormField(),
+                      child: buildNameFormField(),
                     ),
                     SizedBox(
                       height: 10,
@@ -162,14 +106,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                   fontWeight: FontWeight.w800,
                                   fontSize: 30.0,
                                   color: primaryColor)),
-                          onPressed: () => {
-                            if (_loginformKey1.currentState.validate())
-                              {
-                                authController.createUser(
-                                    _nameController.text.trim(),
-                                    _emailController.text.trim(),
-                                    _passwordController.text.trim())
-                              }
+                          onPressed: () {
+                            if (_loginformKey1.currentState.validate()) {
+                              authController.createUser(
+                                  _nameController.text.trim(),
+                                  _emailController.text.trim(),
+                                  _passwordController.text.trim());
+                              flushAll();
+                              Get.to(LoginTab());
+                            }
                           },
                         ),
                       ),
@@ -209,8 +154,6 @@ class _RegisterPageState extends State<RegisterPage> {
       textAlign: TextAlign.center,
       validator: (text) {
         if (text.isEmpty) {
-          return ('nameEmpty'.tr);
-        } else if (!GetUtils.isEmail(text)) {
           return ('nameEmpty'.tr);
         }
         return null;
@@ -291,8 +234,6 @@ class _RegisterPageState extends State<RegisterPage> {
       validator: (text) {
         if (text.isEmpty) {
           return ('passempty'.tr);
-        } else if (text.trim().length < 4 || text.trim().length > 8) {
-          return ('8 حروف'.tr);
         }
         return null;
       },
@@ -332,8 +273,7 @@ class _RegisterPageState extends State<RegisterPage> {
       validator: (text) {
         if (text.isEmpty) {
           return ('passempty'.tr);
-        } else if (text.trim().length < 4 || text.trim().length > 8) {
-          return ('8 حروف'.tr);
+
         } else if (text.trim().toString() !=
             _passwordController.text.trim().toString()) {
           return 'غير متطابقان';

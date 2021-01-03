@@ -8,6 +8,7 @@ import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
+import 'package:EJI/screens/common/staff_page.dart';
 import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
@@ -26,17 +27,7 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> {
   final String image = "players/profileImages/ejilogo.png";
-
-  final CloudDatabase cD = Get.put(CloudDatabase());
-  final AuthController dx = Get.put(AuthController());
-
-  List<ClubSpendings> clubSpendings;
-
-  List<ClubIncome> clubIncome;
-
-  double d = 0;
-
-  double c = 0;
+final AuthController authController= Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -52,44 +43,16 @@ class _MyDrawerState extends State<MyDrawer> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: StreamBuilder(
-                    stream: cD.getClubSpendings(),
-                    builder:
-                        (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
-                      if (!snapshot.hasData || snapshot.hasError) {
-                        return Text("EJI Idawlstane");
-                      } else
-                        clubSpendings = snapshot.data;
-                      d = cD
-                          .setBudget(ClubSpendings.getSpendings(clubSpendings));
-                      return Text("EJI Idawlstane");
-                    }),
-                accountEmail: StreamBuilder(
-                    stream: cD.getClubIncomes(),
-                    builder:
-                        (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
-                      if (!snapshot.hasData || snapshot.hasError) {
-                        return Text(
-                          'EJIBudget'.tr + 'DH ' + '-- ',
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: accentColor),
-                        );
-                      } else
-                        clubIncome = snapshot.data;
-                      c = ClubIncome.getIncome(clubIncome);
-
-                      return Text(
-                        'EJIBudget'.tr + 'DH ' '${(c - d).toString()} ',
+                accountName:
+                       Text("EJI Idawlstane"),
+                accountEmail:  Text(
+                        'EJIBudget'.tr,
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
                             color: accentColor),
-                      );
-                    }),
+                      ),
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: secondaryColor,
                   child: Image.asset(
@@ -160,7 +123,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 subtitle: Text('SignOutsub'.tr),
                 leading: Icon(Icons.exit_to_app),
                 title: Text('SignOut'.tr),
-                onTap: () => dx.signOut(),
+                onTap: () => authController.signOut(),
               ),
             ],
           ),

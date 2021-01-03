@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Player {
   String id;
+  int count=1;
   String profileImage;
   String regNum;
   String playerName;
@@ -47,6 +48,7 @@ class Player {
   }
   Player({
     this.id,
+    this.count=1,
     this.playerName,
     this.dateOfBirth,
     this.profileImage,
@@ -151,4 +153,13 @@ class Player {
         desciplineScore = map['desciplineScore'],
         rateable = map['rateable'],
         isGK = map['isGK'];
+
+  static int getCountPlayers(List<Player> player) {
+    int sum = 0;
+    for (var i = 0; i < player.length; i++) {
+      sum += player[i].count ?? 0;
+    }
+
+    return sum;
+  }
 }

@@ -30,6 +30,7 @@ class _AddCommentState extends State<AddComment> {
 
   _saveToCloud() {
     Comments comment = new Comments(
+
       subject: subjectControler.text.toString(),
       commentsDate: mformatter.format(nowDate),
       commentsText: textCommentControler.text.toString(),

@@ -4,8 +4,9 @@ import 'dart:ui';
 import 'package:EJI/models/player.dart';
 
 import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/repository/variables_controler.dart';
 import 'package:EJI/screens/admin_access/add_dialogue.dart';
-import 'package:EJI/screens/admin_access/admin_drawer.dart';
+
 import 'package:EJI/screens/admin_access/scoreboard.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
@@ -27,7 +28,8 @@ class PlayerDetails extends StatefulWidget {
 }
 
 class _PlayerDetailsState extends State<PlayerDetails> {
-  final CloudDatabase cD = Get.put(CloudDatabase());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
 
   var printKey = new GlobalKey();
 
@@ -55,7 +57,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
     } else
       return Scaffold(
         backgroundColor: secondaryColor,
-        drawer: cD.isAdmin.value ? AdminDrawer() : MyDrawer(),
+        drawer: MyDrawer(),
         appBar: AppBar(
           actions: [
             IconButton(
@@ -63,7 +65,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                 onPressed: () {
                   _takeScreenShot();
                 }),
-            cD.isAdmin.value
+            varController.isAdmin.value == true
                 ? Row(
                     children: [
                       IconButton(
@@ -300,7 +302,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                       height: 220,
                       child: Container(
                         child: FutureBuilder<String>(
-                          future: cD.getProfileImage(
+                          future: db.getProfileImage(
                               context, widget.player.profileImage.toString()),
                           builder: (context, snapshot) {
                             return Padding(
@@ -383,17 +385,15 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                   allowHalfRating: true,
                                   itemCount: 5,
                                   itemSize: 24,
-                                  ratingWidget: RatingWidget(
-                                    empty: Icon(Icons.star_border),
-                                    half: Icon(Icons.star_half_rounded),
-                                    full: Icon(Icons.star),
-                                  ),
                                   itemPadding:
-
                                       EdgeInsets.symmetric(horizontal: 0),
-                                  onRatingUpdate: (context) {}),
+                                ratingWidget:RatingWidget(
+                                  full: Icon(Icons.star),
+                                  half: Icon(Icons.star),
+                                  empty: Icon(Icons.star),
 
-
+                                ),
+                                  onRatingUpdate: (rating) {}),
                             ],
                           ),
                         ],
