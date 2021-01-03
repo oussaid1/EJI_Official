@@ -30,7 +30,6 @@ dependencies:
   timeline_tile: null
   splashscreen: null
   image_picker: null
-  firebase_analytics: null
   font_awesome_flutter: null
   cloud_firestore: ^0.14.1+2
   cupertino_icons: null
@@ -43,7 +42,6 @@ dependencies:
   flutter_rating_bar: null
   firebase_admob: null
   firebase_auth: null
-  audioplayers: null
   cached_network_image: null
   flutter_swiper: null
   charts_flutter: null
