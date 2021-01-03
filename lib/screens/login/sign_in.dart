@@ -174,7 +174,7 @@ class SignInScreen extends GetWidget<AuthController> {
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(10.0)),
                             color: fontColor,
-                            child: new Text('SignIn',
+                            child: new Text('Sign in',
                                 style: new TextStyle(
                                     fontFamily: 'RobotoCondensed',
                                     fontWeight: FontWeight.w800,
@@ -188,6 +188,7 @@ class SignInScreen extends GetWidget<AuthController> {
                                   _passController.text.trim(),
                                 );
                               }
+                             Get.to(Root());
                              print(controller.user.email);
                             }),
                       ),

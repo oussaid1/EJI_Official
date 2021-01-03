@@ -15,7 +15,7 @@ class Root extends GetWidget<AuthController> {
         Get.put<UserController>(UserController());
       },
       builder: (_) {
-        if (Get.find<AuthController>().user.uid!= null) {
+        if (Get.find<AuthController>().user?.uid!= null) {
           final authController = Get.put(AuthController());
           UserController().user = (UserModel(
               id: authController.user.uid,
