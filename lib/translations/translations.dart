@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 class MyTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
-        'en': {
+        'as': {
           'title': 'EJI Application',
           'insert text': 'please insert some text',
           'email not': 'sorry ! the emaai is not correct ',
@@ -147,7 +147,7 @@ class MyTranslations extends Translations {
           'AltimteSquadsub': ' selected Squad for 11 High Score Players',
           'Frifgssendly': ' Application',
         },
-        'ar': {
+        'en': {
           'title': 'تطبيق EJI ',
           'insert text': 'المرجو ادخال نص',
           'email not': 'اسف !الإمايل غير صحيح ',
@@ -294,6 +294,7 @@ class MyTranslations extends Translations {
           'AltimteSquad': 'التشكيلة حسب التنقيط',
           'AltimteSquadsub':  'التشكيلة حسب التنقيط والتشكيلةالرسمية للمباراة',
           'ProgramsAndEvents': ' البرامج والأهداف',
+          'nameEmpty': ' المرجو ادخال اسم ',
           'Frifgssendly': ' Application',
         },
       };

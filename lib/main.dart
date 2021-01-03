@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           primaryColor: primaryColor,
           cardColor: secondaryColor),
       translations: MyTranslations(),
-      locale: Locale('ar'),
+      locale: Locale('en'),
       home: LoginTab(),
       initialBinding: AuthBinding(),
       initialRoute: '/splash',
