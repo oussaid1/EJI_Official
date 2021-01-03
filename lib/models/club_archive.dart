@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ClubArcive {
   String id;
   String imageLocation;
@@ -24,7 +26,7 @@ class ClubArcive {
     };
   }
 
-  ClubArcive.fromMap(Map<String, dynamic> map, String id)
+  ClubArcive.fromMap(DocumentSnapshot map, String id)
       : id = id,
         imageLocation = map['imageLocation'],
         season = map['season'],

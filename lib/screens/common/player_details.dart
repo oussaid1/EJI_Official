@@ -383,13 +383,17 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                   allowHalfRating: true,
                                   itemCount: 5,
                                   itemSize: 24,
+                                  ratingWidget: RatingWidget(
+                                    empty: Icon(Icons.star_border),
+                                    half: Icon(Icons.star_half_rounded),
+                                    full: Icon(Icons.star),
+                                  ),
                                   itemPadding:
+
                                       EdgeInsets.symmetric(horizontal: 0),
-                                  itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.yellow,
-                                      ),
-                                  onRatingUpdate: (rating) {}),
+                                  onRatingUpdate: (context) {}),
+
+
                             ],
                           ),
                         ],

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ClubIncome {
   String id;
   String givenBy;
@@ -21,7 +23,7 @@ class ClubIncome {
     };
   }
 
-  ClubIncome.fromMap(Map<String, dynamic> map, String id)
+  ClubIncome.fromMap(DocumentSnapshot map, String id)
       : id = id,
         givenBy = map['givenBy'],
         givenFor = map['givenFor'],
@@ -69,7 +71,7 @@ class ClubSpendings {
     return sum;
   }
 
-  ClubSpendings.fromMap(Map<String, dynamic> map, String id)
+  ClubSpendings.fromMap(DocumentSnapshot map, String id)
       : id = id,
         spentOn = map['spentOn'],
         spentBy = map['spentBy'],

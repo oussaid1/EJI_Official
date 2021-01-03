@@ -76,16 +76,16 @@ class _AhdathState extends State<AhdathScreen> {
                                   iconData: Icons.calendar_today,
                                   fontSize: 20,
                                   color: accentColor)),
-                          topLineStyle: const LineStyle(
+                          afterLineStyle: const LineStyle(
                             color: primaryColor,
                           ),
-                          bottomLineStyle: const LineStyle(
+                          beforeLineStyle: const LineStyle(
                             color: primaryColor,
                           ),
                           hasIndicator: true,
-                          lineX: 0.64,
+                          lineXY: 0.64,
                           alignment: TimelineAlign.manual,
-                          leftChild: Padding(
+                          startChild: Padding(
                             padding: const EdgeInsets.fromLTRB(20, 6, 4, 2),
                             child: new Container(
                               decoration: BoxDecoration(
@@ -124,7 +124,7 @@ class _AhdathState extends State<AhdathScreen> {
                               ),
                             ),
                           ),
-                          rightChild: Padding(
+                          endChild: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,

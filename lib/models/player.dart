@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Player {
   String id;
   String profileImage;
@@ -130,7 +132,7 @@ class Player {
     };
   }
 
-  Player.fromMap(Map<String, dynamic> map, String id)
+  Player.fromMap(DocumentSnapshot map, String id)
       : id = id,
         playerName = map['playername'],
         dateOfBirth = map['dateofbirth'],

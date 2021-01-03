@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class MatchDay {
   String id;
   String matchdayDate;
@@ -48,7 +50,7 @@ class MatchDay {
     };
   }
 
-  MatchDay.fromMap(Map<String, dynamic> map, String id)
+  MatchDay.fromMap(DocumentSnapshot map, String id)
       : id = id,
         matchdayDate = map['matchdaydate'],
         matchdayType = map['matchdaytype'],

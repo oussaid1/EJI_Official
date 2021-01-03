@@ -1,4 +1,8 @@
+import 'package:EJI/controllers/bindings/auth_binding.dart';
+import 'package:EJI/screens/login/root.dart';
+import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/translations/translations.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:EJI/screens/common/splash.dart';
 import 'package:EJI/settings/params.dart';
@@ -9,7 +13,7 @@ import 'package:get_storage/get_storage.dart';
 Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -30,10 +34,12 @@ class MyApp extends StatelessWidget {
           cardColor: secondaryColor),
       translations: MyTranslations(),
       locale: Locale('ar'),
-      home: SplashPage(),
+      home: SignInScreen(),
+      initialBinding: AuthBinding(),
       initialRoute: '/splash',
       getPages: [
         GetPage(name: '/splash', page: () => new SplashPage()),
+        GetPage(name: '/Root', page: () => new Root()),
       ],
       // GetPage with custom transitions and bindings
     );

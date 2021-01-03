@@ -18,12 +18,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-  final CloudDatabase c = Get.put(CloudDatabase());
-  final AuthController dx = Get.put(AuthController());
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final c = Get.put(CloudDatabase());
+  final authController = Get.put(AuthController());
   final _loginformKey1 = GlobalKey<FormState>();
 
   @override
@@ -78,8 +78,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   elevation: 0,
                                   color: fontColor,
                                   onPressed: () {
-                                    dx.isSignIn.value = true;
-                                    dx.isRegister.value = false;
+                                    authController.isSignIn.value = true;
+                                    authController.isRegister.value = false;
                                     Get.offAll(SignInScreen());
                                   },
                                   child: Obx(
@@ -87,7 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         style: TextStyle(
                                             fontSize: 24,
                                             fontWeight: FontWeight.w600,
-                                            color: dx.isSignIn.value
+                                            color: authController.isSignIn.value
                                                 ? accentColor
                                                 : primaryColor)),
                                   ),
@@ -109,9 +109,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                         style: TextStyle(
                                             fontSize: 24,
                                             fontWeight: FontWeight.w600,
-                                            color: dx.isRegister.value
-                                                ? accentColor
-                                                : primaryColor)),
+                                            color:
+                                                authController.isRegister.value
+                                                    ? accentColor
+                                                    : primaryColor)),
                                   ),
                                 ),
                               ),
@@ -119,14 +120,21 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         )),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: buildEmailFormField(),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: buildEmailFormField(),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -148,7 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(10.0)),
                           color: fontColor,
-                          child: new Text('Submit',
+                          child: new Text('Register',
                               style: new TextStyle(
                                   fontFamily: 'RobotoCondensed',
                                   fontWeight: FontWeight.w800,
@@ -157,7 +165,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           onPressed: () => {
                             if (_loginformKey1.currentState.validate())
                               {
-                                _register(),
+                                authController.createUser(
+                                    _nameController.text.trim(),
+                                    _emailController.text.trim(),
+                                    _passwordController.text.trim())
                               }
                           },
                         ),
@@ -191,7 +202,47 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  TextFormField buildEmailFormField() {
+  Widget buildNameFormField() {
+    return TextFormField(
+      style: TextStyle(
+          fontSize: 20, fontWeight: FontWeight.w600, color: fontColor),
+      textAlign: TextAlign.center,
+      validator: (text) {
+        if (text.isEmpty) {
+          return ('nameEmpty'.tr);
+        } else if (!GetUtils.isEmail(text)) {
+          return ('nameEmpty'.tr);
+        }
+        return null;
+      },
+      controller: _nameController,
+      autofocus: true,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(4.0))),
+          hintText: ('nameEmpty'.tr),
+          labelText: 'name',
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          labelStyle: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
+          focusColor: accentColor,
+          hintStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+                color: accentColor, style: BorderStyle.solid, width: 1),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+                color: accentColor, style: BorderStyle.solid, width: 1),
+          ),
+          contentPadding: EdgeInsets.only(left: 2)),
+    );
+  }
+
+  Widget buildEmailFormField() {
     return TextFormField(
       style: TextStyle(
           fontSize: 20, fontWeight: FontWeight.w600, color: fontColor),
@@ -322,20 +373,5 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  // Example code for registration.
-  void _register() async {
-    final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    ))
-        .user;
-    if (user != null) {
-      Get.snackbar('Success', 'registered as ${user.email}');
-      Get.to(SignInScreen());
-    } else {
-      Get.snackbar('Error', 'not registered !');
-    }
   }
 }

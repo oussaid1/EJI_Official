@@ -7,6 +7,7 @@ import 'package:EJI/models/matchday.dart';
 import 'package:EJI/models/player.dart';
 
 import 'package:EJI/models/staff.dart';
+import 'package:EJI/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -22,19 +23,32 @@ class CloudDatabase extends GetxController {
   RxString sperAdminPass = '1243'.obs;
   RxString coachAdminPass = '532'.obs;
   RxString presidentialPass = '12343'.obs;
-  var email = 'Idawlstane'.obs;
-  var password = 'Idawlstane'.obs;
   var adminEmail = 'E20J19I'.obs;
   var adminPassword = 'E20J19I'.obs;
-  Firestore _db = Firestore.instance;
-
+  final _firestore = FirebaseFirestore.instance;
   setBudget(double d) => clubBudget.value = d;
-  @override
-  void onInit() {
-    GetStorage mBox = GetStorage();
+ 
+  Future<bool> createNewUser(UserModel user) async {
+    try {
+      await _firestore.collection("users").doc(user.id).set({
+        "name": user.name,
+        "email": user.email,
+      });
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 
-    if (mBox.hasData('adminkey')) {
-      isAdmin.value = mBox.read('adminkey');
+  Future<UserModel> getUser(String uid) async {
+    try {
+      DocumentSnapshot _doc =
+      await _firestore.collection("users").doc(uid).get();
+      return UserModel.fromDocumentSnapshot(documentSnapshot: _doc);
+    } catch (e) {
+      print(e);
+      rethrow;
     }
   }
 
@@ -51,285 +65,273 @@ class CloudDatabase extends GetxController {
   }
 
   Stream<List<AhdathModel>> getAhdath() {
-    Stream<List<AhdathModel>> pList = _db
+   return _firestore
         .collection('Ahdath')
         .orderBy('creationDate', descending: true)
         .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => AhdathModel.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
 
-    return pList;
+        .map((QuerySnapshot query) {
+      List<AhdathModel> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(AhdathModel.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Stream<List<Player>> getPlayers(String collection) {
-    return _db
+    return _firestore
         .collection(collection.trim().toString())
         .orderBy('oVR', descending: true)
         .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Player.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
+        .map((QuerySnapshot query) {
+      List<Player> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(Player.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Stream<List<Player>> getPlayerStats() {
-    return _db.collection('statisticPlayer').snapshots().map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Player.fromMapStats(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
+    return _firestore.collection('statisticPlayer').snapshots()
+        .map((QuerySnapshot query) {
+      List<Player> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(Player.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Stream<List<Player>> getGK() {
-    Stream<List<Player>> pList = _db
+    return  _firestore
         .collection('players')
         .where('position', isEqualTo: 'GK')
         .orderBy('oVR', descending: true)
         .limit(1)
         .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Player.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-
-    return pList;
+        .map((QuerySnapshot query) {
+      List<Player> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(Player.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Stream<List<Player>> get11Pla() {
-    Stream<List<Player>> pList = _db
+    return
+    _firestore
         .collection('players')
         .where('position', isEqualTo: 'GK')
         .orderBy('oVR', descending: true)
         .limit(1)
         .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Player.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-
-    return pList;
+        .map((QuerySnapshot query) {
+      List<Player> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(Player.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Stream<List<Anounce>> getAnounces(String collectionName) {
-    Stream<List<Anounce>> pList = _db
+   return  _firestore
         .collection(collectionName.toString())
         .orderBy(
           'anounceDate',
         )
         .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Anounce.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-
-    return pList;
+        .map((QuerySnapshot query) {
+      List<Anounce> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(Anounce.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Stream<List<ClubArcive>> getClubArcivePictures(String clubArcive) {
-    Stream<List<ClubArcive>> pLdist =
-        _db.collection(clubArcive.toString().trim()).snapshots().map(
-              (snapshot) => snapshot.documents
-                  .map(
-                    (doc) => ClubArcive.fromMap(doc.data, doc.documentID),
-                  )
-                  .toList(),
-            );
-
-    return pLdist;
+    return
+        _firestore.collection(clubArcive.toString().trim()).snapshots().map((QuerySnapshot query) {
+          List<ClubArcive> retVal = List();
+          query.docs.forEach((element) {
+            retVal.add(ClubArcive.fromMap(element,element.id));
+          });
+          return retVal;
+        });
   }
 
   Stream<List<MatchDay>> getMatchDays(String collectionName) {
-    Stream<List<MatchDay>> pLista = _db
+    return _firestore
         .collection(collectionName.toString())
         .orderBy('matchdaydate', descending: true)
         .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => MatchDay.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-
-    return pLista;
+        .map((QuerySnapshot query) {
+      List<MatchDay> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(MatchDay.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Stream<List<Comments>> getComments(String collectionName) {
-    Stream<List<Comments>> pLista = _db
+  return _firestore
         .collection(collectionName.toString())
         .orderBy('remarkdate', descending: true)
         .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Comments.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-    return pLista;
+        .map((QuerySnapshot query) {
+      List<Comments> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(Comments.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Stream<List<Staff>> getStaff(String staff) {
-    Stream<List<Staff>> pLista =
-        _db.collection(staff.toString()).snapshots().map(
-              (snapshot) => snapshot.documents
-                  .map(
-                    (doc) => Staff.fromMap(doc.data, doc.documentID),
-                  )
-                  .toList(),
-            );
-
-    return pLista;
+   return
+        _firestore.collection(staff.toString()).snapshots()
+                  .map((QuerySnapshot query) {
+                List<Staff> retVal = List();
+                query.docs.forEach((element) {
+                  retVal.add(Staff.fromMap(element,element.id));
+                });
+                return retVal;
+              });
   }
 
   Stream<List<ClubIncome>> getClubIncomes() {
-    Stream<List<ClubIncome>> pLista = _db
+    return
+    _firestore
         .collection('ClubIncome')
         .orderBy('givenDate', descending: true)
         .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => ClubIncome.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-    return pLista;
+        .map((QuerySnapshot query) {
+      List<ClubIncome> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(ClubIncome.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Stream<List<ClubSpendings>> getClubSpendings() {
-    Stream<List<ClubSpendings>> pLista = _db
+    return  _firestore
         .collection('incomeSpendings')
         .orderBy('spentOnDate', descending: true)
         .snapshots()
-        .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => ClubSpendings.fromMap(doc.data, doc.documentID),
-              )
-              .toList(),
-        );
-    return pLista;
+        .map((QuerySnapshot query) {
+      List<ClubSpendings> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(ClubSpendings.fromMap(element,element.id));
+      });
+      return retVal;
+    });
   }
 
   Future<void> addSpendings(ClubSpendings clubSpendings) {
-    return _db.collection('ClubSpendings').add(clubSpendings.toMap());
+    return _firestore.collection('ClubSpendings').add(clubSpendings.toMap());
   }
 
   Future<void> addPlayers(Player player) {
-    return _db.collection('players').add(player.toMap());
+    return _firestore.collection('players').add(player.toMap());
   }
 
   Future<void> addPlayerScores(String collection, Player player) {
-    return _db
+    return _firestore
         .collection(collection.trim().toString())
         .add(player.toMapStats());
   }
 
   Future<void> addArchivePictures(ClubArcive clubArcive) {
-    return _db.collection('ClubPitureArchive').add(clubArcive.toMap());
+    return _firestore.collection('ClubPitureArchive').add(clubArcive.toMap());
   }
 
   Future<void> addPlayer(String collection, Player player) {
-    return _db.collection(collection.trim().toString()).add(player.toMap());
+    return _firestore.collection(collection.trim().toString()).add(player.toMap());
   }
 
   Future<void> addIncome(ClubIncome clubIncome) {
-    return _db.collection('ClubIncome').add(clubIncome.toMap());
+    return _firestore.collection('ClubIncome').add(clubIncome.toMap());
   }
 
   Future<void> addAnounce(Anounce anounce, String anouncecolection) {
-    return _db
+    return _firestore
         .collection(anouncecolection.toString().trim())
         .add(anounce.toMap());
   }
 
   Future<void> addMatch(MatchDay matchDay) {
-    return _db.collection('matchday').add(matchDay.toMap());
+    return _firestore.collection('matchday').add(matchDay.toMap());
   }
 
   Future<void> addComment(Comments comments) {
-    return _db.collection('remarks').add(comments.toMap());
+    return _firestore.collection('remarks').add(comments.toMap());
   }
 
   Future<void> addAhdath(AhdathModel ahdathModel) {
-    return _db.collection('Ahdath').add(ahdathModel.toMap());
+    return _firestore.collection('Ahdath').add(ahdathModel.toMap());
   }
 
   Future<void> deletePlayer(String id) {
-    return _db.collection('players').document(id).delete();
+    return _firestore.collection('players').doc(id).delete();
   }
 
   Future<void> deleteObject(String collection, String id) {
-    return _db.collection(collection.toString().trim()).document(id).delete();
+    return _firestore.collection(collection.toString().trim()).doc(id).delete();
   }
 
   Future<void> updatePlayer(String collection, Player player) {
-    return _db
+    return _firestore
         .collection(collection.trim().toString())
-        .document(player.id.toString())
-        .updateData(player.toMap());
+        .doc(player.id.toString())
+        .update(player.toMap());
   }
 
   Future<void> updateAnounce(Anounce anounce) {
-    return _db
+    return _firestore
         .collection('anounces')
-        .document(anounce.id.toString())
-        .updateData(anounce.toMap());
+        .doc(anounce.id.toString())
+        .update(anounce.toMap());
   }
 
   Future<void> addReply(Comments comments) {
-    return _db
+    return _firestore
         .collection('remarks')
-        .document(comments.id.toString())
-        .updateData(comments.toMapone());
+        .doc(comments.id.toString())
+        .update(comments.toMapone());
   }
 
   Future<void> updateMatch(MatchDay matchDay) {
-    return _db
+    return _firestore
         .collection('matchday')
-        .document(matchDay.id.toString())
-        .updateData(matchDay.toMap());
+        .doc(matchDay.id.toString())
+        .update(matchDay.toMap());
   }
 
   Future<void> updateSpendings(ClubSpendings clubSpendings) {
-    return _db
+    return _firestore
         .collection('ClubSpendings')
-        .document(clubSpendings.id.toString())
-        .updateData(clubSpendings.toMap());
+        .doc(clubSpendings.id.toString())
+        .update(clubSpendings.toMap());
   }
 
   Future<void> updateIncome(ClubIncome clubIncome) {
-    return _db
+    return _firestore
         .collection('ClubIncome')
-        .document(clubIncome.id.toString())
-        .updateData(clubIncome.toMap());
+        .doc(clubIncome.id.toString())
+        .update(clubIncome.toMap());
   }
 
   Future<void> updateArchivePiture(ClubArcive clubArcive) {
-    return _db
+    return _firestore
         .collection('ClubPitureArchive')
-        .document(clubArcive.id.toString())
-        .updateData(clubArcive.toMap());
+        .doc(clubArcive.id.toString())
+        .update(clubArcive.toMap());
   }
 
   Future<String> getProfileImage(BuildContext context, String image) async {

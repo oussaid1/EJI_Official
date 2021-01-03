@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Anounce {
   String id;
   String subject;
@@ -24,7 +26,7 @@ class Anounce {
     };
   }
 
-  Anounce.fromMap(Map<String, dynamic> map, String id)
+  Anounce.fromMap(DocumentSnapshot map, String id)
       : id = id,
         subject = map['subject'],
         anounceDate = map['anounceDate'],

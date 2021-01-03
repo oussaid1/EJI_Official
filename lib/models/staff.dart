@@ -1,6 +1,8 @@
 
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Staff {
   
   String id;
@@ -51,7 +53,7 @@ class Staff {
       'councellor3': counceler3,
     };
   }
-  Staff.fromMap(Map<String, dynamic> map, String id)
+  Staff.fromMap(DocumentSnapshot map, String id)
       : id = id,
         presedent = map['president'],
         chefExc = map['chefExec'],

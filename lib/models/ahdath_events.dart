@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AhdathModel {
   String id;
   String creationDate;
@@ -33,7 +35,7 @@ class AhdathModel {
     };
   }
 
-  AhdathModel.fromMap(Map<String, dynamic> map, String idno)
+  AhdathModel.fromMap(DocumentSnapshot  map, String idno)
       : id = idno,
         title = map['title'],
         creationDate = map['creationDate'],

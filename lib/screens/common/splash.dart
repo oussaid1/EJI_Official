@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:EJI/screens/login/root.dart';
 import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +16,9 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    // Timer(Duration(seconds: 4), () {  Get.to(LoginScreen());  });
+    Timer(Duration(seconds: 1), () {
+      Navigator.pushNamed(context, '/Root');
+    });
     super.initState();
   }
 
@@ -24,7 +29,7 @@ class _SplashPageState extends State<SplashPage> {
       body: InkWell(
         onTap: () => Navigator.push(
           context,
-          new MaterialPageRoute(builder: (context) => SignInScreen()),
+          new MaterialPageRoute(builder: (context) => Root()),
         ),
         child: Stack(
           fit: StackFit.expand,

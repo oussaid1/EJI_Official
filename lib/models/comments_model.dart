@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Comments {
   String id;
   String subject;
@@ -29,7 +31,7 @@ class Comments {
     };
   }
 
-  Comments.fromMap(Map<String, dynamic> map, String id)
+  Comments.fromMap(DocumentSnapshot map, String id)
       : id = id,
         subject = map['subject'],
         commentsDate = map['remarkdate'],

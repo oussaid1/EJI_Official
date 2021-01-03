@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+
 class AddPlayers extends StatefulWidget {
   final Player player;
   final int category;
@@ -631,9 +632,9 @@ class _AddPlayersState extends State<AddPlayers> {
   }
 
   final FirebaseStorage _storage =
-      FirebaseStorage(storageBucket: 'gs://eji-official.appspot.com/');
+  FirebaseStorage.instanceFor(bucket: 'gs://eji-official.appspot.com/');
 
-  StorageUploadTask _uploadTask;
+  var _uploadTask;
   double progressPercent = 0.5;
   bool isComplete = false;
 
@@ -766,7 +767,7 @@ class _AddPlayersState extends State<AddPlayers> {
   Widget _buildUpload(BuildContext context) {
     if (_uploadTask != null) {
       /// Manage the task state and event subscription with a StreamBuilder
-      return StreamBuilder<StorageTaskEvent>(
+      return StreamBuilder(
           stream: _uploadTask.events,
           builder: (_, snapshot) {
             var event = snapshot?.data?.snapshot;

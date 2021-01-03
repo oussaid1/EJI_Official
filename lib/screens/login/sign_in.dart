@@ -1,14 +1,12 @@
 import 'package:EJI/ad_manager.dart';
 import 'package:EJI/repository/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/screens/common/home_page.dart';
 import 'package:EJI/screens/login/sign_up.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -18,14 +16,10 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final CloudDatabase c = Get.put(CloudDatabase());
-  final AuthController dx = Get.put(AuthController());
-  final _loginformKey2 = GlobalKey<FormState>();
+  final AuthController authController = Get.put(AuthController());
+  final _loginFormKey2 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
-  var _googleSignIn = GoogleSignIn(
-    scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
-  );
-  GoogleSignInAccount googleSignInAccount;
 
   BannerAd myBanner;
 
@@ -93,7 +87,7 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
           Form(
-            key: _loginformKey2,
+            key: _loginFormKey2,
             child: Center(
               child: Container(
                 decoration: BoxDecoration(
@@ -137,8 +131,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   elevation: 0,
                                   color: secondaryColor,
                                   onPressed: () {
-                                    dx.isRegister.value = true;
-                                    dx.isSignIn.value = false;
+                                    authController.isRegister.value = true;
+                                    authController.isSignIn.value = false;
                                     Get.offAll(RegisterPage());
                                   },
                                   child: Text('Register',
@@ -274,17 +268,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                     fontWeight: FontWeight.w800,
                                     fontSize: 30.0,
                                     color: primaryColor)),
-                            onPressed: () async {
-                              if (emailController.text.trim() ==
-                                      c.adminEmail.value.toString() &&
-                                  passController.text.trim() ==
-                                      c.adminPassword.value.toString()) {
-                                c.setAdmin(true);
-
-                                Get.to(HomeCards());
-                              } else if (_loginformKey2.currentState
+                            onPressed: ()  {
+                             if (_loginFormKey2.currentState
                                   .validate()) {
-                                await dx.signInWithEmailAndPassword(
+                                 authController.login(
                                   emailController.text.trim(),
                                   passController.text.trim(),
                                 );
@@ -339,16 +326,8 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Future<void> _handleSignIn() async {
-    try {
-      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-      print('++++++${googleUser.email}');
-    } catch (error) {
-      print(error);
-    }
-  }
 
-  void _showDialogue() async {
+  void showDialogue() async {
     ProgressDialog pr = ProgressDialog(context);
     pr = ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
@@ -367,6 +346,6 @@ class _SignInScreenState extends State<SignInScreen> {
             color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600));
 
     pr.show().then((value) =>
-        dx.isSignedIn.value ? pr.hide() : pr.update(message: 'taking long'));
+        authController.isSignedIn.value ? pr.hide() : pr.update(message: 'taking long'));
   }
 }
