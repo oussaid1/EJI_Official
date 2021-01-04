@@ -1,5 +1,5 @@
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/repository/variables_controler.dart';
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

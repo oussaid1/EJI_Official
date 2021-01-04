@@ -1,3 +1,4 @@
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/models/club_archive.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
@@ -27,6 +28,7 @@ class _AddPictureState extends State<AddPicture> {
   String _spentOnDate;
 
   final CloudDatabase cv = Get.put(CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
   DateTime selectedDate = new DateTime.now();
   DateTime nowDate = new DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
@@ -296,7 +298,7 @@ class _AddPictureState extends State<AddPicture> {
                                         prefixIcon: Icon(Icons.lock)),
                                     onChanged: (value) {
                                       if (value.trim().toString() ==
-                                          cv.sperAdminPass.value
+                                          varController.sperAdminPass.value
                                               .toString()
                                               .trim()) {
                                         Navigator.pop(context);
@@ -339,7 +341,7 @@ class _AddPictureState extends State<AddPicture> {
                                       prefixIcon: Icon(Icons.lock)),
                                   onChanged: (value) {
                                     if (value.trim().toString() ==
-                                        cv.sperAdminPass.value
+                                        varController.sperAdminPass.value
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);

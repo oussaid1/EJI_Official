@@ -1,13 +1,23 @@
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/models/comments_model.dart';
 import 'package:EJI/models/matchday.dart';
-import 'package:EJI/models/player.dart';
+import 'package:EJI/models/players/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class VariablesControler extends GetxController {
+  RxDouble clubBudget = 0.0.obs;
+  RxBool isAdmin = false.obs;
+  RxBool isSuperAdmin = true.obs;
+  RxBool isComplete = true.obs;
+  RxString sperAdminPass = '1243'.obs;
+  RxString coachAdminPass = '532'.obs;
+  RxString presidentialPass = '12343'.obs;
+  var adminEmail = 'E20J19I'.obs;
+  var adminPassword = 'E20J19I'.obs;
+
   RxInt matchdayHomeScore = 0.obs;
   RxInt matchdayAwayScore = 0.obs;
   RxInt matchdayHomeRedC = 0.obs;
@@ -30,20 +40,17 @@ class VariablesControler extends GetxController {
   RxInt countSeniors = 0.obs;
   RxInt countJuniors = 0.obs;
   RxInt countCadets = 0.obs;
-  RxDouble clubBudget = 0.0.obs;
+
   RxDouble clubIncome = 0.0.obs;
   RxDouble clubSpendings = 0.0.obs;
-  RxBool isAdmin = false.obs;
-  RxBool isSuperAdmin = false.obs;
-  RxBool isComplete = false.obs;
+
   RxBool isValid = false.obs;
   RxString superAdminPass = '1243'.obs;
   RxString coachPass = '532'.obs;
-  RxString presidentialPass = '12343'.obs;
+
   var email = 'Idawlstane'.obs;
   var password = 'Idawlstane'.obs;
-  var adminEmail = 'EJ2019I'.obs;
-  var adminPassword = 'EJ2019I'.obs;
+
   RxList<Player> players = RxList<Player>();
   RxList<MatchDay> matchDay = RxList<MatchDay>();
   RxList<ClubIncome> clubIncomes = RxList<ClubIncome>();
@@ -58,7 +65,7 @@ class VariablesControler extends GetxController {
       isAdmin.value = mBox.read('adminkey');
     }
     players.bindStream(db.getPlayers('Players'));
-
+super.onInit();
   }
 
   setAdmin(bool adminkey) {

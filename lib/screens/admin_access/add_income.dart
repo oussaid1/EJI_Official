@@ -1,3 +1,4 @@
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
@@ -25,7 +26,8 @@ class _AddSpendingsState extends State<AddIncome> {
 
   String _givenOnDate;
 
-  final CloudDatabase cv = Get.put(CloudDatabase());
+  final CloudDatabase db = (CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
   DateTime selectedDate = new DateTime.now();
   DateTime nowDate = new DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
@@ -51,7 +53,7 @@ class _AddSpendingsState extends State<AddIncome> {
         givenOnDate: givenOnDateController.text,
         givenAmount: int.parse(givenAmountControler.text.trim()));
 
-    cv.addIncome(clubIncome);
+    db.addIncome(clubIncome);
   }
 
   _updateInCloud() {
@@ -62,7 +64,7 @@ class _AddSpendingsState extends State<AddIncome> {
         givenOnDate: givenOnDateController.text,
         givenAmount: int.parse(givenAmountControler.text.trim()));
 
-    cv.updateIncome(clubIncome);
+    db.updateIncome(clubIncome);
   }
 
   Widget _buildSpentOn() {
@@ -341,7 +343,7 @@ class _AddSpendingsState extends State<AddIncome> {
                                         prefixIcon: Icon(Icons.lock)),
                                     onChanged: (value) {
                                       if (value.trim().toString() ==
-                                          cv.sperAdminPass.value
+                                          varController.sperAdminPass.value
                                               .toString()
                                               .trim()) {
                                         Navigator.pop(context);
@@ -384,11 +386,11 @@ class _AddSpendingsState extends State<AddIncome> {
                                       prefixIcon: Icon(Icons.lock)),
                                   onChanged: (value) {
                                     if (value.trim().toString() ==
-                                        cv.sperAdminPass.value
+                                        varController.sperAdminPass.value
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);
-                                      cv.deleteObject(
+                                      db.deleteObject(
                                           'ClubIncome', widget.clubIncome.id);
                                       _flushAll();
                                     }

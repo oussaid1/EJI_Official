@@ -1,6 +1,6 @@
 import 'package:EJI/models/comments_model.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/repository/variables_controler.dart';
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/screens/common/add_comment.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';

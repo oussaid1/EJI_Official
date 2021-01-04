@@ -1,6 +1,6 @@
 import 'package:EJI/models/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/repository/variables_controler.dart';
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -44,7 +44,7 @@ class _AddTrainingState extends State<AddTraining> {
       responsible: responsibleControler.text.trim(),
       trainingDate: dateControler.text,
     );
-  //  db.addTraining(trainingDay);
+   db.addTraining(trainingDay);
   }
 
   Widget _buildTrainingDate() {

@@ -4,30 +4,21 @@ import 'package:EJI/models/club_archive.dart';
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/models/comments_model.dart';
 import 'package:EJI/models/matchday.dart';
-import 'package:EJI/models/player.dart';
+import 'package:EJI/models/players/player.dart';
 
 import 'package:EJI/models/staff.dart';
+import 'package:EJI/models/training_day.dart';
 import 'package:EJI/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:get_storage/get_storage.dart';
 
 class CloudDatabase extends GetxController {
-  RxDouble clubBudget = 0.0.obs;
-  RxBool isAdmin = false.obs;
-  RxBool isSuperAdmin = true.obs;
-  RxBool isComplete = true.obs;
-  RxString sperAdminPass = '1243'.obs;
-  RxString coachAdminPass = '532'.obs;
-  RxString presidentialPass = '12343'.obs;
-  var adminEmail = 'E20J19I'.obs;
-  var adminPassword = 'E20J19I'.obs;
+
   final _firestore = FirebaseFirestore.instance;
-  setBudget(double d) => clubBudget.value = d;
- 
+
   Future<bool> createNewUser(UserModel user) async {
     try {
       await _firestore.collection("users").doc(user.id).set({
@@ -53,13 +44,7 @@ class CloudDatabase extends GetxController {
     }
   }
 
-  setAdmin(bool adminkey) {
-    isAdmin.value = adminkey;
-    GetStorage mBox = GetStorage();
-    mBox
-        .write('adminkey', adminkey)
-        .then((value) => isAdmin.value = mBox.read('adminkey'));
-  }
+
 
   static Future<dynamic> loadFromStorage(String image) async {
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
@@ -136,6 +121,47 @@ class CloudDatabase extends GetxController {
       });
       return retVal;
     });
+  }
+  Stream<List<MatchDay>> getMatchStatusHome() {
+    return _firestore
+        .collection('matchday')
+        .where('matchdayhome', isEqualTo: 'شباب ‏اداولسطان')
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+          .map(
+            (doc) => MatchDay.fromMap(doc, doc.id),
+      )
+          .toList(),
+    );
+  }
+
+  Stream<List<MatchDay>> getMatchStatusAway() {
+    return _firestore
+        .collection('matchday')
+        .where('matchdayaway', isEqualTo: 'شباب ‏اداولسطان')
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+          .map(
+            (doc) => MatchDay.fromMap(doc, doc.id),
+      )
+          .toList(),
+    );
+  }
+
+  Stream<List<MatchDay>> gettha() {
+    return _firestore
+        .collection('matchday')
+        .where('matchdayaway', isEqualTo: 'شباب ‏اداولسطان')
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+          .map(
+            (doc) => MatchDay.fromMap(doc, doc.id),
+      )
+          .toList(),
+    );
   }
 
   Stream<List<Anounce>> getAnounces(String collectionName) {
@@ -233,7 +259,11 @@ class CloudDatabase extends GetxController {
       return retVal;
     });
   }
-
+  Future<void> adAllToDb(List<Player> j) async {
+    for (var i = 0; i < j.length; i++) {
+      _firestore.collection('Senior').add(j[i].toMap());
+    }
+  }
   Future<void> addSpendings(ClubSpendings clubSpendings) {
     return _firestore.collection('ClubSpendings').add(clubSpendings.toMap());
   }
@@ -255,7 +285,9 @@ class CloudDatabase extends GetxController {
   Future<void> addPlayer(String collection, Player player) {
     return _firestore.collection(collection.trim().toString()).add(player.toMap());
   }
-
+  Future<void> addTraining(TrainingDay trainingDay) {
+    return _firestore.collection('TrainingDay').add(trainingDay.toMap());
+  }
   Future<void> addIncome(ClubIncome clubIncome) {
     return _firestore.collection('ClubIncome').add(clubIncome.toMap());
   }

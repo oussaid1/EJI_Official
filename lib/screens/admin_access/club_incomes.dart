@@ -1,3 +1,4 @@
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_income.dart';
@@ -20,12 +21,13 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
   List<ClubIncome> selectedclubIncome;
   bool sort;
   int rowIndex;
-  final CloudDatabase c = Get.put(CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
+  final db = CloudDatabase();
   @override
   void initState() {
     sort = false;
     selectedclubIncome = [];
-    //clubSpendings = ClubSpendings.getSpendings();
+
     super.initState();
   }
 
@@ -33,7 +35,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: c.isAdmin.value
+      floatingActionButton: varController.isAdmin.value
           ? Padding(
               padding: const EdgeInsets.fromLTRB(8, 8, 8, 50),
               child: FloatingActionButton(
@@ -56,7 +58,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
           : null,
       body: Center(
         child: StreamBuilder(
-            stream: c.getClubIncomes(),
+            stream: db.getClubIncomes(),
             builder: (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
               if (!snapshot.hasData || snapshot.hasError) {
                 return Container(
@@ -121,7 +123,7 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                               selected: selectedclubIncome.contains(clubIncome),
                               cells: [
                                 DataCell(Text(clubIncome.givenFor.toString()),
-                                    onTap: () => c.isAdmin.value
+                                    onTap: () => varController.isAdmin.value
                                         ? Get.to(AddIncome(
                                             clubIncome: clubIncome,
                                           ))

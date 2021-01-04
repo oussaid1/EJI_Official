@@ -1,7 +1,6 @@
 // ignore: unused_import
 import 'package:EJI/models/club_expenses.dart';
-import 'package:EJI/repository/auth/auth_controler.dart';
-import 'package:EJI/repository/cloud_database.dart';
+import 'package:EJI/controllers/auth_controler.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
 import 'package:EJI/screens/common/picture_archive_list.dart';
 import 'package:EJI/screens/common/anounces_tab.dart';
@@ -10,7 +9,6 @@ import 'package:EJI/screens/admin_access/club_transactions.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';
-import 'package:EJI/screens/common/staff_screen.dart';
 import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
@@ -29,17 +27,6 @@ class AdminDrawer extends StatefulWidget {
 class _AdminDrawerState extends State<AdminDrawer> {
   final String image = "players/profileImages/ejilogo.png";
 
-  final CloudDatabase cD = Get.put(CloudDatabase());
-  final AuthController dx = Get.put(AuthController());
-
-  List<ClubSpendings> clubSpendings;
-
-  List<ClubIncome> clubIncome;
-
-  double d = 0;
-
-  double c = 0;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,47 +39,19 @@ class _AdminDrawerState extends State<AdminDrawer> {
           child: ListView(
             children: [
               UserAccountsDrawerHeader(
-                accountName: StreamBuilder(
-                    stream: cD.getClubSpendings(),
-                    builder:
-                        (context, AsyncSnapshot<List<ClubSpendings>> snapshot) {
-                      if (!snapshot.hasData || snapshot.hasError) {
-                        return Text("EJI Idawlstane");
-                      } else
-                        clubSpendings = snapshot.data;
-                      d = cD
-                          .setBudget(ClubSpendings.getSpendings(clubSpendings));
-                      return Text(
+                accountName:  Text(
                         "EJI Idawlstane",
                         style: TextStyle(color: fontColor),
-                      );
-                    }),
-                accountEmail: StreamBuilder(
-                    stream: cD.getClubIncomes(),
-                    builder:
-                        (context, AsyncSnapshot<List<ClubIncome>> snapshot) {
-                      if (!snapshot.hasData || snapshot.hasError) {
-                        return Text(
-                          'EJIBudget'.tr + 'DH ' + '-- ',
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: accentColor),
-                        );
-                      } else
-                        clubIncome = snapshot.data;
-                      c = ClubIncome.getIncome(clubIncome);
+                      ),
 
-                      return Text(
-                        'EJIBudget'.tr + 'DH ' '${(c - d).toString()} ',
+                accountEmail: Text(
+                        'EJIBudget'.tr ,
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
                             color: accentColor),
-                      );
-                    }),
+                      ),
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: secondaryColor,
                   child: Image.asset(
@@ -100,10 +59,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                     fit: BoxFit.fill,
                   ),
                 ),
-                otherAccountsPictures: [
-                  //     Text('Sign-Out',style: TextStyle(fontSize:18,fontWeight: FontWeight.w400,color: fontColor),),
-                  //    IconButton(icon: Icon(FontAwesomeIcons.powerOff, size: 24,color: secondaryColor,), onPressed: (){}),
-                ],
+
               ),
               ListTile(
                 leading: Icon(Icons.people),
@@ -178,7 +134,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 subtitle: Text('SignOutsub'.tr),
                 leading: Icon(Icons.exit_to_app),
                 title: Text('SignOut'.tr),
-                onTap: () => dx.signOut(),
+                onTap: () => AuthController().signOut(),
               ),
             ],
           ),

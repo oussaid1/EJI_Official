@@ -2,7 +2,7 @@ import 'package:EJI/models/club_expenses.dart';
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/models/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/repository/variables_controler.dart';
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/screens/common/team_tab.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
@@ -27,10 +27,8 @@ class _TeamPageState extends State<TeamPage> {
   final  varController = Get.put(VariablesControler());
 
   List<ClubSpendings> clubSpendings;
-  List _listCountHome = List<MatchDay>();
-  List _listCountAway = List<MatchDay>();
+
   List _list2 = List<MatchDay>();
-  List _listTraining = List<TrainingDay>();
   List<ClubIncome> clubIncome;
   double d = 0;
   double c = 0;

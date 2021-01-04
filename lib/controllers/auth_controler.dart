@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../cloud_database.dart';
+import '../repository/cloud_database.dart';
 
 class AuthController extends GetxController {
   BuildContext context;

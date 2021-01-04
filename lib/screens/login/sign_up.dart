@@ -1,10 +1,8 @@
-import 'package:EJI/repository/auth/auth_controler.dart';
+import 'package:EJI/controllers/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/login/login_tab.dart';
-import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SignupPage extends StatefulWidget {
@@ -56,7 +54,7 @@ class _SignupPageState extends State<SignupPage> {
             child: Center(
               child: Container(
                 decoration: BoxDecoration(
-                  color: primaryColor.withOpacity(0.9),
+                  color: primaryColor.withOpacity(0.4),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 width: Get.width - 40,

@@ -1,3 +1,4 @@
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';
@@ -9,14 +10,14 @@ class SquadManagmentTab extends StatelessWidget {
   SquadManagmentTab({Key key}) : super(key: key);
 
   final TextEditingController codeControler = TextEditingController();
-  final CloudDatabase c = Get.put(CloudDatabase());
-
+  final CloudDatabase db = (CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        drawer: c.isAdmin.value ? AdminDrawer() : MyDrawer(),
+        drawer: varController.isAdmin.value ? AdminDrawer() : MyDrawer(),
         appBar: AppBar(
           elevation: 0,
           bottom: TabBar(

@@ -1,6 +1,7 @@
-import 'package:EJI/models/player.dart';
+import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/models/players/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/repository/player_ratings_Controler.dart';
+import 'package:EJI/controllers/player_ratings_Controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,7 +21,8 @@ class ScoreBoard extends StatefulWidget {
 class _ScoreBoardState extends State<ScoreBoard> {
   DateTime nowDate = new DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
-  CloudDatabase c = Get.put(CloudDatabase());
+  final CloudDatabase c = (CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
   String _id;
   PlayerRatingsControler prc = Get.put(PlayerRatingsControler());
 
@@ -353,7 +355,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                                           prefixIcon: Icon(Icons.lock)),
                                       onChanged: (value) {
                                         if (value.trim().toString() ==
-                                            c.coachAdminPass.value
+                                            varController.coachAdminPass.value
                                                 .toString()
                                                 .trim()) {
                                           Navigator.pop(context);

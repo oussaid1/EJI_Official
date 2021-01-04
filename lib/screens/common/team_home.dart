@@ -1,3 +1,4 @@
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/models/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/add_match.dart';
@@ -19,7 +20,8 @@ class _TeamHomePageState extends State<TeamHomePage> {
   List<MatchDay> lista;
 
   bool isSwitched = false;
-  final CloudDatabase c = Get.put(CloudDatabase());
+  final CloudDatabase db = (CloudDatabase());
+  final VariablesControler varController = Get.put(VariablesControler());
   bool isEconomicMode;
   double limit = 400;
   GetStorage mBox = GetStorage();
@@ -38,7 +40,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
       children: [
         new Image.asset('assets/images/login.png', fit: BoxFit.fill),
         StreamBuilder(
-            stream: c.getMatchDays('matchday'),
+            stream: db.getMatchDays('matchday'),
             builder:
                 (BuildContext context, AsyncSnapshot<List<MatchDay>> snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {
@@ -150,7 +152,7 @@ class _TeamHomePageState extends State<TeamHomePage> {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
-                                      c.isAdmin.value
+                                      varController.isAdmin.value
                                           ? IconButton(
                                               icon: Icon(
                                                 Icons.edit,

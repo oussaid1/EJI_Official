@@ -1,4 +1,4 @@
-import 'package:EJI/repository/auth/auth_controler.dart';
+import 'package:EJI/controllers/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/login/root.dart';
 import 'package:EJI/screens/login/sign_up.dart';

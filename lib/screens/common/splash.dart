@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:EJI/screens/login/login_tab.dart';
-import 'package:EJI/screens/login/sign_in.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';

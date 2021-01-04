@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:EJI/models/player.dart';
+import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/models/players/player.dart';
 
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
@@ -29,7 +30,8 @@ class AddPlayers extends StatefulWidget {
 }
 
 class _AddPlayersState extends State<AddPlayers> {
-  final CloudDatabase cD = Get.put(CloudDatabase());
+  final VariablesControler cD = Get.put(VariablesControler());
+  final  db = (CloudDatabase());
 
   String _id;
   String _profileImage = "players/profileImages/ejilogo.png";
@@ -148,11 +150,11 @@ class _AddPlayersState extends State<AddPlayers> {
       rateable: _rateable,
     );
     if (widget.category == 1) {
-      await cD.addPlayer('Players', pL1);
+      await db.addPlayer('Players', pL1);
     } else if (widget.category == 2) {
-      await cD.addPlayer('Juniors', pL1);
+      await db.addPlayer('Juniors', pL1);
     } else if (widget.category == 3) {
-      await cD.addPlayer('Cadet', pL1);
+      await db.addPlayer('Cadet', pL1);
     }
   }
 
@@ -177,11 +179,11 @@ class _AddPlayersState extends State<AddPlayers> {
       rateable: _rateable,
     );
     if (widget.category == 1) {
-      await cD.updatePlayer('Players', pLEdited);
+      await db.updatePlayer('Players', pLEdited);
     } else if (widget.category == 2) {
-      await cD.updatePlayer('Juniors', pLEdited);
+      await db.updatePlayer('Juniors', pLEdited);
     } else if (widget.category == 3) {
-      await cD.updatePlayer('Seniors', pLEdited);
+      await db.updatePlayer('Seniors', pLEdited);
     }
   }
 

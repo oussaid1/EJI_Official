@@ -1,6 +1,6 @@
-import 'package:EJI/models/player.dart';
+import 'package:EJI/models/players/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/repository/variables_controler.dart';
+import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
