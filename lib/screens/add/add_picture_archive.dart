@@ -1,5 +1,5 @@
 import 'package:EJI/controllers/variables_controler.dart';
-import 'package:EJI/models/club_expenses.dart';
+import 'package:EJI/models/club/club_archive.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -7,26 +7,27 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
-class AddIncome extends StatefulWidget {
-  AddIncome({Key key, this.clubIncome}) : super(key: key);
-  final ClubIncome clubIncome;
+class AddPicture extends StatefulWidget {
+  AddPicture({Key key, this.clubArcive}) : super(key: key);
+  final ClubArcive clubArcive;
   @override
-  _AddSpendingsState createState() => _AddSpendingsState();
+  _AddPictureState createState() => _AddPictureState();
 }
 
-class _AddSpendingsState extends State<AddIncome> {
-  final TextEditingController givenForControler = TextEditingController();
-  final TextEditingController givenAmountControler = TextEditingController();
-  final TextEditingController givenByControler = TextEditingController();
-  final TextEditingController givenOnDateController = TextEditingController();
+class _AddPictureState extends State<AddPicture> {
+  final TextEditingController imageLocationControler = TextEditingController();
+  final TextEditingController imageByControler = TextEditingController();
+
+  final TextEditingController imageYearControler = TextEditingController();
   final DateFormat mformatter = DateFormat('yyyy-MM-dd');
   final GlobalKey<FormState> _commentformKey = GlobalKey();
 
   String _id;
+  int _thumbsUp = 0;
+  int _thumbsDown = 0;
+  String _spentOnDate;
 
-  String _givenOnDate;
-
-  final CloudDatabase db = (CloudDatabase());
+  final CloudDatabase cv = Get.put(CloudDatabase());
   final VariablesControler varController = Get.put(VariablesControler());
   DateTime selectedDate = new DateTime.now();
   DateTime nowDate = new DateTime.now();
@@ -40,31 +41,33 @@ class _AddSpendingsState extends State<AddIncome> {
     );
     if (picked != null && picked != selectedDate) {
       setState(() {
-        _givenOnDate = formatter.format(picked).toString();
-        givenOnDateController.text = _givenOnDate;
+        _spentOnDate = formatter.format(picked).toString();
+        imageYearControler.text = _spentOnDate;
       });
     }
   }
 
   _saveToCloud() {
-    ClubIncome clubIncome = new ClubIncome(
-        givenFor: givenForControler.text.toString().trim(),
-        givenBy: givenByControler.text.trim().toString(),
-        givenOnDate: givenOnDateController.text,
-        givenAmount: int.parse(givenAmountControler.text.trim()));
-
-    db.addIncome(clubIncome);
+    ClubArcive clubArcive = new ClubArcive(
+      imageLocation: imageLocationControler.text.toString().trim(),
+      takenBy: imageByControler.text.trim().toString(),
+      season: imageYearControler.text,
+      thumbsUp: _thumbsUp,
+      thumbsDown: _thumbsDown,
+    );
+    cv.addArchivePictures(clubArcive);
   }
 
   _updateInCloud() {
-    ClubIncome clubIncome = new ClubIncome(
-        id: _id,
-        givenFor: givenForControler.text.toString().trim(),
-        givenBy: givenByControler.text.trim().toString(),
-        givenOnDate: givenOnDateController.text,
-        givenAmount: int.parse(givenAmountControler.text.trim()));
-
-    db.updateIncome(clubIncome);
+    ClubArcive clubArcive = new ClubArcive(
+      id: _id,
+      imageLocation: imageLocationControler.text.toString().trim(),
+      takenBy: imageByControler.text.trim().toString(),
+      season: imageYearControler.text,
+      thumbsUp: _thumbsUp,
+      thumbsDown: _thumbsDown,
+    );
+    cv.updateArchivePiture(clubArcive);
   }
 
   Widget _buildSpentOn() {
@@ -76,18 +79,18 @@ class _AddSpendingsState extends State<AddIncome> {
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
-            return ('insertGivenFor'.tr);
+            return ('insertImageLocation'.tr);
           }
           return null;
         },
-        controller: givenForControler,
+        controller: imageLocationControler,
         autofocus: true,
         decoration: InputDecoration(
             prefixIcon: Icon(
               Icons.shopping_cart,
               color: secondaryColor,
             ),
-            hintText: ('insertGivenFor'.tr),
+            hintText: ('insertImageLocation'.tr),
             fillColor: primaryColor,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -116,7 +119,7 @@ class _AddSpendingsState extends State<AddIncome> {
       width: 300,
       child: TextFormField(
         readOnly: true,
-        controller: givenOnDateController,
+        controller: imageYearControler,
         style: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         textAlign: TextAlign.center,
@@ -146,11 +149,11 @@ class _AddSpendingsState extends State<AddIncome> {
               _selectDate(context);
             },
           ),
-          hintText: 'DateGiven'.tr,
+          hintText: 'DateTaken'.tr,
         ),
         validator: (value) {
           if (value.length == 0) {
-            return 'selectDateGivenOn'.tr;
+            return 'selectDateTaken'.tr;
           } else
             return null;
         },
@@ -167,14 +170,14 @@ class _AddSpendingsState extends State<AddIncome> {
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
-            return ('insertYourname'.tr);
+            return ('insertTakenBy'.tr);
           }
           return null;
         },
-        controller: givenByControler,
+        controller: imageByControler,
         autofocus: true,
         decoration: InputDecoration(
-            hintText: ('insertYourname'.tr),
+            hintText: ('insertTakenBy'.tr),
             prefixIcon: Icon(
               Icons.person_pin,
               color: secondaryColor,
@@ -202,60 +205,15 @@ class _AddSpendingsState extends State<AddIncome> {
     );
   }
 
-  Widget _buildspentAmount() {
-    return SizedBox(
-      width: 300,
-      child: TextFormField(
-        keyboardType: TextInputType.number,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
-        validator: (text) {
-          if (text.isEmpty) {
-            return ('insertGivenAmount'.tr);
-          }
-
-          return null;
-        },
-        controller: givenAmountControler,
-        autofocus: true,
-        decoration: InputDecoration(
-            fillColor: primaryColor,
-            filled: true,
-            prefixIcon: Icon(
-              Icons.monetization_on,
-              color: secondaryColor,
-            ),
-            hintText: ('insertGivenAmount'.tr),
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            labelStyle: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
-            focusColor: accentColor,
-            hintStyle: TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                  color: accentColor, style: BorderStyle.solid, width: 1),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                  color: accentColor, style: BorderStyle.solid, width: 1),
-            ),
-            contentPadding: EdgeInsets.all(8)),
-      ),
-    );
-  }
-
   @override
   void initState() {
-    if (widget.clubIncome != null) {
-      _id = widget.clubIncome.id;
-      givenForControler.text = widget.clubIncome.givenFor;
-      givenOnDateController.text = widget.clubIncome.givenOnDate;
-      givenAmountControler.text = widget.clubIncome.givenAmount.toString();
-      givenByControler.text = widget.clubIncome.givenBy;
+    if (widget.clubArcive != null) {
+      _id = widget.clubArcive.id;
+      imageLocationControler.text = widget.clubArcive.imageLocation;
+      imageByControler.text = widget.clubArcive.takenBy;
+      imageYearControler.text = widget.clubArcive.season;
+      _thumbsUp = widget.clubArcive.thumbsUp;
+      _thumbsDown = widget.clubArcive.thumbsUp;
     }
     super.initState();
   }
@@ -278,40 +236,37 @@ class _AddSpendingsState extends State<AddIncome> {
             SizedBox(
               height: 6,
             ),
-            _buildspentAmount(),
-            SizedBox(
-              height: 6,
-            ),
             _buildSpentOnDate(context),
             SizedBox(
               height: 20,
             ),
-            widget.clubIncome == null
+            widget.clubArcive == null
                 ? Container(
                     width: 300,
-                    height: 50,
+                    height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(color: primaryColor)),
                       color: secondaryColor,
-                      child: Text('Save'.tr,
+                      child: Text('Send'.tr,
                           style: TextStyle(
-                              fontSize: 26,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
-                              color: primaryColor)),
+                              color: fontColor)),
                       onPressed: () {
                         if (_commentformKey.currentState.validate()) {
                           _saveToCloud();
                           _flushAll();
                           Get.snackbar('Succsess'.tr, 'Saved'.tr,
                               snackPosition: SnackPosition.BOTTOM);
-                        } else
+                        } else {
                           Get.snackbar('Error'.tr, 'notsaved'.tr,
                               snackPosition: SnackPosition.BOTTOM);
+                        }
                       },
                     ),
                   )
@@ -337,7 +292,7 @@ class _AddSpendingsState extends State<AddIncome> {
                             onPressed: () {
                               if (_commentformKey.currentState.validate()) {
                                 Get.defaultDialog(
-                                  title: 'SuperAdmin'.tr,
+                                  title: 'SperAdmin'.tr,
                                   content: TextField(
                                     decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.lock)),
@@ -390,8 +345,8 @@ class _AddSpendingsState extends State<AddIncome> {
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);
-                                      db.deleteObject(
-                                          'ClubIncome', widget.clubIncome.id);
+                                      cv.deleteObject('ClubPitureArchive',
+                                          widget.clubArcive.id);
                                       _flushAll();
                                     }
                                   },
@@ -408,9 +363,8 @@ class _AddSpendingsState extends State<AddIncome> {
   }
 
   _flushAll() {
-    givenForControler.clear();
-    givenOnDateController.clear();
-    givenAmountControler.clear();
-    givenByControler.clear();
+    imageYearControler.clear();
+    imageByControler.clear();
+    imageLocationControler.clear();
   }
 }

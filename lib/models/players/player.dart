@@ -22,9 +22,10 @@ class Player {
   int oVR;
   bool rateable;
   bool isGK;
-  getoVR() {
+  get overAllRating {
     return trainingScore + desciplineScore + positionMaster + availability;
   }
+  List<Player> players=[];
 
   Player.dummy(String pos) {
     this.id = '111111';
@@ -46,6 +47,7 @@ class Player {
     this.rateable = true;
     this.isGK = false;
   }
+  Player.full(this.players);
   Player({
     this.id,
     this.count=1,
@@ -66,9 +68,7 @@ class Player {
     this.trainingScore,
     this.rateable,
     this.isGK,
-  }) {
-    this.oVR = trainingScore + desciplineScore + positionMaster + availability;
-  }
+  }) ;
   Player.stats({
     this.id,
     this.playerName,
@@ -159,7 +159,6 @@ class Player {
     for (var i = 0; i < player.length; i++) {
       sum += player[i].count ?? 0;
     }
-
     return sum;
   }
 }

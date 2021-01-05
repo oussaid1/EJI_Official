@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class TrainingDay {
   String id;
   int count;
@@ -33,7 +35,7 @@ class TrainingDay {
     return g;
   }
 
-  TrainingDay.fromMap(Map<String, dynamic> map, String id)
+  TrainingDay.fromMap(DocumentSnapshot map, String id)
       : id = id,
         attendees = map['attendees'],
         trainingDate = map['trainingDate'],

@@ -1,5 +1,5 @@
 import 'package:EJI/controllers/user_controller.dart';
-import 'package:EJI/models/user.dart';
+import 'package:EJI/models/user/user.dart';
 import 'package:EJI/controllers/auth_controler.dart';
 import 'package:EJI/screens/common/team_page.dart';
 import 'package:EJI/screens/login/login_tab.dart';

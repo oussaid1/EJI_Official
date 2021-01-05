@@ -1,7 +1,7 @@
-import 'package:EJI/models/club_expenses.dart';
+import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/controllers/variables_controler.dart';
-import 'package:EJI/screens/admin_access/club_transactions.dart';
+import 'package:EJI/screens/tabs/club_transactions.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';

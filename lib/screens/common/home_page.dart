@@ -1,4 +1,4 @@
-import 'package:EJI/models/club_expenses.dart';
+import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
 import 'package:EJI/settings/params.dart';

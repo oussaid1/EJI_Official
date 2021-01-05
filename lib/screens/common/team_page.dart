@@ -1,9 +1,9 @@
-import 'package:EJI/models/club_expenses.dart';
-import 'package:EJI/models/matchday.dart';
-import 'package:EJI/models/training_day.dart';
+import 'package:EJI/models/finance/club_expenses.dart';
+import 'package:EJI/models/team/matchday.dart';
+import 'package:EJI/models/team/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/controllers/variables_controler.dart';
-import 'package:EJI/screens/common/team_tab.dart';
+import 'package:EJI/screens/tabs/team_tab.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';

@@ -1,11 +1,11 @@
-import 'package:EJI/models/anounce.dart';
+import 'package:EJI/models/communication/anounce.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../admin_access/add_anounce.dart';
+import '../add/add_anounce.dart';
 
 class AnouncesScreen extends StatelessWidget {
   AnouncesScreen({

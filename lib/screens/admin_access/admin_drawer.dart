@@ -1,11 +1,11 @@
 // ignore: unused_import
-import 'package:EJI/models/club_expenses.dart';
+import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/controllers/auth_controler.dart';
-import 'package:EJI/screens/admin_access/add_match.dart';
+import 'package:EJI/screens/add/add_match.dart';
 import 'package:EJI/screens/common/picture_archive_list.dart';
-import 'package:EJI/screens/common/anounces_tab.dart';
+import 'package:EJI/screens/tabs/anounces_tab.dart';
 import 'package:EJI/screens/common/playerlist_tab.dart';
-import 'package:EJI/screens/admin_access/club_transactions.dart';
+import 'package:EJI/screens/tabs/club_transactions.dart';
 import 'package:EJI/screens/common/comments_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';

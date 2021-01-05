@@ -1,6 +1,6 @@
-import 'package:EJI/models/club_expenses.dart';
-import 'package:EJI/models/comments_model.dart';
-import 'package:EJI/models/matchday.dart';
+import 'package:EJI/models/finance/club_expenses.dart';
+import 'package:EJI/models/communication/comments_model.dart';
+import 'package:EJI/models/team/matchday.dart';
 import 'package:EJI/models/players/player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 

@@ -1,4 +1,4 @@
-import 'package:EJI/models/anounce.dart';
+import 'package:EJI/models/communication/anounce.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';

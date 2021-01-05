@@ -1,4 +1,4 @@
-import 'package:EJI/models/comments_model.dart';
+import 'package:EJI/models/communication/comments_model.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';

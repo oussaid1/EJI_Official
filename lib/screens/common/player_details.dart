@@ -5,9 +5,9 @@ import 'package:EJI/models/players/player.dart';
 
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/controllers/variables_controler.dart';
-import 'package:EJI/screens/admin_access/add_dialogue.dart';
+import 'package:EJI/screens/add/add_dialogue.dart';
 
-import 'package:EJI/screens/admin_access/scoreboard.dart';
+import 'package:EJI/widgets/scoreboard.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:cached_network_image/cached_network_image.dart';

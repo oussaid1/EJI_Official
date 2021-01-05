@@ -1,14 +1,14 @@
-import 'package:EJI/models/ahdath_events.dart';
-import 'package:EJI/models/anounce.dart';
-import 'package:EJI/models/club_archive.dart';
-import 'package:EJI/models/club_expenses.dart';
-import 'package:EJI/models/comments_model.dart';
-import 'package:EJI/models/matchday.dart';
+import 'package:EJI/models/communication/ahdath_events.dart';
+import 'package:EJI/models/communication/anounce.dart';
+import 'package:EJI/models/club/club_archive.dart';
+import 'package:EJI/models/finance/club_expenses.dart';
+import 'package:EJI/models/communication/comments_model.dart';
+import 'package:EJI/models/team/matchday.dart';
 import 'package:EJI/models/players/player.dart';
 
-import 'package:EJI/models/staff.dart';
-import 'package:EJI/models/training_day.dart';
-import 'package:EJI/models/user.dart';
+import 'package:EJI/models/administration/staff.dart';
+import 'package:EJI/models/team/training_day.dart';
+import 'package:EJI/models/user/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -79,8 +79,8 @@ class CloudDatabase extends GetxController {
     });
   }
 
-  Stream<List<Player>> getPlayerStats() {
-    return _firestore.collection('statisticPlayer').snapshots()
+  Stream<List<Player>> getPlayerStats(String playerStats) {
+    return _firestore.collection(playerStats.trim()).snapshots()
         .map((QuerySnapshot query) {
       List<Player> retVal = List();
       query.docs.forEach((element) {
@@ -166,10 +166,7 @@ class CloudDatabase extends GetxController {
 
   Stream<List<Anounce>> getAnounces(String collectionName) {
    return  _firestore
-        .collection(collectionName.toString())
-        .orderBy(
-          'anounceDate',
-        )
+        .collection('announces')
         .snapshots()
         .map((QuerySnapshot query) {
       List<Anounce> retVal = List();
@@ -193,7 +190,7 @@ class CloudDatabase extends GetxController {
 
   Stream<List<MatchDay>> getMatchDays(String collectionName) {
     return _firestore
-        .collection(collectionName.toString())
+        .collection('matchday')
         .orderBy('matchdaydate', descending: true)
         .snapshots()
         .map((QuerySnapshot query) {
@@ -208,7 +205,6 @@ class CloudDatabase extends GetxController {
   Stream<List<Comments>> getComments(String collectionName) {
   return _firestore
         .collection(collectionName.toString())
-        .orderBy('remarkdate', descending: true)
         .snapshots()
         .map((QuerySnapshot query) {
       List<Comments> retVal = List();
@@ -231,11 +227,22 @@ class CloudDatabase extends GetxController {
               });
   }
 
-  Stream<List<ClubIncome>> getClubIncomes() {
+  Stream<List<TrainingDay>> getTrainingDays() {
+    return
+    _firestore
+        .collection('TrainingDay')
+        .snapshots()
+        .map((QuerySnapshot query) {
+      List<TrainingDay> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(TrainingDay.fromMap(element,element.id));
+      });
+      return retVal;
+    });
+  }Stream<List<ClubIncome>> getClubIncomes() {
     return
     _firestore
         .collection('ClubIncome')
-        .orderBy('givenDate', descending: true)
         .snapshots()
         .map((QuerySnapshot query) {
       List<ClubIncome> retVal = List();

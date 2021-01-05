@@ -1,4 +1,4 @@
-import 'package:EJI/models/club_archive.dart';
+import 'package:EJI/models/club/club_archive.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:cached_network_image/cached_network_image.dart';

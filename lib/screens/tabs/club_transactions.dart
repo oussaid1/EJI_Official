@@ -1,8 +1,8 @@
 import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/admin_access/admin_drawer.dart';
-import 'package:EJI/screens/admin_access/club_incomes.dart';
-import 'package:EJI/screens/admin_access/club_spendings.dart';
+import 'package:EJI/screens/lists/club_incomes.dart';
+import 'package:EJI/screens/lists/club_spendings.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';

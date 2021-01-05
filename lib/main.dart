@@ -4,7 +4,7 @@ import 'package:EJI/screens/login/root.dart';
 import 'package:EJI/translations/translations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:EJI/screens/common/splash.dart';
+import 'package:EJI/screens/login/splash.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';

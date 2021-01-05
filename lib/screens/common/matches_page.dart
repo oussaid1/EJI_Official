@@ -1,7 +1,7 @@
-import 'package:EJI/models/matchday.dart';
+import 'package:EJI/models/team/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/controllers/variables_controler.dart';
-import 'package:EJI/screens/admin_access/add_match.dart';
+import 'package:EJI/screens/add/add_match.dart';
 import 'package:EJI/screens/common/match_details.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';

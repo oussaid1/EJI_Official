@@ -1,4 +1,4 @@
-import 'package:EJI/models/matchday.dart';
+import 'package:EJI/models/team/matchday.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/screens/common/team_home.dart';

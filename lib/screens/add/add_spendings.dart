@@ -1,5 +1,5 @@
 import 'package:EJI/controllers/variables_controler.dart';
-import 'package:EJI/models/club_archive.dart';
+import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
@@ -7,24 +7,23 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
-class AddPicture extends StatefulWidget {
-  AddPicture({Key key, this.clubArcive}) : super(key: key);
-  final ClubArcive clubArcive;
+class AddSpendings extends StatefulWidget {
+  AddSpendings({Key key, this.clubSpendings}) : super(key: key);
+  final ClubSpendings clubSpendings;
   @override
-  _AddPictureState createState() => _AddPictureState();
+  _AddSpendingsState createState() => _AddSpendingsState();
 }
 
-class _AddPictureState extends State<AddPicture> {
-  final TextEditingController imageLocationControler = TextEditingController();
-  final TextEditingController imageByControler = TextEditingController();
-
-  final TextEditingController imageYearControler = TextEditingController();
+class _AddSpendingsState extends State<AddSpendings> {
+  final TextEditingController spentOnControler = TextEditingController();
+  final TextEditingController spentAmountControler = TextEditingController();
+  final TextEditingController spentByControler = TextEditingController();
+  final TextEditingController spentOnDateController = TextEditingController();
   final DateFormat mformatter = DateFormat('yyyy-MM-dd');
   final GlobalKey<FormState> _commentformKey = GlobalKey();
 
   String _id;
-  int _thumbsUp = 0;
-  int _thumbsDown = 0;
+
   String _spentOnDate;
 
   final CloudDatabase cv = Get.put(CloudDatabase());
@@ -42,32 +41,30 @@ class _AddPictureState extends State<AddPicture> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         _spentOnDate = formatter.format(picked).toString();
-        imageYearControler.text = _spentOnDate;
+        spentOnDateController.text = _spentOnDate;
       });
     }
   }
 
   _saveToCloud() {
-    ClubArcive clubArcive = new ClubArcive(
-      imageLocation: imageLocationControler.text.toString().trim(),
-      takenBy: imageByControler.text.trim().toString(),
-      season: imageYearControler.text,
-      thumbsUp: _thumbsUp,
-      thumbsDown: _thumbsDown,
-    );
-    cv.addArchivePictures(clubArcive);
+    ClubSpendings clubSpendings = new ClubSpendings(
+        spentOn: spentOnControler.text.toString().trim(),
+        spentBy: spentByControler.text.trim().toString(),
+        spentOnDate: spentOnDateController.text,
+        spentAmount: int.parse(spentAmountControler.text.trim()));
+
+    cv.addSpendings(clubSpendings);
   }
 
   _updateInCloud() {
-    ClubArcive clubArcive = new ClubArcive(
-      id: _id,
-      imageLocation: imageLocationControler.text.toString().trim(),
-      takenBy: imageByControler.text.trim().toString(),
-      season: imageYearControler.text,
-      thumbsUp: _thumbsUp,
-      thumbsDown: _thumbsDown,
-    );
-    cv.updateArchivePiture(clubArcive);
+    ClubSpendings clubSpendings = new ClubSpendings(
+        id: _id,
+        spentOn: spentOnControler.text.toString().trim(),
+        spentBy: spentByControler.text.trim().toString(),
+        spentOnDate: spentOnDateController.text,
+        spentAmount: int.parse(spentAmountControler.text.trim()));
+
+    cv.updateSpendings(clubSpendings);
   }
 
   Widget _buildSpentOn() {
@@ -79,18 +76,18 @@ class _AddPictureState extends State<AddPicture> {
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
-            return ('insertImageLocation'.tr);
+            return ('insertSpenton'.tr);
           }
           return null;
         },
-        controller: imageLocationControler,
+        controller: spentOnControler,
         autofocus: true,
         decoration: InputDecoration(
             prefixIcon: Icon(
               Icons.shopping_cart,
               color: secondaryColor,
             ),
-            hintText: ('insertImageLocation'.tr),
+            hintText: ('insertSpenton'.tr),
             fillColor: primaryColor,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -119,7 +116,7 @@ class _AddPictureState extends State<AddPicture> {
       width: 300,
       child: TextFormField(
         readOnly: true,
-        controller: imageYearControler,
+        controller: spentOnDateController,
         style: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
         textAlign: TextAlign.center,
@@ -149,11 +146,11 @@ class _AddPictureState extends State<AddPicture> {
               _selectDate(context);
             },
           ),
-          hintText: 'DateTaken'.tr,
+          hintText: 'DateSpent'.tr,
         ),
         validator: (value) {
           if (value.length == 0) {
-            return 'selectDateTaken'.tr;
+            return 'selectDateSpent'.tr;
           } else
             return null;
         },
@@ -170,14 +167,14 @@ class _AddPictureState extends State<AddPicture> {
         textAlign: TextAlign.center,
         validator: (text) {
           if (text.isEmpty) {
-            return ('insertTakenBy'.tr);
+            return ('insertYourname'.tr);
           }
           return null;
         },
-        controller: imageByControler,
+        controller: spentByControler,
         autofocus: true,
         decoration: InputDecoration(
-            hintText: ('insertTakenBy'.tr),
+            hintText: ('insertYourname'.tr),
             prefixIcon: Icon(
               Icons.person_pin,
               color: secondaryColor,
@@ -205,15 +202,60 @@ class _AddPictureState extends State<AddPicture> {
     );
   }
 
+  Widget _buildspentAmount() {
+    return SizedBox(
+      width: 300,
+      child: TextFormField(
+        keyboardType: TextInputType.number,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
+        validator: (text) {
+          if (text.isEmpty) {
+            return ('inserAmountSpentiMad'.tr);
+          }
+
+          return null;
+        },
+        controller: spentAmountControler,
+        autofocus: true,
+        decoration: InputDecoration(
+            fillColor: primaryColor,
+            filled: true,
+            prefixIcon: Icon(
+              Icons.monetization_on,
+              color: secondaryColor,
+            ),
+            hintText: ('inserAmountSpentiMad'.tr),
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            labelStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: fontColor),
+            focusColor: accentColor,
+            hintStyle: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w200, color: fontColor),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                  color: accentColor, style: BorderStyle.solid, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                  color: accentColor, style: BorderStyle.solid, width: 1),
+            ),
+            contentPadding: EdgeInsets.all(8)),
+      ),
+    );
+  }
+
   @override
   void initState() {
-    if (widget.clubArcive != null) {
-      _id = widget.clubArcive.id;
-      imageLocationControler.text = widget.clubArcive.imageLocation;
-      imageByControler.text = widget.clubArcive.takenBy;
-      imageYearControler.text = widget.clubArcive.season;
-      _thumbsUp = widget.clubArcive.thumbsUp;
-      _thumbsDown = widget.clubArcive.thumbsUp;
+    if (widget.clubSpendings != null) {
+      _id = widget.clubSpendings.id;
+      spentOnControler.text = widget.clubSpendings.spentOn;
+      spentOnDateController.text = widget.clubSpendings.spentOnDate;
+      spentAmountControler.text = widget.clubSpendings.spentAmount.toString();
+      spentByControler.text = widget.clubSpendings.spentBy;
     }
     super.initState();
   }
@@ -236,11 +278,15 @@ class _AddPictureState extends State<AddPicture> {
             SizedBox(
               height: 6,
             ),
+            _buildspentAmount(),
+            SizedBox(
+              height: 6,
+            ),
             _buildSpentOnDate(context),
             SizedBox(
               height: 20,
             ),
-            widget.clubArcive == null
+            widget.clubSpendings == null
                 ? Container(
                     width: 300,
                     height: 40,
@@ -345,8 +391,8 @@ class _AddPictureState extends State<AddPicture> {
                                             .toString()
                                             .trim()) {
                                       Navigator.pop(context);
-                                      cv.deleteObject('ClubPitureArchive',
-                                          widget.clubArcive.id);
+                                      cv.deleteObject('ClubSpendings',
+                                          widget.clubSpendings.id);
                                       _flushAll();
                                     }
                                   },
@@ -363,8 +409,9 @@ class _AddPictureState extends State<AddPicture> {
   }
 
   _flushAll() {
-    imageYearControler.clear();
-    imageByControler.clear();
-    imageLocationControler.clear();
+    spentOnControler.clear();
+    spentOnDateController.clear();
+    spentAmountControler.clear();
+    spentByControler.clear();
   }
 }

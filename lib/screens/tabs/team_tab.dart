@@ -6,7 +6,7 @@ import 'package:EJI/shared/drawer_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'training_list.dart';
+import '../lists/training_list.dart';
 
 class TeamTab extends StatelessWidget {
   TeamTab({Key key}) : super(key: key);

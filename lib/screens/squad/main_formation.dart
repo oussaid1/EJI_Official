@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:EJI/models/players/player.dart';
-import 'package:EJI/models/squad.dart';
-import 'package:EJI/models/squad_player.dart';
+import 'package:EJI/models/players/squad.dart';
+import 'package:EJI/models/players/squad_player.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/settings/params.dart';

@@ -1,4 +1,4 @@
-import 'package:EJI/models/training_day.dart';
+import 'package:EJI/models/team/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/controllers/variables_controler.dart';
 import 'package:EJI/settings/params.dart';

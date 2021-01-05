@@ -1,4 +1,4 @@
-import 'package:EJI/models/user.dart';
+import 'package:EJI/models/user/user.dart';
 import 'package:get/get.dart';
 
 class UserController extends GetxController {

@@ -1,6 +1,6 @@
 import 'package:EJI/controllers/user_controller.dart';
-import 'package:EJI/models/user.dart';
-import 'package:EJI/screens/common/splash.dart';
+import 'package:EJI/models/user/user.dart';
+import 'package:EJI/screens/login/splash.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
