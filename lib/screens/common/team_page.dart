@@ -1,3 +1,4 @@
+import 'package:EJI/controllers/team_controller.dart';
 import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/models/team/matchday.dart';
 import 'package:EJI/models/team/training_day.dart';
@@ -25,6 +26,7 @@ class _TeamPageState extends State<TeamPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final  db = Get.put(CloudDatabase());
   final  varController = Get.put(VariablesControler());
+  final teamController=Get.put(TeamController());
 
   List<ClubSpendings> clubSpendings;
 
@@ -72,7 +74,7 @@ class _TeamPageState extends State<TeamPage> {
             height: 90,
             child: new Container(
               child: StreamBuilder(
-                  stream:null,
+                  stream:db.getMatchDays('collectionName'),
                   builder: (context, AsyncSnapshot<List<MatchDay>> snapshot) {
                     if (snapshot.hasError || !snapshot.hasData) {
                       return new Container();
@@ -104,7 +106,7 @@ class _TeamPageState extends State<TeamPage> {
                                         '${matchDay.matchdayDate.toString()}',
                                     style: TextStyle(
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w400,
+                                        fontWeight: FontWeight.normal,
                                         color: whitefontColor)),
                                 Row(
                                   mainAxisAlignment:
@@ -223,7 +225,7 @@ class _TeamPageState extends State<TeamPage> {
                 borderRadius: BorderRadius.circular(6),
                 color: primaryColor.withOpacity(0.8),
               ),
-              height: 340,
+              height: 360,
               child: Column(
                 children: [
                   Directionality(
@@ -232,7 +234,7 @@ class _TeamPageState extends State<TeamPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+
                           children: [
                             FlatButton(
                               onPressed: () => Get.to(TeamTab()),
@@ -247,10 +249,20 @@ class _TeamPageState extends State<TeamPage> {
                               ),
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                        'مجموع الحصص ' + '$trainingCount ',
+                                        'مجموع الحصص ' ,
+                                        style: TextStyle(
+                                          fontFamily: 'Courier New',
+                                          fontSize: 18,
+                                          color: fontColor,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ), Text(
+                                        teamController.trainingDayModel.value.trainingCount.toString(),
                                         style: TextStyle(
                                           fontFamily: 'Courier New',
                                           fontSize: 18,

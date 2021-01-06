@@ -10,6 +10,9 @@ class TeamController extends GetxController {
 
   List<MatchDay> get matchDays => _matchDaysList.value;
   List<TrainingDay> get trainingDays => _trainingDaysList.value;
+  Rx<TrainingDay> get trainingDayModel{
+    return TrainingDay.full(trainingDays).obs;
+}
 
   @override
   void onInit() {

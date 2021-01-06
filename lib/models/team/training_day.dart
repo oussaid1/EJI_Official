@@ -8,6 +8,7 @@ class TrainingDay {
   int attendees;
   int duration;
   int countTraining;
+  List<TrainingDay> trainingDays=<TrainingDay>[];
 
   TrainingDay(
       {this.id,
@@ -26,11 +27,12 @@ class TrainingDay {
       'count': count,
     };
   }
+TrainingDay.full(this.trainingDays);
 
-  static int getCountTraining(List<TrainingDay> k) {
+   int get trainingCount {
     int g = 0;
-    for (var i = 0; i < k.length; i++) {
-      g = g + k[i].count;
+    for (var i in trainingDays ) {
+      g = g + i.count;
     }
     return g;
   }

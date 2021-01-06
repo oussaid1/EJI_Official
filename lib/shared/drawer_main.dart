@@ -25,6 +25,7 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 200,
       child: Drawer(
         child: Container(
           color: secondaryColor,
@@ -83,7 +84,8 @@ class _MyDrawerState extends State<MyDrawer> {
                 onTap: () => Get.to(InfoScreen()),
               ),
               Container(
-                color: Colors.redAccent.withOpacity(0.6),
+                alignment: Alignment.bottomCenter,
+                color: primaryColor.withOpacity(0.6),
                 child: ListTile(
                   subtitle: Text('SignOutsub'.tr),
                   leading: Icon(Icons.exit_to_app),
