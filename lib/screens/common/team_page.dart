@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'picture_archive_list.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class TeamPage extends StatefulWidget {
   TeamPage({
@@ -24,9 +23,9 @@ class TeamPage extends StatefulWidget {
 
 class _TeamPageState extends State<TeamPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  final  db = Get.put(CloudDatabase());
-  final  varController = Get.put(VariablesControler());
-  final teamController=Get.put(TeamController());
+  final db = Get.put(CloudDatabase());
+  final varController = Get.put(VariablesControler());
+  final teamController = Get.put(TeamController());
 
   List<ClubSpendings> clubSpendings;
 
@@ -74,7 +73,7 @@ class _TeamPageState extends State<TeamPage> {
             height: 90,
             child: new Container(
               child: StreamBuilder(
-                  stream:db.getMatchDays('collectionName'),
+                  stream: db.getMatchDays('collectionName'),
                   builder: (context, AsyncSnapshot<List<MatchDay>> snapshot) {
                     if (snapshot.hasError || !snapshot.hasData) {
                       return new Container();
@@ -110,13 +109,14 @@ class _TeamPageState extends State<TeamPage> {
                                         color: whitefontColor)),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.all(2.0),
                                         child: Text(
-                                            '${matchDay.matchdayHome.toString()}',
+                                            '${matchDay.matchdayHome
+                                                .toString()}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 16,
@@ -130,44 +130,49 @@ class _TeamPageState extends State<TeamPage> {
                                         width: 74,
                                         decoration: BoxDecoration(
                                           color:
-                                              secondaryColor.withOpacity(0.8),
+                                          secondaryColor.withOpacity(0.8),
                                           borderRadius:
-                                              BorderRadius.circular(5),
+                                          BorderRadius.circular(5),
                                         ),
                                         child: Padding(
                                             padding: const EdgeInsets.all(2.0),
-                                            child: matchDay.matchdayType.trim() !=
-                                                        'مباراة مبرمجة'
-                                                            .toString() ||
-                                                    matchDay.matchdayType.trim() !=
-                                                        'Schedueled'
-                                                            .tr
-                                                            .trim()
-                                                            .toString()
+                                            child: matchDay.matchdayType
+                                                .trim() !=
+                                                'مباراة مبرمجة'
+                                                    .toString() ||
+                                                matchDay.matchdayType.trim() !=
+                                                    'Schedueled'
+                                                        .tr
+                                                        .trim()
+                                                        .toString()
                                                 ? Text(
-                                                    '${matchDay.matchdayHomeScore.toString()}' +
-                                                        ' : ' +
-                                                        '${matchDay.matchdayAwayScore.toString()}',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: orange))
+                                                '${matchDay.matchdayHomeScore
+                                                    .toString()}' +
+                                                    ' : ' +
+                                                    '${matchDay
+                                                        .matchdayAwayScore
+                                                        .toString()}',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                    FontWeight.w400,
+                                                    color: orange))
                                                 : Text('--' + ' : ' + '--',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: orange))),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                    FontWeight.w400,
+                                                    color: orange))),
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.all(2.0),
                                         child: Text(
-                                            '${matchDay.matchdayAway.toString()}',
+                                            '${matchDay.matchdayAway
+                                                .toString()}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 16,
@@ -179,14 +184,15 @@ class _TeamPageState extends State<TeamPage> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Row(
                                       children: <Widget>[
                                         Padding(
                                           padding: const EdgeInsets.all(2.0),
                                           child: Text(
-                                            '${matchDay.matchdayType.toString()}',
+                                            '${matchDay.matchdayType
+                                                .toString()}',
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w400,
@@ -252,26 +258,27 @@ class _TeamPageState extends State<TeamPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                        'مجموع الحصص ' ,
-                                        style: TextStyle(
-                                          fontFamily: 'Courier New',
-                                          fontSize: 18,
-                                          color: fontColor,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle: FontStyle.italic,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ), Text(
-                                        teamController.trainingDayModel.value.trainingCount.toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'Courier New',
-                                          fontSize: 18,
-                                          color: fontColor,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle: FontStyle.italic,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
+                                  'مجموع الحصص ',
+                                  style: TextStyle(
+                                    fontFamily: 'Courier New',
+                                    fontSize: 18,
+                                    color: fontColor,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ), Text(
+                                  teamController.trainingDayModel.value
+                                      .trainingCount.toString(),
+                                  style: TextStyle(
+                                    fontFamily: 'Courier New',
+                                    fontSize: 18,
+                                    color: fontColor,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
 
                               ],
                             ),
@@ -319,122 +326,119 @@ class _TeamPageState extends State<TeamPage> {
                       children: [
 
 
-                             Column(
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            FlatButton(
-                                              onPressed: () =>
-                                                  Get.to(TeamTab()),
-                                              child: Text(
-                                                'المباريات ',
-                                                style: TextStyle(
-                                                  fontFamily: 'Courier New',
-                                                  fontSize: 20,
-                                                  color: whitefontColor,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
+                        Column(
+                          children: [
+                            Column(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceAround,
+                              children: [
+                                FlatButton(
+                                  onPressed: () =>
+                                      Get.to(TeamTab()),
+                                  child: Text(
+                                    'المباريات ',
+                                    style: TextStyle(
+                                      fontFamily: 'Courier New',
+                                      fontSize: 20,
+                                      color: whitefontColor,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Obx(
+                                          () =>
+                                          Text(
+                                            '${varController.totalWin} ',
+                                            style: TextStyle(
+                                              fontFamily: 'Courier New',
+                                              fontSize: 16,
+                                              fontWeight:
+                                              FontWeight.bold,
+                                              color: accentColor,
+                                              fontStyle:
+                                              FontStyle.italic,
                                             ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Obx(
-                                                  () => Text(
-                                                    '${varController.totalWin} ',
-                                                    style: TextStyle(
-                                                      fontFamily: 'Courier New',
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: accentColor,
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'الانتصارات ',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Courier New',
-                                                    fontSize: 16,
-                                                    color: secondaryColor,
-                                                    fontStyle: FontStyle.italic,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  '${varController.totalDraw} ',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Courier New',
-                                                    fontSize: 16,
-                                                    color: Colors.yellow,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontStyle: FontStyle.italic,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                Text(
-                                                  'التعادلات ',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Courier New',
-                                                    fontSize: 14,
-                                                    color: secondaryColor,
-                                                    fontStyle: FontStyle.italic,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  '${varController.totalLoss} ',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Courier New',
-                                                    fontSize: 16,
-                                                    color: orange,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontStyle: FontStyle.italic,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                Text(
-                                                  'الهزائم ',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Courier New',
-                                                    fontSize: 14,
-                                                    color: secondaryColor,
-                                                    fontStyle: FontStyle.italic,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            textAlign: TextAlign.center,
+                                          ),
+                                    ),
+                                    Text(
+                                      'الانتصارات ',
+                                      style: TextStyle(
+                                        fontFamily: 'Courier New',
+                                        fontSize: 16,
+                                        color: secondaryColor,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${varController.totalDraw} ',
+                                      style: TextStyle(
+                                        fontFamily: 'Courier New',
+                                        fontSize: 16,
+                                        color: Colors.yellow,
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      'التعادلات ',
+                                      style: TextStyle(
+                                        fontFamily: 'Courier New',
+                                        fontSize: 14,
+                                        color: secondaryColor,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${varController.totalLoss} ',
+                                      style: TextStyle(
+                                        fontFamily: 'Courier New',
+                                        fontSize: 16,
+                                        color: orange,
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      'الهزائم ',
+                                      style: TextStyle(
+                                        fontFamily: 'Courier New',
+                                        fontSize: 14,
+                                        color: secondaryColor,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
 
-                             ),
+                        ),
 
 
                         Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: new Container(
-                                width: 200,
-                                height: 160,
-                                child: new charts.PieChart(pieData(),
-                                    animate: true,
-                                    defaultRenderer:
-                                        new charts.ArcRendererConfig(
-                                            arcWidth: 200)))),
+                              width: 200,
+                              height: 160,
+                            )),
                       ],
                     ),
                   ),
@@ -507,32 +511,4 @@ class _TeamPageState extends State<TeamPage> {
     );
   }
 
-  List<charts.Series<LinearSales, int>> pieData() {
-    final data = [
-      new LinearSales('Win', varController.totalWin,
-          charts.ColorUtil.fromDartColor(Colors.green[400])),
-      new LinearSales('Draw', varController.totalDraw,
-          charts.ColorUtil.fromDartColor(Colors.yellow[400])),
-      new LinearSales('Loss', varController.totalLoss,
-          charts.ColorUtil.fromDartColor(Colors.red[400])),
-    ];
-
-    return [
-      new charts.Series<LinearSales, int>(
-        domainFn: (LinearSales a, index) => a.sales,
-        id: 'WinStatus',
-        measureFn: (LinearSales sales, _) => sales.sales,
-        colorFn: (LinearSales s, index) => s.color,
-        data: data,
-      )
-    ];
-  }
-}
-
-class LinearSales {
-  final String item;
-  final int sales;
-  final charts.Color color;
-
-  LinearSales(this.item, this.sales, this.color);
 }
