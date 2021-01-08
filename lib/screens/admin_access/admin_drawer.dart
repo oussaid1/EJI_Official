@@ -1,6 +1,6 @@
 // ignore: unused_import
 import 'package:EJI/models/finance/club_expenses.dart';
-import 'package:EJI/controllers/auth_controler.dart';
+import 'package:EJI/controllers/auth/auth_controler.dart';
 import 'package:EJI/screens/add/add_match.dart';
 import 'package:EJI/screens/common/picture_archive_list.dart';
 import 'package:EJI/screens/tabs/anounces_tab.dart';

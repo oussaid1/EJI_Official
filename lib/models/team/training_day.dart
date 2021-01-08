@@ -8,7 +8,7 @@ class TrainingDay {
   int attendees;
   int duration;
   int countTraining;
-  List<TrainingDay> trainingDays = <TrainingDay>[];
+// List<TrainingDay> trainingDays = <TrainingDay>[];
 
   TrainingDay(
       {this.id,
@@ -28,17 +28,7 @@ class TrainingDay {
     };
   }
 
-  TrainingDay.full(var trainings) {
-    trainingDays = trainings;
-  }
 
-  int get trainingCount {
-    int g = 0;
-    for (var i in trainingDays) {
-      g = g + i.count;
-    }
-    return g;
-  }
 
   TrainingDay.fromMap(DocumentSnapshot map, String id)
       : id = id,

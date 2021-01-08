@@ -1,4 +1,4 @@
-import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/controllers/variables/variables_controler.dart';
 import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/add/add_spendings.dart';

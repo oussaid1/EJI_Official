@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:EJI/models/players/player.dart';
 
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/controllers/variables/variables_controler.dart';
 import 'package:EJI/screens/add/add_dialogue.dart';
 
 import 'package:EJI/widgets/scoreboard.dart';

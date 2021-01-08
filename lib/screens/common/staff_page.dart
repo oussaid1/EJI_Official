@@ -1,5 +1,5 @@
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/controllers/variables/variables_controler.dart';
 import 'package:EJI/screens/common/ahdath_screen.dart';
 import 'package:EJI/screens/common/eji_law.dart';
 import 'package:EJI/screens/common/info_screen.dart';

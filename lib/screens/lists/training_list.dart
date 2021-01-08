@@ -1,6 +1,6 @@
 import 'package:EJI/models/team/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/controllers/variables/variables_controler.dart';
 import 'package:EJI/screens/add/add_training.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:EJI/controllers/user_controller.dart';
+import 'package:EJI/controllers/user/user_controller.dart';
 import 'package:EJI/models/user/user.dart';
 import 'package:EJI/screens/login/splash.dart';
 
@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../repository/cloud_database.dart';
+import '../../repository/cloud_database.dart';
 
 class AuthController extends GetxController {
   BuildContext context;

@@ -1,4 +1,4 @@
-import 'package:EJI/controllers/auth_controler.dart';
+import 'package:EJI/controllers/auth/auth_controler.dart';
 import 'package:EJI/screens/common/communications.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/players_page.dart';

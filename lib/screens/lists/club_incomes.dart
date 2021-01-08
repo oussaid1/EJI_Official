@@ -1,4 +1,4 @@
-import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/controllers/variables/variables_controler.dart';
 import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/add/add_income.dart';
@@ -68,86 +68,89 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
                 clubIncome = snapshot.data;
               return ListView(
                 children: [
-                  DataTable(
-                    columnSpacing: 20,
-                    dividerThickness: 2,
-                    horizontalMargin: 12,
-                    sortColumnIndex: 3,
-                    sortAscending: true,
-                    columns: [
-                      DataColumn(
-                        tooltip: 'For',
-                        label: Text(
-                          "GivenFor".tr,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: secondaryColor),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: DataTable(
+                      columnSpacing: 12,
+                      dividerThickness: 2,
+                      horizontalMargin: 12,
+                      sortColumnIndex: 3,
+                      sortAscending: true,
+                      columns: [
+                        DataColumn(
+                          tooltip: 'For',
+                          label: Text(
+                            "GivenFor".tr,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: secondaryColor),
+                          ),
+                          numeric: false,
                         ),
-                        numeric: false,
-                      ),
-                      DataColumn(
-                        label: Text(
-                          "GivenBy".tr,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: secondaryColor),
+                        DataColumn(
+                          label: Text(
+                            "GivenBy".tr,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: secondaryColor),
+                          ),
+                          numeric: false,
                         ),
-                        numeric: false,
-                      ),
-                      DataColumn(
-                        label: Text(
-                          "GivenOnDate".tr,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: secondaryColor),
+                        DataColumn(
+                          label: Text(
+                            "GivenOnDate".tr,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: secondaryColor),
+                          ),
+                          numeric: false,
                         ),
-                        numeric: false,
-                      ),
-                      DataColumn(
-                        label: Text(
-                          "GivenAmount".tr,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: secondaryColor),
+                        DataColumn(
+                          label: Text(
+                            "GivenAmount".tr,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: secondaryColor),
+                          ),
+                          numeric: false,
                         ),
-                        numeric: false,
-                      ),
-                    ],
-                    rows: clubIncome
-                        .map(
-                          (clubIncome) => DataRow(
-                              selected: selectedclubIncome.contains(clubIncome),
-                              cells: [
-                                DataCell(Text(clubIncome.givenFor.toString()),
-                                    onTap: () => varController.isAdmin.value
-                                        ? Get.to(AddIncome(
-                                            clubIncome: clubIncome,
-                                          ))
-                                        : null),
-                                DataCell(
-                                  Text(clubIncome.givenBy.toString()),
-                                ),
-                                DataCell(
-                                  Text(clubIncome.givenOnDate.toString()),
-                                ),
-                                DataCell(
-                                  Text(
-                                    clubIncome.givenAmount.toString(),
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w900,
-                                      color: primaryColor,
-                                    ),
-                                    textAlign: TextAlign.center,
+                      ],
+                      rows: clubIncome
+                          .map(
+                            (clubIncome) => DataRow(
+                                selected: selectedclubIncome.contains(clubIncome),
+                                cells: [
+                                  DataCell(Text(clubIncome.givenFor.toString()),
+                                      onTap: () => varController.isAdmin.value
+                                          ? Get.to(AddIncome(
+                                              clubIncome: clubIncome,
+                                            ))
+                                          : null),
+                                  DataCell(
+                                    Text(clubIncome.givenBy.toString()),
                                   ),
-                                ),
-                              ]),
-                        )
-                        .toList(),
+                                  DataCell(
+                                    Text(clubIncome.givenOnDate.toString()),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      clubIncome.givenAmount.toString(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w900,
+                                        color: primaryColor,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ]),
+                          )
+                          .toList(),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),

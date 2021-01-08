@@ -1,6 +1,6 @@
 import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/controllers/variables/variables_controler.dart';
 import 'package:EJI/screens/tabs/club_transactions.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:EJI/shared/drawer_main.dart';
@@ -68,7 +68,7 @@ class _FinancePageState extends State<FinancePage> {
                     top: Get.height / 2.5,
                     width: Get.width - 20,
                     left: 10,
-                    height: 320,
+                    height: 400,
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -97,7 +97,7 @@ class _FinancePageState extends State<FinancePage> {
                                   TextSpan(
                                     style: TextStyle(
                                       fontFamily: 'Roboto',
-                                      fontSize: 20,
+                                      fontSize: 16,
                                       color: const Color(0xff2bf08c),
                                     ),
                                     children: [
@@ -120,7 +120,7 @@ class _FinancePageState extends State<FinancePage> {
                                   'الميزانية',
                                   style: TextStyle(
                                     fontFamily: 'Courier New',
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     color: whitefontColor,
                                   ),
                                   textAlign: TextAlign.center,
@@ -129,64 +129,34 @@ class _FinancePageState extends State<FinancePage> {
                             ),
                           ),
                           Container(
-                            width: 260,
+                            width: 400,
+                            margin: EdgeInsets.only(top: 8,bottom: 8),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text.rich(
-                                  TextSpan(
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 20,
-                                      color: fontColor,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            '${varController.clubSpendings.value} ',
-                                      ),
-                                      TextSpan(
-                                        text: 'DH',
-                                        style: TextStyle(
-                                          fontFamily: 'Agency FB',
-                                          color: secondaryColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  'المصاريف',
-                                  style: TextStyle(
-                                    fontFamily: 'Courier New',
-                                    fontSize: 20,
-                                    color: whitefontColor,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 260,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                Column(
+
                                   children: [
+                                    Text(
+                                      'المصاريف',
+                                      style: TextStyle(
+                                        fontFamily: 'Courier New',
+                                        fontSize: 16,
+                                        color: whitefontColor,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
                                     Text.rich(
                                       TextSpan(
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
-                                          fontSize: 20,
+                                          fontSize: 16,
                                           color: fontColor,
                                         ),
                                         children: [
                                           TextSpan(
                                             text:
-                                                '${varController.clubIncome.value}',
+                                            '${varController.clubSpendings.value} ',
                                           ),
                                           TextSpan(
                                             text: 'DH',
@@ -199,86 +169,98 @@ class _FinancePageState extends State<FinancePage> {
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
                                     Text(
                                       'المداخيل ',
                                       style: TextStyle(
                                         fontFamily: 'Courier New',
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         color: whitefontColor,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text.rich(
+                                      TextSpan(
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 16,
+                                          color: fontColor,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                            '${varController.clubIncome.value}',
+                                          ),
+                                          TextSpan(
+                                            text: 'DH',
+                                            style: TextStyle(
+                                              fontFamily: 'Agency FB',
+                                              color: secondaryColor,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 10,
+                              ],
+                            ),
+                          ),
+                          Container(
+
+                            margin: EdgeInsets.only(top: 8,bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(icon:Icon(
+                                  Icons.arrow_back_ios,
+                                  color: accentColor,
                                 ),
-                                FlatButton(
                                   onPressed: () => Get.to(ClubTransactions()),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width: 120,
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.arrow_back,
-                                              color: accentColor,
-                                            ),
-                                            Text(
-                                              'تفاصيل ',
-                                              style: TextStyle(
-                                                fontFamily: 'Courier New',
-                                                fontSize: 14,
-                                                color: fontColor,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          ' ... مقتنيات ومصاريف و مداخيل الفريق ',
-                                          style: TextStyle(
-                                            fontFamily: 'Courier New',
-                                            fontSize: 14,
-                                            color: secondaryColor,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          maxLines: 2,
-                                        ),
-                                      ),
-                                    ],
+                                ),
+                                Text(
+                                  ' ... مقتنيات ومصاريف و مداخيل الفريق ',
+                                  style: TextStyle(
+                                    fontFamily: 'Courier New',
+                                    fontSize: 14,
+                                    color: secondaryColor,
+                                    fontStyle: FontStyle.italic,
                                   ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'المستودع ',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 20,
-                              color: whitefontColor,
+                          Container(
+                            child: Column(
+                              children: [
+                                Text(
+                                  'المستودع ',
+                                  style: TextStyle(
+                                    fontFamily: 'Courier New',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.normal,
+                                    color: whitefontColor,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  'ممتلكات الفريق ، المادية والمعنوية. أرشيف الفريق. واحصاءات ، ',
+                                  style: TextStyle(
+                                    fontFamily: 'Courier New',
+                                    fontSize: 14,
+                                    color: secondaryColor,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                  textAlign: TextAlign.right,
+                                ),
+                              ],
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            'ممتلكات الفريق ، المادية والمعنوية. أرشيف الفريق. واحصاءات ، ',
-                            style: TextStyle(
-                              fontFamily: 'Courier New',
-                              fontSize: 14,
-                              color: secondaryColor,
-                              fontStyle: FontStyle.italic,
-                            ),
-                            textAlign: TextAlign.right,
                           ),
                         ],
                       ),

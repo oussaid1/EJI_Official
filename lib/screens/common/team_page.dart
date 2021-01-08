@@ -1,9 +1,10 @@
-import 'package:EJI/controllers/team_controller.dart';
+import 'package:EJI/controllers/team/team_controller.dart';
+import 'package:EJI/controllers/team/training_controller.dart';
 import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/models/team/matchday.dart';
 import 'package:EJI/models/team/training_day.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/controllers/variables/variables_controler.dart';
 import 'package:EJI/screens/tabs/team_tab.dart';
 import 'package:EJI/screens/squad/main_formation.dart';
 import 'package:EJI/settings/params.dart';
@@ -26,6 +27,7 @@ class _TeamPageState extends State<TeamPage> {
   final db = Get.put(CloudDatabase());
   final varController = Get.put(VariablesControler());
   final teamController = Get.put(TeamController());
+  final trainingController = Get.put(TrainingController());
 
   List<ClubSpendings> clubSpendings;
 
@@ -268,8 +270,8 @@ class _TeamPageState extends State<TeamPage> {
                                   ),
                                   textAlign: TextAlign.center,
                                 ), Text(
-                                  teamController.trainingDayModel.value
-                                      .trainingCount.toString(),
+                                  trainingController
+                                      .totalAttendees.toString(),
                                   style: TextStyle(
                                     fontFamily: 'Courier New',
                                     fontSize: 18,
@@ -295,7 +297,7 @@ class _TeamPageState extends State<TeamPage> {
                                   textAlign: TextAlign.center,
                                 ),
                                 Text(
-                                  '21%',
+                                  trainingController.attendenceRate.toString()+'%',
                                   style: TextStyle(
                                     fontFamily: 'Courier New',
                                     fontSize: 18,

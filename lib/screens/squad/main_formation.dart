@@ -4,7 +4,7 @@ import 'package:EJI/models/players/player.dart';
 import 'package:EJI/models/players/squad.dart';
 import 'package:EJI/models/players/squad_player.dart';
 import 'package:EJI/repository/cloud_database.dart';
-import 'package:EJI/controllers/variables_controler.dart';
+import 'package:EJI/controllers/variables/variables_controler.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:EJI/controllers/auth_controler.dart';
+import 'package:EJI/controllers/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/login/root.dart';
 import 'package:EJI/screens/login/sign_up.dart';
@@ -177,8 +177,8 @@ class SignInScreen extends GetWidget<AuthController> {
                             child: new Text('Sign in',
                                 style: new TextStyle(
                                     fontFamily: 'RobotoCondensed',
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 30.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 26.0,
                                     color: primaryColor)),
                             onPressed: (){
                              if (_loginFormKey2.currentState

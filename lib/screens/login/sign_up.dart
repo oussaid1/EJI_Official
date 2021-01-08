@@ -1,4 +1,4 @@
-import 'package:EJI/controllers/auth_controler.dart';
+import 'package:EJI/controllers/auth/auth_controler.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/screens/login/login_tab.dart';
 import 'package:EJI/settings/params.dart';
@@ -90,7 +90,7 @@ class _SignupPageState extends State<SignupPage> {
                       height: 30,
                     ),
                     Container(
-                      height: 70,
+                      height: 60,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: new RaisedButton(
@@ -101,8 +101,8 @@ class _SignupPageState extends State<SignupPage> {
                           child: new Text('Register',
                               style: new TextStyle(
                                   fontFamily: 'RobotoCondensed',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26.0,
                                   color: primaryColor)),
                           onPressed: () {
                             if (_loginformKey1.currentState.validate()) {
