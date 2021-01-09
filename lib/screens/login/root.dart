@@ -6,6 +6,8 @@ import 'package:EJI/screens/login/login_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'sign_in.dart';
+
 
 class Root extends GetWidget<AuthController> {
   @override
@@ -24,7 +26,7 @@ class Root extends GetWidget<AuthController> {
 
           return TeamPage();
         } else {
-          return LoginTab();
+          return SignInScreen();
         }
       },
     );

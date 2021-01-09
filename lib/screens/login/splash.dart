@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:EJI/screens/login/login_tab.dart';
 import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+import 'sign_in.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key}) : super(key: key);
@@ -17,7 +18,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Timer(Duration(seconds: 1), () {  Get.to(LoginTab());  });
+    Timer(Duration(seconds: 1), () {  Get.to(SignInScreen());  });
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
@@ -32,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
       body: InkWell(
         onTap: () => Navigator.push(
           context,
-          new MaterialPageRoute(builder: (context) => LoginTab()),
+          new MaterialPageRoute(builder: (context) => SignInScreen()),
         ),
         child: Stack(
           fit: StackFit.expand,

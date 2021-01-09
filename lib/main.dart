@@ -10,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'screens/login/sign_in.dart';
+
 Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
           cardColor: secondaryColor),
       translations: MyTranslations(),
       locale: Locale('en'),
-      home: LoginTab(),
+      home: SignInScreen(),
       initialBinding: AuthBinding(),
       initialRoute: '/splash',
       getPages: [

@@ -26,12 +26,12 @@ class _TeamPageState extends State<TeamPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final db = Get.put(CloudDatabase());
   final varController = Get.put(VariablesControler());
-  final teamController = Get.put(TeamController());
+  final teamController = Get.put(MatchesController());
   final trainingController = Get.put(TrainingController());
 
   List<ClubSpendings> clubSpendings;
 
-  List _list2 = List<MatchDay>();
+  List _list2 =[];
   List<ClubIncome> clubIncome;
   double d = 0;
   double c = 0;

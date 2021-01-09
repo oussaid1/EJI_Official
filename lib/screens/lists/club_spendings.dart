@@ -16,7 +16,7 @@ class ClubSpendingsScreen extends StatefulWidget {
 
 class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
   List<ClubSpendings> clubSpendings;
-  List<ClubSpendings> selectedclubSpendings;
+  List<ClubSpendings> selectedClubSpendings;
   bool sort;
   int rowIndex;
   final CloudDatabase db = (CloudDatabase());
@@ -24,7 +24,7 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
   @override
   void initState() {
     sort = false;
-    selectedclubSpendings = [];
+    selectedClubSpendings = [];
     //clubSpendings = ClubSpendings.getSpendings();
     super.initState();
   }
@@ -55,8 +55,8 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                         label: Text(
                           "spentOn".tr,
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
+                              fontSize:16,
+                              fontWeight: FontWeight.w500,
                               color: secondaryColor),
                         ),
                         numeric: false,
@@ -65,8 +65,8 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                         label: Text(
                           "spentBy".tr,
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
+                              fontSize:16,
+                              fontWeight: FontWeight.w500,
                               color: secondaryColor),
                         ),
                         numeric: false,
@@ -75,8 +75,8 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                         label: Text(
                           "spentOnDate".tr,
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
+                              fontSize:16,
+                              fontWeight: FontWeight.w500,
                               color: secondaryColor),
                         ),
                         numeric: false,
@@ -85,8 +85,8 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                         label: Text(
                           "spentAmount".tr,
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
+                              fontSize:16,
+                              fontWeight: FontWeight.w500,
                               color: secondaryColor),
                         ),
                         numeric: false,
@@ -96,7 +96,7 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                         .map(
                           (clubSpendings) => DataRow(
                               selected:
-                                  selectedclubSpendings.contains(clubSpendings),
+                                  selectedClubSpendings.contains(clubSpendings),
                               cells: [
                                 DataCell(
                                   Text(clubSpendings.spentOn.toString()),
@@ -129,14 +129,14 @@ class _ClubSpendingsScreenState extends State<ClubSpendingsScreen> {
                               .tr,
                           style: TextStyle(
                               fontSize: 26,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w500,
                               color: secondaryColor),
                         ),
                         Text(
                           'Total'.tr,
                           style: TextStyle(
                               fontSize: 26,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w500,
                               color: secondaryColor),
                         ),
                       ],

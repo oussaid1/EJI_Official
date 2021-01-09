@@ -1,3 +1,4 @@
+import 'package:EJI/controllers/finance/finance_controller.dart';
 import 'package:EJI/controllers/variables/variables_controler.dart';
 import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
@@ -11,7 +12,6 @@ import 'package:get/get.dart';
 
 class ClubIncomeScreen extends StatefulWidget {
   ClubIncomeScreen({Key key}) : super(key: key);
-
   @override
   _ClubIncomeScreenState createState() => _ClubIncomeScreenState();
 }
@@ -21,7 +21,8 @@ class _ClubIncomeScreenState extends State<ClubIncomeScreen> {
   List<ClubIncome> selectedclubIncome;
   bool sort;
   int rowIndex;
-  final VariablesControler varController = Get.put(VariablesControler());
+  final varController = Get.put(VariablesControler());
+
   final db = CloudDatabase();
   @override
   void initState() {

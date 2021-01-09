@@ -5,6 +5,8 @@ import 'package:EJI/settings/params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'sign_in.dart';
+
 class SignupPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _SignupPageState();
@@ -35,92 +37,94 @@ class _SignupPageState extends State<SignupPage> {
             'assets/images/login.png',
             fit: BoxFit.fill,
           ),
-          Positioned(
-            top: 50,
-            left: Get.width / 2.44,
-            child: SizedBox(
-              height: 80,
-              width: 80,
-              child: Image.asset(
-                'assets/images/ejilogo.png',
-                height: 80,
-                width: 80,
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          Form(
-            key: _loginformKey1,
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: primaryColor.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(10),
+
+          Column(
+            children: [
+              SizedBox(height: 50),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Image.asset(
+                  'assets/images/ejilogo.png',
+                  height: 80,
+                  width: 80,
+                  fit: BoxFit.fill,
                 ),
-                width: Get.width - 40,
-                height: 500,
-                child: ListView(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 10,
+              ),
+              SizedBox(height: 20,),
+              Form(
+                key: _loginformKey1,
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: primaryColor.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: buildNameFormField(),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: buildEmailFormField(),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: buildPasswordField(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: buildRePasswordField(),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      height: 60,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: new RaisedButton(
-                          elevation: 5.0,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0)),
-                          color: fontColor,
-                          child: new Text('Register',
-                              style: new TextStyle(
-                                  fontFamily: 'RobotoCondensed',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26.0,
-                                  color: primaryColor)),
-                          onPressed: () {
-                            if (_loginformKey1.currentState.validate()) {
-                              authController.createUser(
-                                  _nameController.text.trim(),
-                                  _emailController.text.trim(),
-                                  _passwordController.text.trim());
-                              flushAll();
-                              Get.to(LoginTab());
-                            }
-                          },
+                    width: Get.width - 40,
+                    height: 400,
+                    child: ListView(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: buildNameFormField(),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: buildEmailFormField(),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: buildPasswordField(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: buildRePasswordField(),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Container(
+                          height: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: new RaisedButton(
+                              elevation: 5.0,
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0)),
+                              color: fontColor,
+                              child: new Text('Register',
+                                  style: new TextStyle(
+                                      fontFamily: 'RobotoCondensed',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 26.0,
+                                      color: primaryColor)),
+                              onPressed: () {
+                                if (_loginformKey1.currentState.validate()) {
+                                  authController.createUser(
+                                      _nameController.text.trim(),
+                                      _emailController.text.trim(),
+                                      _passwordController.text.trim());
+                                  flushAll();
+                                  Get.to(SignInScreen());
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

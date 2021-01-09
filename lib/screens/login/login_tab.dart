@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'sign_in.dart';
 import 'sign_up.dart';
 
-class LoginTab extends StatelessWidget {
+class LoginTabd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         backgroundColor: primaryColor,
-
         appBar: AppBar(
           leading: new Container(),
           backgroundColor: Colors.white.withOpacity(0.0),

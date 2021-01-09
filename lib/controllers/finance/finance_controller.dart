@@ -6,9 +6,9 @@ class FinanceController extends GetxController {
   Rx<List<ClubSpendings>> _spendingsList = Rx<List<ClubSpendings>>();
   Rx<List<ClubIncome>> _incomesList = Rx<List<ClubIncome>>();
 
-  List<ClubSpendings> get spendings => _spendingsList.value;
+  List<ClubSpendings> get spendings => _spendingsList.value??[];
+  List<ClubIncome> get incomes => _incomesList.value??[];
 
-  List<ClubIncome> get incomes => _incomesList.value;
 
   double get totalSpendings {
     double total = 0.0;

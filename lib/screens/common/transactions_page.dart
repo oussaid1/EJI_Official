@@ -1,3 +1,4 @@
+import 'package:EJI/controllers/finance/finance_controller.dart';
 import 'package:EJI/models/finance/club_expenses.dart';
 import 'package:EJI/repository/cloud_database.dart';
 import 'package:EJI/controllers/variables/variables_controler.dart';
@@ -16,6 +17,7 @@ class _FinancePageState extends State<FinancePage> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   final varController = Get.put(VariablesControler());
   final db = Get.put(CloudDatabase());
+  final financeController = Get.put(FinanceController());
 
   List<ClubSpendings> clubSpendings;
 
@@ -103,10 +105,10 @@ class _FinancePageState extends State<FinancePage> {
                                     children: [
                                       TextSpan(
                                         text:
-                                            '${varController.clubBudget.value} ',
+                                        financeController.totalIncomes.toString(),
                                       ),
                                       TextSpan(
-                                        text: 'DH',
+                                        text: ' DH',
                                         style: TextStyle(
                                           fontFamily: 'Agency FB',
                                           color: secondaryColor,
@@ -156,10 +158,10 @@ class _FinancePageState extends State<FinancePage> {
                                         children: [
                                           TextSpan(
                                             text:
-                                            '${varController.clubSpendings.value} ',
+                                            financeController.totalSpendings.toString(),
                                           ),
                                           TextSpan(
-                                            text: 'DH',
+                                            text: ' DH',
                                             style: TextStyle(
                                               fontFamily: 'Agency FB',
                                               color: secondaryColor,
@@ -192,10 +194,10 @@ class _FinancePageState extends State<FinancePage> {
                                         children: [
                                           TextSpan(
                                             text:
-                                            '${varController.clubIncome.value}',
+                                            financeController.totalIncomes.toString(),
                                           ),
                                           TextSpan(
-                                            text: 'DH',
+                                            text: ' DH',
                                             style: TextStyle(
                                               fontFamily: 'Agency FB',
                                               color: secondaryColor,
@@ -211,7 +213,6 @@ class _FinancePageState extends State<FinancePage> {
                             ),
                           ),
                           Container(
-
                             margin: EdgeInsets.only(top: 8,bottom: 8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
