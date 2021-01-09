@@ -22,6 +22,10 @@ class FinanceController extends GetxController {
     return total;
   }
 
+  double get clubBudget {
+    return totalIncomes-totalSpendings;
+  }
+
   @override
   void onInit() {
     _incomesList.bindStream(CloudDatabase().getClubIncomes());

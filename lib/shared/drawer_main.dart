@@ -1,4 +1,6 @@
 import 'package:EJI/controllers/auth/auth_controler.dart';
+import 'package:EJI/controllers/finance/finance_controller.dart';
+import 'package:EJI/controllers/user/user_controller.dart';
 import 'package:EJI/screens/common/communications.dart';
 import 'package:EJI/screens/common/info_screen.dart';
 import 'package:EJI/screens/common/players_page.dart';
@@ -21,7 +23,8 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> {
   final String image = "players/profileImages/ejilogo.png";
   final AuthController authController = Get.find();
-
+  final financeController = Get.find<FinanceController>();
+  final UserController userController=Get.find();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,9 +37,14 @@ class _MyDrawerState extends State<MyDrawer> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: Text("EJI Idawlstane"),
+                accountName: Row(
+                  children: [
+                    Text("EJI Idawlstane"),
+                    Text(userController.user.isAdmin?'Admin'.tr:'User'.tr),
+                  ],
+                ),
                 accountEmail: Text(
-                  'EJIBudget'.tr,
+                  'EJIBudget'.tr+financeController.clubBudget.toString(),
                   textDirection: TextDirection.rtl,
                   style: TextStyle(
                       fontSize: 18,

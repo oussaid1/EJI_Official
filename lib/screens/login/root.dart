@@ -14,16 +14,9 @@ class Root extends GetWidget<AuthController> {
   Widget build(BuildContext context) {
     return GetX(
       initState: (_) async {
-        Get.put<UserController>(UserController());
       },
       builder: (_) {
         if (Get.find<AuthController>().user?.uid!= null) {
-          final authController = Get.put(AuthController());
-          UserController().user = (UserModel(
-              id: authController.user.uid,
-              name: authController.user.displayName,
-              email: authController.user.email));
-
           return TeamPage();
         } else {
           return SignInScreen();

@@ -295,6 +295,8 @@ class MyTranslations extends Translations {
           'AltimteSquadsub':  'التشكيلة حسب التنقيط والتشكيلةالرسمية للمباراة',
           'ProgramsAndEvents': ' البرامج والأهداف',
           'nameEmpty': ' المرجو ادخال اسم ',
+          'Admin': ' إداري',
+          'User': ' مستعمل',
           'Frifgssendly': ' Application',
         },
       };
